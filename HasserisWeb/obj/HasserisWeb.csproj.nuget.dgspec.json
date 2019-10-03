@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hansen17\\source\\repos\\HasserisWeb\\HasserisWeb.csproj": {}
+    "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hansen17\\source\\repos\\HasserisWeb\\HasserisWeb.csproj": {
+    "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hansen17\\source\\repos\\HasserisWeb\\HasserisWeb.csproj",
+        "projectUniqueName": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
         "projectName": "HasserisWeb",
-        "projectPath": "C:\\Users\\hansen17\\source\\repos\\HasserisWeb\\HasserisWeb.csproj",
+        "projectPath": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
         "packagesPath": "C:\\Users\\hansen17\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hansen17\\source\\repos\\HasserisWeb\\obj\\",
+        "outputPath": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -43,7 +43,27 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.30, )"
+            },
             "Microsoft.AspNetCore.SpaServices.Extensions": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.111, )"
+            },
+            "entityframework": {
+              "target": "Package",
+              "version": "[6.3.0, )"
+            },
+            "microsoft.entityframeworkcore.sqlserver": {
               "target": "Package",
               "version": "[3.0.0, )"
             }
