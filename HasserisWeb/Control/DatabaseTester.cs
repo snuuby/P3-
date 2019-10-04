@@ -16,21 +16,13 @@ namespace HasserisWeb
         }
         public void MakeEmployee()
         {
-            Employee testEmployee = new Employee();
-            testEmployee.firstName = "Karl";
-            testEmployee.lastName = "Poulsen";
 
-            HasserisDbContext.SaveElement<Employee>(testEmployee);
 
 
         }
         public void MakeCustomer()
         {
-            Customer testCustomer = new Customer();
-            testCustomer.firstName = "Hasseris";
-            testCustomer.lastName = "Flytteforetning";
 
-            HasserisDbContext.SaveCustomer(testCustomer);
         }
         public void LoadEmployee()
         {
