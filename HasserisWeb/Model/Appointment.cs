@@ -7,5 +7,7 @@ namespace HasserisWeb
 {
     public class Appointment
     {
+        public int id { get; set; }
+        
     }
 }

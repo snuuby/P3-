@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public abstract class Customer
+    public class Customer
     {
-        public string firstName;
-        public string lastName;
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public int id { get; set; }
     }
 }

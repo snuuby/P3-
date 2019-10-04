@@ -9,5 +9,6 @@ namespace HasserisWeb
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public int id { get; set; }
     }
 }

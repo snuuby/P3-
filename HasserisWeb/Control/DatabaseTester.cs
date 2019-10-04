@@ -10,23 +10,40 @@ namespace HasserisWeb
         public DatabaseTester()
         {
             MakeEmployee();
+            MakeCustomer();
             LoadEmployee();
+            LoadCustomer();
         }
         public void MakeEmployee()
         {
             Employee testEmployee = new Employee();
-            testEmployee.firstName = "Lars";
-            testEmployee.lastName = "Eriksen";
+            testEmployee.firstName = "Karl";
+            testEmployee.lastName = "Poulsen";
 
-            HasserisDbContext.SaveEmployee(testEmployee);
+            HasserisDbContext.SaveElement<Employee>(testEmployee);
+
+
+        }
+        public void MakeCustomer()
+        {
+            Customer testCustomer = new Customer();
+            testCustomer.firstName = "Hasseris";
+            testCustomer.lastName = "Flytteforetning";
+
+            HasserisDbContext.SaveCustomer(testCustomer);
         }
         public void LoadEmployee()
         {
-            List<Employee> employees = HasserisDbContext.LoadEmployees();
-            foreach(Employee employee in employees)
-            {
-                Debug.WriteLine(employee.firstName + " " + employee.lastName);
-            }
+            dynamic employeestest = HasserisDbContext.LoadElement<Employee>(new Employee());
+            List<Employee> employees = (List<Employee>)employeestest;
         }
+        public void LoadCustomer()
+        {
+            dynamic customertest = HasserisDbContext.LoadElement<Customer>(new Customer());
+            List<Customer> customers = (List<Customer>)customertest;
+
+            
+        }
+
     }
 }
