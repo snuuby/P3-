@@ -7,7 +7,22 @@ namespace HasserisWeb
 {
     public abstract class Customer
     {
-        public string firstName;
-        public string lastName;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int ID { get; set; }
+        public Address Address { get; set; }
+        public Customer(string fname, string lname, int id, Address address)
+        {
+            this.FirstName = fname;
+            this.LastName = lname;
+            this.ID = id;
+            this.Address = address;
+        }
+    }
+
+    public class Business : Customer
+    {
+        public int EAN { get; set; }
+        public int CVR { get; set; }
     }
 }
