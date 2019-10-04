@@ -5,19 +5,20 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public abstract class Customer
+    public class Customer
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public int ID { get; set; }
-        public Address Address { get; set; }
+        public Address address { get; set; }
         public Customer(string fname, string lname, int id, Address address)
         {
-            this.FirstName = fname;
-            this.LastName = lname;
+            this.firstName = fname;
+            this.lastName = lname;
             this.ID = id;
-            this.Address = address;
+            this.address = address;
         }
+
     }
 
     public class Business : Customer

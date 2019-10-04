@@ -7,17 +7,18 @@ namespace HasserisWeb
 {
     public class Employee
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public bool IsAvailable { get; private set; }
-        public Appointment CurrentAppoint { get; private set; }
-        public double Wage { get; private set; }
+        public string firstName { get; private set; }
+        public string lastName { get; private set; }
+        public bool isAvailable { get; private set; }
+        public Appointment currentAppoint { get; private set; }
+        public double wage { get; private set; }
+        public int id {get; set;}
 
-        public Employee(string FName, string LName, double PWage)
+        public Employee(string fName, string lName, double pWage)
         {
-            this.FirstName = FName;
-            this.LastName = LName;
-            this.Wage = PWage;
+            this.firstName = fName;
+            this.lastName = lName;
+            this.wage = pWage;
         }
         public void AssignEmployee()
         {
@@ -25,9 +26,10 @@ namespace HasserisWeb
         }
         public void UnassignEmployee()
         {
-            this.CurrentAppoint = null;
-            this.IsAvailable = true;
+            this.currentAppoint = null;
+            this.isAvailable = true;
         }
+
 
     }
 }
