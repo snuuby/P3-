@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public class Appointment
+    public abstract class Appointment
     {
         private int AppointmentID { get; }
         private string AppointmentName { get; }
