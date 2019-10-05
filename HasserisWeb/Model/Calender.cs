@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HasserisWeb.Model
+namespace HasserisWeb
 {
     public class Calender
     {
-        private Appointment CalenderAppointments { get; }
-        private DateTime CurrentDate { get; }
+        private List<Appointment> appointments { get; }
+        //What is this supposed to represent?
+        private DateTime currentDate { get; }
 
-        public Calender(Appointment calenderAppointments, DateTime currentDate)
+        public Calender()
         {
-            CalenderAppointments = calenderAppointments;
-            CurrentDate = currentDate;
+
+        }
+        public void AddAppointment(Appointment appointment)
+        {
+            appointments.Add(appointment);
+        }
+        public void RemoveAppointment(Appointment appointment)
+        {
+            appointments.Add(appointment);
         }
     }
 }

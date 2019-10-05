@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
+
 namespace HasserisWeb
-{
-    public class DatabaseTester
+{    
+    //What do you mean by Gear? Tools?
+    public class Gear : Equipment
     {
-        public DatabaseTester()
+
+        public Gear(string name, string type) : base(name, type)
         {
         }
-
     }
 }

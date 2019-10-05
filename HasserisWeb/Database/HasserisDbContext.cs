@@ -14,27 +14,30 @@ namespace HasserisWeb
 {
     public class HasserisDbContext : DbContext
     {
-        public static void DeleteElement<T>(T element)
+        public static void DeleteElement<T>(dynamic element)
         {
             if (element is Employee)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    cnn.Execute("DELETE FROM Employees WHERE ID = (@id)", element);
+                    Employee employee = (Employee)element;
+                    cnn.Execute("DELETE FROM Employees WHERE ID = (@id)", employee);
                 }
             }
             else if (element is Appointment) 
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    cnn.Execute("DELETE FROM Appointments WHERE ID = (@id)", element);
+                    Appointment appointment = (Appointment)element;
+                    cnn.Execute("DELETE FROM Appointments WHERE ID = (@id)", appointment);
                 }
             }
             else if (element is Customer)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    cnn.Execute("DELETE FROM Customers WHERE ID = (@id)", element);
+                    Customer customer = (Customer)element;
+                    cnn.Execute("DELETE FROM Customers WHERE ID = (@id)", customer);
                 }
             }
         }
@@ -103,7 +106,53 @@ namespace HasserisWeb
                 throw new Exception("Can only remove objects from database that are in the database");
             }
         }
+        //Example call: ModifyElement(employee, new string[] {"Wage", "Name"});
+        public static void ModifyElement<T>(dynamic element, string[] toModify)
+        {
 
+            if (element is Employee)
+            {
+                updateEmployee((Employee)element, toModify);
+            }
+            else if (element is Appointment)
+            {
+
+            }
+            else if (element is Equipment)
+            {
+
+            }
+        }
+        private static void updateEmployee(Employee employee, string[] toModify)
+        {
+            string sqlStatement = null;
+            foreach (string property in toModify)
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    switch (property)
+                    {
+                        case "Wage":
+                            sqlStatement = "UPDATE Employees SET " + property + " = '" + employee.wage + "'";
+                            cnn.Execute(sqlStatement);
+                            break;
+                        case "Firstname":
+                            sqlStatement = "UPDATE Employees SET " + property + " = '" + employee.firstName + "'";
+                            cnn.Execute(sqlStatement);
+                            break;
+                        case "Lastname":
+                            sqlStatement = "UPDATE Employees SET " + property + " = '" + employee.lastName + "'";
+                            cnn.Execute(sqlStatement);
+                            break;
+                        case "Appointment":
+
+                        default:
+                            throw new Exception("Can't modify non-existing property");
+                    }
+
+                }
+            }
+        }
         private static string GetDefaultConnectionString()
         {
 

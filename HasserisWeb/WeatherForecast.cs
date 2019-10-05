@@ -2,6 +2,7 @@ using System;
 
 namespace HasserisWeb
 {
+    // Sample class for the sample WeatherForecastController class in the Controllers folder
     public class WeatherForecast
     {
         public DateTime Date { get; set; }
