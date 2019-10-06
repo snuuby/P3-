@@ -76,12 +76,16 @@ namespace HasserisWeb
                     }
                     else
                     {
+                        
                         Delivery appointment = (Delivery)element;
+                        string[] destinationProperties = { appointment.destination.livingAdress, appointment.destination.city, appointment.destination.ZIP };
+                        string dProperties = string.Join("", destinationProperties);
                         cnn.Execute("INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, " +
                                     "Material, Quantity) " +
-                                    "Values (@name, @type, @date, @duration, @customerID, @income, @expenses, @balance, @workPhoneNumber, @destination.livingAddress, @destination.City, @destination.ZIP" +
+                                    "VALUES (@name, @type, @date, @duration, @customerID, @income, @expenses, @balance, @workPhoneNumber, " + dProperties +  ", " + 
                                     "@material, @quantity)", appointment);
-                        return RetrieveSpecificElementIDFromDatabase(appointment);
+                        return RetrieveSpecificElementIDFromDatabase(appointment); 
+                        
                     }
 
                 }
@@ -137,7 +141,6 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string elementID = element.id;
                     dynamic output = cnn.Query<Employee>("SELECT TOP 1 * FROM Employees ORDER BY ID DESC", new DynamicParameters());
                     return output;
                 }
@@ -146,8 +149,7 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string elementID = element.id;
-                    dynamic output = cnn.Query<Appointment>("SELECT TOP 1 * FROM Appointments ORDER BY ID DESC", new DynamicParameters());
+                    dynamic output = cnn.Query<Appointment>("SELECT TOP 1 * FROM Employees ORDER BY ID DESC", new DynamicParameters());
                     return output;
                 }
             }
@@ -155,7 +157,6 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string elementID = element.id;
                     dynamic output = cnn.Query<Customer>("SELECT TOP 1 * FROM Customers ORDER BY ID DESC", new DynamicParameters());
                     return output;
                 }
@@ -164,7 +165,6 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string elementID = element.id;
                     dynamic output = cnn.Query<Equipment>("SELECT TOP 1 * FROM Equipments ORDER BY ID DESC", new DynamicParameters());
                     return output;
                 }
