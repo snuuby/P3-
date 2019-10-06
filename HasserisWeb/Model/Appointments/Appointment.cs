@@ -29,16 +29,15 @@ namespace HasserisWeb
         //The same idea here as for the list of employees
         public string equipmentsIdString { get; set; }
         //You should be able to add equipment dynamically so i removed it from the constructor
-        private List<Equipment> assignedEquipments { get; }
+        private List<Equipment> assignedEquipments { get; } 
         public DateTime date { get; }
         //What is a note?
         private string note { get; }
         public string workPhoneNumber { get; }
 
-        public Appointment(int ID, string name, string type, double duration, Customer assignedCustomer, 
+        public Appointment(string name, string type, double duration, Customer assignedCustomer, 
                           Address destination, double income, DateTime date, string note, string workPhoneNumber)
         {
-            this.id = ID;
             this.name = name;
             this.type = type;
             //I propose we make duration the total amount of seconds the appointment took. Then in this class we can make those seconds
@@ -51,7 +50,6 @@ namespace HasserisWeb
             this.date = date;
             this.note = note;
             this.workPhoneNumber = workPhoneNumber;
-            this.expenses = CalculateBalance();
             this.balance = this.income - this.expenses;
             this.employeesIdString = "";
             this.equipmentsIdString = "";

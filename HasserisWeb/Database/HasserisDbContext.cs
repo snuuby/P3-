@@ -58,7 +58,7 @@ namespace HasserisWeb
                     Employee employee = (Employee)element;
                     cnn.Execute("INSERT INTO Employees (Wage, Firstname, Lastname, Email, Phonenumber, Address, ZIP, City) " +
                                 "Values (@wage, @firstName, @lastName, @contactInfo.email, @contactInfo.phoneNumber, @address.livingAddress, @address.ZIP, @address.City)", employee);
-                    return RetrieveElementIDFromDatabase(employee);
+                    return RetrieveSpecificElementIDFromDatabase(employee);
                 }
             }
             else if (element is Appointment)
@@ -70,18 +70,18 @@ namespace HasserisWeb
                         Moving appointment = (Moving)element;
                         cnn.Execute("INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, " +
                                     "StartingAddress, StartingCity, StartingZIP, Lentboxes) " +
-                                    "Values (@name, @type, @date, @duration, @customerID, @income, @expenses, @balance, @workPhone, @destination.livingAddress, @destination.City, @destination.ZIP" +
+                                    "Values (@name, @type, @date, @duration, @customerID, @income, @expenses, @balance, @workPhoneNumber, @destination.livingAddress, @destination.City, @destination.ZIP" +
                                     "@startingAddress.livingAddress, @startingAddress.City, @startingAddress.ZIP)", appointment);
-                        return RetrieveElementIDFromDatabase(appointment);
+                        return RetrieveSpecificElementIDFromDatabase(appointment);
                     }
                     else
                     {
                         Delivery appointment = (Delivery)element;
                         cnn.Execute("INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, " +
                                     "Material, Quantity) " +
-                                    "Values (@name, @type, @date, @duration, @customerID, @income, @expenses, @balance, @workPhone, @destination.livingAddress, @destination.City, @destination.ZIP" +
+                                    "Values (@name, @type, @date, @duration, @customerID, @income, @expenses, @balance, @workPhoneNumber, @destination.livingAddress, @destination.City, @destination.ZIP" +
                                     "@material, @quantity)", appointment);
-                        return RetrieveElementIDFromDatabase(appointment);
+                        return RetrieveSpecificElementIDFromDatabase(appointment);
                     }
 
                 }
@@ -96,14 +96,14 @@ namespace HasserisWeb
                         cnn.Execute("INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Phonenumber, Email, CVR, EAN)" +
                                     " Values (@firstName, @lastName, @type, @address.livingAddress, @address.ZIP, @address.City, @contactInfo.phoneNumber, @contactInfo.Email" +
                                     " @CVR, @EAN)", customer);
-                        return RetrieveElementIDFromDatabase(customer);
+                        return RetrieveSpecificElementIDFromDatabase(customer);
                     }
                     else
                     {
                         PrivateCustomer customer = (PrivateCustomer)element;
                         cnn.Execute("INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Phonenumber, Email)" +
                                     " Values (@firstName, @lastName, @type, @address.livingAddress, @address.ZIP, @address.City, @contactInfo.phoneNumber, @contactInfo.Email", customer);
-                        return RetrieveElementIDFromDatabase(customer);
+                        return RetrieveSpecificElementIDFromDatabase(customer);
                     }
                 }
             }
@@ -115,13 +115,13 @@ namespace HasserisWeb
                     {
                         Vehicle equipment = (Vehicle)element;
                         cnn.Execute("INSERT INTO Equipments (Name, Type, Model, Plates) Values (@name, @type, @model, @regNum )", equipment);
-                        return RetrieveElementIDFromDatabase(equipment);
+                        return RetrieveSpecificElementIDFromDatabase(equipment);
                     }
                     else
                     {
                         Gear equipment = (Gear)element;
                         cnn.Execute("INSERT INTO Equipments (Name, Type) Values (@name, @type)", equipment);
-                        return RetrieveElementIDFromDatabase(equipment);
+                        return RetrieveSpecificElementIDFromDatabase(equipment);
                     }
 
                 }
@@ -131,7 +131,7 @@ namespace HasserisWeb
                 throw new Exception("Can only remove objects from database that are in the database");
             }
         }
-        private static dynamic RetrieveElementIDFromDatabase(dynamic element)
+        private static dynamic RetrieveSpecificElementIDFromDatabase(dynamic element)
         {
             if (element is Employee)
             {
@@ -174,7 +174,7 @@ namespace HasserisWeb
                 throw new Exception("Can only remove objects from database that are in the database");
             }
         }
-        public static dynamic LoadElementFromDatabase<T>(dynamic element) 
+        public static dynamic LoadSpecificElementFromDatabase<T>(dynamic element) 
         {
             if (element is Employee)
             {
@@ -217,7 +217,7 @@ namespace HasserisWeb
                 throw new Exception("Can only remove objects from database that are in the database");
             }
         }
-        public static dynamic LoadAllOfParticularElementsFromDatabase<T>(dynamic element)
+        public static dynamic LoadAllOfSpecificElementFromDatabase<T>(dynamic element)
         {
             if (element is Employee)
             {
@@ -260,7 +260,7 @@ namespace HasserisWeb
                 throw new Exception("Can only remove objects from database that are in the database");
             }
         }
-        public static void ModifyParticularElementInDatabase<T>(dynamic element)
+        public static void ModifySpecificElementInDatabase<T>(dynamic element)
         {
 
             if (element is Employee)
