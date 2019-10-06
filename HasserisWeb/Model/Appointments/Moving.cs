@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HasserisWeb.Model
+namespace HasserisWeb
 {
     public class Moving : Appointment
     {
-        private Address startingAddress { get; }
-        private int lentBoxes { get; }
+        public Address startingAddress { get; }
+        public int lentBoxes { get; }
 
-        public Moving(int ID, string name, bool type, double duration, Customer assignedCustomer,
+        public Moving(int ID, string name, string type, double duration, Customer assignedCustomer,
                   Address destination, double income, DateTime date, string note, string workPhoneNumber, Address startingAddress, int lentBoxes)
                 : base(ID, name, type, duration, assignedCustomer, destination, income, date, note, workPhoneNumber)
         {

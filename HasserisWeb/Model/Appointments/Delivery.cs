@@ -7,10 +7,10 @@ namespace HasserisWeb
 {
     public class Delivery : Appointment
     {
-        private string material { get; }
-        private int quantity { get; }
+        public string material { get; }
+        public int quantity { get; }
 
-        public Delivery(int ID, string name, bool type, double duration, Customer assignedCustomer,
+        public Delivery(int ID, string name, string type, double duration, Customer assignedCustomer,
                   Address destination, double income, DateTime date, string note, string workPhoneNumber, string material, int quantity) 
                 : base(ID, name, type, duration, assignedCustomer, destination, income, date, note, workPhoneNumber)
         {
