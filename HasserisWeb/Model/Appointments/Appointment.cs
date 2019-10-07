@@ -27,7 +27,7 @@ namespace HasserisWeb
         public string equipmentsIdString { get; set; }
         //You should be able to add equipment dynamically so i removed it from the constructor
         private List<Equipment> assignedEquipment { get; } 
-        public DateTime date { get; }
+        public DateTime date { get; internal set; }
         //Properties for calculating the total duration of an appointment, appointmentDuration.
         private DateTime startTime { get; set; }
         private DateTime endTime { get; set; }
@@ -61,7 +61,7 @@ namespace HasserisWeb
         public void BeginAppointment()
         {
             if (assignedEmployees.Count < 1)
-                throw new SystemException("No employees assigned.");
+                //throw new SystemException("No employees assigned.");
             this.startTime = DateTime.Now;
         }
 

@@ -104,7 +104,7 @@ namespace HasserisWeb
                     }
                     else
                     {
-                        PrivateCustomer customer = (PrivateCustomer)element;
+                        Private customer = (Private)element;
                         cnn.Execute("INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Phonenumber, Email)" +
                                     " Values (@firstName, @lastName, @type, @address.livingAddress, @address.ZIP, @address.City, @contactInfo.phoneNumber, @contactInfo.Email", customer);
                         return RetrieveSpecificElementIDFromDatabase(customer);
@@ -362,10 +362,7 @@ namespace HasserisWeb
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
                 sqlStatement = "update Customers " +
-                               "set Firstname = " + customer.firstName +
-                               ", Lastname = " + customer.lastName +
-                               ", Type = " + customer.type +
-                               ", Address = " + customer.address.livingAdress +
+                               "set Address = " + customer.address.livingAdress +
                                ", ZIP = " + customer.address.ZIP +
                                ", City = " + customer.address.city +
                                ", Email = " + customer.contactInfo.email +

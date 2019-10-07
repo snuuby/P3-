@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public class PrivateCustomer : Customer
+    public class Private : Customer
     {
-        public PrivateCustomer(string fName, string lName, string type, Address address, ContactInfo contactInfo)
-                : base(fName, lName, type, address, contactInfo)
-        {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
 
+        public Private(string fName, string lName, Address address, ContactInfo contactInfo)
+                : base(address, contactInfo)
+        {
+            this.firstName = fName;
+            this.lastName = lName;
         }
     }
 }
