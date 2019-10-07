@@ -13,7 +13,7 @@ namespace HasserisWeb
                 new Private("jakob", "hansen",
                     new Address("myrdal", "2", "aalborg", "testnote"),
                     new ContactInfo("hansen@gmail", "2233")),
-                new Address("myrdal", "2", "aalborg", "testnote"), 1000, new DateTime(2019, 3, 12), "testnote", "22331133", "Foam", 2);
+                new Address("myrdal", "2", "aalborg", "testnote"), 1000, new List<DateTime>() { new DateTime(2019, 10, 08) }, "testnote", "22331133", "Foam", 2);
 
             test = HasserisDbContext.SaveElementToDatabase<Private>(test);
             Debug.WriteLine(test.name);

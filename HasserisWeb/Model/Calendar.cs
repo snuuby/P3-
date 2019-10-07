@@ -25,7 +25,7 @@ namespace HasserisWeb
                 {
                     if (DateTime.Today == currentDate)
                     {
-                        Console.WriteLine($"Appointment Found! Date: {appoint.date}");
+                        Console.WriteLine($"Appointment Found! Date: {appoint.dates[0]}");
                         //Show only appointments that are due today
                         //throw new NotImplementedException("To be implemented");
 
@@ -37,7 +37,7 @@ namespace HasserisWeb
         public void AddAppointment(Appointment appointment)
         {
             //DateTime appointdate = DateTime;
-            appointment.date = currentDate;
+            appointment.dates[0] = currentDate;
             appointments.Add(appointment);
             
         }

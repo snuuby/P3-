@@ -26,8 +26,8 @@ namespace HasserisWeb
         //The same idea here as for the list of employees
         public string equipmentsIdString { get; set; }
         //You should be able to add equipment dynamically so i removed it from the constructor
-        private List<Equipment> assignedEquipment { get; } 
-        public DateTime date { get; internal set; }
+        private List<Equipment> assignedEquipment { get; }
+        public List<DateTime> dates { get; internal set; }
         //Properties for calculating the total duration of an appointment, appointmentDuration.
         private DateTime startTime { get; set; }
         private DateTime endTime { get; set; }
@@ -37,8 +37,8 @@ namespace HasserisWeb
         private string note { get; }
         public string workPhoneNumber { get; }
 
-        public Appointment(string name, string type, Customer assignedCustomer, 
-                          Address destination, double income, DateTime date, string note, string workPhoneNumber)
+        public Appointment(string name, string type, Customer assignedCustomer, Address destination, 
+                            double income, List<DateTime> Ldates, string note, string workPhoneNumber)
         {
             this.name = name;
             this.type = type;
@@ -49,8 +49,8 @@ namespace HasserisWeb
             this.assignedCustomer = assignedCustomer;
             this.destination = destination;
             this.income = income;
-            this.date = date;
             this.note = note;
+            this.dates = Ldates;
             this.workPhoneNumber = workPhoneNumber;
             this.balance = this.income - this.expenses;
             this.employeesIdString = "";

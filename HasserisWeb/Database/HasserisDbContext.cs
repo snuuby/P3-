@@ -334,7 +334,7 @@ namespace HasserisWeb
                                ", Income = " + appointment.income +
                                ", Expenses = " + appointment.expenses +
                                ", Balance = " + appointment.balance +
-                               ", Date = " + appointment.date.ToString() +
+                               ", Dates = " + appointment.dates.ToString() +
                                ", Workphone = " + appointment.workPhoneNumber;
                 cnn.Execute(sqlStatement);
                 if (appointment is Moving)
