@@ -123,7 +123,7 @@ namespace HasserisWeb
                     }
                     else
                     {
-                        Gear equipment = (Gear)element;
+                        Tool equipment = (Tool)element;
                         cnn.Execute("INSERT INTO Equipments (Name, Type) Values (@name, @type)", equipment);
                         return RetrieveSpecificElementIDFromDatabase(equipment);
                     }
