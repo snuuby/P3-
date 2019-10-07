@@ -26,6 +26,7 @@ namespace HasserisWeb
             this.firstName = fName;
             this.lastName = lName;
             this.wage = pWage;
+            this.isAdmin = false;
             this.contactInfo = contactInfo;
             this.address = address;
             this.appointmentIdString = "";

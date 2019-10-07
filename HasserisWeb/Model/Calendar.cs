@@ -19,15 +19,20 @@ namespace HasserisWeb
 
         public void CheckToday()
         {
-            foreach (Appointment appoint in appointments)
+            if (appointments.Count < 1)
             {
-                if (DateTime.Today == currentDate)
+                foreach (Appointment appoint in appointments)
                 {
-                    Console.WriteLine("IS WORKING");
-                    //throw new NotImplementedException("To be implemented");
-                    //Show only appointments that are due today
+                    if (DateTime.Today == currentDate)
+                    {
+                        Console.WriteLine($"Appointment Found! Date: {appoint.date}");
+                        //Show only appointments that are due today
+                        //throw new NotImplementedException("To be implemented");
+
+                    }
                 }
             }
+            //Implement case for no appointments here.
         }
         public void AddAppointment(Appointment appointment)
         {
