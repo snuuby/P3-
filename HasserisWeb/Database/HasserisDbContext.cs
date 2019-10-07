@@ -325,7 +325,6 @@ namespace HasserisWeb
                 sqlStatement = "update Appointments " +
                                "set Name = " + appointment.name +
                                ", Type = " + appointment.type +
-                               ", Duration = " + appointment.duration +
                                ", EmployeeIDs = " + appointment.employeesIdString +
                                ", EquipmentIDs = " + appointment.equipmentsIdString +
                                ", CustomerID = " + appointment.assignedCustomer.id +

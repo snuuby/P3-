@@ -9,7 +9,7 @@ namespace HasserisWeb
     {
         public DatabaseTester()
         {
-            Delivery test = new Delivery("test", "Delivery", 10000,
+            Delivery test = new Delivery("test", "Delivery",
                 new PrivateCustomer("jakob", "hansen", "Private",
                     new Address("myrdal", "2", "aalborg", "testnote"),
                     new ContactInfo("hansen@gmail", "2233")),
