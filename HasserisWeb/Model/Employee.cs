@@ -12,7 +12,7 @@ namespace HasserisWeb
         public string lastName { get; private set; }
         public bool isAvailable { get; private set; }
         public string appointmentIdString { get; set; }
-        public List<Appointment> comingAppointments { get; private set; }
+        public List<Appointment> comingAppointments { get; private set; } = new List<Appointment>();
         
         public ContactInfo contactInfo { get; set; }
         public double wage { get; private set; }
@@ -32,13 +32,15 @@ namespace HasserisWeb
         public void AddAppointment(Appointment appointment)
         {
             comingAppointments.Add(appointment);
-            appointmentIdString.Concat(appointment.id.ToString());
+            appointmentIdString += appointment.id.ToString() + "/";
+            HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
         //Is called from a given appointment object
         public void RemoveAppointment(Appointment appointment)
         {
             comingAppointments.Remove(appointment);
-            appointmentIdString.Replace(appointment.id.ToString(), "");
+            appointmentIdString = appointmentIdString.Replace(appointment.id.ToString() + "/", "");
+            HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
         //I added a function in appointments to assignEmployee's so this function is useless
         /*

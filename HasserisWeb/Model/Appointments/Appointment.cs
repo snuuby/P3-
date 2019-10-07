@@ -8,7 +8,7 @@ namespace HasserisWeb
 {
     public abstract class Appointment
     {
-        public int id { get; }
+        public int id { get; set; }
         public string name { get; }
         public string type { get; }
         public double duration { get; }
@@ -20,8 +20,8 @@ namespace HasserisWeb
         //the lenght of the string in the database, that writes the employeeID's. If a string in the database has 5 ID,s next to each other
         // we read them one by one and retrieve the specified employee off of that.
         //Also, i removed employees from the constructor because you should be able to add employees dynamically
-        private List<Employee> assignedEmployees { get; }
-        public Customer assignedCustomer { get; }
+        private List<Employee> assignedEmployees { get; } = new List<Employee>();
+        public Customer assignedCustomer { get; } 
         public Address destination { get; }
         public double income { get; }
         public double expenses { get; set; }
@@ -29,7 +29,7 @@ namespace HasserisWeb
         //The same idea here as for the list of employees
         public string equipmentsIdString { get; set; }
         //You should be able to add equipment dynamically so i removed it from the constructor
-        private List<Equipment> assignedEquipments { get; } 
+        private List<Equipment> assignedEquipments { get; } = new List<Equipment>();
         public DateTime date { get; }
         //What is a note?
         private string note { get; }
@@ -87,18 +87,21 @@ namespace HasserisWeb
         {
             if (element is Employee)
             {
-                assignedEmployees.Add(element);
+                assignedEmployees.Add((Employee)element);
                 Employee employee = (Employee)element;
-                employeesIdString.Concat(employee.id.ToString());
+                employeesIdString += employee.id.ToString() + "/";
                 element.AddAppointment(this);
+                HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
             }
             else if (element is Equipment)
             {
-                assignedEquipments.Add(element);
+                assignedEquipments.Add((Equipment)element);
                 Equipment equipment = (Equipment)element;
-                equipmentsIdString.Concat(equipment.id.ToString());
+                equipmentsIdString += equipment.id.ToString() + "/";
                 element.AddAppointment(this);
+                HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
             }
+
         }
 
         //Remove element from appointment (can be both equipment and employee)
@@ -113,7 +116,7 @@ namespace HasserisWeb
                     {
                         assignedEmployees.Remove(element);
                         element.RemoveAppointment(this);
-                        employeesIdString.Replace(((Employee)element).id.ToString(), "");
+                        employeesIdString.Replace(((Employee)element).id.ToString() + "-", "");
                     }
                 }
             }
@@ -125,7 +128,7 @@ namespace HasserisWeb
                     {
                         assignedEquipments.Remove(element);
                         element.RemoveAppointment(this);
-                        equipmentsIdString.Replace(((Equipment)element).id.ToString(), "");
+                        equipmentsIdString.Replace(((Equipment)element).id.ToString() + "-", "");
                     }
                 }
             }
