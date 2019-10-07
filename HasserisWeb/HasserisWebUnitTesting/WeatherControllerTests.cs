@@ -8,7 +8,7 @@ namespace HasserisWebUnitTesting
         [Test]
         public void Test_Blah_ReturnsYes()
         {
-            
+            Assert.True(true);
         }
         
     }
