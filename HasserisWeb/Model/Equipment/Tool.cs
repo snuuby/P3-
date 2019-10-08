@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 namespace HasserisWeb
 {    
     //What do you mean by Gear? Tools?
-    public class Gear : Equipment
+    public class Tool : Equipment
     {
 
-        public Gear(string name, string type) : base(name, type)
+        public Tool(string name, string type) : base(name, type)
         {
+
         }
     }
 }

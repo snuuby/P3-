@@ -10,9 +10,9 @@ namespace HasserisWeb
         public string material { get; }
         public int quantity { get; }
 
-        public Delivery(string name, string type, double duration, Customer assignedCustomer,
-                  Address destination, double income, DateTime date, string note, string workPhoneNumber, string material, int quantity) 
-                : base(name, type, duration, assignedCustomer, destination, income, date, note, workPhoneNumber)
+        public Delivery(string name, string type, Customer assignedCustomer,
+                  Address destination, double income, List<DateTime> dates, string note, string workPhoneNumber, string material, int quantity) 
+                : base(name, type, assignedCustomer, destination, income, dates, note, workPhoneNumber)
         {
             this.material = material;
             this.quantity = quantity;

@@ -13,10 +13,7 @@ namespace HasserisWeb
         public string appointmentIdString { get; set; }
         public string name { get; set; }
         public string type { get; set; }
-        //these arent needed as the equipment is assigned or unassigned from the appointment class
-        /*
-        public abstract void AssignEquipment();
-        public abstract void UnassignEquipment(); */
+
         public Equipment(string name, string type)
         {
             this.name = name;

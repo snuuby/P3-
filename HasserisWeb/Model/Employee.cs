@@ -11,6 +11,8 @@ namespace HasserisWeb
         public string firstName { get; private set; }
         public string lastName { get; private set; }
         public bool isAvailable { get; private set; }
+        //Bool given to admin-type employees. To require this with certain methods
+        public bool isAdmin { get; private set; }
         public string appointmentIdString { get; set; }
         public List<Appointment> comingAppointments { get; private set; } = new List<Appointment>();
         
@@ -24,6 +26,7 @@ namespace HasserisWeb
             this.firstName = fName;
             this.lastName = lName;
             this.wage = pWage;
+            this.isAdmin = false;
             this.contactInfo = contactInfo;
             this.address = address;
             this.appointmentIdString = "";
