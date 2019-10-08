@@ -27,6 +27,7 @@ namespace HasserisWeb
             this.contactInfo = contactInfo;
             this.address = address;
             this.appointmentIdString = "";
+            HasserisDbContext.SaveElementToDatabase<Equipment>(this);
         }
         //Is called from a given appointment object
         public void AddAppointment(Appointment appointment)

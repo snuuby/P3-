@@ -7,42 +7,94 @@ namespace HasserisWeb
 {
     public class DatabaseTester
     {
+        public static List<Appointment> appointments = new List<Appointment>();
+        public static List<Equipment> equipments = new List<Equipment>();
+        public static List<Employee> employees = new List<Employee>();
+        public static List<Customer> customers = new List<Customer>();
+
         public DatabaseTester()
         {
-            Delivery delivery = new Delivery("testDelivery", "Delivery", 10000,
-                new PrivateCustomer("jakob", "hansen", "Private",
-                    new Address("myrdal", "2", "aalborg", "testnote"),
-                    new ContactInfo("hansen/gmail", "2233")),
-                new Address("myrdal", "2", "aalborg", "testnote"), 1000, new DateTime(2019, 3, 12), "testnote", "22331133", "Foam", 2);
-            HasserisDbContext.SaveElementToDatabase<Delivery>(delivery);
+            CreatePeopleTester();
+            //LoadPeopleTester();
+            DatabaseTestDebugger();
 
-            Employee employee = new Employee("Anders", "Andreasen", 180,
+        }
+        private void CreatePeopleTester()
+        {
+            PrivateCustomer privateCustomer = new PrivateCustomer("Jakob", "Hansen", "Private",
+                new Address("myrdalstrade", "9220", "Aalborg", "1. sal t.h"),
+                new ContactInfo("jallehansen17/gmail.com", "28943519"));
+            customers.Add(privateCustomer);
+
+            Delivery delivery = new Delivery("testDelivery", "Delivery", 10000, privateCustomer,
+                new Address("myrdal", "2", "aalborg", "testnote"), 1000, new DateTime(2019, 3, 12), "testnote", "22331133", "Foam", 2);
+            appointments.Add(delivery);
+
+            Employee employee_one = new Employee("Anders", "Andreasen", 180,
                 new ContactInfo("andreas/gmail.com", "223313145"),
                 new Address("Andreasensvej", "9220", "Aalborg", "Anden etache"));
-            HasserisDbContext.SaveElementToDatabase<Employee>(employee);
+            employees.Add(employee_one);
 
-            PrivateCustomer privateCustomer = new PrivateCustomer("Jakob", "Hansen", "Private",
-                new Address("myrdalstræde", "9220", "Aalborg", "1. sal t.h"),
-                new ContactInfo("jallehansen17/gmail.com", "28943519"));
-            HasserisDbContext.SaveElementToDatabase<PrivateCustomer>(privateCustomer);
+            Employee employee_two = new Employee("Peter", "Kukukson", 190,
+                new ContactInfo("Peter/gmail.com", "123123123"),
+                new Address("Petersvej", "9220", "Aalborg", "Tredje Etache"));
+            employees.Add(employee_two);
 
             Vehicle vehicle = new Vehicle("Stor bil", "Lastbil", "Opel", "12312123");
-            HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
-            delivery.AddElementToAppointment(employee);
-            delivery.AddElementToAppointment(vehicle);
-            dynamic databaseEmployees = HasserisDbContext.LoadAllOfSpecificElementFromDatabase("Employee");
-            List<Employee> employees = (List<Employee>)databaseEmployees;
-            List<Equipment> databaseEquipment = HasserisDbContext.LoadAllOfSpecificElementFromDatabase("Equipment");
-            List<Appointment> databaseAppointments = HasserisDbContext.LoadAllOfSpecificElementFromDatabase("Appointment");
-            List<Customer> databaseCustomers = HasserisDbContext.LoadAllOfSpecificElementFromDatabase("Customer");
+            equipments.Add(vehicle);
 
-            Debug.WriteLine(databaseEmployees[0].id + ": " + databaseEmployees[0].firstName + " " + databaseEmployees[0].lastName + ": " + databaseEmployees[0].appointmentIdString);
-            Debug.WriteLine(databaseEquipment[0].id + ": " + databaseEquipment[0].name + ": " + databaseEquipment[0].appointmentIdString);
-            Debug.WriteLine(databaseAppointments[0].id + ": " + databaseAppointments[0].name + ": " + databaseAppointments[0].employeesIdString + " " + databaseAppointments[0].equipmentsIdString);
-            Debug.WriteLine(databaseCustomers[0].id + ": " + databaseCustomers[0].firstName + " " + databaseCustomers[0].lastName );
+            delivery.AddElementToAppointment(employee_one);
+            delivery.AddElementToAppointment(employee_two);
+            delivery.AddElementToAppointment(vehicle);
+
+        }
+        public void LoadPeopleTester()
+        {
+            //PrivateCustomer add
+            customers.Add((PrivateCustomer)HasserisDbContext.LoadElementFromDatabase("Private", 1));
+            appointments.Add((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
+            employees.Add((Employee)HasserisDbContext.LoadElementFromDatabase("Employee", 1));
+            employees.Add((Employee)HasserisDbContext.LoadElementFromDatabase("Employee", 2));
+            equipments.Add((Vehicle)HasserisDbContext.LoadElementFromDatabase("Vehicle", 1));
 
 
         }
+        private void DatabaseTestDebugger()
+        {
+            foreach (Appointment appointment in appointments)
+            {
+                Debug.WriteLine(appointment.name);
+                Debug.WriteLine("Assigned Employee(s): ");
+                foreach(Employee employee in employees)
+                {
+                    Debug.WriteLine("ID: " + employee.id.ToString());
+                    Debug.WriteLine("   Firstname: " + employee.firstName);
+                    Debug.WriteLine("   Lastname: " + employee.lastName);
+                }
+                Debug.WriteLine("");
+                Debug.WriteLine("Assigned Equipment(s): ");
+                foreach (Equipment equipment in equipments)
+                {
+                    Debug.WriteLine("ID: " + equipment.id.ToString());
+                    Debug.WriteLine("   Name: " + equipment.name);
+                }
+                Debug.WriteLine("");
+                Debug.WriteLine("Assigned Customer(s): ");
+                foreach (Customer customer in customers)
+                {
+                    Debug.WriteLine("ID: " + customer.id.ToString());
+                    Debug.WriteLine("   Firstname: " + customer.firstName);
+                    Debug.WriteLine("   Lastname: " + customer.lastName);
+                    Debug.WriteLine("   Type: " + customer.type);
+                }
+            }
+
+
+
+        }
+
+
+
 
     }
 }

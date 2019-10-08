@@ -17,6 +17,7 @@ namespace HasserisWeb
     {
         public static void DeleteElementFromDatabase<T>(dynamic element)
         {
+
             if (element is Employee)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -25,7 +26,7 @@ namespace HasserisWeb
                     cnn.Execute("DELETE FROM Employees WHERE ID = (@id)", employee);
                 }
             }
-            else if (element is Appointment) 
+            else if (element is Appointment)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -49,40 +50,46 @@ namespace HasserisWeb
                     cnn.Execute("DELETE FROM Equipments WHERE ID = (@id)", equipment);
                 }
             }
+
+
         }
         public static void SaveElementToDatabase<T>(dynamic element)
         {
+
             if (element is Employee)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
                     Employee employee = (Employee)element;
-                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Email, Phonenumber, Address, ZIP, City) " +
+                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Email, Phonenumber, Address, ZIP, City, Note) " +
                                           "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.lastName + "', '" + employee.contactInfo.email +
-                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "')";
+                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
-                }   
+                }
             }
             else if (element is Appointment)
             {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+
+                if (element is Moving)
                 {
-                    if (element is Moving)
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Moving appointment = (Moving)element;
                         string sqlStatement = "INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
-                                              "StartingAddress, StartingCity, StartingZIP, " +
+                                              "StartingAddress, StartingCity, StartingZIP, StartingNote, " +
                                               "Values ('" + appointment.name + "', '" + appointment.type + "', '" + appointment.date + "', '" + appointment.duration + "', '" +
                                                appointment.assignedCustomer.id + "', '" + appointment.income + "', '" + appointment.expenses + "', '" + appointment.balance + "', '" + appointment.workPhoneNumber + "', '" +
-                                               appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" + 
-                                               appointment.startingAddress.livingAdress + "', '" + appointment.startingAddress.city + "', '" + appointment.startingAddress.ZIP + "')";
+                                               appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" +
+                                               appointment.startingAddress.livingAdress + "', '" + appointment.startingAddress.city + "', '" + appointment.startingAddress.ZIP + "', '" + appointment.startingAddress.note + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(appointment);
                     }
-                    else
+                }
+                else
+                {
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
-                        
                         Delivery appointment = (Delivery)element;
                         string sqlStatement = "INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
                                                "Material, Quantity) " +
@@ -91,51 +98,58 @@ namespace HasserisWeb
                                                appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" +
                                                appointment.material + "', '" + appointment.quantity + "')";
                         cnn.Execute(sqlStatement);
-                        RetrieveSpecificElementIDFromDatabase(appointment); 
-                        
+                        RetrieveSpecificElementIDFromDatabase(appointment);
                     }
-
                 }
             }
             else if (element is Customer)
             {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+
+                if (element is Business)
                 {
-                    if (element is Business)
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Business customer = (Business)element;
-                        string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Phonenumber, Email, CVR, EAN) " +
-                                              "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
-                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" +
-                                              customer.CVR + "', '" + customer.EAN + "')";
-                        cnn.Execute(sqlStatement);
-                        RetrieveSpecificElementIDFromDatabase(customer);
-                    }
-                    else
-                    {
-                        PrivateCustomer customer = (PrivateCustomer)element;
-                        string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Phonenumber, Email) " +
-                                              "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
-                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "')";
+                        string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Note, Phonenumber, Email, CVR, EAN) " +
+                                          "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
+                                          customer.address.ZIP + "', '" + customer.address.city + "', '" + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" +
+                                          customer.CVR + "', '" + customer.EAN + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
                     }
                 }
+                else
+                {
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                    {
+                        PrivateCustomer customer = (PrivateCustomer)element;
+                        string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Note, Phonenumber, Email) " +
+                                              "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
+                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "')";
+                        cnn.Execute(sqlStatement);
+                        RetrieveSpecificElementIDFromDatabase(customer);
+                    }
+                }
+
             }
             else if (element is Equipment)
             {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+
+                if (element is Vehicle)
                 {
-                    if (element is Vehicle)
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Vehicle equipment = (Vehicle)element;
                         string sqlStatement = "INSERT INTO Equipments (Name, Type, Model, Plates) " +
-                                              "Values ('" + equipment.name + "', '" + equipment.type + "', '" + 
+                                              "Values ('" + equipment.name + "', '" + equipment.type + "', '" +
                                               equipment.model + "', '" + equipment.regNum + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(equipment);
                     }
-                    else
+                }
+                else
+                {
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Gear equipment = (Gear)element;
                         string sqlStatement = "INSERT INTO Equipments (Name, Type) " +
@@ -143,16 +157,20 @@ namespace HasserisWeb
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(equipment);
                     }
-
                 }
+
+
             }
             else
             {
                 throw new Exception("Can only remove objects from database that are in the database");
             }
+
+
         }
         private static void RetrieveSpecificElementIDFromDatabase(dynamic element)
         {
+
             if (element is Employee)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -189,6 +207,8 @@ namespace HasserisWeb
             {
                 throw new Exception("Can only remove objects from database that are in the database");
             }
+
+
         }
         //public static void LoadSpecificElementFromDatabase<T>(dynamic element) 
         //{
@@ -230,50 +250,367 @@ namespace HasserisWeb
         //        throw new Exception("Can only remove objects from database that are in the database");
         //    }
         //}
-        public static dynamic LoadAllOfSpecificElementFromDatabase(string element)
+        private static DateTime CalculateDateFromDatabaseString(string date)
         {
-            if (element == "Employee")
+            string concatDay = "", concatMonth = "", concatYear = "";
+            concatDay += date[0];
+            concatDay += date[1];
+            concatMonth += date[3];
+            concatMonth += date[4];
+            concatYear += date[6];
+            concatYear += date[7];
+            concatYear += date[8];
+            concatYear += date[9];
+            DateTime temp = new DateTime(Convert.ToInt32(concatYear), Convert.ToInt32(concatMonth), Convert.ToInt32(concatDay));
+
+            return temp;
+
+        }
+        public static dynamic LoadElementFromDatabase(string type, int id)
+        {
+            if (type == "Employee")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    var output = cnn.Query<Employee>("select * from Employees", new DynamicParameters()).ToList();
-                    
-                    dynamic realOutput = output;
-                    return realOutput;
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Employees) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Employees where ID = " + id.ToString());
+
+
+                    Employee temp = new Employee(output.Firstname, output.Lastname, (double)output.Wage,
+                            new ContactInfo(output.Email, output.Phonenumber),
+                            new Address(output.Address, output.ZIP, output.City, output.Note));
+
+                    temp.id = (int)output.ID; 
+                    temp.appointmentIdString = output.AppointmentIDs;
+
+                    return temp;
                 }
             }
-            else if (element == "Appointment")
+            else if (type == "Private")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    var output = cnn.Query<Appointment>("select * from Appointments", new DynamicParameters());
-                    dynamic realOutput = output.ToList();
-                    return realOutput;
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    PrivateCustomer temp = new PrivateCustomer(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber));
+
+                    temp.id = (int)output.ID;
+                    return temp;
                 }
             }
-            else if (element is "Customer")
+            else if (type == "Business")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    var output = cnn.Query<Customer>("select * from Customers", new DynamicParameters());
-                    dynamic realOutput = output.ToList();
-                    return realOutput;
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Business temp = new Business(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber),
+                        output.EAN, output.CVR);
+
+                    temp.id = (int)output.ID;
+                    return temp;
                 }
             }
-            else if (element is "Equipment")
+            else if (type == "Vehicle")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    var output = cnn.Query<Equipment>("select * from Equipments", new DynamicParameters());
-                    dynamic realOutput = output.ToList();
-                    return realOutput;
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
+
+                    Vehicle temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
+
+                    temp.id = (int)output.ID;
+                    temp.appointmentIdString = output.AppointmentIDs;
+                    return temp;
+                }
+            }
+
+            else if (type == "Gear")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
+
+                    Gear temp = new Gear(output.Name, output.Type);
+
+                    temp.id = (int)output.ID;
+                    temp.appointmentIdString = output.AppointmentIDs;
+                    return temp;
+                }
+            }
+            else if (type == "Delivery")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Appointments) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Appointments where ID = " + id.ToString());
+
+                    Delivery temp = new Delivery(output.Name, output.Type, (double)output.Duration, GetCustomerFromDatabaseID((int)output.ID),
+                                new Address(output.DestinationAddress, output.DestinationZIP,
+                                output.DestinationCity, output.DestinationNote),
+                                (double)output.Income, CalculateDateFromDatabaseString(output.Date),
+                                output.Note, output.Workphone, output.Material, (int)output.Quantity);
+                    temp.id = (int)output.ID;
+                    temp.equipmentsIdString = output.EquipmentIDs;
+                    temp.employeesIdString = output.EmployeeIDs;
+                    return temp;
+                }
+            }
+            else if (type == "Moving")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Appointments) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Appointments where ID = " + id.ToString());
+
+                    Moving temp = new Moving(output.Name, output.Type, (double)output.Duration, GetCustomerFromDatabaseID((int)output.ID),
+                                new Address(output.DestinationAddress, output.DestinationZIP,
+                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
+                                new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
+                    temp.id = (int)output.ID;
+                    temp.equipmentsIdString = output.EquipmentIDs;
+                    temp.employeesIdString = output.EmployeeIDs;
+                    return temp;
                 }
             }
             else
             {
-                throw new Exception("Can only remove objects from database that are in the database");
+                return new Exception("Can't load non-existing object");
+            }
+
+        }
+        //public static dynamic LoadAllOfSpecificElementFromDatabase(string element)
+        //{
+
+        //    int incr = 0;
+
+        //    if (element == "Employee")
+        //    {
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Employees) THEN 1 ELSE 0 END) AS isEmpty";
+        //            if (cnn.Execute(sqlTest) == 1)
+        //            {
+        //                return null;
+        //            }
+        //        }
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            var output = cnn.Query<dynamic>("select * from Employees", new DynamicParameters());
+
+        //            List<Employee> temp = new List<Employee>();
+        //            foreach (var employee in output)
+        //            {
+        //                temp.Add(new Employee(output.ElementAt(incr).Firstname, output.ElementAt(incr).Lastname, (double)output.ElementAt(incr).Wage,
+        //                    new ContactInfo(output.ElementAt(incr).Email, output.ElementAt(incr).Phonenumber),
+        //                    new Address(output.ElementAt(incr).Address, output.ElementAt(incr).ZIP, output.ElementAt(incr).City, output.ElementAt(incr).Note)));
+        //                temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                temp.ElementAt(incr).appointmentIdString = output.ElementAt(incr).AppointmentIDs;
+        //                incr++;
+        //            }
+        //            return temp;
+        //        }
+        //    }
+        //    else if (element == "Appointment")
+        //    {
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Appointments) THEN 1 ELSE 0 END) AS isEmpty";
+        //            if (cnn.Execute(sqlTest) == 1)
+        //            {
+        //                return null;
+        //            }
+        //        }
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            var output = cnn.Query<dynamic>("select * from Appointments", new DynamicParameters());
+        //            List<Appointment> temp = new List<Appointment>();
+        //            incr = 0;
+        //            foreach (var appointment in output)
+        //            {
+        //                if (output.ElementAt(incr).Type == "Delivery")
+        //                {
+        //                    temp.Add(new Delivery(output.ElementAt(incr).Name, output.ElementAt(incr).Type, (double)output.ElementAt(incr).Duration, GetCustomerFromDatabaseID((int)output.ElementAt(incr).ID),
+        //                        new Address(output.ElementAt(incr).DestinationAddress, output.ElementAt(incr).DestinationZIP,
+        //                        output.ElementAt(incr).DestinationCity, output.ElementAt(incr).DestinationNote),
+        //                        (double)output.ElementAt(incr).Income, CalculateDateFromDatabaseString(output.ElementAt(incr).Date),
+        //                        output.ElementAt(incr).Note, output.ElementAt(incr).Workphone, output.ElementAt(incr).Material, (int)output.ElementAt(incr).Quantity));
+        //                    temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                    temp.ElementAt(incr).equipmentsIdString = output.ElementAt(incr).EquipmentIDs;
+        //                    temp.ElementAt(incr).employeesIdString = output.ElementAt(incr).EmployeeIDs;
+        //                }
+        //                else
+        //                {
+        //                    temp.Add(new Moving(output.ElementAt(incr).Name, output.ElementAt(incr).Type, (double)output.ElementAt(incr).Duration, GetCustomerFromDatabaseID((int)output.ElementAt(incr).ID),
+        //                        new Address(output.ElementAt(incr).DestinationAddress, output.ElementAt(incr).DestinationZIP, output.ElementAt(incr).DestinationCity, output.ElementAt(incr).DestinationNote),
+        //                        (double)output.ElementAt(incr).Income, CalculateDateFromDatabaseString(output.ElementAt(incr).Date),
+        //                        output.ElementAt(incr).Note, output.ElementAt(incr).Workphone,
+        //                        new Address(output.ElementAt(incr).StartingAddress, output.ElementAt(incr).StartingZIP, output.ElementAt(incr).StartingCity, output.ElementAt(incr).StartingNote),
+        //                        (int)output.ElementAt(incr).Lentboxes));
+        //                    temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                    temp.ElementAt(incr).equipmentsIdString = output.ElementAt(incr).EquipmentIDs;
+        //                    temp.ElementAt(incr).employeesIdString = output.ElementAt(incr).EmployeeIDs;
+        //                }
+        //                incr++;
+        //            }
+        //            return temp;
+        //        }
+
+        //    }
+        //    else if (element is "Customer")
+        //    {
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+        //            if (cnn.Execute(sqlTest) == 1)
+        //            {
+        //                return null;
+        //            }
+        //        }
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            var output = cnn.Query<dynamic>("select * from Customers", new DynamicParameters());
+        //            List<Customer> temp = new List<Customer>();
+        //            incr = 0;
+        //            foreach (var customer in output)
+        //            {
+        //                if (output.ElementAt(incr).Type == "Business")
+        //                {
+        //                    temp.Add(new Business(output.ElementAt(incr).Firstname, output.ElementAt(incr).Lastname, output.ElementAt(incr).Type,
+        //                        new Address(output.ElementAt(incr).Address, output.ElementAt(incr).ZIP, output.ElementAt(incr).City, output.ElementAt(incr).Note),
+        //                        new ContactInfo(output.ElementAt(incr).Email, output.ElementAt(incr).Phonenumber), output.ElementAt(incr).EAN, output.ElementAt(incr).CVR));
+        //                    temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                }
+        //                else
+        //                {
+        //                    temp.Add(new PrivateCustomer(output.ElementAt(incr).Firstname, output.ElementAt(incr).Lastname, output.ElementAt(incr).Type,
+        //                        new Address(output.ElementAt(incr).Address, output.ElementAt(incr).ZIP, output.ElementAt(incr).City, output.ElementAt(incr).Note),
+        //                        new ContactInfo(output.ElementAt(incr).Email, output.ElementAt(incr).Phonenumber)));
+        //                    temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                }
+        //                incr++;
+        //            }
+        //            return temp;
+        //        }
+
+
+        //    }
+        //    else if (element is "Equipment")
+        //    {
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
+        //            if (cnn.Execute(sqlTest) == 1)
+        //            {
+        //                return null;
+        //            }
+        //        }
+        //        using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+        //        {
+        //            var output = cnn.Query<dynamic>("select * from Equipments", new DynamicParameters());
+        //            List<Equipment> temp = new List<Equipment>();
+        //            incr = 0;
+        //            foreach (var equipment in output)
+        //            {
+        //                if (output.ElementAt(incr).Type == "Vehicle")
+        //                {
+        //                    temp.Add(new Vehicle(output.ElementAt(incr).Name, output.ElementAt(incr).Type, output.ElementAt(incr).Model, output.ElementAt(incr).Plates));
+        //                    temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                    temp.ElementAt(incr).appointmentIdString = output.ElementAt(incr).AppointmentIDs;
+        //                }
+        //                else
+        //                {
+        //                    temp.Add(new Gear(output.ElementAt(incr).Name, output.ElementAt(incr).Type));
+        //                    temp.ElementAt(incr).id = (int)output.ElementAt(incr).ID;
+        //                    temp.ElementAt(incr).appointmentIdString = output.ElementAt(incr).AppointmentIDs;
+        //                }
+        //                incr++;
+        //            }
+        //            return temp;
+        //        }
+
+
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Can only remove objects from database that are in the database");
+        //    }
+        //}
+        public static Customer GetCustomerFromDatabaseID(int id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+
+                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+                string outputType = output.Type;
+                if (outputType == "Private")
+                {
+                    PrivateCustomer temp = new PrivateCustomer(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber));
+                    temp.id = (int)output.ID;
+                    return temp;
+                }
+                else if (outputType == "Business")
+                {
+                    dynamic output_two = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Business temp = new Business(output_two.firstName, output_two.Lastname, output_two.Type,
+                        new Address(output_two.Address, output_two.ZIP, output_two.City, output_two.Note),
+                        new ContactInfo(output_two.Email, output_two.Phonenumber),
+                        output_two.EAN, output_two.CVR);
+
+                    temp.id = (int)output_two.ID;
+                    return temp;
+                }
+                else throw new Exception();
             }
         }
+          
+
+        
         public static void ModifySpecificElementInDatabase<T>(dynamic element)
         {
 
@@ -349,7 +686,7 @@ namespace HasserisWeb
                                "', DestinationAddress = '" + appointment.destination.livingAdress +
                                "', DestinationCity = '" + appointment.destination.city +
                                "', DestinationZIP = '" + appointment.destination.ZIP +
-                               "', DestinationNote = '" + appointment.destination.note + 
+                               "', DestinationNote = '" + appointment.destination.note +
                                "', Income = '" + appointment.income +
                                "', Expenses = '" + appointment.expenses +
                                "', Balance = '" + appointment.balance +
@@ -363,7 +700,7 @@ namespace HasserisWeb
                                    "set StartingAddress = '" + ((Moving)appointment).startingAddress.livingAdress +
                                    "', StartingCity = '" + ((Moving)appointment).startingAddress.city +
                                    "', StartingZIP = '" + ((Moving)appointment).startingAddress.ZIP +
-                                   "', StartingNote = '" + ((Moving)appointment).startingAddress.note + 
+                                   "', StartingNote = '" + ((Moving)appointment).startingAddress.note +
                                    "', LentBoxes = '" + ((Moving)appointment).lentBoxes + "' where " +
                                "ID = " + appointment.id;
                     cnn.Execute(sqlStatement);
@@ -391,6 +728,7 @@ namespace HasserisWeb
                                "', Address = '" + customer.address.livingAdress +
                                "', ZIP = '" + customer.address.ZIP +
                                "', City = '" + customer.address.city +
+                               "', Note = '" + customer.address.note +
                                "', Email = '" + customer.contactInfo.email +
                                "', Phonenumber = '" + customer.contactInfo.phoneNumber + "' where " +
                                "ID = " + customer.id;

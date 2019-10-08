@@ -20,7 +20,7 @@ namespace HasserisWeb
         //the lenght of the string in the database, that writes the employeeID's. If a string in the database has 5 ID,s next to each other
         // we read them one by one and retrieve the specified employee off of that.
         //Also, i removed employees from the constructor because you should be able to add employees dynamically
-        private List<Employee> assignedEmployees { get; } = new List<Employee>();
+        public List<Employee> assignedEmployees { get; } = new List<Employee>();
         public Customer assignedCustomer { get; } 
         public Address destination { get; }
         public double income { get; }
@@ -29,7 +29,7 @@ namespace HasserisWeb
         //The same idea here as for the list of employees
         public string equipmentsIdString { get; set; }
         //You should be able to add equipment dynamically so i removed it from the constructor
-        private List<Equipment> assignedEquipments { get; } = new List<Equipment>();
+        public List<Equipment> assignedEquipments { get; } = new List<Equipment>();
         public DateTime date { get; }
         //What is a note?
         private string note { get; }
@@ -53,6 +53,7 @@ namespace HasserisWeb
             this.balance = this.income - this.expenses;
             this.employeesIdString = "";
             this.equipmentsIdString = "";
+            HasserisDbContext.SaveElementToDatabase<Appointment>(this);
         }
         //Just change it if the calculation is more complex (it probably is)
         //Maybe we have to take into account things like "feriepenge" and money spent on fuel etc..
