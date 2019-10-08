@@ -16,7 +16,7 @@ namespace HasserisWeb
             
             Configuration = configuration;
             ConnectionString = configuration.GetConnectionString("HasserisDbContext");
-            DatabaseTester test = new DatabaseTester();
+            SystemControl system = new SystemControl();
 
         }
 

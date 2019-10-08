@@ -11,12 +11,13 @@ namespace HasserisWeb
 
         public int id { get; set; }
         public Address address { get; set; }
+        public string type { get; set; }
         public ContactInfo contactInfo { get; set; }
-        public Customer(Address address, ContactInfo contactInfo)
+        public Customer(Address address, ContactInfo contactInfo, string type)
         {
+            this.type = type;
             this.address = address;
             this.contactInfo = contactInfo;
-            this.type = type;
             HasserisDbContext.SaveElementToDatabase<Customer>(this);
         }
 

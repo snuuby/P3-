@@ -33,7 +33,7 @@ namespace HasserisWeb
         private DateTime startTime { get; set; }
         private DateTime endTime { get; set; }
         private List<DateTime> pauseTimes {get; set;}
-        public TimeSpan appointmentDuration { get; private set; }
+        public TimeSpan appointmentDuration { get; set; }
 
         //What is a note?
         private string note { get; }
@@ -59,6 +59,7 @@ namespace HasserisWeb
             this.equipmentsIdString = "";
             HasserisDbContext.SaveElementToDatabase<Appointment>(this);
             assignedEmployees = new List<Employee> { };
+            assignedEquipment = new List<Equipment> { };
             pauseTimes = new List<DateTime>();
         }
 

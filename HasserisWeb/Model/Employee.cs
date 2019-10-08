@@ -20,8 +20,9 @@ namespace HasserisWeb
         public double wage { get; private set; }
         public int id { get; set; }
         public Address address { get; set; }
+        public string type { get; set; }
 
-        public Employee(string fName, string lName, double pWage, ContactInfo contactInfo, Address address)
+        public Employee(string fName, string lName, string type, double pWage, ContactInfo contactInfo, Address address)
         {
             this.firstName = fName;
             this.lastName = lName;
@@ -30,6 +31,7 @@ namespace HasserisWeb
             this.contactInfo = contactInfo;
             this.address = address;
             this.appointmentIdString = "";
+            this.type = type;
             HasserisDbContext.SaveElementToDatabase<Equipment>(this);
         }
         //Is called from a given appointment object

@@ -7,14 +7,16 @@ namespace HasserisWeb
 {
     public class Calendar
     {
-        private List<Appointment> appointments { get; set; } = new List<Appointment>();
+        public List<Appointment> appointments { get; set; } = new List<Appointment>();
         //What is this supposed to represent?
         public DateTime currentDate = DateTime.Today.Date;
         public TimeSpan currentTime = DateTime.Today.TimeOfDay;
         public DateTime selectedDate { get; set; }
+        public string name { get; set; }
 
-        public Calendar()
-        { 
+        public Calendar(string name)
+        {
+            this.name = name;
         }
 
         public void CheckToday()

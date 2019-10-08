@@ -11,7 +11,7 @@ namespace HasserisWeb
         public string EAN { get; set; }
 
         public Public(string fName, string lName, string type, Address address, ContactInfo contactInfo, string businessName, string EAN)
-                        : base(fName, lName, type, address, contactInfo)
+                        : base( address, contactInfo, type)
         {
             this.businessName = businessName;
             this.EAN = EAN;

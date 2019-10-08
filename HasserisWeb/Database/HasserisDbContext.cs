@@ -61,8 +61,8 @@ namespace HasserisWeb
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
                     Employee employee = (Employee)element;
-                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Email, Phonenumber, Address, ZIP, City, Note) " +
-                                          "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.lastName + "', '" + employee.contactInfo.email +
+                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note) " +
+                                          "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.type + "', '" + employee.lastName + "', '" + employee.contactInfo.email +
                                           "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
@@ -78,7 +78,7 @@ namespace HasserisWeb
                         Moving appointment = (Moving)element;
                         string sqlStatement = "INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
                                               "StartingAddress, StartingCity, StartingZIP, StartingNote, " +
-                                              "Values ('" + appointment.name + "', '" + appointment.type + "', '" + appointment.date + "', '" + appointment.duration + "', '" +
+                                              "Values ('" + appointment.name + "', '" + appointment.type + "', '" + string.Join("/", appointment.dates) + "', '" + appointment.appointmentDuration.ToString() + "', '" +
                                                appointment.assignedCustomer.id + "', '" + appointment.income + "', '" + appointment.expenses + "', '" + appointment.balance + "', '" + appointment.workPhoneNumber + "', '" +
                                                appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" +
                                                appointment.startingAddress.livingAdress + "', '" + appointment.startingAddress.city + "', '" + appointment.startingAddress.ZIP + "', '" + appointment.startingAddress.note + "')";
@@ -93,7 +93,7 @@ namespace HasserisWeb
                         Delivery appointment = (Delivery)element;
                         string sqlStatement = "INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
                                                "Material, Quantity) " +
-                                               "VALUES ('" + appointment.name + "', '" + appointment.type + "', '" + appointment.date + "', '" + appointment.duration + "', '" +
+                                               "VALUES ('" + appointment.name + "', '" + appointment.type + "', '" + string.Join("/", appointment.dates) + "', '" + appointment.appointmentDuration.ToString() + "', '" +
                                                appointment.assignedCustomer.id + "', '" + appointment.income + "', '" + appointment.expenses + "', '" + appointment.balance + "', '" + appointment.workPhoneNumber + "', '" +
                                                appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" +
                                                appointment.material + "', '" + appointment.quantity + "')";
@@ -110,22 +110,34 @@ namespace HasserisWeb
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Business customer = (Business)element;
-                        string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Note, Phonenumber, Email, CVR, EAN) " +
-                                          "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
+                        string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, CVR) " +
+                                          "Values ('" + customer.businessName + "', '" + customer.type + "', '" +  "', '" + customer.address.livingAdress + "', '" +
                                           customer.address.ZIP + "', '" + customer.address.city + "', '" + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" +
-                                          customer.CVR + "', '" + customer.EAN + "')";
+                                          customer.CVR + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
                     }
                 }
-                else
+                else if (element is Private)
                 {
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
-                        PrivateCustomer customer = (PrivateCustomer)element;
+                        Private customer = (Private)element;
                         string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Note, Phonenumber, Email) " +
                                               "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
                                               customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "')";
+                        cnn.Execute(sqlStatement);
+                        RetrieveSpecificElementIDFromDatabase(customer);
+                    }
+                }
+                else if (element is Public)
+                {
+                    using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                    {
+                        Public customer = (Public)element;
+                        string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, EAN) " +
+                                              "Values ('" + customer.businessName +  "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
+                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" + customer.EAN + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
                     }
@@ -151,7 +163,7 @@ namespace HasserisWeb
                 {
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
-                        Gear equipment = (Gear)element;
+                        Tool equipment = (Tool)element;
                         string sqlStatement = "INSERT INTO Equipments (Name, Type) " +
                                                "Values ('" + equipment.name + "', '" + equipment.type + "')";
                         cnn.Execute(sqlStatement);
@@ -250,20 +262,16 @@ namespace HasserisWeb
         //        throw new Exception("Can only remove objects from database that are in the database");
         //    }
         //}
-        private static DateTime CalculateDateFromDatabaseString(string date)
+        private static List<DateTime> CalculateDateFromDatabaseString(string date)
         {
-            string concatDay = "", concatMonth = "", concatYear = "";
-            concatDay += date[0];
-            concatDay += date[1];
-            concatMonth += date[3];
-            concatMonth += date[4];
-            concatYear += date[6];
-            concatYear += date[7];
-            concatYear += date[8];
-            concatYear += date[9];
-            DateTime temp = new DateTime(Convert.ToInt32(concatYear), Convert.ToInt32(concatMonth), Convert.ToInt32(concatDay));
-
-            return temp;
+            string[] tempDates = date.Split("/");
+            List<DateTime> tempDateTimes = new List<DateTime>();
+            foreach (string tempdate in tempDates)
+            {
+                tempDateTimes.Add(Convert.ToDateTime(tempdate));
+            }
+            
+            return tempDateTimes;
 
         }
         public static dynamic LoadElementFromDatabase(string type, int id)
@@ -280,7 +288,7 @@ namespace HasserisWeb
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Employees where ID = " + id.ToString());
 
 
-                    Employee temp = new Employee(output.Firstname, output.Lastname, (double)output.Wage,
+                    Employee temp = new Employee(output.Firstname, output.Lastname, output.Type, (double)output.Wage,
                             new ContactInfo(output.Email, output.Phonenumber),
                             new Address(output.Address, output.ZIP, output.City, output.Note));
 
@@ -302,7 +310,7 @@ namespace HasserisWeb
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
 
-                    PrivateCustomer temp = new PrivateCustomer(output.firstName, output.Lastname, output.Type,
+                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
                         new Address(output.Address, output.ZIP, output.City, output.Note),
                         new ContactInfo(output.Email, output.Phonenumber));
 
@@ -324,8 +332,29 @@ namespace HasserisWeb
 
                     Business temp = new Business(output.firstName, output.Lastname, output.Type,
                         new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber),
-                        output.EAN, output.CVR);
+                        new ContactInfo(output.Email, output.Phonenumber), 
+                        output.Name, output.CVR);
+
+                    temp.id = (int)output.ID;
+                    return temp;
+                }
+            }
+            else if (type == "Public")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Public temp = new Public(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber), 
+                        output.Name, output.EAN);
 
                     temp.id = (int)output.ID;
                     return temp;
@@ -351,7 +380,7 @@ namespace HasserisWeb
                 }
             }
 
-            else if (type == "Gear")
+            else if (type == "Tool")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -363,7 +392,7 @@ namespace HasserisWeb
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
 
-                    Gear temp = new Gear(output.Name, output.Type);
+                    Tool temp = new Tool(output.Name, output.Type);
 
                     temp.id = (int)output.ID;
                     temp.appointmentIdString = output.AppointmentIDs;
@@ -382,12 +411,13 @@ namespace HasserisWeb
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Appointments where ID = " + id.ToString());
 
-                    Delivery temp = new Delivery(output.Name, output.Type, (double)output.Duration, GetCustomerFromDatabaseID((int)output.ID),
+                    Delivery temp = new Delivery(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
                                 new Address(output.DestinationAddress, output.DestinationZIP,
                                 output.DestinationCity, output.DestinationNote),
                                 (double)output.Income, CalculateDateFromDatabaseString(output.Date),
                                 output.Note, output.Workphone, output.Material, (int)output.Quantity);
-                    temp.id = (int)output.ID;
+                    temp.id = (int)output.ID; 
+                    temp.appointmentDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
@@ -405,11 +435,12 @@ namespace HasserisWeb
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Appointments where ID = " + id.ToString());
 
-                    Moving temp = new Moving(output.Name, output.Type, (double)output.Duration, GetCustomerFromDatabaseID((int)output.ID),
+                    Moving temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
                                 new Address(output.DestinationAddress, output.DestinationZIP,
                                 output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
                                 new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
                     temp.id = (int)output.ID;
+                    temp.appointmentDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
@@ -420,6 +451,11 @@ namespace HasserisWeb
                 return new Exception("Can't load non-existing object");
             }
 
+        }
+        public static TimeSpan ConvertDurationStringFromDatabaseToTimeSpan(string duration)
+        {
+            string[] split = duration.Split(":");
+            return new TimeSpan(Convert.ToInt32(split[2]), Convert.ToInt32(split[1]), Convert.ToInt32(split[0]));
         }
         //public static dynamic LoadAllOfSpecificElementFromDatabase(string element)
         //{
@@ -587,7 +623,7 @@ namespace HasserisWeb
                 string outputType = output.Type;
                 if (outputType == "Private")
                 {
-                    PrivateCustomer temp = new PrivateCustomer(output.firstName, output.Lastname, output.Type,
+                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
                         new Address(output.Address, output.ZIP, output.City, output.Note),
                         new ContactInfo(output.Email, output.Phonenumber));
                     temp.id = (int)output.ID;
@@ -601,6 +637,18 @@ namespace HasserisWeb
                         new Address(output_two.Address, output_two.ZIP, output_two.City, output_two.Note),
                         new ContactInfo(output_two.Email, output_two.Phonenumber),
                         output_two.EAN, output_two.CVR);
+
+                    temp.id = (int)output_two.ID;
+                    return temp;
+                }
+                else if (outputType == "Public")
+                {
+                    dynamic output_two = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Public temp = new Public(output_two.firstName, output_two.Lastname, output_two.Type,
+                        new Address(output_two.Address, output_two.ZIP, output_two.City, output_two.Note),
+                        new ContactInfo(output_two.Email, output_two.Phonenumber),
+                        output_two.Name, output_two.EAN);
 
                     temp.id = (int)output_two.ID;
                     return temp;
@@ -640,7 +688,9 @@ namespace HasserisWeb
                                "set Wage = '" + employee.wage +
                                "', Firstname = '" + employee.firstName +
                                "', Lastname = '" + employee.lastName +
+                               "', Type = '" + employee.type +
                                "', Email = '" + employee.contactInfo.email +
+                               "', Note = '" + employee.address.note + 
                                "', Phonenumber = '" + employee.contactInfo.phoneNumber +
                                "', Address = '" + employee.address.livingAdress +
                                "', ZIP = '" + employee.address.ZIP +
@@ -679,7 +729,7 @@ namespace HasserisWeb
                 sqlStatement = "update Appointments " +
                                "set Name = '" + appointment.name +
                                "', Type = '" + appointment.type +
-                               "', Duration = '" + appointment.duration +
+                               "', Duration = '" + appointment.appointmentDuration +
                                "', EmployeeIDs = '" + appointment.employeesIdString +
                                "', EquipmentIDs = '" + appointment.equipmentsIdString +
                                "', CustomerID = '" + appointment.assignedCustomer.id +
@@ -690,7 +740,7 @@ namespace HasserisWeb
                                "', Income = '" + appointment.income +
                                "', Expenses = '" + appointment.expenses +
                                "', Balance = '" + appointment.balance +
-                               "', Date = '" + appointment.date.ToString() +
+                               "', Date = '" + string.Join("/", appointment.dates) +
                                "', Workphone = '" + appointment.workPhoneNumber + "' where " +
                                "ID = " + appointment.id;
                 cnn.Execute(sqlStatement);
@@ -702,7 +752,7 @@ namespace HasserisWeb
                                    "', StartingZIP = '" + ((Moving)appointment).startingAddress.ZIP +
                                    "', StartingNote = '" + ((Moving)appointment).startingAddress.note +
                                    "', LentBoxes = '" + ((Moving)appointment).lentBoxes + "' where " +
-                               "ID = " + appointment.id;
+                                    "ID = " + appointment.id;
                     cnn.Execute(sqlStatement);
                 }
                 if (appointment is Delivery)
@@ -710,7 +760,7 @@ namespace HasserisWeb
                     sqlStatement = "update Appointments " +
                                    "set Material = '" + ((Delivery)appointment).material +
                                    "', Quantity = '" + ((Delivery)appointment).quantity + "' where " +
-                               "ID = " + appointment.id;
+                                    "ID = " + appointment.id;
                     cnn.Execute(sqlStatement);
                 }
             }
@@ -722,9 +772,7 @@ namespace HasserisWeb
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
                 sqlStatement = "update Customers " +
-                               "set Firstname = '" + customer.firstName +
-                               "', Lastname = '" + customer.lastName +
-                               "', Type = '" + customer.type +
+                               "set Type = '" + customer.type +
                                "', Address = '" + customer.address.livingAdress +
                                "', ZIP = '" + customer.address.ZIP +
                                "', City = '" + customer.address.city +
@@ -736,9 +784,25 @@ namespace HasserisWeb
                 if (customer is Business)
                 {
                     sqlStatement = "update Customers " +
-                                   "set EAN = '" + ((Business)customer).EAN +
-                                   "', CVR = '" + ((Business)customer).CVR + "' where " +
+                                   "set CVR = '" + ((Business)customer).CVR +
+                                   "', Name = '" + ((Business)customer).businessName + "' where " +
                                "ID = " + customer.id;
+                    cnn.Execute(sqlStatement);
+                }
+                else if (customer is Private)
+                {
+                    sqlStatement = "update Customers " +
+                                    "set Firstname = '" + ((Private)customer).firstName +
+                                    "', Lastname = '" + ((Private)customer).lastName + "' where " +
+                                    "ID = " + customer.id;
+                    cnn.Execute(sqlStatement);
+                }
+                else if (customer is Public)
+                {
+                    sqlStatement = "update Customers " +
+                                    "set Name = '" + ((Public)customer).businessName +
+                                    "', EAN = '" + ((Public)customer).EAN + "' where " +
+                                    "ID = " + customer.id;
                     cnn.Execute(sqlStatement);
                 }
             }

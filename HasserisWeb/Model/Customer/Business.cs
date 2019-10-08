@@ -11,7 +11,7 @@ namespace HasserisWeb
         public string CVR { get; set; }
 
         public Business(string fName, string lName, string type, Address address, ContactInfo contactInfo, string businessName, string CVR )
-                        : base(fName, lName, type, address, contactInfo)
+                        : base(address, contactInfo, type)
         {
             this.businessName = businessName;
             this.CVR = CVR;

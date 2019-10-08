@@ -10,8 +10,8 @@ namespace HasserisWeb
         public string firstName { get; set; }
         public string lastName { get; set; }
 
-        public Private(string fName, string lName, Address address, ContactInfo contactInfo)
-                : base(address, contactInfo)
+        public Private(string fName, string lName, string type, Address address, ContactInfo contactInfo)
+                : base(address, contactInfo, type)
         {
             this.firstName = fName;
             this.lastName = lName;
