@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Danie\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
+    "C:\\Users\\Krisitan\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Danie\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
+    "C:\\Users\\Krisitan\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Danie\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "projectUniqueName": "C:\\Users\\Krisitan\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
         "projectName": "HasserisWeb",
-        "projectPath": "C:\\Users\\Danie\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
-        "packagesPath": "C:\\Users\\Danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Danie\\Documents\\GitHub\\P3-\\HasserisWeb\\obj\\",
+        "projectPath": "C:\\Users\\Krisitan\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "packagesPath": "C:\\Users\\Krisitan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Krisitan\\Documents\\GitHub\\P3-\\HasserisWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Krisitan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,22 @@
             "Dapper": {
               "target": "Package",
               "version": "[2.0.30, )"
+            },
+            "Microsoft.AspNet.SignalR": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "Microsoft.AspNet.SignalR.Core": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "Microsoft.AspNet.SignalR.JS": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "Microsoft.AspNet.SignalR.SystemWeb": {
+              "target": "Package",
+              "version": "[2.4.1, )"
             },
             "Microsoft.AspNetCore.SpaServices.Extensions": {
               "target": "Package",

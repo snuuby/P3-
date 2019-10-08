@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public class Business : Customer
+    public class Public : Customer
     {
         public string businessName { get; set; }
-        public string CVR { get; set; }
+        public string EAN { get; set; }
 
-        public Business(string fName, string lName, string type, Address address, ContactInfo contactInfo, string businessName, string CVR )
+        public Public(string fName, string lName, string type, Address address, ContactInfo contactInfo, string businessName, string EAN)
                         : base(fName, lName, type, address, contactInfo)
         {
             this.businessName = businessName;
-            this.CVR = CVR;
+            this.EAN = EAN;
         }
     }
 }
