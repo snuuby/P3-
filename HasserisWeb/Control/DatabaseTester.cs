@@ -10,8 +10,10 @@ namespace HasserisWeb
 
         public DatabaseTester()
         {
-            CreatePeopleTester();
-            //LoadPeopleTester();
+            //CreatePeopleTester();
+            
+            LoadPeopleTester();
+            DatabaseTestDebugger();
 
         }
         private void CreatePeopleTester()
@@ -19,58 +21,54 @@ namespace HasserisWeb
             Private privateCustomer = new Private("Jakob", "Hansen", "Private",
                 new Address("myrdalstrade", "9220", "Aalborg", "1. sal t.h"),
                 new ContactInfo("jallehansen17/gmail.com", "28943519"));
-            SystemControl.customers.Add(privateCustomer);
+            HasserisDbContext.SaveElementToDatabase<Private>(privateCustomer);
 
-            Delivery delivery = new Delivery("testDelivery", "Delivery", privateCustomer,
-                new Address("myrdal", "2", "aalborg", "testnote"), 1000, new List<DateTime>() { new DateTime(2019, 12, 3), new DateTime(2019, 1, 5) }, "testnote", "22331133", "Foam", 2);
-            SystemControl.tasks.Add(delivery);
-            SystemControl.calendar.AddTask(delivery);
 
             Employee employee_one = new Employee("Anders", "Andreasen","Employee", 180,
                 new ContactInfo("andreas/gmail.com", "223313145"),
                 new Address("Andreasensvej", "9220", "Aalborg", "Anden etache"));
-            SystemControl.employees.Add(employee_one);
 
             Employee employee_two = new Employee("Peter", "Kukukson", "Admin", 190,
                 new ContactInfo("Peter/gmail.com", "123123123"),
                 new Address("Petersvej", "9220", "Aalborg", "Tredje Etache"));
-            SystemControl.employees.Add(employee_two);
+            HasserisDbContext.SaveElementToDatabase<Employee>(employee_one);
+            HasserisDbContext.SaveElementToDatabase<Employee>(employee_two);
 
             Vehicle vehicle = new Vehicle("Stor bil", "Lastbil", "Opel", "12312123");
-            SystemControl.equipment.Add(vehicle);
+            HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
+
+            Delivery delivery = new Delivery("testDelivery", "Delivery", privateCustomer,
+                new Address("myrdal", "2", "aalborg", "testnote"), 1000, new List<DateTime>() { new DateTime(2019, 12, 3), new DateTime(2019, 1, 5) }, "testnote", "22331133", "Foam", 2);
             delivery.AddElementToTask(employee_one);
             delivery.AddElementToTask(employee_two);
             delivery.AddElementToTask(vehicle);
-            HasserisDbContext.SaveElementToDatabase<Private>(privateCustomer);
             HasserisDbContext.SaveElementToDatabase<Delivery>(delivery);
-            HasserisDbContext.SaveElementToDatabase<Employee>(employee_one);
-            HasserisDbContext.SaveElementToDatabase<Employee>(employee_two);
-            HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
+
+
+
+
 
 
         }
         public void LoadPeopleTester()
         {
             //PrivateCustomer add
-            SystemControl.customers.Add((Private)HasserisDbContext.LoadElementFromDatabase("Private", 1));
-            SystemControl.tasks.Add((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
+
             SystemControl.calendar.AddTask((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
-            SystemControl.employees.Add((Employee)HasserisDbContext.LoadElementFromDatabase("Employee", 1));
-            SystemControl.employees.Add((Employee)HasserisDbContext.LoadElementFromDatabase("Employee", 2));
-            SystemControl.equipment.Add((Vehicle)HasserisDbContext.LoadElementFromDatabase("Vehicle", 1));
+
 
 
         }
-        /*
+        
         private void DatabaseTestDebugger()
         {
             Debug.WriteLine(SystemControl.calendar.name);
-            foreach (Task appointment in SystemControl.calendar.tasks)
+            foreach (Task task in SystemControl.calendar.tasks)
             {
-                Debug.WriteLine("ID: " + appointment.id);
-                Debug.WriteLine("Name: " + appointment.name);
+                Debug.WriteLine("ID: " + task.id);
+                Debug.WriteLine("Name: " + task.name);
                 Debug.WriteLine("Assigned Employee(s): ");
-                foreach(Employee employee in SystemControl.employees)
+                foreach(Employee employee in task.assignedEmployees)
                 {
                     Debug.WriteLine("Employee ID: " + employee.id.ToString());
                     Debug.WriteLine("   Firstname: " + employee.firstName);
@@ -79,7 +77,7 @@ namespace HasserisWeb
                 }
                 Debug.WriteLine("");
                 Debug.WriteLine("Assigned Equipment(s): ");
-                foreach (Equipment equipment in SystemControl.equipment)
+                foreach (Equipment equipment in task.assignedEquipment)
                 {
                     if (equipment is Vehicle)
                     {
@@ -96,36 +94,33 @@ namespace HasserisWeb
                 }
                 Debug.WriteLine("");
                 Debug.WriteLine("Assigned Customer(s): ");
-                foreach (Customer customer in SystemControl.customers)
-                {
-                    if (customer is Private)
-                    {
-                        Debug.WriteLine("Private customer ID: " + customer.id.ToString());
-                        Debug.WriteLine("   Firstname: " + ((Private)customer).firstName);
-                        Debug.WriteLine("   Lastname: " + ((Private)customer).lastName);
-                        Debug.WriteLine("   Type: " + ((Private)customer).type);
-                    }
-                    else if (customer is Public)
-                    {
-                        Debug.WriteLine("Public customer ID: " + customer.id.ToString());
-                        Debug.WriteLine("   Name: " + ((Public)customer).businessName);
-                        Debug.WriteLine("   EAN: " + ((Public)customer).EAN);
-                        Debug.WriteLine("   Type: " + ((Private)customer).type);
-                    }
-                    else if (customer is Business)
-                    {
-                        Debug.WriteLine("Business customer ID: " + customer.id.ToString());
-                        Debug.WriteLine("   Name: " + ((Business)customer).businessName);
-                        Debug.WriteLine("   CVR: " + ((Business)customer).CVR);
-                        Debug.WriteLine("   Type: " + ((Business)customer).type);
-                    }
 
+                if (task.assignedCustomer is Private)
+                {
+                    Debug.WriteLine("Private customer ID: " + task.assignedCustomer.id.ToString());
+                    Debug.WriteLine("   Firstname: " + ((Private)task.assignedCustomer).firstName);
+                    Debug.WriteLine("   Lastname: " + ((Private)task.assignedCustomer).lastName);
+                    Debug.WriteLine("   Type: " + ((Private)task.assignedCustomer).type);
+                }
+                else if (task.assignedCustomer is Public)
+                {
+                    Debug.WriteLine("Public customer ID: " + task.assignedCustomer.id.ToString());
+                    Debug.WriteLine("   Name: " + ((Public)task.assignedCustomer).businessName);
+                    Debug.WriteLine("   EAN: " + ((Public)task.assignedCustomer).EAN);
+                    Debug.WriteLine("   Type: " + ((Private)task.assignedCustomer).type);
+                }
+                else if (task.assignedCustomer is Business)
+                {
+                    Debug.WriteLine("Business customer ID: " + task.assignedCustomer.id.ToString());
+                    Debug.WriteLine("   Name: " + ((Business)task.assignedCustomer).businessName);
+                    Debug.WriteLine("   CVR: " + ((Business)task.assignedCustomer).CVR);
+                    Debug.WriteLine("   Type: " + ((Business)task.assignedCustomer).type);
                 }
             }
 
 
     
-        }*/
+        }
 
 
     

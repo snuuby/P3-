@@ -76,10 +76,10 @@ namespace HasserisWeb
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Moving task = (Moving)element;
-                        string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
+                        string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, EmployeeIDs, EquipmentIDs, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
                                               "StartingAddress, StartingCity, StartingZIP, StartingNote, " +
                                               "Values ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
-                                               task.assignedCustomer.id + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
+                                               task.assignedCustomer.id + "', '"  + task.employeesIdString + "', '" + task.equipmentsIdString + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
                                                task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
                                                task.startingAddress.livingAdress + "', '" + task.startingAddress.city + "', '" + task.startingAddress.ZIP + "', '" + task.startingAddress.note + "')";
                         cnn.Execute(sqlStatement);
@@ -91,10 +91,10 @@ namespace HasserisWeb
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
                         Delivery task = (Delivery)element;
-                        string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
+                        string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, EmployeeIDs, EquipmentIDs, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
                                                "Material, Quantity) " +
                                                "VALUES ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
-                                               task.assignedCustomer.id + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
+                                               task.assignedCustomer.id + "', '" + task.employeesIdString + "', '" + task.equipmentsIdString + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
                                                task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
                                                task.material + "', '" + task.quantity + "')";
                         cnn.Execute(sqlStatement);
@@ -420,6 +420,8 @@ namespace HasserisWeb
                     temp.id = (int)output.ID; 
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
+                    temp.assignedEmployees = GetEmployeeFromEmployeeString(output.EmployeeIDs);
+                    temp.assignedEquipment = GetEquipmentFromEquipmentString(output.EquipmentIDs);
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
                 }
@@ -444,6 +446,8 @@ namespace HasserisWeb
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
+                    temp.assignedEmployees = GetEmployeeFromEmployeeString(output.EmployeeIDs);
+                    temp.assignedEquipment = GetEquipmentFromEquipmentString(output.EquipmentIDs);
                     return temp;
                 }
             }
@@ -657,6 +661,58 @@ namespace HasserisWeb
                 else throw new Exception();
             }
         }
+        
+        public static List<Employee> GetEmployeeFromEmployeeString(string id)
+        {
+            Employee temp;
+            List<Employee> tempList = new List<Employee>();
+            string[] tempIDs = id.Split("/");
+            List<string> eachID = tempIDs.ToList();
+            eachID.RemoveAt(eachID.Count-1);
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                foreach (string each in eachID)
+                {
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Employees where ID = " + each);
+                    temp = new Employee(output.Firstname, output.Lastname, output.Type, output.Wage,
+                        new ContactInfo(output.Email, output.Phonenumber),
+                        new Address(output.Address, output.ZIP, output.City, output.Note));
+                    temp.id = (int)output.ID;
+                    tempList.Add(temp);
+
+                }
+                return tempList;
+            }
+        }
+        public static List<Equipment> GetEquipmentFromEquipmentString(string id)
+        {
+            Equipment temp;
+            List<Equipment> tempList = new List<Equipment>();
+            string[] tempIDs = id.Split("/");
+            List<string> eachID = tempIDs.ToList();
+            eachID.RemoveAt(eachID.Count-1);
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                foreach (string each in eachID)
+                {
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + each);
+                    if (output.Type == "Vehicle")
+                        {
+                            temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
+                        temp.id = (int)output.ID;
+                        tempList.Add(temp);
+                        }
+                    else
+                        {
+                            temp = new Tool(output.Name, output.Type);
+                        temp.id = (int)output.ID;
+                        tempList.Add(temp);
+                        }
+                }
+                return tempList;
+            }
+        }
+
 
         public static void ModifySpecificElementInDatabase<T>(dynamic element)
         {
