@@ -26,12 +26,12 @@ namespace HasserisWeb
                     cnn.Execute("DELETE FROM Employees WHERE ID = (@id)", employee);
                 }
             }
-            else if (element is Appointment)
+            else if (element is Task)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    Appointment appointment = (Appointment)element;
-                    cnn.Execute("DELETE FROM Appointments WHERE ID = (@id)", appointment);
+                    Task appointment = (Task)element;
+                    cnn.Execute("DELETE FROM Tasks WHERE ID = (@id)", appointment);
                 }
             }
             else if (element is Customer)
@@ -68,37 +68,37 @@ namespace HasserisWeb
                     RetrieveSpecificElementIDFromDatabase(employee);
                 }
             }
-            else if (element is Appointment)
+            else if (element is Task)
             {
 
                 if (element is Moving)
                 {
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
-                        Moving appointment = (Moving)element;
-                        string sqlStatement = "INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
+                        Moving task = (Moving)element;
+                        string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
                                               "StartingAddress, StartingCity, StartingZIP, StartingNote, " +
-                                              "Values ('" + appointment.name + "', '" + appointment.type + "', '" + string.Join("/", appointment.dates) + "', '" + appointment.appointmentDuration.ToString() + "', '" +
-                                               appointment.assignedCustomer.id + "', '" + appointment.income + "', '" + appointment.expenses + "', '" + appointment.balance + "', '" + appointment.workPhoneNumber + "', '" +
-                                               appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" +
-                                               appointment.startingAddress.livingAdress + "', '" + appointment.startingAddress.city + "', '" + appointment.startingAddress.ZIP + "', '" + appointment.startingAddress.note + "')";
+                                              "Values ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
+                                               task.assignedCustomer.id + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
+                                               task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
+                                               task.startingAddress.livingAdress + "', '" + task.startingAddress.city + "', '" + task.startingAddress.ZIP + "', '" + task.startingAddress.note + "')";
                         cnn.Execute(sqlStatement);
-                        RetrieveSpecificElementIDFromDatabase(appointment);
+                        RetrieveSpecificElementIDFromDatabase(task);
                     }
                 }
                 else
                 {
                     using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                     {
-                        Delivery appointment = (Delivery)element;
-                        string sqlStatement = "INSERT INTO Appointments (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
+                        Delivery task = (Delivery)element;
+                        string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
                                                "Material, Quantity) " +
-                                               "VALUES ('" + appointment.name + "', '" + appointment.type + "', '" + string.Join("/", appointment.dates) + "', '" + appointment.appointmentDuration.ToString() + "', '" +
-                                               appointment.assignedCustomer.id + "', '" + appointment.income + "', '" + appointment.expenses + "', '" + appointment.balance + "', '" + appointment.workPhoneNumber + "', '" +
-                                               appointment.destination.livingAdress + "', '" + appointment.destination.city + "', '" + appointment.destination.ZIP + "', '" + appointment.destination.note + "', '" +
-                                               appointment.material + "', '" + appointment.quantity + "')";
+                                               "VALUES ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
+                                               task.assignedCustomer.id + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
+                                               task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
+                                               task.material + "', '" + task.quantity + "')";
                         cnn.Execute(sqlStatement);
-                        RetrieveSpecificElementIDFromDatabase(appointment);
+                        RetrieveSpecificElementIDFromDatabase(task);
                     }
                 }
             }
@@ -191,12 +191,12 @@ namespace HasserisWeb
                     ((Employee)element).id = (int)output.ID;
                 }
             }
-            else if (element is Appointment)
+            else if (element is Task)
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    dynamic output = cnn.QuerySingle<dynamic>("SELECT * FROM Appointments WHERE ID = (SELECT MAX(ID) FROM Appointments)");
-                    ((Appointment)element).id = (int)output.ID;
+                    dynamic output = cnn.QuerySingle<dynamic>("SELECT * FROM Tasks WHERE ID = (SELECT MAX(ID) FROM Tasks)");
+                    ((Task)element).id = (int)output.ID;
                 }
             }
             else if (element is Customer)
@@ -293,7 +293,7 @@ namespace HasserisWeb
                             new Address(output.Address, output.ZIP, output.City, output.Note));
 
                     temp.id = (int)output.ID; 
-                    temp.appointmentIdString = output.AppointmentIDs;
+                    temp.taskIdString = output.TaskIDs;
 
                     return temp;
                 }
@@ -375,7 +375,7 @@ namespace HasserisWeb
                     Vehicle temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
 
                     temp.id = (int)output.ID;
-                    temp.appointmentIdString = output.AppointmentIDs;
+                    temp.taskIdString = output.TaskIDs;
                     return temp;
                 }
             }
@@ -395,7 +395,7 @@ namespace HasserisWeb
                     Tool temp = new Tool(output.Name, output.Type);
 
                     temp.id = (int)output.ID;
-                    temp.appointmentIdString = output.AppointmentIDs;
+                    temp.taskIdString = output.TaskIDs;
                     return temp;
                 }
             }
@@ -403,13 +403,13 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Appointments) THEN 1 ELSE 0 END) AS isEmpty";
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Tasks) THEN 1 ELSE 0 END) AS isEmpty";
                     if (cnn.Execute(sqlTest) == 1)
                     {
                         return null;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Appointments where ID = " + id.ToString());
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Tasks where ID = " + id.ToString());
 
                     Delivery temp = new Delivery(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
                                 new Address(output.DestinationAddress, output.DestinationZIP,
@@ -417,7 +417,7 @@ namespace HasserisWeb
                                 (double)output.Income, CalculateDateFromDatabaseString(output.Date),
                                 output.Note, output.Workphone, output.Material, (int)output.Quantity);
                     temp.id = (int)output.ID; 
-                    temp.appointmentDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
+                    temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
@@ -427,20 +427,20 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Appointments) THEN 1 ELSE 0 END) AS isEmpty";
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Tasks) THEN 1 ELSE 0 END) AS isEmpty";
                     if (cnn.Execute(sqlTest) == 1)
                     {
                         return null;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Appointments where ID = " + id.ToString());
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Tasks where ID = " + id.ToString());
 
                     Moving temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
                                 new Address(output.DestinationAddress, output.DestinationZIP,
                                 output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
                                 new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
                     temp.id = (int)output.ID;
-                    temp.appointmentDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
+                    temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
@@ -666,9 +666,9 @@ namespace HasserisWeb
             {
                 UpdateEmployee((Employee)element);
             }
-            else if (element is Appointment)
+            else if (element is Task)
             {
-                UpdateAppointment((Appointment)element);
+                UpdateTask((Task)element);
             }
             else if (element is Customer)
             {
@@ -695,7 +695,7 @@ namespace HasserisWeb
                                "', Address = '" + employee.address.livingAdress +
                                "', ZIP = '" + employee.address.ZIP +
                                "', City = '" + employee.address.city +
-                               "', AppointmentIDs = '" + employee.appointmentIdString + "' where " +
+                               "', TaskIDs = '" + employee.taskIdString + "' where " +
                                "ID = " + employee.id;
                 cnn.Execute(sqlStatement);
             }
@@ -706,7 +706,7 @@ namespace HasserisWeb
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
                 sqlStatement = "update Equipments " +
-                               "set AppointmentIDs = '" + equipment.appointmentIdString +
+                               "set TaskIDs = '" + equipment.taskIdString +
                                "', Name = '" + equipment.name +
                                "', Type = '" + equipment.type + "' where " +
                                "ID = " + equipment.id;
@@ -721,46 +721,46 @@ namespace HasserisWeb
                 }
             }
         }
-        private static void UpdateAppointment(Appointment appointment)
+        private static void UpdateTask(Task task)
         {
             string sqlStatement = null;
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
                 sqlStatement = "update Appointments " +
-                               "set Name = '" + appointment.name +
-                               "', Type = '" + appointment.type +
-                               "', Duration = '" + appointment.appointmentDuration +
-                               "', EmployeeIDs = '" + appointment.employeesIdString +
-                               "', EquipmentIDs = '" + appointment.equipmentsIdString +
-                               "', CustomerID = '" + appointment.assignedCustomer.id +
-                               "', DestinationAddress = '" + appointment.destination.livingAdress +
-                               "', DestinationCity = '" + appointment.destination.city +
-                               "', DestinationZIP = '" + appointment.destination.ZIP +
-                               "', DestinationNote = '" + appointment.destination.note +
-                               "', Income = '" + appointment.income +
-                               "', Expenses = '" + appointment.expenses +
-                               "', Balance = '" + appointment.balance +
-                               "', Date = '" + string.Join("/", appointment.dates) +
-                               "', Workphone = '" + appointment.workPhoneNumber + "' where " +
-                               "ID = " + appointment.id;
+                               "set Name = '" + task.name +
+                               "', Type = '" + task.type +
+                               "', Duration = '" + task.taskDuration +
+                               "', EmployeeIDs = '" + task.employeesIdString +
+                               "', EquipmentIDs = '" + task.equipmentsIdString +
+                               "', CustomerID = '" + task.assignedCustomer.id +
+                               "', DestinationAddress = '" + task.destination.livingAdress +
+                               "', DestinationCity = '" + task.destination.city +
+                               "', DestinationZIP = '" + task.destination.ZIP +
+                               "', DestinationNote = '" + task.destination.note +
+                               "', Income = '" + task.income +
+                               "', Expenses = '" + task.expenses +
+                               "', Balance = '" + task.balance +
+                               "', Date = '" + string.Join("/", task.dates) +
+                               "', Workphone = '" + task.workPhoneNumber + "' where " +
+                               "ID = " + task.id;
                 cnn.Execute(sqlStatement);
-                if (appointment is Moving)
+                if (task is Moving)
                 {
                     sqlStatement = "update Appointments " +
-                                   "set StartingAddress = '" + ((Moving)appointment).startingAddress.livingAdress +
-                                   "', StartingCity = '" + ((Moving)appointment).startingAddress.city +
-                                   "', StartingZIP = '" + ((Moving)appointment).startingAddress.ZIP +
-                                   "', StartingNote = '" + ((Moving)appointment).startingAddress.note +
-                                   "', LentBoxes = '" + ((Moving)appointment).lentBoxes + "' where " +
-                                    "ID = " + appointment.id;
+                                   "set StartingAddress = '" + ((Moving)task).startingAddress.livingAdress +
+                                   "', StartingCity = '" + ((Moving)task).startingAddress.city +
+                                   "', StartingZIP = '" + ((Moving)task).startingAddress.ZIP +
+                                   "', StartingNote = '" + ((Moving)task).startingAddress.note +
+                                   "', LentBoxes = '" + ((Moving)task).lentBoxes + "' where " +
+                                    "ID = " + task.id;
                     cnn.Execute(sqlStatement);
                 }
-                if (appointment is Delivery)
+                if (task is Delivery)
                 {
                     sqlStatement = "update Appointments " +
-                                   "set Material = '" + ((Delivery)appointment).material +
-                                   "', Quantity = '" + ((Delivery)appointment).quantity + "' where " +
-                                    "ID = " + appointment.id;
+                                   "set Material = '" + ((Delivery)task).material +
+                                   "', Quantity = '" + ((Delivery)task).quantity + "' where " +
+                                    "ID = " + task.id;
                     cnn.Execute(sqlStatement);
                 }
             }

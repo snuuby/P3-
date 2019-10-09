@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public class Delivery : Appointment
+    public class Delivery : Task
     {
         public string material { get; }
         public int quantity { get; }

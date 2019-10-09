@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public class Moving : Appointment
+    public class Moving : Task
     {
         public Address startingAddress { get; }
         public int lentBoxes { get; }

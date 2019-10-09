@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public abstract class Appointment
+    public abstract class Task
     {
         public int id { get; set; }
         public string name { get; }
@@ -33,13 +33,13 @@ namespace HasserisWeb
         private DateTime startTime { get; set; }
         private DateTime endTime { get; set; }
         private List<DateTime> pauseTimes {get; set;}
-        public TimeSpan appointmentDuration { get; set; }
+        public TimeSpan taskDuration { get; set; }
 
         //What is a note?
         private string note { get; }
         public string workPhoneNumber { get; }
 
-        public Appointment(string name, string type, Customer assignedCustomer, Address destination, 
+        public Task(string name, string type, Customer assignedCustomer, Address destination, 
                             double income, List<DateTime> Ldates, string note, string workPhoneNumber)
         {
             this.name = name;
@@ -57,23 +57,23 @@ namespace HasserisWeb
             this.balance = this.income - this.expenses;
             this.employeesIdString = "";
             this.equipmentsIdString = "";
-            HasserisDbContext.SaveElementToDatabase<Appointment>(this);
+            HasserisDbContext.SaveElementToDatabase<Task>(this);
             assignedEmployees = new List<Employee> { };
             assignedEquipment = new List<Equipment> { };
             pauseTimes = new List<DateTime>();
         }
 
-        public void BeginAppointment()
+        public void BeginTasks()
         {
             if (assignedEmployees.Count < 1)
                 //throw new SystemException("No employees assigned.");
             this.startTime = DateTime.Now;
         }
-        public void ResumeAppointment() 
+        public void ResumeTasks() 
         {
             startTime = DateTime.Now;
         }
-        public void PauseAppointment() 
+        public void PauseTasks() 
         {
             DateTime temp = DateTime.Now;
             if (pauseTimes.Count == 0) 
@@ -83,15 +83,15 @@ namespace HasserisWeb
             pauseTimes.Add(temp);
             if (pauseTimes.Count == 2) 
             {
-                appointmentDuration = temp - startTime;
+                taskDuration = temp - startTime;
             }
             if (pauseTimes.Count > 2) {
-                appointmentDuration += temp - startTime;
+                taskDuration += temp - startTime;
             }
 
         }
 
-        public void EndAppointment()
+        public void EndTasks()
         {
             this.endTime = DateTime.Now;
             // Convert time into an array; [0] = Hours, [1] = Minutes, [2] = Seconds.
@@ -99,11 +99,11 @@ namespace HasserisWeb
             TimeSpan t = endTime - startTime;
             if (pauseTimes.Count >= 2) 
             {
-                appointmentDuration += t;
+                taskDuration += t;
             }
             else 
             {
-                appointmentDuration = t;
+                taskDuration = t;
             }
 
         }
@@ -117,7 +117,7 @@ namespace HasserisWeb
             foreach (Employee employee in assignedEmployees)
             {
                 employeeSecondWage = (employee.wage / 60) / 60;
-                totalCost += employeeSecondWage * Convert.ToInt32(Math.Round(appointmentDuration.TotalSeconds));
+                totalCost += employeeSecondWage * Convert.ToInt32(Math.Round(taskDuration.TotalSeconds));
             }
             return totalCost;
         }
@@ -128,14 +128,14 @@ namespace HasserisWeb
         //Adds element to appointment (can be both equipment and employee). 
         //Also adds this appointment to either employee or equipment object so all we have to do is call this function 
         //Also adds this elements id to the id string so we can transfer it to the database to keep track of all elements in this appointment
-        public void AddElementToAppointment(dynamic element)
+        public void AddElementToTask(dynamic element)
         {
             if (element is Employee)
             {
                 assignedEmployees.Add((Employee)element);
                 Employee employee = (Employee)element;
                 employeesIdString += employee.id.ToString() + "/";
-                element.AddAppointment(this);
+                element.AddTask(this);
                 HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
             }
             else if (element is Equipment)
@@ -143,7 +143,7 @@ namespace HasserisWeb
                 assignedEquipment.Add((Equipment)element);
                 Equipment equipment = (Equipment)element;
                 equipmentsIdString += equipment.id.ToString() + "/";
-                element.AddAppointment(this);
+                element.AddTask(this);
                 HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
             }
 
@@ -151,7 +151,7 @@ namespace HasserisWeb
 
         //Remove element from appointment (can be both equipment and employee)
         //Also removes the appointment from the element, and removes the elementID in the employeesIdString and equipmentsIdString
-        public void RemoveElementFromAppointment(dynamic element)
+        public void RemoveElementFromTask(dynamic element)
         {
             if (element is Employee)
             {

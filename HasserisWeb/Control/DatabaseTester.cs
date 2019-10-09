@@ -24,8 +24,8 @@ namespace HasserisWeb
 
             Delivery delivery = new Delivery("testDelivery", "Delivery", privateCustomer,
                 new Address("myrdal", "2", "aalborg", "testnote"), 1000, new List<DateTime>() { new DateTime(2019, 12, 3), new DateTime(2019, 1, 5) }, "testnote", "22331133", "Foam", 2);
-            SystemControl.appointments.Add(delivery);
-            SystemControl.calendar.AddAppointment(delivery);
+            SystemControl.tasks.Add(delivery);
+            SystemControl.calendar.AddTask(delivery);
 
             Employee employee_one = new Employee("Anders", "Andreasen","Employee", 180,
                 new ContactInfo("andreas/gmail.com", "223313145"),
@@ -40,17 +40,17 @@ namespace HasserisWeb
             Vehicle vehicle = new Vehicle("Stor bil", "Lastbil", "Opel", "12312123");
             SystemControl.equipment.Add(vehicle);
 
-            delivery.AddElementToAppointment(employee_one);
-            delivery.AddElementToAppointment(employee_two);
-            delivery.AddElementToAppointment(vehicle);
+            delivery.AddElementToTask(employee_one);
+            delivery.AddElementToTask(employee_two);
+            delivery.AddElementToTask(vehicle);
 
         }
         public void LoadPeopleTester()
         {
             //PrivateCustomer add
             SystemControl.customers.Add((Private)HasserisDbContext.LoadElementFromDatabase("Private", 1));
-            SystemControl.appointments.Add((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
-            SystemControl.calendar.AddAppointment((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
+            SystemControl.tasks.Add((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
+            SystemControl.calendar.AddTask((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
             SystemControl.employees.Add((Employee)HasserisDbContext.LoadElementFromDatabase("Employee", 1));
             SystemControl.employees.Add((Employee)HasserisDbContext.LoadElementFromDatabase("Employee", 2));
             SystemControl.equipment.Add((Vehicle)HasserisDbContext.LoadElementFromDatabase("Vehicle", 1));
@@ -60,7 +60,7 @@ namespace HasserisWeb
         private void DatabaseTestDebugger()
         {
             Debug.WriteLine(SystemControl.calendar.name);
-            foreach (Appointment appointment in SystemControl.calendar.appointments)
+            foreach (Task appointment in SystemControl.calendar.tasks)
             {
                 Debug.WriteLine("ID: " + appointment.id);
                 Debug.WriteLine("Name: " + appointment.name);

@@ -9,8 +9,8 @@ namespace HasserisWeb
     {
         public int id { get; set; }
         public bool isAvailable { get; set; }
-        public List<Appointment> comingAppointments { get; set; } = new List<Appointment>();
-        public string appointmentIdString { get; set; }
+        public List<Task> comingTasks{ get; set; } = new List<Task>();
+        public string taskIdString { get; set; }
         public string name { get; set; }
         public string type { get; set; }
 
@@ -18,21 +18,21 @@ namespace HasserisWeb
         {
             this.name = name;
             this.type = type;
-            this.appointmentIdString = "";
+            this.taskIdString = "";
             HasserisDbContext.SaveElementToDatabase<Equipment>(this);
         }
         //is called from the appointment object
-        public void AddAppointment(Appointment appointment)
+        public void AddTask(Task task)
         {
-            comingAppointments.Add(appointment);
-            appointmentIdString += appointment.id.ToString() + "/";
+            comingTasks.Add(task);
+            taskIdString += task.id.ToString() + "/";
             HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
         //is called from the appointment object
-        public void RemoveAppointment(Appointment appointment)
+        public void RemoveAppointment(Task task)
         {
-            comingAppointments.Remove(appointment);
-            appointmentIdString.Replace(appointment.id.ToString() + "/", "");
+            comingTasks.Remove(task);
+            taskIdString.Replace(task.id.ToString() + "/", "");
             HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
     }

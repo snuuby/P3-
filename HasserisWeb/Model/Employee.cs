@@ -13,8 +13,8 @@ namespace HasserisWeb
         public bool isAvailable { get; private set; }
         //Bool given to admin-type employees. To require this with certain methods
         public bool isAdmin { get; private set; }
-        public string appointmentIdString { get; set; }
-        public List<Appointment> comingAppointments { get; private set; } = new List<Appointment>();
+        public string taskIdString { get; set; }
+        public List<Task> comingTasks { get; private set; } = new List<Task>();
         
         public ContactInfo contactInfo { get; set; }
         public double wage { get; private set; }
@@ -30,37 +30,24 @@ namespace HasserisWeb
             this.isAdmin = false;
             this.contactInfo = contactInfo;
             this.address = address;
-            this.appointmentIdString = "";
+            this.taskIdString = "";
             this.type = type;
             HasserisDbContext.SaveElementToDatabase<Equipment>(this);
         }
         //Is called from a given appointment object
-        public void AddAppointment(Appointment appointment)
+        public void AddTask(Task task)
         {
-            comingAppointments.Add(appointment);
-            appointmentIdString += appointment.id.ToString() + "/";
+            comingTasks.Add(task);
+            taskIdString += task.id.ToString() + "/";
             HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
         //Is called from a given appointment object
-        public void RemoveAppointment(Appointment appointment)
+        public void RemoveAppointment(Task appointment)
         {
-            comingAppointments.Remove(appointment);
-            appointmentIdString = appointmentIdString.Replace(appointment.id.ToString() + "/", "");
+            comingTasks.Remove(appointment);
+            taskIdString = taskIdString.Replace(appointment.id.ToString() + "/", "");
             HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
-        //I added a function in appointments to assignEmployee's so this function is useless
-        /*
-        public void AssignEmployee()
-        {
-            throw new NotImplementedException();
-        }
-        //Same as the text above
-        public void UnassignEmployee()
-        {
-            this.currentAppoint = null;
-            this.isAvailable = true;
-        }
-        */
 
     }
 }
