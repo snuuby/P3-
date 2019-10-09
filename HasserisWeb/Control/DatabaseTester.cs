@@ -10,9 +10,8 @@ namespace HasserisWeb
 
         public DatabaseTester()
         {
-            //CreatePeopleTester();
-            LoadPeopleTester();
-            DatabaseTestDebugger();
+            CreatePeopleTester();
+            //LoadPeopleTester();
 
         }
         private void CreatePeopleTester()
@@ -39,10 +38,15 @@ namespace HasserisWeb
 
             Vehicle vehicle = new Vehicle("Stor bil", "Lastbil", "Opel", "12312123");
             SystemControl.equipment.Add(vehicle);
-
             delivery.AddElementToTask(employee_one);
             delivery.AddElementToTask(employee_two);
             delivery.AddElementToTask(vehicle);
+            HasserisDbContext.SaveElementToDatabase<Private>(privateCustomer);
+            HasserisDbContext.SaveElementToDatabase<Delivery>(delivery);
+            HasserisDbContext.SaveElementToDatabase<Employee>(employee_one);
+            HasserisDbContext.SaveElementToDatabase<Employee>(employee_two);
+            HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
+
 
         }
         public void LoadPeopleTester()
@@ -57,6 +61,7 @@ namespace HasserisWeb
 
 
         }
+        /*
         private void DatabaseTestDebugger()
         {
             Debug.WriteLine(SystemControl.calendar.name);
@@ -119,11 +124,12 @@ namespace HasserisWeb
             }
 
 
+    
+        }*/
 
-        }
 
-
-
+    
 
     }
+
 }

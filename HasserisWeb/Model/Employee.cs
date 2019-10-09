@@ -32,21 +32,19 @@ namespace HasserisWeb
             this.address = address;
             this.taskIdString = "";
             this.type = type;
-            HasserisDbContext.SaveElementToDatabase<Equipment>(this);
+
         }
         //Is called from a given appointment object
         public void AddTask(Task task)
         {
             comingTasks.Add(task);
             taskIdString += task.id.ToString() + "/";
-            HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
         //Is called from a given appointment object
         public void RemoveAppointment(Task appointment)
         {
             comingTasks.Remove(appointment);
             taskIdString = taskIdString.Replace(appointment.id.ToString() + "/", "");
-            HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
 
     }

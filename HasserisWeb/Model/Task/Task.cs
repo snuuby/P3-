@@ -57,7 +57,6 @@ namespace HasserisWeb
             this.balance = this.income - this.expenses;
             this.employeesIdString = "";
             this.equipmentsIdString = "";
-            HasserisDbContext.SaveElementToDatabase<Task>(this);
             assignedEmployees = new List<Employee> { };
             assignedEquipment = new List<Equipment> { };
             pauseTimes = new List<DateTime>();
@@ -136,7 +135,6 @@ namespace HasserisWeb
                 Employee employee = (Employee)element;
                 employeesIdString += employee.id.ToString() + "/";
                 element.AddTask(this);
-                HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
             }
             else if (element is Equipment)
             {
@@ -144,7 +142,6 @@ namespace HasserisWeb
                 Equipment equipment = (Equipment)element;
                 equipmentsIdString += equipment.id.ToString() + "/";
                 element.AddTask(this);
-                HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
             }
 
         }

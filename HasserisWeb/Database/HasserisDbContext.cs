@@ -180,6 +180,7 @@ namespace HasserisWeb
 
 
         }
+
         private static void RetrieveSpecificElementIDFromDatabase(dynamic element)
         {
 
@@ -656,9 +657,7 @@ namespace HasserisWeb
                 else throw new Exception();
             }
         }
-          
 
-        
         public static void ModifySpecificElementInDatabase<T>(dynamic element)
         {
 
@@ -726,7 +725,7 @@ namespace HasserisWeb
             string sqlStatement = null;
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
-                sqlStatement = "update Appointments " +
+                sqlStatement = "update Tasks " +
                                "set Name = '" + task.name +
                                "', Type = '" + task.type +
                                "', Duration = '" + task.taskDuration +
@@ -746,7 +745,7 @@ namespace HasserisWeb
                 cnn.Execute(sqlStatement);
                 if (task is Moving)
                 {
-                    sqlStatement = "update Appointments " +
+                    sqlStatement = "update Tasks " +
                                    "set StartingAddress = '" + ((Moving)task).startingAddress.livingAdress +
                                    "', StartingCity = '" + ((Moving)task).startingAddress.city +
                                    "', StartingZIP = '" + ((Moving)task).startingAddress.ZIP +
@@ -757,7 +756,7 @@ namespace HasserisWeb
                 }
                 if (task is Delivery)
                 {
-                    sqlStatement = "update Appointments " +
+                    sqlStatement = "update Tasks " +
                                    "set Material = '" + ((Delivery)task).material +
                                    "', Quantity = '" + ((Delivery)task).quantity + "' where " +
                                     "ID = " + task.id;

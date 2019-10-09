@@ -19,21 +19,18 @@ namespace HasserisWeb
             this.name = name;
             this.type = type;
             this.taskIdString = "";
-            HasserisDbContext.SaveElementToDatabase<Equipment>(this);
         }
         //is called from the appointment object
         public void AddTask(Task task)
         {
             comingTasks.Add(task);
             taskIdString += task.id.ToString() + "/";
-            HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
         //is called from the appointment object
         public void RemoveAppointment(Task task)
         {
             comingTasks.Remove(task);
             taskIdString.Replace(task.id.ToString() + "/", "");
-            HasserisDbContext.ModifySpecificElementInDatabase<Equipment>(this);
         }
     }
 }

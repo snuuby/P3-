@@ -18,7 +18,6 @@ namespace HasserisWeb
             this.type = type;
             this.address = address;
             this.contactInfo = contactInfo;
-            HasserisDbContext.SaveElementToDatabase<Customer>(this);
         }
 
     }
