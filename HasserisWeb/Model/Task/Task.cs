@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace HasserisWeb
@@ -14,10 +12,9 @@ namespace HasserisWeb
         public string employeesIdString { get; set; }
         //I made this to a list instead, because there might be more employees per appointment
         //The way we can save those in the database, is by having a variable called numberOfEmployees, which represents
-        //the lenght of the string in the database, that writes the employeeID's. If a string in the database has 5 ID,s next to each other
+        //the length of the string in the database, that writes the employeeID's. If a string in the database has 5 ID,s next to each other
         // we read them one by one and retrieve the specified employee off of that.
-        //Also, i removed employees from the constructor because you should be able to add employees dynamically
-        public List<Employee> assignedEmployees { get; set; } = new List<Employee>();
+        public List<Employee> assignedEmployees { get; set; }
         public Customer assignedCustomer { get; } 
         public Address destination { get; }
         public double income { get; }
@@ -25,14 +22,13 @@ namespace HasserisWeb
         public double balance { get; set; }
         //The same idea here as for the list of employees
         public string equipmentsIdString { get; set; }
-        //You should be able to add equipment dynamically so i removed it from the constructor
         public List<Equipment> assignedEquipment { get; set; }
         public List<DateTime> dates { get; internal set; }
-        //Properties for calculating the total duration of an appointment, appointmentDuration.
-        //Only hours:min:sec
+        //Properties for calculating the total duration of a task, taskDuration.
         private DateTime startTime { get; set; }
         private DateTime endTime { get; set; }
         private List<DateTime> pauseTimes {get; set;}
+        private bool isPaused { get; set; }
         public TimeSpan taskDuration { get; set; }
         private string note { get; }
         public string workPhoneNumber { get; }
@@ -42,10 +38,6 @@ namespace HasserisWeb
         {
             this.name = name;
             this.type = type;
-            //I propose we make duration the total amount of seconds the appointment took. Then in this class we can make those seconds
-            //Into hours, minutes and seconds. The database will only count the duration variable, so to not save 3 columns in the database
-            //this.duration = duration;
-            //this.hoursMinSeconds = ConvertSecondsToTime(duration);
             this.assignedCustomer = assignedCustomer;
             this.destination = destination;
             this.income = income;
@@ -58,6 +50,7 @@ namespace HasserisWeb
             assignedEmployees = new List<Employee> { };
             assignedEquipment = new List<Equipment> { };
             pauseTimes = new List<DateTime>();
+            this.isPaused = false;
         }
 
         public void BeginTasks()
@@ -68,31 +61,41 @@ namespace HasserisWeb
         }
         public void ResumeTasks() 
         {
-            startTime = DateTime.Now;
+            if (isPaused)
+            {
+                isPaused = false;
+                startTime = DateTime.Now;
+            }
         }
         public void PauseTasks() 
         {
-            DateTime temp = DateTime.Now;
-            if (pauseTimes.Count == 0) 
+            if (!isPaused)
             {
-                pauseTimes.Add(startTime);
+                isPaused = true;
+                DateTime temp = DateTime.Now;
+                //On first pause, add the time for task start and now to the list of pauseTimes.
+                if (pauseTimes.Count == 0)
+                {
+                    pauseTimes.Add(startTime);
+                }
+                //add the current time to the pause list on every pause
+                pauseTimes.Add(temp);
+                //also on first pause, make the current duration equal to the difference between now and task start.
+                if (pauseTimes.Count == 2)
+                {
+                    taskDuration = temp - startTime;
+                }
+                //on subsequent pauses, add the difference between now and last resume.
+                if (pauseTimes.Count > 2)
+                {
+                    taskDuration += temp - startTime;
+                }
             }
-            pauseTimes.Add(temp);
-            if (pauseTimes.Count == 2) 
-            {
-                taskDuration = temp - startTime;
-            }
-            if (pauseTimes.Count > 2) {
-                taskDuration += temp - startTime;
-            }
-
         }
 
         public void EndTasks()
         {
             this.endTime = DateTime.Now;
-            // Convert time into an array; [0] = Hours, [1] = Minutes, [2] = Seconds.
-
             TimeSpan t = endTime - startTime;
             if (pauseTimes.Count >= 2) 
             {
@@ -102,7 +105,6 @@ namespace HasserisWeb
             {
                 taskDuration = t;
             }
-
         }
 
         //Just change it if the calculation is more complex (it probably is)
@@ -118,9 +120,6 @@ namespace HasserisWeb
             }
             return totalCost;
         }
-
-        //Simple function to convert the duration of the appointment into hours, minutes and seconds
-        //Makes it easier to display the time.
 
         //Adds element to appointment (can be both equipment and employee). 
         //Also adds this appointment to either employee or equipment object so all we have to do is call this function 

@@ -13,6 +13,7 @@ namespace HasserisWeb
         {
             this.model = model;
             this.regNum = regNum;
+            this.isAvailable = true;
         }
 
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    //Class with contact information
+    //Class with contact information to be used with Employees and Customers.
     public class ContactInfo
     {
         public string email { get; set; }

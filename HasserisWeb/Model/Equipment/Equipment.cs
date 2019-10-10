@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
+    //Abstract class used for equipment. Derived class is either vehicles or work-tools.
     public abstract class Equipment
     {
         public int id { get; set; }
@@ -16,6 +17,7 @@ namespace HasserisWeb
         {
             this.name = name;
             this.type = type;
+            this.isAvailable = true;
         }
     }
 }

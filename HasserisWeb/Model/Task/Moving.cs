@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
+    //Moving-type task, for moving furniture/other for a customer.
     public class Moving : Task
     {
         public Address startingAddress { get; }
