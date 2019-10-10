@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {    
-    //What do you mean by Gear? Tools?
     public class Tool : Equipment
     {
 

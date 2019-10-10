@@ -8,7 +8,6 @@ namespace HasserisWeb
     public class Calendar
     {
         public List<Task> tasks { get; set; } = new List<Task>();
-        //What is this supposed to represent?
         public DateTime currentDate = DateTime.Today.Date;
         public TimeSpan currentTime = DateTime.Today.TimeOfDay;
         public DateTime selectedDate { get; set; }

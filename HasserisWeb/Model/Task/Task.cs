@@ -34,8 +34,6 @@ namespace HasserisWeb
         private DateTime endTime { get; set; }
         private List<DateTime> pauseTimes {get; set;}
         public TimeSpan taskDuration { get; set; }
-
-        //What is a note?
         private string note { get; }
         public string workPhoneNumber { get; }
 

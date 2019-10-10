@@ -294,7 +294,6 @@ namespace HasserisWeb
                             new Address(output.Address, output.ZIP, output.City, output.Note));
 
                     temp.id = (int)output.ID; 
-                    temp.taskIdString = output.TaskIDs;
 
                     return temp;
                 }
@@ -376,7 +375,6 @@ namespace HasserisWeb
                     Vehicle temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
 
                     temp.id = (int)output.ID;
-                    temp.taskIdString = output.TaskIDs;
                     return temp;
                 }
             }
@@ -396,7 +394,6 @@ namespace HasserisWeb
                     Tool temp = new Tool(output.Name, output.Type);
 
                     temp.id = (int)output.ID;
-                    temp.taskIdString = output.TaskIDs;
                     return temp;
                 }
             }
@@ -749,8 +746,7 @@ namespace HasserisWeb
                                "', Phonenumber = '" + employee.contactInfo.phoneNumber +
                                "', Address = '" + employee.address.livingAdress +
                                "', ZIP = '" + employee.address.ZIP +
-                               "', City = '" + employee.address.city +
-                               "', TaskIDs = '" + employee.taskIdString + "' where " +
+                               "', City = '" + employee.address.city + "' where " +
                                "ID = " + employee.id;
                 cnn.Execute(sqlStatement);
             }
@@ -761,8 +757,7 @@ namespace HasserisWeb
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
                 sqlStatement = "update Equipments " +
-                               "set TaskIDs = '" + equipment.taskIdString +
-                               "', Name = '" + equipment.name +
+                               "set Name = '" + equipment.name +
                                "', Type = '" + equipment.type + "' where " +
                                "ID = " + equipment.id;
                 cnn.Execute(sqlStatement);
