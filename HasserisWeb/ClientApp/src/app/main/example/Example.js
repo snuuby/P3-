@@ -13,12 +13,42 @@ class Example extends Component {
     // Test af controller, Constructor er lavet af Cholle
     constructor(props) {
         super(props);
-        this.state = { forecasts: [], loading: true };
+        this.state = { forecasts: [], empList: [], loading: true };
+        
+
+
     }
     
     // Cholle
     componentDidMount() {
         this.populateWeatherData();
+        // 2Cholle
+        this.populateEmployeeData();
+    }
+    
+    // 2Cholle
+    static renderEmployeeList(empList){
+        return(
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {empList.map(emp =>
+                    <tr key={emp.id}>
+                        <td>{emp.firstName}</td>
+                        <td>{emp.lastName}</td>
+                        
+                    </tr>
+                )}
+                </tbody>
+            </table>
+        )
     }
     
     // Cholle
@@ -53,6 +83,11 @@ class Example extends Component {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
             : Example.renderForecastsTable(this.state.forecasts);
+            
+            // 2Cholle
+        let contentsEmployees = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : Example.renderEmployeeList(this.state.empList);
         
         const {classes} = this.props;
         return (
@@ -74,6 +109,12 @@ class Example extends Component {
                             <p>This component demonstrates fetching data from the server.</p>
                             {contents}
                         </div>
+
+                        <div>
+                            <h1 id="tabelLabel" >Weather forecast</h1>
+                            <p>Employee data from database:</p>
+                            {contentsEmployees}
+                        </div>
                         
                         <h4>Content</h4>
                         <br/>
@@ -86,9 +127,16 @@ class Example extends Component {
     
     // Cholle
     async populateWeatherData() {
-        const response = await fetch('weatherforecast');
+        const response = await fetch('weatherdata');
         const data = await response.json();
         this.setState({ forecasts: data, loading: false });
+    }
+    
+    // 2Cholle
+    async populateEmployeeData(){
+        const response = await fetch('getemployees');
+        const data = await response.json();
+        this.setState({ empList: data, loading: false });
     }
     
 }
