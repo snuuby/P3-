@@ -10,9 +10,9 @@ namespace HasserisWeb
 
         public DatabaseTester()
         {
-            //CreatePeopleTester();
+            CreatePeopleTester();
             
-            LoadPeopleTester();
+            //LoadPeopleTester();
             DatabaseTestDebugger();
 
         }
@@ -27,10 +27,13 @@ namespace HasserisWeb
             Employee employee_one = new Employee("Anders", "Andreasen","Employee", 180,
                 new ContactInfo("andreas/gmail.com", "223313145"),
                 new Address("Andreasensvej", "9220", "Aalborg", "Anden etache"));
+            employee_one.AddLoginInfo("Snuuby", "Jakob17");
 
             Employee employee_two = new Employee("Peter", "Kukukson", "Admin", 190,
                 new ContactInfo("Peter/gmail.com", "123123123"),
                 new Address("Petersvej", "9220", "Aalborg", "Tredje Etache"));
+
+            employee_two.AddLoginInfo("Cholle", "Christopher18");
             HasserisDbContext.SaveElementToDatabase<Employee>(employee_one);
             HasserisDbContext.SaveElementToDatabase<Employee>(employee_two);
 

@@ -61,9 +61,10 @@ namespace HasserisWeb
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
                     Employee employee = (Employee)element;
-                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note) " +
+                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note, Username, Password) " +
                                           "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.type + "', '" + employee.lastName + "', '" + employee.contactInfo.email +
-                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + "')";
+                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
+                                          "', '" + employee.userName + "', '" + employee.hashCode + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
                 }
@@ -292,6 +293,8 @@ namespace HasserisWeb
                     Employee temp = new Employee(output.Firstname, output.Lastname, output.Type, (double)output.Wage,
                             new ContactInfo(output.Email, output.Phonenumber),
                             new Address(output.Address, output.ZIP, output.City, output.Note));
+                    temp.hashCode = output.Password;
+                    temp.userName = output.Username;
 
                     temp.id = (int)output.ID; 
 
@@ -674,6 +677,8 @@ namespace HasserisWeb
                     temp = new Employee(output.Firstname, output.Lastname, output.Type, output.Wage,
                         new ContactInfo(output.Email, output.Phonenumber),
                         new Address(output.Address, output.ZIP, output.City, output.Note));
+                    temp.hashCode = output.Password;
+                    temp.userName = output.Username;
                     temp.id = (int)output.ID;
                     tempList.Add(temp);
 
@@ -857,6 +862,27 @@ namespace HasserisWeb
                 }
             }
 
+        }
+        public static string LoadEmployeeHashPassword(string username)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                
+                dynamic output = cnn.QuerySingle<dynamic>("select * from Employees where Username = " + username);
+                return output.Password;
+            }
+        }
+        public static Employee LoadEmployeeFromHashPassword(string password)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+
+                dynamic output = cnn.QuerySingle<dynamic>("select * from Employees where Password = " + password);
+                Employee temp = new Employee(output.Firstname, output.Lastname, output.Type, output.Wage,
+                    new ContactInfo(output.Email, output.Phonenumber),
+                    new Address(output.Address, output.ZIP, output.City, output.Note));
+                return temp;
+            }
         }
         private static string GetDefaultConnectionString()
         {

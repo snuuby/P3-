@@ -132,14 +132,12 @@ namespace HasserisWeb
                 assignedEmployees.Add((Employee)element);
                 Employee employee = (Employee)element;
                 employeesIdString += employee.id.ToString() + "/";
-                element.AddTask(this);
             }
             else if (element is Equipment)
             {
                 assignedEquipment.Add((Equipment)element);
                 Equipment equipment = (Equipment)element;
                 equipmentsIdString += equipment.id.ToString() + "/";
-                element.AddTask(this);
             }
 
         }
