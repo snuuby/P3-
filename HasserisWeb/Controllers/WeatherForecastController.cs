@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace HasserisWeb.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("weatherdata")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
