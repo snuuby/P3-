@@ -6,8 +6,8 @@ namespace HasserisWeb
 {
     public class Employee
     {
-        public string firstName { get; private set; }
-        public string lastName { get; private set; }
+        public string firstName { get;  set; }
+        public string lastName { get;  set; }
         public bool isAvailable { get; private set; }
         public ContactInfo contactInfo { get; set; }
         public double wage { get; private set; }
@@ -15,6 +15,12 @@ namespace HasserisWeb
         public Address address { get; set; }
         public string type { get; set; }
 
+        // Test constructor Cholle
+        public Employee()
+        {
+            
+        }
+        
         public Employee(string fName, string lName, string type, double pWage, ContactInfo contactInfo, Address address)
         {
             this.firstName = fName;
