@@ -35,7 +35,6 @@ namespace HasserisWeb
             this.contactInfo = contactInfo;
             this.address = address;
             this.type = type;
-
         }
         public void AddLoginInfo(string username, string password)
         {

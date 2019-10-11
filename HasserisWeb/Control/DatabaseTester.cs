@@ -12,7 +12,7 @@ namespace HasserisWeb
         {
             CreatePeopleTester();
             
-            //LoadPeopleTester();
+            LoadPeopleTester();
             DatabaseTestDebugger();
 
         }
@@ -37,7 +37,7 @@ namespace HasserisWeb
             HasserisDbContext.SaveElementToDatabase<Employee>(employee_one);
             HasserisDbContext.SaveElementToDatabase<Employee>(employee_two);
 
-            Vehicle vehicle = new Vehicle("Stor bil", "Lastbil", "Opel", "12312123");
+            Vehicle vehicle = new Vehicle("Stor bil", "Vehicle", "Opel", "12312123");
             HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
 
             Delivery delivery = new Delivery("testDelivery", "Delivery", privateCustomer,
