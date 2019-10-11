@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Dapper;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-
+using System.Security.Cryptography;
 
 namespace HasserisWeb
 {
@@ -61,9 +61,10 @@ namespace HasserisWeb
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
                     Employee employee = (Employee)element;
-                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note) " +
-                                          "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.type + "', '" + employee.lastName + "', '" + employee.contactInfo.email +
-                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + "')";
+                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note, Username, Password) " +
+                                          "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.lastName + "', '" + employee.type + "', '" + employee.contactInfo.email +
+                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
+                                          "', '" + employee.userName + "', '" + employee.hashCode + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
                 }
@@ -292,6 +293,8 @@ namespace HasserisWeb
                     Employee temp = new Employee(output.Firstname, output.Lastname, output.Type, (double)output.Wage,
                             new ContactInfo(output.Email, output.Phonenumber),
                             new Address(output.Address, output.ZIP, output.City, output.Note));
+                    temp.hashCode = output.Password;
+                    temp.userName = output.Username;
 
                     temp.id = (int)output.ID; 
 
@@ -310,7 +313,7 @@ namespace HasserisWeb
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
 
-                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
+                    Private temp = new Private(output.Firstname, output.Lastname, output.Type,
                         new Address(output.Address, output.ZIP, output.City, output.Note),
                         new ContactInfo(output.Email, output.Phonenumber));
 
@@ -417,8 +420,8 @@ namespace HasserisWeb
                     temp.id = (int)output.ID; 
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
-                    temp.assignedEmployees = GetEmployeeFromEmployeeString(output.EmployeeIDs);
-                    temp.assignedEquipment = GetEquipmentFromEquipmentString(output.EquipmentIDs);
+                    temp.assignedEmployees = (List<Employee>)GetElementsFromIDString("Employee", output.EmployeeIDs);
+                    temp.assignedEquipment = (List<Equipment>)GetElementsFromIDString("Equipment", output.EquipmentIDs);
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
                 }
@@ -443,8 +446,8 @@ namespace HasserisWeb
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
-                    temp.assignedEmployees = GetEmployeeFromEmployeeString(output.EmployeeIDs);
-                    temp.assignedEquipment = GetEquipmentFromEquipmentString(output.EquipmentIDs);
+                    temp.assignedEmployees = (List<Employee>)GetElementsFromIDString("Employee", output.EmployeeIDs);
+                    temp.assignedEquipment = (List<Equipment>)GetElementsFromIDString("Equipment", output.EquipmentIDs);
                     return temp;
                 }
             }
@@ -625,7 +628,7 @@ namespace HasserisWeb
                 string outputType = output.Type;
                 if (outputType == "Private")
                 {
-                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
+                    Private temp = new Private(output.Firstname, output.Lastname, output.Type,
                         new Address(output.Address, output.ZIP, output.City, output.Note),
                         new ContactInfo(output.Email, output.Phonenumber));
                     temp.id = (int)output.ID;
@@ -635,7 +638,7 @@ namespace HasserisWeb
                 {
                     dynamic output_two = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
 
-                    Business temp = new Business(output_two.firstName, output_two.Lastname, output_two.Type,
+                    Business temp = new Business(output_two.Firstname, output_two.Lastname, output_two.Type,
                         new Address(output_two.Address, output_two.ZIP, output_two.City, output_two.Note),
                         new ContactInfo(output_two.Email, output_two.Phonenumber),
                         output_two.EAN, output_two.CVR);
@@ -658,7 +661,66 @@ namespace HasserisWeb
                 else throw new Exception();
             }
         }
-        
+        public static dynamic GetElementsFromIDString(string type, string id)
+        {
+            if (type == "Employee")
+            {
+                Employee temp;
+                List<Employee> tempList = new List<Employee>();
+                string[] tempIDs = id.Split("/");
+                List<string> eachID = tempIDs.ToList();
+                eachID.RemoveAt(eachID.Count - 1);
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    foreach (string each in eachID)
+                    {
+                        dynamic output = cnn.QuerySingle<dynamic>("select * from Employees where ID = " + each);
+                        temp = new Employee(output.Firstname, output.Lastname, output.Type, output.Wage,
+                            new ContactInfo(output.Email, output.Phonenumber),
+                            new Address(output.Address, output.ZIP, output.City, output.Note));
+                        temp.hashCode = output.Password;
+                        temp.userName = output.Username;
+                        temp.id = (int)output.ID;
+                        tempList.Add(temp);
+
+                    }
+                    return tempList;
+                }
+            }
+            else if (type == "Equipment")
+            {
+                Equipment temp;
+                List<Equipment> tempList = new List<Equipment>();
+                string[] tempIDs = id.Split("/");
+                List<string> eachID = tempIDs.ToList();
+                eachID.RemoveAt(eachID.Count - 1);
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    foreach (string each in eachID)
+                    {
+                        dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + each);
+                        if (output.Type == "Vehicle")
+                        {
+                            temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
+                            temp.id = (int)output.ID;
+                            tempList.Add(temp);
+                        }
+                        else
+                        {
+                            temp = new Tool(output.Name, output.Type);
+                            temp.id = (int)output.ID;
+                            tempList.Add(temp);
+                        }
+                    }
+                    return tempList;
+                }
+            }
+            else
+            {
+                throw new Exception("Unknown element");
+            }
+        }
+        /*
         public static List<Employee> GetEmployeeFromEmployeeString(string id)
         {
             Employee temp;
@@ -674,6 +736,8 @@ namespace HasserisWeb
                     temp = new Employee(output.Firstname, output.Lastname, output.Type, output.Wage,
                         new ContactInfo(output.Email, output.Phonenumber),
                         new Address(output.Address, output.ZIP, output.City, output.Note));
+                    temp.hashCode = output.Password;
+                    temp.userName = output.Username;
                     temp.id = (int)output.ID;
                     tempList.Add(temp);
 
@@ -681,7 +745,8 @@ namespace HasserisWeb
                 return tempList;
             }
         }
-        public static List<Equipment> GetEquipmentFromEquipmentString(string id)
+
+        private static List<Equipment> GetEquipmentFromEquipmentString(string id)
         {
             Equipment temp;
             List<Equipment> tempList = new List<Equipment>();
@@ -709,9 +774,9 @@ namespace HasserisWeb
                 return tempList;
             }
         }
+        */
 
-
-        public static void ModifySpecificElementInDatabase<T>(dynamic element)
+        public static void UpdateElementInDatabase<T>(dynamic element)
         {
 
             if (element is Employee)
@@ -857,6 +922,50 @@ namespace HasserisWeb
                 }
             }
 
+        }
+        public static string LoadEmployeeHashPassword(string username)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                
+                dynamic output = cnn.QuerySingle<dynamic>("select * from Employees WHERE Username = '" + username + "'");
+                return output.Password;
+            }
+        }
+        public static Employee LoadEmployeeFromHashPassword(string password)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+
+                dynamic output = cnn.QuerySingle<dynamic>("select * from Employees WHERE Password = '" + password + "'");
+                Employee temp = new Employee(output.Firstname, output.Lastname, output.Type, output.Wage,
+                    new ContactInfo(output.Email, output.Phonenumber),
+                    new Address(output.Address, output.ZIP, output.City, output.Note));
+                temp.hashCode = output.Password;
+                temp.userName = output.Username;
+                temp.id = (int)output.ID;
+                return temp;
+            }
+        }
+        public static Employee VerifyPassword(string password, string username)
+        {
+
+            /* Fetch the stored value */
+            string savedPasswordHash = LoadEmployeeHashPassword(username);
+            /* Extract the bytes */
+            byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
+            /* Get the salt */
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+            /* Compute the hash on the password the user entered */
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            /* Compare the results */
+            for (int i = 0; i < 20; i++)
+                if (hashBytes[i + 16] != hash[i])
+                    throw new UnauthorizedAccessException();
+            Employee temp = LoadEmployeeFromHashPassword(savedPasswordHash);
+            return temp;
         }
         private static string GetDefaultConnectionString()
         {
