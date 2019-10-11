@@ -5,10 +5,10 @@ const settingsConfig = {
     },
     customScrollbars: true,
     theme           : {
-        main   : 'default',
-        navbar : 'mainThemeDark',
+        main   : 'greeny',
+        navbar : 'mainThemeLight',
         toolbar: 'mainThemeLight',
-        footer : 'mainThemeDark'
+        footer : 'mainThemeLight'
     }
 };
 
