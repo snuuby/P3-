@@ -628,7 +628,7 @@ namespace HasserisWeb
                 string outputType = output.Type;
                 if (outputType == "Private")
                 {
-                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
+                    Private temp = new Private(output.Firstname, output.Lastname, output.Type,
                         new Address(output.Address, output.ZIP, output.City, output.Note),
                         new ContactInfo(output.Email, output.Phonenumber));
                     temp.id = (int)output.ID;
@@ -638,7 +638,7 @@ namespace HasserisWeb
                 {
                     dynamic output_two = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
 
-                    Business temp = new Business(output_two.firstName, output_two.Lastname, output_two.Type,
+                    Business temp = new Business(output_two.Firstname, output_two.Lastname, output_two.Type,
                         new Address(output_two.Address, output_two.ZIP, output_two.City, output_two.Note),
                         new ContactInfo(output_two.Email, output_two.Phonenumber),
                         output_two.EAN, output_two.CVR);
@@ -951,7 +951,7 @@ namespace HasserisWeb
         {
 
             /* Fetch the stored value */
-            string savedPasswordHash = HasserisDbContext.LoadEmployeeHashPassword(username);
+            string savedPasswordHash = LoadEmployeeHashPassword(username);
             /* Extract the bytes */
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
             /* Get the salt */
@@ -964,7 +964,7 @@ namespace HasserisWeb
             for (int i = 0; i < 20; i++)
                 if (hashBytes[i + 16] != hash[i])
                     throw new UnauthorizedAccessException();
-            Employee temp = HasserisDbContext.LoadEmployeeFromHashPassword(savedPasswordHash);
+            Employee temp = LoadEmployeeFromHashPassword(savedPasswordHash);
             return temp;
         }
         private static string GetDefaultConnectionString()
