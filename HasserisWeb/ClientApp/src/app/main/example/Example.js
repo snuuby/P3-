@@ -9,12 +9,14 @@ const styles = theme => ({
 
 
 class Example extends Component {
-
+    
+    
     // Test af controller, Constructor er lavet af Cholle
     constructor(props) {
         super(props);
         this.state = { forecasts: [], empList: [], loading: true };
         
+        //this.renderEmployeeList.bind(this);
 
 
     }
@@ -27,7 +29,8 @@ class Example extends Component {
     }
     
     // 2Cholle
-    static renderEmployeeList(empList){
+        static renderEmployeeList(empList){
+        
         return(
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>

@@ -509,6 +509,32 @@
         <e p="purge-tailwindcss.js" t="Include" />
         <e p="README.md" t="Include" />
         <e p="src" t="Include">
+          <e p="@fake-db" t="Include">
+            <e p="db" t="Include">
+              <e p="academy-db.js" t="Include" />
+              <e p="analytics-dashboard-db.js" t="Include" />
+              <e p="auth-db.js" t="Include" />
+              <e p="calendar-db.js" t="Include" />
+              <e p="chat-db.js" t="Include" />
+              <e p="contacts-db.js" t="Include" />
+              <e p="e-commerce-db.js" t="Include" />
+              <e p="faq-db.js" t="Include" />
+              <e p="file-manager-db.js" t="Include" />
+              <e p="icons-db.js" t="Include" />
+              <e p="invoices-db.js" t="Include" />
+              <e p="knowledge-base-db.js" t="Include" />
+              <e p="mail-db.js" t="Include" />
+              <e p="notes-db.js" t="Include" />
+              <e p="profile-db.js" t="Include" />
+              <e p="project-dashboard-db.js" t="Include" />
+              <e p="quick-panel-db.js" t="Include" />
+              <e p="scrumboard-db.js" t="Include" />
+              <e p="search-db.js" t="Include" />
+              <e p="todo-db.js" t="Include" />
+            </e>
+            <e p="index.js" t="Include" />
+            <e p="mock.js" t="Include" />
+          </e>
           <e p="@fuse" t="Include">
             <e p="components" t="Include">
               <e p="DemoContent.js" t="Include" />
@@ -659,6 +685,23 @@
                 </e>
               </e>
             </e>
+            <e p="calendar" t="Include">
+              <e p="CalendarApp.css" t="Include" />
+              <e p="CalendarApp.js" t="Include" />
+              <e p="CalendarAppConfig.js" t="Include" />
+              <e p="CalendarHeader.js" t="Include" />
+              <e p="EventDialog.js" t="Include" />
+              <e p="store" t="Include">
+                <e p="actions" t="Include">
+                  <e p="events.actions.js" t="Include" />
+                  <e p="index.js" t="Include" />
+                </e>
+                <e p="reducers" t="Include">
+                  <e p="events.reducer.js" t="Include" />
+                  <e p="index.js" t="Include" />
+                </e>
+              </e>
+            </e>
             <e p="fuse-configs" t="Include">
               <e p="navigationConfig.js" t="Include" />
               <e p="routesConfig.js" t="Include" />
@@ -733,9 +776,408 @@
               </e>
             </e>
             <e p="main" t="Include">
+              <e p="apps" t="Include">
+                <e p="academy" t="Include">
+                  <e p="AcademyAppConfig.js" t="Include" />
+                  <e p="course" t="Include">
+                    <e p="Course.js" t="Include" />
+                  </e>
+                  <e p="courses" t="Include">
+                    <e p="Courses.js" t="Include" />
+                  </e>
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="course.actions.js" t="Include" />
+                      <e p="courses.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="course.reducer.js" t="Include" />
+                      <e p="courses.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="appsConfigs.js" t="Include" />
+                <e p="calendar" t="Include">
+                  <e p="CalendarApp.css" t="Include" />
+                  <e p="CalendarApp.js" t="Include" />
+                  <e p="CalendarAppConfig.js" t="Include" />
+                  <e p="CalendarHeader.js" t="Include" />
+                  <e p="EventDialog.js" t="Include" />
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="events.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="events.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="chat" t="Include">
+                  <e p="Chat.js" t="Include" />
+                  <e p="ChatApp.js" t="Include" />
+                  <e p="ChatAppConfig.js" t="Include" />
+                  <e p="ChatsSidebar.js" t="Include" />
+                  <e p="ContactListItem.js" t="Include" />
+                  <e p="ContactSidebar.js" t="Include" />
+                  <e p="StatusIcon.js" t="Include" />
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="chat.actions.js" t="Include" />
+                      <e p="contacts.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="sidebars.actions.js" t="Include" />
+                      <e p="user.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="chat.reducer.js" t="Include" />
+                      <e p="contacts.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="sidebars.reducer.js" t="Include" />
+                      <e p="user.reducer.js" t="Include" />
+                    </e>
+                  </e>
+                  <e p="UserSidebar.js" t="Include" />
+                </e>
+                <e p="contacts" t="Include">
+                  <e p="ContactDialog.js" t="Include" />
+                  <e p="ContactsApp.js" t="Include" />
+                  <e p="ContactsAppConfig.js" t="Include" />
+                  <e p="ContactsHeader.js" t="Include" />
+                  <e p="ContactsList.js" t="Include" />
+                  <e p="ContactsMultiSelectMenu.js" t="Include" />
+                  <e p="ContactsSidebarContent.js" t="Include" />
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="contacts.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="user.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="contacts.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="user.reducer.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="dashboards" t="Include">
+                  <e p="analytics" t="Include">
+                    <e p="AnalyticsDashboardApp.js" t="Include" />
+                    <e p="AnalyticsDashboardAppConfig.js" t="Include" />
+                    <e p="store" t="Include">
+                      <e p="actions" t="Include">
+                        <e p="index.js" t="Include" />
+                        <e p="widgets.actions.js" t="Include" />
+                      </e>
+                      <e p="reducers" t="Include">
+                        <e p="index.js" t="Include" />
+                        <e p="widgets.reducer.js" t="Include" />
+                      </e>
+                    </e>
+                    <e p="widgets" t="Include">
+                      <e p="Widget1.js" t="Include" />
+                      <e p="Widget2.js" t="Include" />
+                      <e p="Widget3.js" t="Include" />
+                      <e p="Widget4.js" t="Include" />
+                      <e p="Widget5.js" t="Include" />
+                      <e p="Widget6.js" t="Include" />
+                      <e p="Widget7.js" t="Include" />
+                      <e p="Widget8.js" t="Include" />
+                      <e p="Widget9.js" t="Include" />
+                    </e>
+                  </e>
+                  <e p="project" t="Include">
+                    <e p="ProjectDashboardApp.js" t="Include" />
+                    <e p="ProjectDashboardAppConfig.js" t="Include" />
+                    <e p="store" t="Include">
+                      <e p="actions" t="Include">
+                        <e p="index.js" t="Include" />
+                        <e p="projects.actions.js" t="Include" />
+                        <e p="widgets.actions.js" t="Include" />
+                      </e>
+                      <e p="reducers" t="Include">
+                        <e p="index.js" t="Include" />
+                        <e p="projects.reducer.js" t="Include" />
+                        <e p="widgets.reducer.js" t="Include" />
+                      </e>
+                    </e>
+                    <e p="widgets" t="Include">
+                      <e p="Widget1.js" t="Include" />
+                      <e p="Widget10.js" t="Include" />
+                      <e p="Widget11.js" t="Include" />
+                      <e p="Widget2.js" t="Include" />
+                      <e p="Widget3.js" t="Include" />
+                      <e p="Widget4.js" t="Include" />
+                      <e p="Widget5.js" t="Include" />
+                      <e p="Widget6.js" t="Include" />
+                      <e p="Widget7.js" t="Include" />
+                      <e p="Widget8.js" t="Include" />
+                      <e p="Widget9.js" t="Include" />
+                      <e p="WidgetNow.js" t="Include" />
+                      <e p="WidgetWeather.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="e-commerce" t="Include">
+                  <e p="ECommerceAppConfig.js" t="Include" />
+                  <e p="order" t="Include">
+                    <e p="Order.js" t="Include" />
+                    <e p="OrderInvoice.js" t="Include" />
+                    <e p="OrdersStatus.js" t="Include" />
+                  </e>
+                  <e p="orders" t="Include">
+                    <e p="Orders.js" t="Include" />
+                    <e p="OrdersHeader.js" t="Include" />
+                    <e p="OrdersTable.js" t="Include" />
+                    <e p="OrdersTableHead.js" t="Include" />
+                  </e>
+                  <e p="product" t="Include">
+                    <e p="Product.js" t="Include" />
+                  </e>
+                  <e p="products" t="Include">
+                    <e p="Products.js" t="Include" />
+                    <e p="ProductsHeader.js" t="Include" />
+                    <e p="ProductsTable.js" t="Include" />
+                    <e p="ProductsTableHead.js" t="Include" />
+                  </e>
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="index.js" t="Include" />
+                      <e p="order.actions.js" t="Include" />
+                      <e p="orders.actions.js" t="Include" />
+                      <e p="product.actions.js" t="Include" />
+                      <e p="products.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="index.js" t="Include" />
+                      <e p="order.reducer.js" t="Include" />
+                      <e p="orders.reducer.js" t="Include" />
+                      <e p="product.reducer.js" t="Include" />
+                      <e p="products.reducer.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="file-manager" t="Include">
+                  <e p="Breadcrumb.js" t="Include" />
+                  <e p="DetailSidebarContent.js" t="Include" />
+                  <e p="DetailSidebarHeader.js" t="Include" />
+                  <e p="FileList.js" t="Include" />
+                  <e p="FileManagerApp.js" t="Include" />
+                  <e p="FileManagerAppConfig.js" t="Include" />
+                  <e p="MainSidebarContent.js" t="Include" />
+                  <e p="MainSidebarHeader.js" t="Include" />
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="files.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="selectedItem.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="files.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="selectedItemIdReducer.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="mail" t="Include">
+                  <e p="mail" t="Include">
+                    <e p="MailDetails.js" t="Include" />
+                    <e p="MailToolbar.js" t="Include" />
+                  </e>
+                  <e p="MailApp.js" t="Include" />
+                  <e p="MailAppConfig.js" t="Include" />
+                  <e p="MailAppHeader.js" t="Include" />
+                  <e p="MailAppSidebarContent.js" t="Include" />
+                  <e p="MailAppSidebarHeader.js" t="Include" />
+                  <e p="MailAttachment.js" t="Include" />
+                  <e p="MailChip.js" t="Include" />
+                  <e p="MailCompose.js" t="Include" />
+                  <e p="mails" t="Include">
+                    <e p="MailList.js" t="Include" />
+                    <e p="MailListItem.js" t="Include" />
+                    <e p="MailsToolbar.js" t="Include" />
+                  </e>
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="filters.actions.js" t="Include" />
+                      <e p="folders.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="labels.actions.js" t="Include" />
+                      <e p="mail.actions.js" t="Include" />
+                      <e p="mails.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="filters.reducer.js" t="Include" />
+                      <e p="folders.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="labels.reducer.js" t="Include" />
+                      <e p="mail.reducer.js" t="Include" />
+                      <e p="mails.reducer.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="notes" t="Include">
+                  <e p="dialogs" t="Include">
+                    <e p="labels" t="Include">
+                      <e p="LabelsDialog.js" t="Include" />
+                      <e p="LabelsForm.js" t="Include" />
+                    </e>
+                    <e p="note" t="Include">
+                      <e p="NoteDialog.js" t="Include" />
+                    </e>
+                  </e>
+                  <e p="Model" t="Include">
+                    <e p="LabelModel.js" t="Include" />
+                    <e p="NoteListItemModel.js" t="Include" />
+                    <e p="NoteModel.js" t="Include" />
+                  </e>
+                  <e p="NewNote.js" t="Include" />
+                  <e p="note-form" t="Include">
+                    <e p="checklist" t="Include">
+                      <e p="NoteFormAddListItem.js" t="Include" />
+                      <e p="NoteFormList.js" t="Include" />
+                      <e p="NoteFormListItem.js" t="Include" />
+                    </e>
+                    <e p="NoteForm.js" t="Include" />
+                    <e p="NoteFormLabelMenu.js" t="Include" />
+                    <e p="NoteFormReminder.js" t="Include" />
+                    <e p="NoteFormUploadImage.js" t="Include" />
+                  </e>
+                  <e p="NoteLabel.js" t="Include" />
+                  <e p="NoteList.js" t="Include" />
+                  <e p="NoteListItem.js" t="Include" />
+                  <e p="NoteReminderLabel.js" t="Include" />
+                  <e p="NotesApp.js" t="Include" />
+                  <e p="NotesAppConfig.js" t="Include" />
+                  <e p="NotesHeader.js" t="Include" />
+                  <e p="NotesSearch.js" t="Include" />
+                  <e p="NotesSidebarContent.js" t="Include" />
+                  <e p="setDescriptionStyle.js" t="Include" />
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="index.js" t="Include" />
+                      <e p="labels.actions.js" t="Include" />
+                      <e p="notes.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="index.js" t="Include" />
+                      <e p="labels.reducer.js" t="Include" />
+                      <e p="notes.reducer.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="scrumboard" t="Include">
+                  <e p="board" t="Include">
+                    <e p="Board.js" t="Include" />
+                    <e p="BoardAddCard.js" t="Include" />
+                    <e p="BoardAddList.js" t="Include" />
+                    <e p="BoardCard.js" t="Include" />
+                    <e p="BoardList.js" t="Include" />
+                    <e p="BoardListHeader.js" t="Include" />
+                    <e p="BoardTitle.js" t="Include" />
+                    <e p="dialogs" t="Include">
+                      <e p="card" t="Include">
+                        <e p="activity" t="Include">
+                          <e p="CardActivity.js" t="Include" />
+                        </e>
+                        <e p="attachment" t="Include">
+                          <e p="CardAttachment.js" t="Include" />
+                        </e>
+                        <e p="BoardCardDialog.js" t="Include" />
+                        <e p="BoardCardForm.js" t="Include" />
+                        <e p="checklist" t="Include">
+                          <e p="CardAddChecklistItem.js" t="Include" />
+                          <e p="CardChecklist.js" t="Include" />
+                          <e p="CardChecklistItem.js" t="Include" />
+                          <e p="CardChecklistName.js" t="Include" />
+                        </e>
+                        <e p="comment" t="Include">
+                          <e p="CardComment.js" t="Include" />
+                        </e>
+                        <e p="toolbar" t="Include">
+                          <e p="CheckListMenu.js" t="Include" />
+                          <e p="DueMenu.js" t="Include" />
+                          <e p="LabelsMenu.js" t="Include" />
+                          <e p="MembersMenu.js" t="Include" />
+                          <e p="OptionsMenu.js" t="Include" />
+                          <e p="ToolbarMenu.js" t="Include" />
+                        </e>
+                      </e>
+                    </e>
+                    <e p="sidebars" t="Include">
+                      <e p="settings" t="Include">
+                        <e p="BoardSettingsSidebar.js" t="Include" />
+                      </e>
+                    </e>
+                  </e>
+                  <e p="boards" t="Include">
+                    <e p="Boards.js" t="Include" />
+                  </e>
+                  <e p="Model" t="Include">
+                    <e p="BoardModel.js" t="Include" />
+                    <e p="CardModel.js" t="Include" />
+                    <e p="ChecklistItemModel.js" t="Include" />
+                    <e p="ChecklistModel.js" t="Include" />
+                    <e p="CommentModel.js" t="Include" />
+                    <e p="LabelModel.js" t="Include" />
+                    <e p="ListModel.js" t="Include" />
+                  </e>
+                  <e p="ScrumboardAppConfig.js" t="Include" />
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="board.actions.js" t="Include" />
+                      <e p="boards.actions.js" t="Include" />
+                      <e p="card.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="reorder.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="board.reducer.js" t="Include" />
+                      <e p="boards.reducer.js" t="Include" />
+                      <e p="card.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="todo" t="Include">
+                  <e p="store" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="filters.actions.js" t="Include" />
+                      <e p="folders.actions.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="labels.actions.js" t="Include" />
+                      <e p="todos.actions.js" t="Include" />
+                    </e>
+                    <e p="reducers" t="Include">
+                      <e p="filters.reducer.js" t="Include" />
+                      <e p="folders.reducer.js" t="Include" />
+                      <e p="index.js" t="Include" />
+                      <e p="labels.reducer.js" t="Include" />
+                      <e p="todos.reducer.js" t="Include" />
+                    </e>
+                  </e>
+                  <e p="TodoApp.js" t="Include" />
+                  <e p="TodoAppConfig.js" t="Include" />
+                  <e p="TodoChip.js" t="Include" />
+                  <e p="TodoDialog.js" t="Include" />
+                  <e p="TodoHeader.js" t="Include" />
+                  <e p="TodoList.js" t="Include" />
+                  <e p="TodoListItem.js" t="Include" />
+                  <e p="TodoSidebarContent.js" t="Include" />
+                  <e p="TodoSidebarHeader.js" t="Include" />
+                  <e p="TodoToolbar.js" t="Include" />
+                </e>
+              </e>
               <e p="example" t="Include">
                 <e p="Example.js" t="Include" />
                 <e p="ExampleConfig.js" t="Include" />
+              </e>
+              <e p="login" t="Include">
+                <e p="Login.js" t="Include" />
+                <e p="LoginConfig.js" t="Include" />
               </e>
             </e>
             <e p="services" t="Include">
@@ -850,6 +1292,57 @@
         <e p="node_modules\realpath-native" t="IncludeRecursive" />
         <e p="node_modules\rimraf" t="IncludeRecursive" />
         <e p="node_modules\source-map" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.dom.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.dom.iterable.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.collection.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.core.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.generator.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.iterable.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.promise.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.proxy.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.reflect.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.symbol.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2015.symbol.wellknown.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2016.array.include.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2016.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2016.full.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.full.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.intl.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.object.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.sharedmemory.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.string.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2017.typedarrays.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2018.asynciterable.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2018.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2018.full.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2018.intl.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2018.promise.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2018.regexp.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2019.array.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2019.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2019.full.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2019.object.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2019.string.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2019.symbol.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2020.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2020.full.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2020.string.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es2020.symbol.wellknown.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es5.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.es6.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.array.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.asynciterable.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.bigint.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.full.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.intl.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.esnext.symbol.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.scripthost.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.webworker.d.ts" t="IncludeRecursive" />
+        <e p="node_modules\typescript\lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
         <e p="node_modules\uri-js" t="IncludeRecursive" />
         <e p="node_modules\worker-farm" t="IncludeRecursive" />
         <e p="package-lock.json" t="Include" />
