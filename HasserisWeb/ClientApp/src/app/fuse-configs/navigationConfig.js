@@ -11,6 +11,13 @@ const navigationConfig = [
                 'type' : 'item',
                 'icon' : 'whatshot',
                 'url'  : '/example'
+            },
+            {
+                'id': 'calendar-component',
+                'title': 'Calendar',
+                'type': 'item',
+                'icon': 'whatshot',
+                'url': '/apps/calendar'
             }
         ]
     }
