@@ -23,7 +23,7 @@ const navigationConfig = [
                         'id'   : 'analytics-dashboard',
                         'title': 'Employee Overview',
                         'type' : 'item',
-                        'url'  : '/example'
+                        'url'  : '/employee/overview'
                     },
                     {
                         'id'   : 'analytics-dashboard',
@@ -38,13 +38,6 @@ const navigationConfig = [
                         'url'  : '/customer/overview'
                     }
                 ]
-            },
-            {
-                'id'   : 'calendar',
-                'title': 'Test',
-                'type' : 'item',
-                'icon' : 'today',
-                'url'  : '/apps/calendar'
             },
             {
                 'id'      : 'e-commerce',
@@ -90,5 +83,4 @@ const navigationConfig = [
                     }
                 ]
             }]}];
-            
 export default navigationConfig;

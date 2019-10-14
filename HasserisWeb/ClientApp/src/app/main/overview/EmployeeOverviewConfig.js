@@ -1,6 +1,6 @@
-import Example from './Example';
+import EmployeeOverview from './EmployeeOverview';
 
-export const ExampleConfig = {
+export const EmployeeOverviewConfig = {
     settings: {
         layout: {
             config: {}
@@ -8,8 +8,8 @@ export const ExampleConfig = {
     },
     routes  : [
         {
-            path     : '/example',
-            component: Example
+            path     : '/employee/overview',
+            component: EmployeeOverview
         }
     ]
 };

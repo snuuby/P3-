@@ -18,131 +18,6 @@ const styles = theme => ({
     layoutRoot: {}
 });
 
-function addWorker(id) {
-    return (
-        <Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
-
-        <AppBar position="static">
-            <Toolbar className="flex w-full">
-                <Typography variant="subtitle1" color="inherit">
-                    
-                </Typography>
-            </Toolbar>
-        </AppBar>
-
-        <form noValidate onSubmit={}>
-            <DialogContent classes={{root: "p-16 pb-0 sm:p-24 sm:pb-0"}}>
-                <TextField
-                    id="title"
-                    label="Title"
-                    className="mt-8 mb-16"
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-                    inputProps={{
-                        max: end
-                    }}
-                    name="title"
-                    value={form.title}
-                    onChange={}
-                    variant="outlined"
-                    autoFocus
-                    required
-                    fullWidth
-                />
-
-                <FormControlLabel
-                    className="mt-8 mb-16"
-                    label="All Day"
-                    control={
-                        <Switch
-                            checked={form.allDay}
-                            id="allDay"
-                            name="allDay"
-                            onChange={handleChange}
-                        />
-                    }/>
-
-                <TextField
-                    id="start"
-                    name="start"
-                    label="Start"
-                    type="datetime-local"
-                    className="mt-8 mb-16"
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-                    inputProps={{
-                        max: end
-                    }}
-                    value={start}
-                    onChange={handleChange}
-                    variant="outlined"
-                    fullWidth
-                />
-
-                <TextField
-                    id="end"
-                    name="end"
-                    label="End"
-                    type="datetime-local"
-                    className="mt-8 mb-16"
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-                    inputProps={{
-                        min: start
-                    }}
-                    value={end}
-                    onChange={handleChange}
-                    variant="outlined"
-                    fullWidth
-                />
-
-                <TextField
-                    className="mt-8 mb-16"
-                    id="desc" label="Description"
-                    type="text"
-                    name="desc"
-                    value={form.desc}
-                    onChange={handleChange}
-                    multiline rows={5}
-                    variant="outlined"
-                    fullWidth
-                />
-            </DialogContent>
-
-            {eventDialog.type === 'new' ? (
-                <DialogActions className="justify-between pl-8 sm:pl-16">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        disabled={!canBeSubmitted()}
-                    >
-                        Add
-                    </Button>
-                </DialogActions>
-            ) : (
-                <DialogActions className="justify-between pl-8 sm:pl-16">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        disabled={!canBeSubmitted()}
-                    > Save
-                    </Button>
-                    <IconButton onClick={handleRemove}>
-                        <Icon>delete</Icon>
-                    </IconButton>
-                </DialogActions>
-            )}
-        </form>
-    </Dialog>)
-
-}
-        
-
 
 function deleteWorker(id) {
     
@@ -164,7 +39,7 @@ function editWorker(id) {
     alert("Edit worker with: "  + id);
 }
 
-class Example extends Component {
+class EmployeeOverview extends Component {
     
     
     // Test af controller, Constructor er lavet af Cholle
@@ -253,7 +128,7 @@ class Example extends Component {
             // 2Cholle
         let contentsEmployees = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Example.renderEmployeeList(this.state.empList);
+            : EmployeeOverview.renderEmployeeList(this.state.empList);
         
         const {classes} = this.props;
         return (
@@ -316,4 +191,4 @@ class Example extends Component {
     
 }
 
-export default withStyles(styles, {withTheme: true})(Example);
+export default withStyles(styles, {withTheme: true})(EmployeeOverview);
