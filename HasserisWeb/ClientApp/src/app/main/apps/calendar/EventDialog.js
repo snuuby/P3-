@@ -5,6 +5,7 @@ import {useForm} from '@fuse/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import * as Actions from './store/actions';
+import { makeStyles } from '@material-ui/styles';
 
 const defaultFormState = {
     id    : FuseUtils.generateGUID(),
