@@ -12,7 +12,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import App from 'app/App';
-import 'bootstrap/dist/css/bootstrap.css';
 
 
 // Her tilføjes App som helhed som skal renders
