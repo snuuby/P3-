@@ -479,7 +479,7 @@ namespace HasserisWeb
                     return tempList;
                 }
             }
-            /*else if (type == "Private")
+            else if (type == "Customer")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -489,59 +489,48 @@ namespace HasserisWeb
                         return null;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
-
-                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber));
-
-                    temp.id = (int)output.ID;
-                    return temp;
-                }
-            }
-            else if (type == "Business")
-            {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
-                {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
-                    if (cnn.Execute(sqlTest) == 1)
-                    {
-                        return null;
+                    dynamic output = cnn.Query<dynamic>("select * from Customers");
+                    if (output[0].Type == "Private") {
+                        Private temp;
+                        List<Private> tempList = new List<Private>();
+                        foreach (var put in output) {
+                            tempList.Add(new Private(output.firstName, output.Lastname, output.Type,
+                                new Address(output.Address, output.ZIP, output.City, output.Note),
+                                new ContactInfo(output.Email, output.Phonenumber)));
+                            temp.id = (int)output.ID;
+                        }
+                    return tempList;
                     }
-
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
-
-                    Business temp = new Business(output.firstName, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber), 
-                        output.Name, output.CVR);
-
-                    temp.id = (int)output.ID;
-                    return temp;
-                }
-            }
-            else if (type == "Public")
-            {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
-                {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
-                    if (cnn.Execute(sqlTest) == 1)
-                    {
-                        return null;
+                    else if (output[0].Type == "Business") {
+                        Business temp;
+                        List<Business> tempList = new List<Business>();
+                        foreach (var put in output) {
+                            tempList.Add(new Business(output.firstName, output.Lastname, output.Type,
+                                new Address(output.Address, output.ZIP, output.City, output.Note),
+                                new ContactInfo(output.Email, output.Phonenumber), 
+                                output.Name, output.CVR));
+                            temp.id = (int)output.ID;
+                        }
+                        return tempList;
                     }
-
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
-
-                    Public temp = new Public(output.firstName, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber), 
-                        output.Name, output.EAN);
-
-                    temp.id = (int)output.ID;
-                    return temp;
+                    else if (output[0].Type == "Public") {
+                        Public temp;
+                        List<Public> tempList = new List<Public>();
+                        foreach (var put in output) {
+                            tempList.Add(new Public(output.firstName, output.Lastname, output.Type,
+                                new Address(output.Address, output.ZIP, output.City, output.Note),
+                                new ContactInfo(output.Email, output.Phonenumber), 
+                                output.Name, output.EAN));
+                        temp.id = (int)output.ID;
+                        }
+                        return tempList;
+                    }
+                    else {
+                        throw new Exception("No customer with that type");
+                    }
                 }
             }
-            else if (type == "Vehicle")
+            else if (type == "Equipment")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -551,36 +540,31 @@ namespace HasserisWeb
                         return null;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
-
-                    Vehicle temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
-
-                    temp.id = (int)output.ID;
-                    temp.taskIdString = output.TaskIDs;
-                    return temp;
-                }
-            }
-
-            else if (type == "Tool")
-            {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
-                {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
-                    if (cnn.Execute(sqlTest) == 1)
-                    {
-                        return null;
+                    dynamic output = cnn.Query<dynamic>("select * from Equipments");
+                    if (output.Type == "Vehicle") {
+                        Vehicle temp;
+                        List<Vehicle> tempList = new List<Vehicle>();
+                        foreach (var put in output) {
+                            tempList.Add(new Vehicle(output.Name, output.Type, output.Model, output.Plates));
+                            temp.id = (int)output.ID;
+                            temp.taskIdString = output.TaskIDs;
+                        }
+                        return tempList;
+                    }
+                    else if (output.Type == "Tool") {
+                        Tool temp;
+                        List<Tool> tempList = new List<Tool>();
+                        foreach (var put in output) {
+                            tempList.Add(new Tool(output.Name, output.Type));
+                            temp.id = (int)output.ID;
+                            temp.taskIdString = output.TaskIDs;
+                        } 
+                        return tempList;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
-
-                    Tool temp = new Tool(output.Name, output.Type);
-
-                    temp.id = (int)output.ID;
-                    temp.taskIdString = output.TaskIDs;
-                    return temp;
                 }
             }
-            else if (type == "Delivery")
+            else if (type == "Task")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -626,7 +610,7 @@ namespace HasserisWeb
                     temp.employeesIdString = output.EmployeeIDs;
                     return temp;
                 }
-            }*/
+            }
             else
             {
                 return new Exception("Can't load non-existing object");
