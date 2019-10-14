@@ -39,7 +39,7 @@ function editWorker(id) {
     alert("Edit worker with: "  + id);
 }
 
-class Example extends Component {
+class EmployeeOverview extends Component {
     
     
     // Test af controller, Constructor er lavet af Cholle
@@ -128,7 +128,7 @@ class Example extends Component {
             // 2Cholle
         let contentsEmployees = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Example.renderEmployeeList(this.state.empList);
+            : EmployeeOverview.renderEmployeeList(this.state.empList);
         
         const {classes} = this.props;
         return (
@@ -191,4 +191,4 @@ class Example extends Component {
     
 }
 
-export default withStyles(styles, {withTheme: true})(Example);
+export default withStyles(styles, {withTheme: true})(EmployeeOverview);

@@ -23,7 +23,7 @@ const navigationConfig = [
                         'id'   : 'analytics-dashboard',
                         'title': 'Employee Overview',
                         'type' : 'item',
-                        'url'  : '/example'
+                        'url'  : '/employee/overview'
                     },
                     {
                         'id'   : 'analytics-dashboard',

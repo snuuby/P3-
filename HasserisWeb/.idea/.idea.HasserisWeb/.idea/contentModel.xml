@@ -1154,13 +1154,14 @@
                   <e p="TodoToolbar.js" t="Include" />
                 </e>
               </e>
-              <e p="example" t="Include">
-                <e p="Example.js" t="Include" />
-                <e p="ExampleConfig.js" t="Include" />
-              </e>
               <e p="login" t="Include">
                 <e p="Login.js" t="Include" />
                 <e p="LoginConfig.js" t="Include" />
+              </e>
+              <e p="overview" t="Include">
+                <e p="AddDialog.js" t="Include" />
+                <e p="EmployeeOverview.js" t="Include" />
+                <e p="EmployeeOverviewConfig.js" t="Include" />
               </e>
             </e>
             <e p="services" t="Include">
