@@ -5,7 +5,7 @@ const settingsConfig = {
     },
     customScrollbars: true,
     theme           : {
-        main   : 'greeny',
+        main   : 'sweetHues',
         navbar : 'mainThemeLight',
         toolbar: 'mainThemeLight',
         footer : 'mainThemeLight'

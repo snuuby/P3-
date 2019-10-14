@@ -193,6 +193,7 @@ function CalendarApp(props)
         }));
     }
 
+
     return (
         <div className={clsx(classes.root, "flex flex-col flex-auto relative")}>
             <div ref={headerEl}/>
@@ -217,9 +218,11 @@ function CalendarApp(props)
                             ReactDOM.createPortal(
                                 <CalendarHeader {...props}/>,
                                 headerEl.current
-                            ) : null;
+                            ) : <CalendarHeader {...props}/>;
                     }
                 }}
+                
+                
                 // onNavigate={handleNavigate}
                 onSelectEvent={event => {
                     dispatch(Actions.openEditEventDialog(event));

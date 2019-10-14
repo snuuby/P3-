@@ -15,39 +15,34 @@ namespace HasserisWeb
 {
     public class HasserisDbContext : DbContext
     {
-        public static void DeleteElementFromDatabase<T>(dynamic element)
+        public static void DeleteElementFromDatabase<T>(string table, int id)
         {
-
-            if (element is Employee)
+            if (table == "Employee")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    Employee employee = (Employee)element;
-                    cnn.Execute("DELETE FROM Employees WHERE ID = (@id)", employee);
+                    cnn.Execute("DELETE FROM Employees WHERE ID = " + id.ToString());
                 }
             }
-            else if (element is Task)
+            else if (table == "Task")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    Task appointment = (Task)element;
-                    cnn.Execute("DELETE FROM Tasks WHERE ID = (@id)", appointment);
+                    cnn.Execute("DELETE FROM Tasks WHERE ID = " + id.ToString());
                 }
             }
-            else if (element is Customer)
+            else if (table == "Customer")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    Customer customer = (Customer)element;
-                    cnn.Execute("DELETE FROM Customers WHERE ID = (@id)", customer);
+                    cnn.Execute("DELETE FROM Customers WHERE ID = " + id.ToString());
                 }
             }
-            else if (element is Equipment)
+            else if (table == "Equipment")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    Equipment equipment = (Equipment)element;
-                    cnn.Execute("DELETE FROM Equipments WHERE ID = (@id)", equipment);
+                    cnn.Execute("DELETE FROM Equipments WHERE ID = " + id.ToString());
                 }
             }
 
@@ -457,6 +452,189 @@ namespace HasserisWeb
             }
 
         }
+        
+        public static dynamic LoadAllElementsFromDatabase(string type)
+        {
+            if (type == "Employee")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Employees) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+                    dynamic output = cnn.Query<dynamic>("select * from Employees");
+
+                    List<Employee> tempList = new List<Employee>();
+                    foreach (var put in output)
+                    {
+                        Employee temp;
+                        tempList.Add((temp = new Employee(put.Firstname, put.Lastname, put.Type, (double)put.Wage,
+                            new ContactInfo(put.Email, put.Phonenumber),
+                            new Address(put.Address, put.ZIP, put.City, put.Note))));
+                        temp.id = (int)put.ID; 
+                        temp.taskIdString = put.TaskIDs;
+                    }
+                    return tempList;
+                }
+            }
+            /*else if (type == "Private")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Private temp = new Private(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber));
+
+                    temp.id = (int)output.ID;
+                    return temp;
+                }
+            }
+            else if (type == "Business")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Business temp = new Business(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber), 
+                        output.Name, output.CVR);
+
+                    temp.id = (int)output.ID;
+                    return temp;
+                }
+            }
+            else if (type == "Public")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                    Public temp = new Public(output.firstName, output.Lastname, output.Type,
+                        new Address(output.Address, output.ZIP, output.City, output.Note),
+                        new ContactInfo(output.Email, output.Phonenumber), 
+                        output.Name, output.EAN);
+
+                    temp.id = (int)output.ID;
+                    return temp;
+                }
+            }
+            else if (type == "Vehicle")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
+
+                    Vehicle temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates);
+
+                    temp.id = (int)output.ID;
+                    temp.taskIdString = output.TaskIDs;
+                    return temp;
+                }
+            }
+
+            else if (type == "Tool")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Equipments where ID = " + id.ToString());
+
+                    Tool temp = new Tool(output.Name, output.Type);
+
+                    temp.id = (int)output.ID;
+                    temp.taskIdString = output.TaskIDs;
+                    return temp;
+                }
+            }
+            else if (type == "Delivery")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Tasks) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Tasks where ID = " + id.ToString());
+
+                    Delivery temp = new Delivery(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
+                                new Address(output.DestinationAddress, output.DestinationZIP,
+                                output.DestinationCity, output.DestinationNote),
+                                (double)output.Income, CalculateDateFromDatabaseString(output.Date),
+                                output.Note, output.Workphone, output.Material, (int)output.Quantity);
+                    temp.id = (int)output.ID; 
+                    temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
+                    temp.equipmentsIdString = output.EquipmentIDs;
+                    temp.employeesIdString = output.EmployeeIDs;
+                    return temp;
+                }
+            }
+            else if (type == "Moving")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Tasks) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+
+                    dynamic output = cnn.QuerySingle<dynamic>("select * from Tasks where ID = " + id.ToString());
+
+                    Moving temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
+                                new Address(output.DestinationAddress, output.DestinationZIP,
+                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
+                                new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
+                    temp.id = (int)output.ID;
+                    temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
+                    temp.equipmentsIdString = output.EquipmentIDs;
+                    temp.employeesIdString = output.EmployeeIDs;
+                    return temp;
+                }
+            }*/
+            else
+            {
+                return new Exception("Can't load non-existing object");
+            }
+
+        }
+
+        
         public static TimeSpan ConvertDurationStringFromDatabaseToTimeSpan(string duration)
         {
             string[] split = duration.Split(":");

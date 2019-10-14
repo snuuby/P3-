@@ -43,15 +43,6 @@
     <Content Include="ClientApp\src\@fake-db\db\todo-db.js" />
     <Content Include="ClientApp\src\@fake-db\index.js" />
     <Content Include="ClientApp\src\@fake-db\mock.js" />
-    <Content Include="ClientApp\src\app\calendar\CalendarApp.css" />
-    <Content Include="ClientApp\src\app\calendar\CalendarApp.js" />
-    <Content Include="ClientApp\src\app\calendar\CalendarAppConfig.js" />
-    <Content Include="ClientApp\src\app\calendar\CalendarHeader.js" />
-    <Content Include="ClientApp\src\app\calendar\EventDialog.js" />
-    <Content Include="ClientApp\src\app\calendar\store\actions\events.actions.js" />
-    <Content Include="ClientApp\src\app\calendar\store\actions\index.js" />
-    <Content Include="ClientApp\src\app\calendar\store\reducers\events.reducer.js" />
-    <Content Include="ClientApp\src\app\calendar\store\reducers\index.js" />
     <Content Include="ClientApp\src\app\main\apps\academy\AcademyAppConfig.js" />
     <Content Include="ClientApp\src\app\main\apps\academy\courses\Courses.js" />
     <Content Include="ClientApp\src\app\main\apps\academy\course\Course.js" />
