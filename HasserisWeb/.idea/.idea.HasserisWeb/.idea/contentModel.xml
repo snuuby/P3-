@@ -685,23 +685,6 @@
                 </e>
               </e>
             </e>
-            <e p="calendar" t="Include">
-              <e p="CalendarApp.css" t="Include" />
-              <e p="CalendarApp.js" t="Include" />
-              <e p="CalendarAppConfig.js" t="Include" />
-              <e p="CalendarHeader.js" t="Include" />
-              <e p="EventDialog.js" t="Include" />
-              <e p="store" t="Include">
-                <e p="actions" t="Include">
-                  <e p="events.actions.js" t="Include" />
-                  <e p="index.js" t="Include" />
-                </e>
-                <e p="reducers" t="Include">
-                  <e p="events.reducer.js" t="Include" />
-                  <e p="index.js" t="Include" />
-                </e>
-              </e>
-            </e>
             <e p="fuse-configs" t="Include">
               <e p="navigationConfig.js" t="Include" />
               <e p="routesConfig.js" t="Include" />
@@ -1426,6 +1409,7 @@
           <e p="Task.cs" t="Include" />
         </e>
       </e>
+      <e p="node_modules\bootstrap" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.0" t="Include">
@@ -1434,6 +1418,7 @@
         </e>
       </e>
       <e p="package-lock.json" t="Include" />
+      <e p="package.json" t="Include" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="Pages" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
@@ -1446,6 +1431,7 @@
       </e>
       <e p="Startup.cs" t="Include" />
       <e p="WeatherForecast.cs" t="Include" />
+      <e p="yarn.lock" t="Include" />
     </e>
   </component>
 </project>
