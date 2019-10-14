@@ -5,7 +5,7 @@ const settingsConfig = {
     },
     customScrollbars: true,
     theme           : {
-        main: 'mainThemeLight',
+        main: 'default',
         navbar : 'mainThemeLight',
         toolbar: 'mainThemeLight',
         footer : 'mainThemeLight'
