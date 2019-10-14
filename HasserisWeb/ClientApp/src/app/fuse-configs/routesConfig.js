@@ -17,7 +17,7 @@ const routes = [
     ...FuseUtils.generateRoutesFromConfigs(routeConfigs),
     {
         path     : '/',
-        component: () => <Redirect to="/apps/calendar"/>
+        component: () => <Redirect to="/login"/>
         
     }
 ];

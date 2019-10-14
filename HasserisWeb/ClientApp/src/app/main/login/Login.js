@@ -24,7 +24,6 @@ class Login extends Component {
         this.dismissError = this.dismissError.bind(this);
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
-
             }
 
     dismissError() {
@@ -40,9 +39,10 @@ class Login extends Component {
         if (!this.state.password) {
             this.setState({ error: 'Du skal have et password. Kontakt din adminstrator hvis du ikke kan huske dit password' });
         }
+    return this.setState({ error: 'Ukendt fejl' });
 
-        return this.setState({ error: 'Ukendt fejl' });
-        }
+}
+
 
     handleUserChange(evt) {
         this.setState({
