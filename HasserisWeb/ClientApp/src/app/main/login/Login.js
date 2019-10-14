@@ -19,7 +19,7 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '', error: '', };
+        this.state = { username: '', password: '', error: '', open: true };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.dismissError = this.dismissError.bind(this);
         this.handleUserChange = this.handleUserChange.bind(this);
@@ -35,12 +35,10 @@ class Login extends Component {
 
         if (!this.state.username) {
             this.setState({ error: 'Du skal have et brugernavn. Kontakt din adminstrator hvis du ikke kan huske dit brugernavn' });
-            return alert(this.state.error);
         }
 
         if (!this.state.password) {
             this.setState({ error: 'Du skal have et password. Kontakt din adminstrator hvis du ikke kan huske dit password' });
-            return alert(this.state.error);
         }
 
         return this.setState({ error: 'Ukendt fejl' });
@@ -64,7 +62,8 @@ class Login extends Component {
         const {classes} = this.props;
         
         return (
-            <Dialog {...this.state} fullWidth maxWidth='xs' component="form">
+            <div>
+                <Dialog open={this.state.open} fullWidth maxWidth='xs' component="form">
 
                 <AppBar position="static">
                     <Toolbar className="flex w-full">
@@ -111,6 +110,7 @@ class Login extends Component {
 
                 </form>
                 </Dialog>
+                </div>
             )
         }
       handleUserChange(evt) {
@@ -125,5 +125,5 @@ class Login extends Component {
     });
   }
 }
-                    
+
 export default withStyles(styles, {withTheme: true})(Login);
