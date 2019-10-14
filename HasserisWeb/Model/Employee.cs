@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace HasserisWeb
 {
-    //Consider if Employee should have subclasses such as Admin. If not, we should add a property to the class that 
-    //specifies what type of employee it is. this property should be set in the constructor
     public class Employee
     {
         public string firstName { get;  set; }
         public string lastName { get;  set; }
+        public string userName { get; set; }
+        public string hashCode { get; set; }
         public bool isAvailable { get; private set; }
-        //Bool given to admin-type employees. To require this with certain methods
-        public bool isAdmin { get; private set; }
-        public string taskIdString { get; set; }
-        public List<Task> comingTasks { get; private set; } = new List<Task>();
-        
         public ContactInfo contactInfo { get; set; }
         public double wage { get; private set; }
         public int id { get; set; }
@@ -33,25 +29,32 @@ namespace HasserisWeb
             this.firstName = fName;
             this.lastName = lName;
             this.wage = pWage;
-            this.isAdmin = false;
             this.contactInfo = contactInfo;
             this.address = address;
-            this.taskIdString = "";
             this.type = type;
-
         }
-        //Is called from a given appointment object
-        public void AddTask(Task task)
+        public void AddLoginInfo(string username, string password)
         {
-            comingTasks.Add(task);
-            taskIdString += task.id.ToString() + "/";
+            this.userName = username;
+            this.hashCode = CalculateHash(password);
         }
-        //Is called from a given appointment object
-        public void RemoveAppointment(Task appointment)
+        private string CalculateHash(string tempPassword)
         {
-            comingTasks.Remove(appointment);
-            taskIdString = taskIdString.Replace(appointment.id.ToString() + "/", "");
-        }
+            //Step 1: Create the salt value with cryptographic PRNG
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+            //Step 2: Create the Rfc2898DeriveBytes and get the hash value:
 
+            var pbkdf2 = new Rfc2898DeriveBytes(tempPassword, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            //Step 3: Combine the salt and password bytes for later use 
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            //Step 4: Turn the combined salt+hash into a string for storage
+            return Convert.ToBase64String(hashBytes);
+        }
     }
 }

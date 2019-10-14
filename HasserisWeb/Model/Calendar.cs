@@ -7,8 +7,7 @@ namespace HasserisWeb
 {
     public class Calendar
     {
-        public List<Task> tasks { get; set; } = new List<Task>();
-        //What is this supposed to represent?
+        public List<Task> tasks { get; set; }
         public DateTime currentDate = DateTime.Today.Date;
         public TimeSpan currentTime = DateTime.Today.TimeOfDay;
         public DateTime selectedDate { get; set; }
@@ -17,6 +16,7 @@ namespace HasserisWeb
         public Calendar(string name)
         {
             this.name = name;
+            this.tasks = new List<Task>();
         }
 
         public void CheckToday()
@@ -25,11 +25,10 @@ namespace HasserisWeb
             {
                 foreach (Task task in tasks)
                 {
-                    if (DateTime.Today == currentDate)
+                    if (task.dates[0].Date == currentDate)
                     {
-                        Console.WriteLine($"Appointment Found! Date: {task.dates[0]}");
                         //Show only appointments that are due today
-                        //throw new NotImplementedException("To be implemented");
+                        throw new NotImplementedException("To be implemented");
 
                     }
                 }
@@ -38,14 +37,12 @@ namespace HasserisWeb
         }
         public void AddTask(Task task)
         {
-            //DateTime appointdate = DateTime;
-            task.dates[0] = currentDate;
             tasks.Add(task);
-            
+            task.dates.Add(currentDate);
         }
         public void RemoveTask(Task task)
         {
-            tasks.Add(task);
+            tasks.Remove(task);
         }
     }
 }

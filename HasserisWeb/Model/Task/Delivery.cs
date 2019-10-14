@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
+    //Delivery-type task, for sale of a product (material) in a given quantity to a customer.
     public class Delivery : Task
     {
         public string material { get; }

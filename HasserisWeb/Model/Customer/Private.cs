@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
+    //Private-type customer class, for individuals/families.
     public class Private : Customer
     {
         public string firstName { get; set; }

@@ -10,6 +10,7 @@ const navigationConfig = [
                 'id'   : 'calendar',
                 'title': 'Calendar',
                 'type' : 'item',
+<<<<<<< HEAD
                 'icon' : 'today',
                 'url'  : '/apps/calendar'
             },
@@ -91,4 +92,20 @@ const navigationConfig = [
                 ]
             }]}];
             
+=======
+                'icon' : 'whatshot',
+                'url'  : '/example'
+            },
+            {
+                'id': 'calendar-component',
+                'title': 'Calendar',
+                'type': 'item',
+                'icon': 'whatshot',
+                'url': '/apps/calendar'
+            }
+        ]
+    }
+];
+
+>>>>>>> origin/AlmostMaster
 export default navigationConfig;

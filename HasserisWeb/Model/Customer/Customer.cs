@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    //Customer is an abstract class, meaning instances of customers has to be either a Private or Business.
+    //Customer is an abstract class, meaning instances of customers has to be either a Private, Public or Business.
     public abstract class Customer
     {
-
         public int id { get; set; }
         public Address address { get; set; }
         public string type { get; set; }

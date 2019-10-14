@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
+    //Business-type class, for private companies/corporations
     public class Business : Customer
     {
         public string businessName { get; set; }
