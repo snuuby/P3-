@@ -47,7 +47,7 @@ namespace HasserisWeb.Controllers
         [Route("delete/{id}")]
         public ActionResult DeleteEmployee(int id)
         {
-            HasserisDbContext.DeleteElementFromDatabase<Employee>("Employee", id);
+            HasserisDbContext.EmployeeNoLongerEmployee(id);
             return Content("Success with: " + id);
         }
 

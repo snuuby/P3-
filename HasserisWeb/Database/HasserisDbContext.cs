@@ -45,9 +45,15 @@ namespace HasserisWeb
                     cnn.Execute("DELETE FROM Equipments WHERE ID = " + id.ToString());
                 }
             }
-
-
         }
+        public static void EmployeeNoLongerEmployee(int id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                cnn.Execute("UPDATE Employees SET Employed = 'Unemployed' WHERE ID = " + id.ToString());
+            }
+        }
+
         public static void SaveElementToDatabase<T>(dynamic element)
         {
 
@@ -56,10 +62,10 @@ namespace HasserisWeb
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
                     Employee employee = (Employee)element;
-                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note, Username, Password) " +
+                    string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note, Username, Password, Employed) " +
                                           "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.lastName + "', '" + employee.type + "', '" + employee.contactInfo.email +
                                           "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
-                                          "', '" + employee.userName + "', '" + employee.hashCode + "')";
+                                          "', '" + employee.userName + "', '" + employee.hashCode + "', '" + employee.employed + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
                 }
@@ -837,6 +843,7 @@ namespace HasserisWeb
                             new Address(output.Address, output.ZIP, output.City, output.Note));
                         temp.hashCode = output.Password;
                         temp.userName = output.Username;
+                        temp.employed = output.Employed;
                         temp.id = (int)output.ID;
                         tempList.Add(temp);
 

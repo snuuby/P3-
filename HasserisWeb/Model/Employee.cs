@@ -17,7 +17,7 @@ namespace HasserisWeb
         public int id { get; set; }
         public Address address { get; set; }
         public string type { get; set; }
-
+        public string employed { get; set; }
         // Test constructor Cholle
         public Employee()
         {
@@ -32,6 +32,7 @@ namespace HasserisWeb
             this.contactInfo = contactInfo;
             this.address = address;
             this.type = type;
+            this.employed = "employed";
         }
         public void AddLoginInfo(string username, string password)
         {

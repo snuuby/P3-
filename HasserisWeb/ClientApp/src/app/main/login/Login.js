@@ -7,6 +7,7 @@ import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import axios from 'axios';
 import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
 import 'styles/index.css';
 const styles = theme => ({
@@ -18,6 +19,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {loggedIn: false, username:'', password:'', error:''};
+
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,10 +38,12 @@ class Login extends Component {
         }
         else {
             //Here we need to verify the username and password with the database
-            this.toggleLogin();
-            this.state.error = 'Forkert brugernavn eller password';
-            alert(this.state.error);
-            console.log("either username or password error. Or it was correct, still need to implement that part");
+            let userInfo = new FormData()
+            userInfo.append(this.state.username, this.state.password);
+            this.axios.post('login/verify/', null, userInfo )
+                .then(result => {
+                    result ? this.toggleLogin() : this.state.error = "Forkert brugernavn eller password"; alert(this.state.error);
+                });
         }
     }
     handleUserChange(evt) {
