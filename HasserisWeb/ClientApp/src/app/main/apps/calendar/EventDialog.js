@@ -218,14 +218,9 @@ function EventDialog(props)
 
                     
                     <Select
-                            id="combo"
-                            name="combo"
-                            value={form.combo}
-                            onChange={handleChange}
-                            variant="outlined"
-                            fullWidth
-                            required
-                            options={optionsEmployees}                       
+                        options={optionsEmployees}
+                        textField='name'
+                        groupBy='lastName'                    
                     />
                     
                   
