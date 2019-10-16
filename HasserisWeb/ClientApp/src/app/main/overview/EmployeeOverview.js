@@ -4,7 +4,7 @@ import {
     AppBar, Button,
     Dialog, DialogActions,
     DialogContent,
-    FormControlLabel, Icon, IconButton,
+    FormControlLabel, Icon, IconButton, Select,
     Switch,
     TextField,
     Toolbar,
@@ -12,12 +12,20 @@ import {
 } from '@material-ui/core';
 import {FusePageSimple, DemoContent} from '@fuse';
 import axios from 'axios';
+import AddDialog from './AddDialog';
+import EventDialog from "../apps/calendar/EventDialog";
 
 
 const styles = theme => ({
     layoutRoot: {}
 });
 
+const options = [
+    { value: 'blues', label: 'Blues' },
+    { value: 'rock', label: 'Rock' },
+    { value: 'jazz', label: 'Jazz' },
+    { value: 'orchestra', label: 'Orchestra' }
+];
 
 function deleteWorker(id) {
     
@@ -37,6 +45,10 @@ function deleteWorker(id) {
 
 function editWorker(id) {
     alert("Edit worker with: "  + id);
+}
+
+function createEmployee() {
+    return(<EventDialog/>)
 }
 
 class EmployeeOverview extends Component {
@@ -136,19 +148,28 @@ class EmployeeOverview extends Component {
                 classes={{
                     root: classes.layoutRoot
                 }}
+                
                 header={
                     <div className="p-24"><h4>Header</h4></div>
                 }
                 contentToolbar={
                     <div className="px-24"><h4>Content Toolbar</h4>
 
-                        <button className="btn btn-primary" type="button">Tilføj Medarbejder</button>
-
+                        <button onClick={() => createEmployee()} className="btn btn-primary" type="button">Tilføj Medarbejder</button>
+                        
+                        <Button variant="contained" color="primary">
+                            Material UI test
+                        </Button>
+                        
                     </div>
                 }
                 content={
                     <div className="p-24">
 
+                        <Select
+                            options={options}
+                        />
+                        
                         <div>
                             <h1 id="tabelLabel" >Employee list</h1>
                             <p>Employee data from database:</p>

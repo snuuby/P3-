@@ -58,6 +58,7 @@
     <Content Include="ClientApp\src\app\main\apps\calendar\CalendarAppConfig.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\CalendarHeader.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\EventDialog.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\EventDialogOld.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\events.actions.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\index.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\store\reducers\events.reducer.js" />

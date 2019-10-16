@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -11,7 +12,6 @@ namespace HasserisWeb.Controllers
     [Route("employees")]
     public class EmployeeController : Controller
     {
-        
         [Route("index")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult Index()

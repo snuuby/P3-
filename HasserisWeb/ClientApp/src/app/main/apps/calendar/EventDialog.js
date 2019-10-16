@@ -1,19 +1,55 @@
 import React, {useCallback, useEffect} from 'react';
-import {TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch} from '@material-ui/core';
+import {TextField, Button, NativeSelect, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch} from '@material-ui/core';
 import FuseUtils from '@fuse/FuseUtils';
+import { Combobox } from 'react-widgets'
 import {useForm} from '@fuse/hooks';
+import Select from 'react-select';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import * as Actions from './store/actions';
+import axios from "axios";
+import {OPTIONS} from "react-select/src/__tests__/constants";
 
 const defaultFormState = {
     id    : FuseUtils.generateGUID(),
     title : '',
     allDay: true,
+    employees : null,
     start : new Date(),
     end   : new Date(),
-    desc  : ''
+    desc  : '',
+    combo : ''
 };
+
+// Is global, maybe fix?    
+// data
+let serverData = { empList : [], convertedEmpList : {} };
+
+const optionsEmployees = [
+    { value: 'blues', label: 'Blues' },
+    { value: 'rock', label: 'Rock' },
+    { value: 'jazz', label: 'Jazz' },
+    { value: 'orchestra', label: 'Orchestra' }
+];
+
+// Is global, maybe fix?
+// Gets employee data from the database and returns it to the Select comp.
+function GetData() {
+    axios.get(`employees/all`)
+        .then(res => {
+            const employees = res.data;
+            serverData.empList = res.data;
+        });
+    
+    serverData.convertedEmpList = [
+        { value: 'blues', label: 'Blues' },
+        { value: 'rock', label: 'Rock' },
+        { value: 'jazz', label: 'Jazz' },
+        { value: 'orchestra', label: 'Orchestra' }
+    ];
+    
+    return serverData.convertedEmpList;
+}
 
 function EventDialog(props)
 {
@@ -23,7 +59,8 @@ function EventDialog(props)
     const {form, handleChange, setForm} = useForm(defaultFormState);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
-
+    
+    
     const initDialog = useCallback(
         () => {
             /**
@@ -58,7 +95,8 @@ function EventDialog(props)
             initDialog();
         }
     }, [eventDialog.props.open, initDialog]);
-
+    
+    
     function closeComposeDialog()
     {
         eventDialog.type === 'edit' ? dispatch(Actions.closeEditEventDialog()) : dispatch(Actions.closeNewEventDialog());
@@ -91,10 +129,15 @@ function EventDialog(props)
         dispatch(Actions.removeEvent(form.id));
         closeComposeDialog();
     }
-
+    
     return (
+        
+        
+        
         <Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 
+            
+            
             <AppBar position="static">
                 <Toolbar className="flex w-full">
                     <Typography variant="subtitle1" color="inherit">
@@ -107,7 +150,7 @@ function EventDialog(props)
                 <DialogContent classes={{root: "p-16 pb-0 sm:p-24 sm:pb-0"}}>
                     <TextField
                         id="title"
-                        label="Title"
+                        label="Opgavetitel"
                         className="mt-8 mb-16"
                         InputLabelProps={{
                             shrink: true
@@ -126,7 +169,7 @@ function EventDialog(props)
 
                     <FormControlLabel
                         className="mt-8 mb-16"
-                        label="All Day"
+                        label="Hele dagen"
                         control={
                             <Switch
                                 checked={form.allDay}
@@ -153,11 +196,11 @@ function EventDialog(props)
                         variant="outlined"
                         fullWidth
                     />
-
+                    
                     <TextField
                         id="end"
                         name="end"
-                        label="End"
+                        label="Slut"
                         type="datetime-local"
                         className="mt-8 mb-16"
                         InputLabelProps={{
@@ -172,9 +215,24 @@ function EventDialog(props)
                         fullWidth
                     />
 
+
+                    
+                    <Select
+                            id="combo"
+                            name="combo"
+                            value={form.combo}
+                            onChange={handleChange}
+                            variant="outlined"
+                            fullWidth
+                            required
+                            options={optionsEmployees}                       
+                    />
+                    
+                  
+                    
                     <TextField
                         className="mt-8 mb-16"
-                        id="desc" label="Description"
+                        id="desc" label="Beskrivelse"
                         type="text"
                         name="desc"
                         value={form.desc}
@@ -193,7 +251,7 @@ function EventDialog(props)
                             type="submit"
                             disabled={!canBeSubmitted()}
                         >
-                            Add
+                            Tilføj
                         </Button>
                     </DialogActions>
                 ) : (

@@ -4,17 +4,18 @@ import FuseUtils from '@fuse/FuseUtils';
 import {useForm} from '@fuse/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
-import * as Actions from '../apps/calendar/store/actions';
-
+import * as Actions from './store/actions';
 
 const defaultFormState = {
     id    : FuseUtils.generateGUID(),
     title : '',
     allDay: true,
+    start : new Date(),
+    end   : new Date(),
     desc  : ''
 };
 
-function AddDialog(props)
+function EventDialog(props)
 {
     const dispatch = useDispatch();
     const eventDialog = useSelector(({calendarApp}) => calendarApp.events.eventDialog);
@@ -214,4 +215,4 @@ function AddDialog(props)
     );
 }
 
-export default AddDialog;
+export default EventDialog;
