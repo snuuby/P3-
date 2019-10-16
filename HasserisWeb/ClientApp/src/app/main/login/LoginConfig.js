@@ -1,4 +1,4 @@
-import Login from './LoginDialog';
+import Login from './Login';
 
 export const LoginConfig = {
     settings: {
