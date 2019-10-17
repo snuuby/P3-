@@ -11,16 +11,12 @@ namespace HasserisWeb
     {
         [Route("verify")]
         [HttpPost]
-        public bool VerifyUserLogin(string json)
+        public bool VerifyUserLogin(dynamic json)
         {
-            dynamic tempstring = JsonConvert.DeserializeObject(json);
-            string username = "";
-            string password = "";
-            foreach (var str in tempstring)
-            {
-                username = str.username;
-                password = str.password;
-            }
+            dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
+            string username = tempstring.username;
+            string password = tempstring.password;
+
 
             try {
     

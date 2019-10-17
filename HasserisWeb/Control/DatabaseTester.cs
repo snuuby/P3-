@@ -10,7 +10,7 @@ namespace HasserisWeb
 
         public DatabaseTester()
         {
-            CreatePeopleTester();
+            //CreatePeopleTester();
             
             LoadPeopleTester();
             DatabaseTestDebugger();

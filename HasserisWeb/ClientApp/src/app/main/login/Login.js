@@ -39,9 +39,12 @@ class Login extends Component {
         else {
             //Here we need to verify the username and password with the database
 			const user = {username: this.state.username, password: this.state.password};
-            axios.post('login/verify/', { user })
+            axios.post('login/verify/', user)
                 .then(result => {
-                    result ? this.toggleLogin() : this.state.error = "Forkert brugernavn eller password"; alert(this.state.error);
+                    result ? this.setState({ loggedIn: !this.state.loggedIn }) : alert('Bruger password passer ikke med database password');
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         }
     }
@@ -57,7 +60,7 @@ class Login extends Component {
     render() {
         return(
             this.state.loggedIn ? null : <div>
-            <Dialog open={!this.state.loggedIn}fullWidth maxWidth='xs' component="form">
+            <Dialog open={!this.state.loggedIn} fullWidth maxWidth='xs' component="form">
 
             <AppBar position="static">
                 <Toolbar className="flex w-full">
