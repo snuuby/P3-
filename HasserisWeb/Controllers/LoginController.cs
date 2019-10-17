@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-
+using Newtonsoft.Json;
 namespace HasserisWeb
 {
     [ApiController]
@@ -11,10 +11,19 @@ namespace HasserisWeb
     {
         [Route("verify")]
         [HttpPost]
-        public bool VerifyUserLogin(string username, string password)
+        public bool VerifyUserLogin(string json)
         {
-            try {
+            dynamic tempstring = JsonConvert.DeserializeObject(json);
+            string username = "";
+            string password = "";
+            foreach (var str in tempstring)
+            {
+                username = str.username;
+                password = str.password;
+            }
 
+            try {
+    
             Employee temp = HasserisDbContext.VerifyPassword(password, username);
             }
             catch(Exception e) {

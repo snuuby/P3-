@@ -38,9 +38,8 @@ class Login extends Component {
         }
         else {
             //Here we need to verify the username and password with the database
-            let userInfo = new FormData()
-            userInfo.append(this.state.username, this.state.password);
-            this.axios.post('login/verify/', null, userInfo )
+			const user = {username: this.state.username, password: this.state.password};
+            axios.post('login/verify/', { user })
                 .then(result => {
                     result ? this.toggleLogin() : this.state.error = "Forkert brugernavn eller password"; alert(this.state.error);
                 });
