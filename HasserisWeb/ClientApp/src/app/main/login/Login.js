@@ -41,7 +41,12 @@ class Login extends Component {
 			const user = {username: this.state.username, password: this.state.password};
             axios.post('login/verify/', user)
                 .then(result => {
-                    result ? this.setState({ loggedIn: !this.state.loggedIn }) : alert('Bruger password passer ikke med database password');
+                    if (result.data) {
+                        alert('loggedin');
+                    }
+                    else {
+                        alert('Inkorrekt Brugernavn / Adgangskode');
+                    }
                 })
                 .catch(error => {
                     console.log(error);
