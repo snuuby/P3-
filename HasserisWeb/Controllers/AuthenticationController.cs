@@ -13,11 +13,18 @@ using System.Security.Claims;
 
 namespace HasserisWeb
 {
+    public class ReturnObjects
+    {
+        public Employee user;
+        public string access_token;
+        public string error = "";
+    }
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("auth")]
     public class AuthenticationController : ControllerBase
     {
 
+        ReturnObjects returnObjects = new ReturnObjects();
         // This is naive endpoint for demo, it should use Basic authentication
         // to provide token or POST request
         [Microsoft.AspNetCore.Mvc.Route("verify")]
@@ -28,11 +35,14 @@ namespace HasserisWeb
             dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
             string username = tempstring.name;
             string password = tempstring.pass;
+
+
             if (CheckUser(username, password))
             {
-                return GenerateToken(username);
+                returnObjects.access_token = GenerateToken(username);
             }
-            return null;
+
+            return JsonConvert.SerializeObject(returnObjects); 
             
         }
 
@@ -76,10 +86,13 @@ namespace HasserisWeb
             {
 
                 Employee temp = HasserisDbContext.VerifyPassword(password, username);
+                returnObjects.user = temp;
             }
             catch (Exception e)
             {
+                returnObjects.error = "Brugernavn eller password er forkert";
                 return false;
+
             }
             return true;
         }

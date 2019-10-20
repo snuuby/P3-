@@ -1,7 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import FuseUtils from '@fuse/FuseUtils';
-
 class jwtService extends FuseUtils.EventEmitter {
 
     init()
@@ -66,18 +65,28 @@ class jwtService extends FuseUtils.EventEmitter {
         });
     };
 
-    signInWithEmailAndPassword = (email, password) => {
+    signInWithEmailAndPassword = (username, password) => {
+        const user = { name: username, pass: password };
         return new Promise((resolve, reject) => {
-            axios.get('/api/auth', {
-                data: {
-                    email,
-                    password
-                }
-            }).then(response => {
+            axios.post('auth/verify', user).
+            then(response => {
                 if ( response.data.user )
                 {
+
+                    const tempuser = {
+                        uid: response.data.user.id,
+                        from: 'database',
+                        role: ["employee"],
+                        data: {
+                            displayName: response.data.user.userName,
+                            email: response.data.user.contactInfo.email,
+                            settings: ''
+                        }
+                    }
+                    console.log(tempuser);
+                    console.log(response.data.access_token);
                     this.setSession(response.data.access_token);
-                    resolve(response.data.user);
+                    resolve(tempuser);
                 }
                 else
                 {
@@ -97,6 +106,7 @@ class jwtService extends FuseUtils.EventEmitter {
                 .then(response => {
                     if ( response.data.user )
                     {
+
                         this.setSession(response.data.access_token);
                         resolve(response.data.user);
                     }
