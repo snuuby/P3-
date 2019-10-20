@@ -3,7 +3,7 @@ import * as Actions from '../actions';
 const initialState = {
     role: [], //guest
     data: {
-        'firstName': 'John Doe',
+        'displayName': 'John Doe',
         'photoURL'   : 'assets/images/avatars/Velazquez.jpg',
         'email'      : 'johndoe@withinpixels.com',
         shortcuts    : [
