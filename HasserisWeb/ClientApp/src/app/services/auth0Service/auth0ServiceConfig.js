@@ -1,7 +1,7 @@
 const AUTH_CONFIG = {
-    // domain     : "YOUR_DOMAIN",
+     //domain     : "localhost:3000",
     // clientId   : "YOUR_CLIENT_ID",
-    // callbackUrl: "YOUR_DOMAIN/callback"
+     //callbackUrl: "/auth"
 };
 
 export default AUTH_CONFIG;

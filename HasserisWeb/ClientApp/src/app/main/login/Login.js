@@ -1,118 +1,100 @@
-import React, { Component, useState } from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {FusePageSimple, DemoContent} from '@fuse';
-import { makeStyles, ThemeProvider } from '@material-ui/styles';
-import { Card, CardContent, Typography, Tabs, Tab } from '@material-ui/core';
-import { darken } from '@material-ui/core/styles/colorManipulator';
-import { FuseAnimate } from '@fuse';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react'
+import {Card, CardContent, Typography, Tabs, Tab} from '@material-ui/core';
+import {darken} from '@material-ui/core/styles/colorManipulator';
+import {FuseAnimate} from '@fuse';
+import {Link} from 'react-router-dom';
 import clsx from 'clsx';
-import axios from 'axios';
-import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
-import 'styles/index.css';
-const styles = theme => ({
-    layoutRoot: {}
-});
+import JWTLoginTab from './tabs/JWTLoginTab';
+import FirebaseLoginTab from './tabs/FirebaseLoginTab';
+import Auth0LoginTab from './tabs/Auth0LoginTab';
+import {makeStyles} from '@material-ui/styles';
 
-class Login extends Component {
+const useStyles = makeStyles(theme => ({
+    root: {
+        background: 'linear-gradient(to right, ' + theme.palette.primary.dark + ' 0%, ' + darken(theme.palette.primary.dark, 0.5) + ' 100%)',
+        color     : theme.palette.primary.contrastText
+    }
+}));
 
-    constructor(props) {
-        super(props);
-        this.state = {loggedIn: false, username:'', password:'', error:''};
+function Login()
+{
+    const classes = useStyles();
+    const [selectedTab, setSelectedTab] = useState(0);
 
-        this.handleUserChange = this.handleUserChange.bind(this);
-        this.handlePassChange = this.handlePassChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    function handleTabChange(event, value)
+    {
+        setSelectedTab(value);
+    }
 
-    }
-    handleSubmit(evt) {
-        if (!this.state.username) {
-            this.state.error = 'Du skal have et brugernavn. Kontakt din adminstrator hvis du ikke kan huske dit brugernavn';
-            alert(this.state.error);
-            console.log("username error");
-        }
-        else if (!this.state.password) {
-            this.state.error = 'Du skal have et password. Kontakt din adminstrator hvis du ikke kan huske dit password';
-            alert(this.state.error);
-            console.log("password error");
-        }
-        else {
-            //Here we need to verify the username and password with the database
-			const user = {username: this.state.username, password: this.state.password};
-            axios.post('login/verify/', user)
-                .then(result => {
-                    if (result.data) {
-                        alert('loggedin');
-                    }
-                    else {
-                        alert('Inkorrekt Brugernavn / Adgangskode');
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    }
-    handleUserChange(evt) {
-        this.setState({username: evt.target.value});
-    }
-    handlePassChange(evt) {
-        this.setState({password: evt.target.value});
-    }
-    toggleLogin = () => {
-        this.setState(state => ({loggedIn: !state.loggedIn}));
-    }
-    render() {
-        return(
-            this.state.loggedIn ? null : <div>
-            <Dialog open={!this.state.loggedIn} fullWidth maxWidth='xs' component="form">
+    return (
+        <div className={clsx(classes.root, "flex flex-col flex-1 flex-shrink-0 p-24 md:flex-row md:p-0")}>
 
-            <AppBar position="static">
-                <Toolbar className="flex w-full">
-                    <Typography variant="subtitle1" color="inherit">
-                        Login
+            <div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-start md:flex-shrink-0 md:flex-1 md:text-left">
+
+                <FuseAnimate animation="transition.expandIn">
+                    <img className="w-128 mb-32" src="assets/images/logos/fuse.svg" alt="logo"/>
+                </FuseAnimate>
+
+                <FuseAnimate animation="transition.slideUpIn" delay={300}>
+                    <Typography variant="h3" color="inherit" className="font-light">
+                        Welcome to the FUSE!
                     </Typography>
-                </Toolbar>
-            </AppBar>
+                </FuseAnimate>
 
-            <form>
-                <DialogContent classes={{ root: "p-16 pb-0 sm:p-24 sm:pb-0" }}>
-                
-                <TextField
-                    label='Brugernavn'
-                    id='brugernavn'
-                    onChange={this.handleUserChange}
-                    value={this.state.username}
-                        error={this.state.error}
-                        margin='normal'
-                        variant='outlined'
-                    />
+                <FuseAnimate delay={400}>
+                    <Typography variant="subtitle1" color="inherit" className="max-w-512 mt-16">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat, vel convallis elit fermentum pellentesque. Sed mollis velit
+                        facilisis facilisis.
+                    </Typography>
+                </FuseAnimate>
+            </div>
 
-                <TextField
-                    label='Password'
-                    id= 'password'
-                    onChange={this.handlePassChange}
-                    value={this.state.password}
-                        error={this.state.error}
-                        margin='normal'
-                        variant='outlined'
-                    />
+            <FuseAnimate animation={{translateX: [0, '100%']}}>
 
-                </DialogContent>
-                    <DialogActions className="justify-between pl-8 sm:pl-16">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            onClick={this.handleSubmit}
-                            >Login
-                       </Button>
-                    </DialogActions>
+                <Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>
 
-            </form>
-            </Dialog>
+                    <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128 ">
+
+                        <Typography variant="h6" className="text-center md:w-full mb-48">LOGIN TO YOUR ACCOUNT</Typography>
+
+                        <Tabs
+                            value={selectedTab}
+                            onChange={handleTabChange}
+                            variant="fullWidth"
+                            className="w-full mb-32"
+                        >
+                            <Tab
+                                icon={<img className="h-40 p-4 bg-black rounded-12" src="assets/images/logos/jwt.svg" alt="firebase"/>}
+                                className="min-w-0"
+                                label="JWT"
+                            />
+                            <Tab
+                                icon={<img className="h-40" src="assets/images/logos/firebase.svg" alt="firebase"/>}
+                                className="min-w-0"
+                                label="Firebase"
+                            />
+                            <Tab
+                                icon={<img className="h-40" src="assets/images/logos/auth0.svg" alt="auth0"/>}
+                                className="min-w-0"
+                                label="Auth0"
+                            />
+                        </Tabs>
+
+                        {selectedTab === 0 && <JWTLoginTab/>}
+                        {selectedTab === 1 && <FirebaseLoginTab/>}
+                        {selectedTab === 2 && <Auth0LoginTab/>}
+
+                        <div className="flex flex-col items-center justify-center pt-32">
+                            <span className="font-medium">Don't have an account?</span>
+                            <Link className="font-medium" to="/register">Create an account</Link>
+                            <Link className="font-medium mt-8" to="/">Back to Dashboard</Link>
+                        </div>
+
+                    </CardContent>
+                </Card>
+            </FuseAnimate>
         </div>
-        )
-    }
+    )
 }
-export default withStyles(styles, {withTheme: true})(Login);
+
+export default Login;
