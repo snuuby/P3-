@@ -76,7 +76,7 @@ class jwtService extends FuseUtils.EventEmitter {
                     const tempuser = {
                         uid: response.data.user.id,
                         from: 'database',
-                        role: ["employee"],
+                        role: [response.data.user.type],
                         data: {
                             displayName: response.data.user.userName,
                             email: response.data.user.contactInfo.email
@@ -87,7 +87,8 @@ class jwtService extends FuseUtils.EventEmitter {
                 }
                 else
                 {
-                    reject(response.data.error);
+                    const tempError = { username: username, password: password, msg: response.data.error};
+                    reject(tempError);
                 }
             });
         });
@@ -104,7 +105,7 @@ class jwtService extends FuseUtils.EventEmitter {
                         const tempuser = {
                             uid: response.data.user.id,
                             from: 'database',
-                            role: ["employee"],
+                            role: [response.data.user.type],
                             data: {
                                 displayName: response.data.user.userName,
                                 email: response.data.user.contactInfo.email

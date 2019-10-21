@@ -24,9 +24,8 @@ namespace HasserisWeb
     public class AuthenticationController : ControllerBase
     {
 
-        ReturnObjects returnObjects = new ReturnObjects();
-        // This is naive endpoint for demo, it should use Basic authentication
-        // to provide token or POST request
+        public ReturnObjects returnObjects = new ReturnObjects();
+
         [Microsoft.AspNetCore.Mvc.Route("verify")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
@@ -40,8 +39,8 @@ namespace HasserisWeb
             if (CheckUser(username, password))
             {
                 returnObjects.access_token = GenerateToken(username);
+                HasserisDbContext.SetAccessToken(returnObjects.access_token, returnObjects.user.id);
             }
-            HasserisDbContext.SetAccessToken(returnObjects.access_token, returnObjects.user.id);
 
             return JsonConvert.SerializeObject(returnObjects);
 
@@ -49,7 +48,7 @@ namespace HasserisWeb
 
 
 
-        private string GenerateToken(string username, int expireMinutes = 20)
+        public string GenerateToken(string username, int expireMinutes = 20)
         {
             var hmac = new HMACSHA256();
             var key = Convert.ToBase64String(hmac.Key);
@@ -86,11 +85,13 @@ namespace HasserisWeb
             try
             {
 
-                Employee temp = HasserisDbContext.VerifyPassword(password, username);
-                returnObjects.user = temp;
+                returnObjects.user = HasserisDbContext.VerifyPassword(password, username);
+                returnObjects.user.type = returnObjects.user.type.ToLower();
+                returnObjects.user.contactInfo.email = returnObjects.user.contactInfo.email.Replace('/', '@');
             }
             catch (Exception e)
             {
+                returnObjects.user = null;
                 returnObjects.error = "Brugernavn eller password er forkert";
                 return false;
 
@@ -107,6 +108,8 @@ namespace HasserisWeb
             try
             {
                 returnObjects.user = HasserisDbContext.GetAccessTokenUser(token);
+                returnObjects.user.type = returnObjects.user.type.ToLower();
+                returnObjects.user.contactInfo.email = returnObjects.user.contactInfo.email.Replace('/', '@');
 
             }
             catch(Exception)

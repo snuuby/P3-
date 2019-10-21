@@ -90,6 +90,7 @@ export function createUserSettingsFirebase(authUser)
  */
 export function setUserData(user)
 {
+
     return (dispatch) => {
 
         /*

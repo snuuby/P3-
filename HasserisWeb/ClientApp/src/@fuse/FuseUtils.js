@@ -431,7 +431,7 @@ class FuseUtils {
          */
         else if ( authArr.length === 0 )
         {
-            // console.info("auth is empty[]:", authArr);
+            console.info("auth is empty[]:", authArr);
             return !userRole || userRole.length === 0;
         }
         /**
@@ -439,7 +439,7 @@ class FuseUtils {
          */
         else
         {
-            // console.info("auth arr:", authArr);
+            console.info("auth arr:", authArr);
             /*
             Check if user role is array,
             */

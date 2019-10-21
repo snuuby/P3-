@@ -166,7 +166,6 @@ function CalendarApp(props)
 {
     const dispatch = useDispatch();
     const events = useSelector(({calendarApp}) => calendarApp.events.entities);
-
     const classes = useStyles(props);
     const headerEl = useRef(null);
 

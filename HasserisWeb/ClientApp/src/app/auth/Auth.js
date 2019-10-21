@@ -7,6 +7,8 @@ import * as Actions from 'app/store/actions';
 import firebaseService from 'app/services/firebaseService';
 import auth0Service from 'app/services/auth0Service';
 import jwtService from 'app/services/jwtService';
+import { Redirect } from 'react-router-dom';
+
 
 class Auth extends Component {
 
@@ -22,7 +24,7 @@ class Auth extends Component {
             //this.auth0Check(),
             this.jwtCheck()
         ]).then(() => {
-            this.setState({waitAuthCheck: false})
+            this.setState({ waitAuthCheck: false })
         })
     }
 
@@ -42,7 +44,7 @@ class Auth extends Component {
 
                     resolve();
 
-                    this.props.showMessage({message: 'Logged in with JWT'});
+                    this.props.showMessage({ message: 'Logged in with JWT' });
                 })
                 .catch(error => {
 

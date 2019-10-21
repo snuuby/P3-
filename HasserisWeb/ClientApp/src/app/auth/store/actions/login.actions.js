@@ -6,10 +6,10 @@ import * as Actions from 'app/store/actions';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
-export function submitLogin({email, password})
+export function submitLogin({username, password})
 {
     return (dispatch) =>
-        jwtService.signInWithEmailAndPassword(email, password)
+        jwtService.signInWithEmailAndPassword(username, password)
             .then((user) => {
                     dispatch(setUserData(user));
 
@@ -20,7 +20,7 @@ export function submitLogin({email, password})
             )
             .catch(error => {
                 return dispatch({
-                    type   : LOGIN_ERROR,
+                    type: LOGIN_ERROR,
                     payload: error
                 });
             });

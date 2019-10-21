@@ -22,7 +22,11 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <Content Include="ClientApp\src\@fake-db\db\academy-db.js" />
     <Content Include="ClientApp\src\@fake-db\db\analytics-dashboard-db.js" />
     <Content Include="ClientApp\src\@fake-db\db\auth-db.js" />
@@ -153,15 +157,12 @@
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Hasseris.db" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

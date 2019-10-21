@@ -82,7 +82,7 @@ class FuseAuthorization extends Component {
 
     render()
     {
-        // console.info('Fuse Authorization rendered', accessGranted);
+        console.info('Fuse Authorization rendered', this.state.accessGranted);
         return this.state.accessGranted ? <React.Fragment>{this.props.children}</React.Fragment> : null;
     }
 }

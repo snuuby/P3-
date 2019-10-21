@@ -14,10 +14,11 @@ function JWTLoginTab(props)
     const formRef = useRef(null);
 
     useEffect(() => {
-        if ( login.error && (login.error.email || login.error.password) )
+        if ( login.error && (login.error.username || login.error.password) )
         {
+            const temperror = { username: login.error.username, password: login.error.password };
             formRef.current.updateInputsWithError({
-                ...login.error
+                ...temperror
             });
             disableButton();
         }
@@ -50,8 +51,8 @@ function JWTLoginTab(props)
                 <TextFieldFormsy
                     className="mb-16"
                     type="text"
-                    name="email"
-                    label="Username/Email"
+                    name="username"
+                    label="Username"
                     value="admin"
                     validations={{
                         minLength: 4
@@ -60,7 +61,7 @@ function JWTLoginTab(props)
                         minLength: 'Min character length is 4'
                     }}
                     InputProps={{
-                        endAdornment: <InputAdornment position="end"><Icon className="text-20" color="action">email</Icon></InputAdornment>
+                        endAdornment: <InputAdornment position="end"><Icon className="text-20" color="action">username</Icon></InputAdornment>
                     }}
                     variant="outlined"
                     required
@@ -84,7 +85,7 @@ function JWTLoginTab(props)
                     variant="outlined"
                     required
                 />
-
+                {login.error.msg && login.error.msg}
                 <Button
                     type="submit"
                     variant="contained"
@@ -99,35 +100,6 @@ function JWTLoginTab(props)
 
             </Formsy>
 
-            <div className="flex flex-col items-center pt-24">
-                <Typography className="text-14 font-600 py-8">
-                    Credentials
-                </Typography>
-
-                <Divider className="mb-16 w-256"/>
-
-                <table className="text-left w-256">
-                    <thead>
-                        <tr>
-                            <th><Typography className="font-600" color="textSecondary">Role</Typography></th>
-                            <th><Typography className="font-600" color="textSecondary">Username</Typography></th>
-                            <th><Typography className="font-600" color="textSecondary">Password</Typography></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><Typography>Admin</Typography></td>
-                            <td><Typography>admin</Typography></td>
-                            <td><Typography>admin</Typography></td>
-                        </tr>
-                        <tr>
-                            <td><Typography>Staff</Typography></td>
-                            <td><Typography>staff</Typography></td>
-                            <td><Typography>staff</Typography></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
         </div>
     );

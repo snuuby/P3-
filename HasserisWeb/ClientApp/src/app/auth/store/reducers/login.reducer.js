@@ -2,9 +2,10 @@ import * as Actions from '../actions';
 
 const initialState = {
     success: false,
-    error  : {
+    error: {
         username: null,
-        password: null
+        password: null,
+        msg: null
     }
 };
 
@@ -12,7 +13,7 @@ const login = function (state = initialState, action) {
     switch ( action.type )
     {
         case Actions.LOGIN_SUCCESS:
-        {
+            {
             return {
                 ...initialState,
                 success: true
@@ -22,7 +23,7 @@ const login = function (state = initialState, action) {
         {
             return {
                 success: false,
-                error  : action.payload
+                error: { ...action.payload }
             };
         }
         default:
