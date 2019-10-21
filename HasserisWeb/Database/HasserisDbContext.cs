@@ -15,6 +15,29 @@ namespace HasserisWeb
 {
     public class HasserisDbContext : DbContext
     {
+        public static void SetAccessToken(string token, int id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                cnn.Execute("UPDATE Employees SET AccessToken = '" + token + "' WHERE ID = " + id.ToString());
+            }
+        }
+        public static Employee GetAccessTokenUser(string token)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                dynamic output = cnn.QuerySingle<dynamic>("SELECT * FROM Employees WHERE AccessToken = '" + token + "'");
+                Employee temp = new Employee(output.Firstname, output.Lastname, output.Type, (double)output.Wage,
+                    new ContactInfo(output.Email, output.Phonenumber),
+                    new Address(output.Address, output.ZIP, output.City, output.Note));
+                temp.hashCode = output.Password;
+                temp.userName = output.Username;
+
+                temp.id = (int)output.ID;
+                temp.accessToken = output.AccessToken;
+                return temp;
+            }
+        }
         public static void DeleteElementFromDatabase<T>(string table, int id)
         {
             if (table == "Employee")

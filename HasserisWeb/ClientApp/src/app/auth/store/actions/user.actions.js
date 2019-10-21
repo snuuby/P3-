@@ -95,7 +95,7 @@ export function setUserData(user)
         /*
         Set User Settings
          */
-        dispatch(setDefaultSettings(user.settings));
+        dispatch(setDefaultSettings(''));
 
         /*
         Set User Data

@@ -79,12 +79,9 @@ class jwtService extends FuseUtils.EventEmitter {
                         role: ["employee"],
                         data: {
                             displayName: response.data.user.userName,
-                            email: response.data.user.contactInfo.email,
-                            settings: ''
+                            email: response.data.user.contactInfo.email
                         }
                     }
-                    console.log(tempuser);
-                    console.log(response.data.access_token);
                     this.setSession(response.data.access_token);
                     resolve(tempuser);
                 }
@@ -97,18 +94,24 @@ class jwtService extends FuseUtils.EventEmitter {
     };
 
     signInWithToken = () => {
+        const data = { access_token: this.getAccessToken() };
         return new Promise((resolve, reject) => {
-            axios.get('/api/auth/access-token', {
-                data: {
-                    access_token: this.getAccessToken()
-                }
-            })
+            axios.post('auth/AccessToken', data
+            )
                 .then(response => {
                     if ( response.data.user )
                     {
-
+                        const tempuser = {
+                            uid: response.data.user.id,
+                            from: 'database',
+                            role: ["employee"],
+                            data: {
+                                displayName: response.data.user.userName,
+                                email: response.data.user.contactInfo.email
+                            }
+                        }
                         this.setSession(response.data.access_token);
-                        resolve(response.data.user);
+                        resolve(tempuser);
                     }
                     else
                     {

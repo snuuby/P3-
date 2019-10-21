@@ -41,9 +41,10 @@ namespace HasserisWeb
             {
                 returnObjects.access_token = GenerateToken(username);
             }
+            HasserisDbContext.SetAccessToken(returnObjects.access_token, returnObjects.user.id);
 
-            return JsonConvert.SerializeObject(returnObjects); 
-            
+            return JsonConvert.SerializeObject(returnObjects);
+
         }
 
 
@@ -96,6 +97,25 @@ namespace HasserisWeb
             }
             return true;
         }
+        [Microsoft.AspNetCore.Mvc.Route("AccessToken")]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public string GetAccessToken(dynamic json) 
+        {
+
+            dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
+            string token = tempstring.access_token;
+            try
+            {
+                returnObjects.user = HasserisDbContext.GetAccessTokenUser(token);
+
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+            returnObjects.access_token = token;
+            return JsonConvert.SerializeObject(returnObjects);
+        } 
         /*
         [Route("verify")]
         [HttpPost]
