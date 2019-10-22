@@ -256,8 +256,12 @@ function EmployeeOverview(props) {
                 <OrdersHeader/>
             }
             content={
-                
-                <OverviewTable/>
+                <div>
+
+                    <OverviewTable/>
+
+
+                </div>
             }
             innerScroll
         />

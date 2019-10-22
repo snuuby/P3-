@@ -8,7 +8,7 @@ const navigationConfig = [
         'children': [
             {
                 'id'   : 'calendar',
-                'title': 'Calendar',
+                'title': 'Kalender',
                 'type' : 'item',
                 'icon' : 'today',
                 'url'  : '/apps/calendar'
@@ -21,19 +21,19 @@ const navigationConfig = [
                 'children': [
                     {
                         'id'   : 'analytics-dashboard',
-                        'title': 'Employee Overview',
+                        'title': 'Medarbejderoversigt',
                         'type' : 'item',
                         'url'  : '/employee/overview'
                     },
                     {
                         'id'   : 'analytics-dashboard',
-                        'title': 'Event Overview',
+                        'title': 'Event Oversigt',
                         'type' : 'item',
                         'url'  : '/event/overview'
                     },
                     {
                         'id'   : 'analytics-dashboard',
-                        'title': 'Customer Overview',
+                        'title': 'Kundeoversigt',
                         'type' : 'item',
                         'url'  : '/customer/overview'
                     }

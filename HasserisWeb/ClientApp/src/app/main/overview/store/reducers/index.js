@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import employees from './events.reducer';
+import employees from './overview.reducer';
 
 const reducer = combineReducers({
     employees,

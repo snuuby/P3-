@@ -1198,12 +1198,12 @@
                 <e p="OverviewTableHead.js" t="Include" />
                 <e p="store" t="Include">
                   <e p="actions" t="Include">
-                    <e p="events.actions.js" t="Include" />
                     <e p="index.js" t="Include" />
+                    <e p="overview.actions.js" t="Include" />
                   </e>
                   <e p="reducers" t="Include">
-                    <e p="events.reducer.js" t="Include" />
                     <e p="index.js" t="Include" />
+                    <e p="overview.reducer.js" t="Include" />
                   </e>
                 </e>
               </e>

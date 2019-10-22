@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper, Input, Icon, Typography} from '@material-ui/core';
+import {Paper, Input, Icon, Typography, Button} from '@material-ui/core';
 import {ThemeProvider} from '@material-ui/styles';
 import {FuseAnimate} from '@fuse';
 import * as Actions from './store/actions';
@@ -21,7 +21,7 @@ function OverviewHeader(props)
                 </FuseAnimate>
 
                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                    <Typography className="hidden sm:flex" variant="h6">Orders</Typography>
+                    <Typography className="hidden sm:flex" variant="h6">Medarbejdere</Typography>
                 </FuseAnimate>
             </div>
 
@@ -33,6 +33,10 @@ function OverviewHeader(props)
 
                             <Icon className="mr-8" color="action">search</Icon>
 
+                            <Button variant="contained" color="green" className="md-8">
+                                Tilføj Medarbejder
+                            </Button>
+                            
                             <Input
                                 placeholder="Search"
                                 className="flex flex-1"
@@ -45,6 +49,8 @@ function OverviewHeader(props)
                                 onChange={ev => dispatch(Actions.setOverviewSearchText(ev))}
                             />
                         </Paper>
+
+                        
                     </FuseAnimate>
                 </ThemeProvider>
             </div>
