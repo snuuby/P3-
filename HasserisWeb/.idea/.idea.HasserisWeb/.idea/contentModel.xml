@@ -189,6 +189,7 @@
         <e p="node_modules\velocity-react" t="IncludeRecursive" />
         <e p="node_modules\webpack-bundle-analyzer" t="IncludeRecursive" />
         <e p="node_modules\worker-farm" t="IncludeRecursive" />
+        <e p="package-lock.json" t="Include" />
         <e p="package.json" t="Include" />
         <e p="public" t="Include">
           <e p="assets" t="Include">
@@ -667,9 +668,22 @@
             <e p="App.js" t="Include" />
             <e p="AppContext.js" t="Include" />
             <e p="auth" t="Include">
+              <e p="admin-role-example" t="Include">
+                <e p="AdminRoleExample.js" t="Include" />
+                <e p="AdminRoleExampleConfig.js" t="Include" />
+              </e>
               <e p="Auth.js" t="Include" />
+              <e p="authRoleExamplesConfigs.js" t="Include" />
               <e p="authRoles.js" t="Include" />
               <e p="index.js" t="Include" />
+              <e p="only-guest-role-example" t="Include">
+                <e p="GuestRoleExample.js" t="Include" />
+                <e p="GuestRoleExampleConfig.js" t="Include" />
+              </e>
+              <e p="staff-role-example" t="Include">
+                <e p="StaffRoleExample.js" t="Include" />
+                <e p="StaffRoleExampleConfig.js" t="Include" />
+              </e>
               <e p="store" t="Include">
                 <e p="actions" t="Include">
                   <e p="index.js" t="Include" />
@@ -944,6 +958,16 @@
                     </e>
                   </e>
                 </e>
+                <e p="errors" t="Include">
+                  <e p="404" t="Include">
+                    <e p="Error404Page.js" t="Include" />
+                    <e p="Error404PageConfig.js" t="Include" />
+                  </e>
+                  <e p="500" t="Include">
+                    <e p="Error500Page.js" t="Include" />
+                    <e p="Error500PageConfig.js" t="Include" />
+                  </e>
+                </e>
                 <e p="file-manager" t="Include">
                   <e p="Breadcrumb.js" t="Include" />
                   <e p="DetailSidebarContent.js" t="Include" />
@@ -1158,11 +1182,20 @@
               <e p="login" t="Include">
                 <e p="Login.js" t="Include" />
                 <e p="LoginConfig.js" t="Include" />
+                <e p="LogoutConfig.js" t="Include" />
+                <e p="tabs" t="Include">
+                  <e p="Auth0LoginTab.js" t="Include" />
+                  <e p="FirebaseLoginTab.js" t="Include" />
+                  <e p="JWTLoginTab.js" t="Include" />
+                </e>
               </e>
               <e p="overview" t="Include">
                 <e p="AddDialog.js" t="Include" />
                 <e p="EmployeeOverview.js" t="Include" />
                 <e p="EmployeeOverviewConfig.js" t="Include" />
+                <e p="OverviewHeader.js" t="Include" />
+                <e p="OverviewTable.js" t="Include" />
+                <e p="OverviewTableHead.js" t="Include" />
                 <e p="store" t="Include">
                   <e p="actions" t="Include">
                     <e p="events.actions.js" t="Include" />
@@ -1370,6 +1403,7 @@
         <e p="SystemControl.cs" t="Include" />
       </e>
       <e p="Controllers" t="Include">
+        <e p="AuthenticationController.cs" t="Include" />
         <e p="EmployeeController.cs" t="Include" />
         <e p="MitComponentController.cs" t="Include" />
         <e p="WeatherForecastController.cs" t="Include" />

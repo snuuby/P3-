@@ -157,6 +157,9 @@
     <Content Include="ClientApp\src\app\main\overview\AddDialog.js" />
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
+    <Content Include="ClientApp\src\app\main\overview\OverviewHeader.js" />
+    <Content Include="ClientApp\src\app\main\overview\OverviewTableHead.js" />
+    <Content Include="ClientApp\src\app\main\overview\OverviewTable.js" />
     <Content Include="ClientApp\src\app\main\overview\store\actions\events.actions.js" />
     <Content Include="ClientApp\src\app\main\overview\store\actions\index.js" />
     <Content Include="ClientApp\src\app\main\overview\store\reducers\events.reducer.js" />

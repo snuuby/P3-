@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import employees from './events.reducer';
 
 const reducer = combineReducers({
-    employees
+    employees,
 });
 
 export default reducer;
