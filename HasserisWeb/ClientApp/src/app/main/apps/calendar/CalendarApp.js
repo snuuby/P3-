@@ -231,19 +231,7 @@ function CalendarApp(props)
                     end  : slotInfo.end.toLocaleString()
                 }))}
             />
-            <FuseAnimate animation="transition.expandIn" delay={500}>
-                <Fab
-                    color="secondary"
-                    aria-label="add"
-                    className={classes.addButton}
-                    onClick={() => dispatch(Actions.openNewEventDialog({
-                        start: new Date(),
-                        end  : new Date()
-                    }))}
-                >
-                    <Icon>add</Icon>
-                </Fab>
-            </FuseAnimate>
+
             <EventDialog/>
         </div>
     )

@@ -1,9 +1,12 @@
 import React from 'react';
-import {Paper, Input, Icon, Typography, Button} from '@material-ui/core';
+import {Paper, Input, Icon, Typography, Button, Fab} from '@material-ui/core';
 import {ThemeProvider} from '@material-ui/styles';
 import {FuseAnimate} from '@fuse';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
+import AddDialog from "./AddDialog";
+
+
 
 function OverviewHeader(props)
 {
@@ -28,14 +31,21 @@ function OverviewHeader(props)
             <div className="flex flex-1 items-center justify-center pr-0 pl-12 sm:px-12">
 
                 <ThemeProvider theme={mainTheme}>
+                    <Button
+                        onClick={() => dispatch(Actions.openNewAddDialog({
+                            start: new Date(),
+                            end  : new Date()
+                        }))}
+                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
+                        Tilføj Medarbejder
+                    </Button>
+                    
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>
                         <Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8" elevation={1}>
-
+                            
+                            
                             <Icon className="mr-8" color="action">search</Icon>
 
-                            <Button variant="contained" color="green" className="md-8">
-                                Tilføj Medarbejder
-                            </Button>
                             
                             <Input
                                 placeholder="Search"
@@ -49,12 +59,14 @@ function OverviewHeader(props)
                                 onChange={ev => dispatch(Actions.setOverviewSearchText(ev))}
                             />
                         </Paper>
-
-                        
                     </FuseAnimate>
                 </ThemeProvider>
+
+                <AddDialog/>
             </div>
         </div>
+        
+        
     );
 }
 

@@ -1,3 +1,5 @@
+
+
 const settingsConfig = {
     layout          : {
         style : 'layout1', // layout-1 layout-2 layout-3
@@ -5,7 +7,7 @@ const settingsConfig = {
     },
     customScrollbars: true,
     theme           : {
-        main: 'default',
+        main: 'greeny',
         navbar : 'mainThemeLight',
         toolbar: 'mainThemeLight',
         footer : 'mainThemeLight'

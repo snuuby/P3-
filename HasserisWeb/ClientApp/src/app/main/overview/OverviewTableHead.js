@@ -26,10 +26,10 @@ const rows = [
         sort          : true
     },
     {
-        id            : 'rettigheder',
+        id            : 'type',
         align         : 'right',
         disablePadding: false,
-        label         : 'Rettigheder',
+        label         : 'Type',
         sort          : true
     }
 ];

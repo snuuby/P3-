@@ -3,17 +3,15 @@ import {withStyles} from '@material-ui/core/styles';
 import {
     AppBar, Button,
     Dialog, DialogActions,
-    DialogContent,
+    DialogContent, Fab,
     FormControlLabel, Icon, IconButton, Select,
     Switch,
     TextField,
     Toolbar,
     Typography
 } from '@material-ui/core';
-import {FusePageSimple, FusePageCarded, DemoContent} from '@fuse';
+import {FusePageSimple, FuseAnimate, FusePageCarded, DemoContent} from '@fuse';
 import axios from 'axios';
-import AddDialog from './AddDialog';
-import EventDialog from "../apps/calendar/EventDialog";
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from "react-redux";
 import reducer from './store/reducers';
@@ -23,7 +21,7 @@ import {makeStyles} from "@material-ui/styles";
 import OverviewTable from './OverviewTable';
 import OverviewTableHead from './OverviewTableHead';
 import OrdersHeader from './OverviewHeader';
-
+import AddDialog from './AddDialog';
 
 
 
@@ -53,7 +51,7 @@ function editWorker(id) {
 }
 
 function createEmployee() {
-    return(<EventDialog/>)
+    return(<AddDialog/>)
 }
 
 const useStyles = makeStyles(theme => ({
@@ -260,11 +258,28 @@ function EmployeeOverview(props) {
 
                     <OverviewTable/>
 
-
+                    <FuseAnimate animation="transition.expandIn" delay={500}>
+                        <Fab
+                            color="secondary"
+                            aria-label="add"
+                            className={classes.addButton}
+                            onClick={() => dispatch(Actions.openNewAddDialog({
+                                start: new Date(),
+                                end  : new Date()
+                            }))}
+                        >
+                            <Icon>add</Icon>
+                        </Fab>
+                    </FuseAnimate>
+                    
+                    
                 </div>
             }
             innerScroll
+            
         />
+        
+        
         );
     
 }

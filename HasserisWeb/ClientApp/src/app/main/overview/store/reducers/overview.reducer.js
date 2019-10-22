@@ -3,7 +3,14 @@ import * as Actions from '../actions';
 const initialState = {
     entities   : [],
     searchText: '',
-    loading: true
+    loading: true,
+    eventDialog: {
+        type : 'new',
+        props: {
+            open: false
+        },
+        data : null
+    }
 };
 
 const overviewReducer = function (state = initialState, action) {
@@ -27,6 +34,43 @@ const overviewReducer = function (state = initialState, action) {
             return {
                 ...state,
                 searchText: action.searchText
+            };
+        }
+
+        case Actions.ADD_EMPLOYEE:{
+            return {
+                ...state,
+                searchText: action.searchText
+            };
+        }
+
+        case Actions.OPEN_NEW_ADD_DIALOG:
+        {
+            return {
+                ...state,
+                eventDialog: {
+                    type : 'new',
+                    props: {
+                        open: true
+                    },
+                    data : {
+                        ...action.data
+                    }
+                }
+            };
+        }
+
+        case Actions.CLOSE_NEW_ADD_DIALOG:
+        {
+            return {
+                ...state,
+                eventDialog: {
+                    type : 'new',
+                    props: {
+                        open: false
+                    },
+                    data : null
+                }
             };
         }
         

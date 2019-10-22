@@ -1411,6 +1411,7 @@
       <e p="Database" t="Include">
         <e p="Hasseris.db" t="Include" />
         <e p="Hasseris2.db" t="Include" />
+        <e p="Hasseris3.db" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
       </e>
       <e p="HasserisWeb.csproj" t="IncludeRecursive" />

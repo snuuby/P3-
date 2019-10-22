@@ -135,7 +135,7 @@ function OverviewTable(props)
                                         {
                                             return e.lastName;
                                         }
-                                        case 'rettigheder':
+                                        case 'type':
                                         {
                                             return e.type;
                                         }

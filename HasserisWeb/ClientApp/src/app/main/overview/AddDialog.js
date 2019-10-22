@@ -5,6 +5,10 @@ import {useForm} from '@fuse/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import * as Actions from '../apps/calendar/store/actions';
+import * as ActionsAdd from './store/actions';
+import Checkbox from "@material-ui/core/Checkbox";
+import Select from "react-select";
+
 
 
 const defaultFormState = {
@@ -14,10 +18,12 @@ const defaultFormState = {
     desc  : ''
 };
 
+
+
 function AddDialog(props)
 {
     const dispatch = useDispatch();
-    const eventDialog = useSelector(({calendarApp}) => calendarApp.events.eventDialog);
+    const eventDialog = useSelector(({overviewReducer}) => overviewReducer.employees.eventDialog);
 
     const {form, handleChange, setForm} = useForm(defaultFormState);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -60,7 +66,7 @@ function AddDialog(props)
 
     function closeComposeDialog()
     {
-        eventDialog.type === 'edit' ? dispatch(Actions.closeEditEventDialog()) : dispatch(Actions.closeNewEventDialog());
+        eventDialog.type === 'edit' ? dispatch(Actions.closeEditEventDialog()) : dispatch(ActionsAdd.closeNewAddDialog());
     }
 
     function canBeSubmitted()
@@ -105,8 +111,8 @@ function AddDialog(props)
             <form noValidate onSubmit={handleSubmit}>
                 <DialogContent classes={{root: "p-16 pb-0 sm:p-24 sm:pb-0"}}>
                     <TextField
-                        id="title"
-                        label="Title"
+                        id="fornavn"
+                        label="Fornavn"
                         className="mt-8 mb-16"
                         InputLabelProps={{
                             shrink: true
@@ -114,8 +120,8 @@ function AddDialog(props)
                         inputProps={{
                             max: end
                         }}
-                        name="title"
-                        value={form.title}
+                        name="fornavn"
+                        value="jim"
                         onChange={handleChange}
                         variant="outlined"
                         autoFocus
@@ -123,23 +129,9 @@ function AddDialog(props)
                         fullWidth
                     />
 
-                    <FormControlLabel
-                        className="mt-8 mb-16"
-                        label="All Day"
-                        control={
-                            <Switch
-                                checked={form.allDay}
-                                id="allDay"
-                                name="allDay"
-                                onChange={handleChange}
-                            />
-                        }/>
-
                     <TextField
-                        id="start"
-                        name="start"
-                        label="Start"
-                        type="datetime-local"
+                        id="efternavn"
+                        label="Efternavn"
                         className="mt-8 mb-16"
                         InputLabelProps={{
                             shrink: true
@@ -147,11 +139,26 @@ function AddDialog(props)
                         inputProps={{
                             max: end
                         }}
-                        value={start}
-                        onChange={handleChange}
+                        name="efternavn"
+                        value="testson"
                         variant="outlined"
+                        autoFocus
+                        required
                         fullWidth
                     />
+
+                    <Select
+                        textField='name'
+                        groupBy='lastName'
+                    />
+                    
+                    <Checkbox
+                        id="admin"
+                        name="admin"
+                        label="Admin"
+                        variant="Outlined"
+                        value="checked"
+                        />
 
                     <TextField
                         id="end"
