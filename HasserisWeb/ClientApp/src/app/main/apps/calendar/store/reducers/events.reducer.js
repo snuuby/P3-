@@ -26,7 +26,7 @@ const eventsReducer = function (state = initialState, action) {
 
             return {
                 ...state,
-                entities
+                entities,
             };
         }
         case Actions.OPEN_NEW_EVENT_DIALOG:

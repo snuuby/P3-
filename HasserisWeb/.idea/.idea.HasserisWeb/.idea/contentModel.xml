@@ -788,6 +788,7 @@
                   <e p="CalendarAppConfig.js" t="Include" />
                   <e p="CalendarHeader.js" t="Include" />
                   <e p="EventDialog.js" t="Include" />
+                  <e p="EventDialogOld.js" t="Include" />
                   <e p="store" t="Include">
                     <e p="actions" t="Include">
                       <e p="events.actions.js" t="Include" />
@@ -1162,6 +1163,16 @@
                 <e p="AddDialog.js" t="Include" />
                 <e p="EmployeeOverview.js" t="Include" />
                 <e p="EmployeeOverviewConfig.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="events.actions.js" t="Include" />
+                    <e p="index.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="events.reducer.js" t="Include" />
+                    <e p="index.js" t="Include" />
+                  </e>
+                </e>
               </e>
             </e>
             <e p="services" t="Include">
@@ -1365,6 +1376,7 @@
       </e>
       <e p="Database" t="Include">
         <e p="Hasseris.db" t="Include" />
+        <e p="Hasseris2.db" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
       </e>
       <e p="HasserisWeb.csproj" t="IncludeRecursive" />
@@ -1411,6 +1423,8 @@
         </e>
       </e>
       <e p="node_modules\bootstrap" t="IncludeRecursive" />
+      <e p="node_modules\react-dropdown" t="IncludeRecursive" />
+      <e p="node_modules\react-widgets" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.0" t="Include">

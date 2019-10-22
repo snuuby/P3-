@@ -64,6 +64,7 @@
     <Content Include="ClientApp\src\app\main\apps\calendar\CalendarAppConfig.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\CalendarHeader.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\EventDialog.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\EventDialogOld.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\events.actions.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\index.js" />
     <Content Include="ClientApp\src\app\main\apps\calendar\store\reducers\events.reducer.js" />
@@ -156,6 +157,10 @@
     <Content Include="ClientApp\src\app\main\overview\AddDialog.js" />
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\actions\events.actions.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\reducers\events.reducer.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\reducers\index.js" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />

@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 
 namespace HasserisWeb.Controllers
-{    
+{
     [Route("employees")]
     public class EmployeeController : Controller
     {
-        
         [Route("index")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult Index()
@@ -25,9 +26,10 @@ namespace HasserisWeb.Controllers
         }
         
         [Route("all")]
-        public IEnumerable<Employee> GetAllEmployees()        
+        public string GetAllEmployees()        
         {
-            return HasserisDbContext.LoadAllElementsFromDatabase("Employee");
+            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Employee");
+            return JsonConvert.SerializeObject((temp));
         }  
         
         [Route("all/old")]
