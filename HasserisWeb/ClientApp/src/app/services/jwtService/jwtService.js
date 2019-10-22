@@ -79,7 +79,9 @@ class jwtService extends FuseUtils.EventEmitter {
                         role: [response.data.user.type],
                         data: {
                             displayName: response.data.user.userName,
-                            email: response.data.user.contactInfo.email
+                            email: response.data.user.contactInfo.email,
+                            firstName: response.data.user.firstName,
+                            lastName: response.data.user.lastName
                         }
                     }
                     this.setSession(response.data.access_token);
@@ -108,7 +110,9 @@ class jwtService extends FuseUtils.EventEmitter {
                             role: [response.data.user.type],
                             data: {
                                 displayName: response.data.user.userName,
-                                email: response.data.user.contactInfo.email
+                                email: response.data.user.contactInfo.email,
+                                firstName: response.data.user.firstName, 
+                                lastName: response.data.user.lastName
                             }
                         }
                         this.setSession(response.data.access_token);
