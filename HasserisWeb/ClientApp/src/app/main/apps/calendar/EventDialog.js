@@ -21,35 +21,6 @@ const defaultFormState = {
     combo : ''
 };
 
-// Is global, maybe fix?    
-// data
-let serverData = { empList : [], convertedEmpList : {} };
-
-const optionsEmployees = [
-    { value: 'blues', label: 'Blues' },
-    { value: 'rock', label: 'Rock' },
-    { value: 'jazz', label: 'Jazz' },
-    { value: 'orchestra', label: 'Orchestra' }
-];
-
-// Is global, maybe fix?
-// Gets employee data from the database and returns it to the Select comp.
-function GetData() {
-    axios.get(`employees/all`)
-        .then(res => {
-            const employees = res.data;
-            serverData.empList = res.data;
-        });
-    
-    serverData.convertedEmpList = [
-        { value: 'blues', label: 'Blues' },
-        { value: 'rock', label: 'Rock' },
-        { value: 'jazz', label: 'Jazz' },
-        { value: 'orchestra', label: 'Orchestra' }
-    ];
-    
-    return serverData.convertedEmpList;
-}
 
 function EventDialog(props)
 {
@@ -216,14 +187,11 @@ function EventDialog(props)
                     />
 
 
-                    
+                                        
                     <Select
-                        options={optionsEmployees}
                         textField='name'
                         groupBy='lastName'                    
                     />
-                    
-                  
                     
                     <TextField
                         className="mt-8 mb-16"

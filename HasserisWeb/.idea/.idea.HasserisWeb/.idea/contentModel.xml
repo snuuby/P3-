@@ -1163,6 +1163,16 @@
                 <e p="AddDialog.js" t="Include" />
                 <e p="EmployeeOverview.js" t="Include" />
                 <e p="EmployeeOverviewConfig.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="events.actions.js" t="Include" />
+                    <e p="index.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="events.reducer.js" t="Include" />
+                    <e p="index.js" t="Include" />
+                  </e>
+                </e>
               </e>
             </e>
             <e p="services" t="Include">

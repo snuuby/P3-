@@ -1,4 +1,5 @@
 import EmployeeOverview from './EmployeeOverview';
+import React from "react";
 
 export const EmployeeOverviewConfig = {
     settings: {
@@ -9,7 +10,7 @@ export const EmployeeOverviewConfig = {
     routes  : [
         {
             path     : '/employee/overview',
-            component: EmployeeOverview
+            component: React.lazy(() => import('./EmployeeOverview'))
         }
     ]
 };

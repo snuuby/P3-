@@ -151,6 +151,10 @@
     <Content Include="ClientApp\src\app\main\overview\AddDialog.js" />
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\actions\events.actions.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\reducers\events.reducer.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\reducers\index.js" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
