@@ -1418,6 +1418,7 @@
       </e>
       <e p="Controllers" t="Include">
         <e p="AuthenticationController.cs" t="Include" />
+        <e p="CalendarController.cs" t="Include" />
         <e p="EmployeeController.cs" t="Include" />
         <e p="MitComponentController.cs" t="Include" />
         <e p="WeatherForecastController.cs" t="Include" />

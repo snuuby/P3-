@@ -11,7 +11,7 @@ export const REMOVE_EVENT = '[CALENDAR APP] REMOVE EVENT';
 
 export function getEvents()
 {
-    const request = axios.get('/api/calendar-app/events');
+        const request = axios.get('/calendar/all');
 
     return (dispatch) =>
         request.then((response) =>

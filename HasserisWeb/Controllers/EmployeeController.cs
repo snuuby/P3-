@@ -42,6 +42,7 @@ namespace HasserisWeb.Controllers
             for (int i = 1; i < 10; i++)
             {
                 employees[i - 1] = HasserisDbContext.LoadElementFromDatabase("Employee", 1);
+                
             }
 
             return employees;
