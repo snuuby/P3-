@@ -2,3 +2,11 @@
 *.ide
 HasserisWeb/.vs/HasserisWeb/v16/Server/sqlite3/storage.ide
 HasserisWeb/.vs/HasserisWeb/v16/Server/sqlite3/storage.ide
+HasserisWeb/obj/project.assets.json
+HasserisWeb/obj/HasserisWeb.csproj.nuget.g.props
+HasserisWeb/obj/HasserisWeb.csproj.nuget.dgspec.json
+HasserisWeb/obj/HasserisWeb.csproj.nuget.cache
+HasserisWeb/obj/Debug/netcoreapp3.0/HasserisWeb.csprojAssemblyReference.cache
+HasserisWeb/obj/Debug/netcoreapp3.0/HasserisWeb.assets.cache
+HasserisWeb/Database/Hasseris.db
+HasserisWeb/.vs/HasserisWeb/v16/.suo
