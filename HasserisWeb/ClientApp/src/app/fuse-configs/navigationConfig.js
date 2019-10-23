@@ -1,6 +1,7 @@
+import {authRoles} from 'app/auth';
+
 const navigationConfig = [
     {
-        
         'id'      : 'applications',
         'title'   : 'Menu',
         'type'    : 'group',
@@ -97,7 +98,7 @@ const navigationConfig = [
             },
             {
                 'id': 'vehicles',
-                'title': 'Køretøjer',
+                'title': 'Kï¿½retï¿½jer',
                 'type': 'item',
                 'icon': 'list',
                 'url': ''

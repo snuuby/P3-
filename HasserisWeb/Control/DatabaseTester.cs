@@ -22,7 +22,7 @@ namespace HasserisWeb
                 new Address("myrdalstrade", "9220", "Aalborg", "1. sal t.h"),
                 new ContactInfo("jallehansen17/gmail.com", "28943519"));
             HasserisDbContext.SaveElementToDatabase<Private>(privateCustomer);
-
+            
 
             Employee employee_one = new Employee("Anders", "Andreasen","Employee", 180,
                 new ContactInfo("andreas/gmail.com", "223313145"),
@@ -32,10 +32,17 @@ namespace HasserisWeb
             Employee employee_two = new Employee("Peter", "Kukukson", "Admin", 190,
                 new ContactInfo("Peter/gmail.com", "123123123"),
                 new Address("Petersvej", "9220", "Aalborg", "Tredje Etache"));
-
             employee_two.AddLoginInfo("Cholle", "Christopher18");
+            
+            Employee employee_three = new Employee("Jens", "Frederiksen","AdminPlus", 180,
+                new ContactInfo("test/test.com", "12322321"),
+                new Address("Andreasensvej", "9000", "Aalborg", "Yes"));
+            employee_three.AddLoginInfo("Test", "Testson");
+
+            
             HasserisDbContext.SaveElementToDatabase<Employee>(employee_one);
             HasserisDbContext.SaveElementToDatabase<Employee>(employee_two);
+            HasserisDbContext.SaveElementToDatabase<Employee>(employee_three);
 
             Vehicle vehicle = new Vehicle("Stor bil", "Vehicle", "Opel", "12312123");
             HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
