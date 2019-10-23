@@ -8,7 +8,7 @@ export const EmployeeOverviewConfig = {
             config: {}
         }
     },
-    auth    : authRoles.adminPlus,//['admin']
+    auth    : authRoles.adminPlus,
     routes  : [
         {
             path     : '/employee/overview',

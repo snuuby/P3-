@@ -1,6 +1,7 @@
+import {authRoles} from 'app/auth';
+
 const navigationConfig = [
     {
-        
         'id'      : 'applications',
         'title'   : 'Employees',
         'type'    : 'group',
@@ -17,6 +18,7 @@ const navigationConfig = [
                 'id'      : 'dashboards',
                 'title'   : 'Dashboards',
                 'type'    : 'collapse',
+                'auth'    : authRoles.admin,
                 'icon'    : 'dashboard',
                 'children': [
                     {

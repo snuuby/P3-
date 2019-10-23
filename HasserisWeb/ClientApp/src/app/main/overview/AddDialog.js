@@ -18,8 +18,6 @@ const defaultFormState = {
     desc  : ''
 };
 
-
-
 function AddDialog(props)
 {
     const dispatch = useDispatch();
