@@ -25,7 +25,7 @@
         <e p="node_modules\@babel\types" t="IncludeRecursive" />
         <e p="node_modules\@date-io\date-fns" t="IncludeRecursive" />
         <e p="node_modules\@firebase\app" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\Database" t="IncludeRecursive" />
+        <e p="node_modules\@firebase\database" t="IncludeRecursive" />
         <e p="node_modules\@firebase\firestore" t="IncludeRecursive" />
         <e p="node_modules\@firebase\functions" t="IncludeRecursive" />
         <e p="node_modules\@firebase\installations" t="IncludeRecursive" />
@@ -189,6 +189,7 @@
         <e p="node_modules\velocity-react" t="IncludeRecursive" />
         <e p="node_modules\webpack-bundle-analyzer" t="IncludeRecursive" />
         <e p="node_modules\worker-farm" t="IncludeRecursive" />
+        <e p="package-lock.json" t="Include" />
         <e p="package.json" t="Include" />
         <e p="public" t="Include">
           <e p="assets" t="Include">
@@ -299,7 +300,12 @@
                 <e p="auth0.svg" t="Include" />
                 <e p="firebase.svg" t="Include" />
                 <e p="fuse.svg" t="Include" />
+                <e p="HasserisFlytteforetningLogo.png" t="Include" />
+                <e p="HasserisFlytteforetningLogo.svg" t="Include" />
+                <e p="HasserisFlytteforetningManLogo.svg" t="Include" />
+                <e p="HasserisFlytteforetningRigtigManLogo.svg" t="Include" />
                 <e p="jwt.svg" t="Include" />
+                <e p="NewTux.svg" t="Include" />
               </e>
               <e p="mail" t="Include">
                 <e p="attachment-1.jpg" t="Include" />
@@ -667,9 +673,22 @@
             <e p="App.js" t="Include" />
             <e p="AppContext.js" t="Include" />
             <e p="auth" t="Include">
+              <e p="admin-role-example" t="Include">
+                <e p="AdminRoleExample.js" t="Include" />
+                <e p="AdminRoleExampleConfig.js" t="Include" />
+              </e>
               <e p="Auth.js" t="Include" />
+              <e p="authRoleExamplesConfigs.js" t="Include" />
               <e p="authRoles.js" t="Include" />
               <e p="index.js" t="Include" />
+              <e p="only-guest-role-example" t="Include">
+                <e p="GuestRoleExample.js" t="Include" />
+                <e p="GuestRoleExampleConfig.js" t="Include" />
+              </e>
+              <e p="staff-role-example" t="Include">
+                <e p="StaffRoleExample.js" t="Include" />
+                <e p="StaffRoleExampleConfig.js" t="Include" />
+              </e>
               <e p="store" t="Include">
                 <e p="actions" t="Include">
                   <e p="index.js" t="Include" />
@@ -788,6 +807,7 @@
                   <e p="CalendarAppConfig.js" t="Include" />
                   <e p="CalendarHeader.js" t="Include" />
                   <e p="EventDialog.js" t="Include" />
+                  <e p="EventDialogOld.js" t="Include" />
                   <e p="store" t="Include">
                     <e p="actions" t="Include">
                       <e p="events.actions.js" t="Include" />
@@ -941,6 +961,16 @@
                       <e p="product.reducer.js" t="Include" />
                       <e p="products.reducer.js" t="Include" />
                     </e>
+                  </e>
+                </e>
+                <e p="errors" t="Include">
+                  <e p="404" t="Include">
+                    <e p="Error404Page.js" t="Include" />
+                    <e p="Error404PageConfig.js" t="Include" />
+                  </e>
+                  <e p="500" t="Include">
+                    <e p="Error500Page.js" t="Include" />
+                    <e p="Error500PageConfig.js" t="Include" />
                   </e>
                 </e>
                 <e p="file-manager" t="Include">
@@ -1157,11 +1187,39 @@
               <e p="login" t="Include">
                 <e p="Login.js" t="Include" />
                 <e p="LoginConfig.js" t="Include" />
+                <e p="LogoutConfig.js" t="Include" />
+                <e p="tabs" t="Include">
+                  <e p="Auth0LoginTab.js" t="Include" />
+                  <e p="FirebaseLoginTab.js" t="Include" />
+                  <e p="JWTLoginTab.js" t="Include" />
+                </e>
               </e>
               <e p="overview" t="Include">
                 <e p="AddDialog.js" t="Include" />
                 <e p="EmployeeOverview.js" t="Include" />
                 <e p="EmployeeOverviewConfig.js" t="Include" />
+                <e p="OverviewHeader.js" t="Include" />
+                <e p="OverviewTable.js" t="Include" />
+                <e p="OverviewTableHead.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="overview.actions.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="overview.reducer.js" t="Include" />
+                  </e>
+                </e>
+              </e>
+              <e p="profile" t="Include">
+                <e p="ProfilePage.js" t="Include" />
+                <e p="ProfilePageConfig.js" t="Include" />
+                <e p="tabs" t="Include">
+                  <e p="AboutTab.js" t="Include" />
+                  <e p="PhotosVideosTab.js" t="Include" />
+                  <e p="TimelineTab.js" t="Include" />
+                </e>
               </e>
             </e>
             <e p="services" t="Include">
@@ -1359,12 +1417,14 @@
         <e p="SystemControl.cs" t="Include" />
       </e>
       <e p="Controllers" t="Include">
+        <e p="AuthenticationController.cs" t="Include" />
         <e p="EmployeeController.cs" t="Include" />
         <e p="MitComponentController.cs" t="Include" />
         <e p="WeatherForecastController.cs" t="Include" />
       </e>
-      <e p="Database" t="Include">
+      <e p="database" t="Include">
         <e p="Hasseris.db" t="Include" />
+        <e p="Hasseris3.db" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
       </e>
       <e p="HasserisWeb.csproj" t="IncludeRecursive" />
@@ -1411,6 +1471,8 @@
         </e>
       </e>
       <e p="node_modules\bootstrap" t="IncludeRecursive" />
+      <e p="node_modules\react-dropdown" t="IncludeRecursive" />
+      <e p="node_modules\react-widgets" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.0" t="Include">

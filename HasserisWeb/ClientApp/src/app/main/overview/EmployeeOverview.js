@@ -1,17 +1,28 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {
     AppBar, Button,
     Dialog, DialogActions,
-    DialogContent,
-    FormControlLabel, Icon, IconButton,
+    DialogContent, Fab,
+    FormControlLabel, Icon, IconButton, Select,
     Switch,
     TextField,
     Toolbar,
     Typography
 } from '@material-ui/core';
-import {FusePageSimple, DemoContent} from '@fuse';
+import {FusePageSimple, FuseAnimate, FusePageCarded, DemoContent} from '@fuse';
 import axios from 'axios';
+import * as Actions from './store/actions';
+import {useDispatch, useSelector} from "react-redux";
+import reducer from './store/reducers';
+import withReducer from "../../store/withReducer";
+import {createStore} from "redux";
+import {makeStyles} from "@material-ui/styles";
+import OverviewTable from './OverviewTable';
+import OverviewTableHead from './OverviewTableHead';
+import OrdersHeader from './OverviewHeader';
+import AddDialog from './AddDialog';
+
 
 
 const styles = theme => ({
@@ -39,29 +50,167 @@ function editWorker(id) {
     alert("Edit worker with: "  + id);
 }
 
-class EmployeeOverview extends Component {
-    
-    
-    // Test af controller, Constructor er lavet af Cholle
-    constructor(props) {
-        super(props);
-        this.state = { forecasts: [], empList: [], loading: true };
-        
-        //this.renderEmployeeList.bind(this);
+function createEmployee() {
+    return(<AddDialog/>)
+}
 
+const useStyles = makeStyles(theme => ({
+    root     : {
+        '& .rbc-header'                                                                                                : {
+            padding   : '12px 6px',
+            fontWeight: 600,
+            fontSize  : 14
+        },
+        '& .rbc-label'                                                                                                 : {
+            padding: '8px 6px'
+        },
+        '& .rbc-today'                                                                                                 : {
+            backgroundColor: 'transparent'
+        },
+        '& .rbc-header.rbc-today, & .rbc-month-view .rbc-day-bg.rbc-today'                                             : {
+            borderBottom: '2px solid ' + theme.palette.secondary.main + '!important'
+        },
+        '& .rbc-month-view, & .rbc-time-view, & .rbc-agenda-view'                                                      : {
+            padding                       : 24,
+            [theme.breakpoints.down('sm')]: {
+                padding: 16
+            },
+            ...theme.mixins.border(0)
+        },
+        '& .rbc-agenda-view table'                                                                                     : {
+            ...theme.mixins.border(1),
+            '& thead > tr > th': {
+                ...theme.mixins.borderBottom(0)
+            },
+            '& tbody > tr > td': {
+                padding : '12px 6px',
+                '& + td': {
+                    ...theme.mixins.borderLeft(1)
+                }
+            }
+        },
+        '& .rbc-time-view'                                                                                             : {
+            '& .rbc-time-header' : {
+                ...theme.mixins.border(1)
+            },
+            '& .rbc-time-content': {
+                flex: '0 1 auto',
+                ...theme.mixins.border(1)
+            }
+        },
+        '& .rbc-month-view'                                                                                            : {
+            '& > .rbc-row'               : {
+                ...theme.mixins.border(1)
+            },
+            '& .rbc-month-row'           : {
+                ...theme.mixins.border(1),
+                borderWidth: '0 1px 1px 1px!important',
+                minHeight  : 128
+            },
+            '& .rbc-header + .rbc-header': {
+                ...theme.mixins.borderLeft(1)
+            },
+            '& .rbc-header'              : {
+                ...theme.mixins.borderBottom(0)
+            },
+            '& .rbc-day-bg + .rbc-day-bg': {
+                ...theme.mixins.borderLeft(1)
+            }
+        },
+        '& .rbc-day-slot .rbc-time-slot'                                                                               : {
+            ...theme.mixins.borderTop(1),
+            opacity: 0.5
+        },
+        '& .rbc-time-header > .rbc-row > * + *'                                                                        : {
+            ...theme.mixins.borderLeft(1)
+        },
+        '& .rbc-time-content > * + * > *'                                                                              : {
+            ...theme.mixins.borderLeft(1)
+        },
+        '& .rbc-day-bg + .rbc-day-bg'                                                                                  : {
+            ...theme.mixins.borderLeft(1)
+        },
+        '& .rbc-time-header > .rbc-row:first-child'                                                                    : {
+            ...theme.mixins.borderBottom(1)
+        },
+        '& .rbc-timeslot-group'                                                                                        : {
+            minHeight: 64,
+            ...theme.mixins.borderBottom(1)
+        },
+        '& .rbc-date-cell'                                                                                             : {
+            padding   : 8,
+            fontSize  : 16,
+            fontWeight: 400,
+            opacity   : .5,
+            '& > a'   : {
+                color: 'inherit'
+            }
+        },
+        '& .rbc-event'                                                                                                 : {
+            borderRadius            : 4,
+            padding                 : '4px 8px',
+            backgroundColor         : theme.palette.primary.dark,
+            color                   : theme.palette.primary.contrastText,
+            boxShadow               : theme.shadows[0],
+            transitionProperty      : 'box-shadow',
+            transitionDuration      : theme.transitions.duration.short,
+            transitionTimingFunction: theme.transitions.easing.easeInOut,
+            position                : 'relative',
+            '&:hover'               : {
+                boxShadow: theme.shadows[2]
+            }
+        },
+        '& .rbc-row-segment'                                                                                           : {
+            padding: '0 4px 4px 4px'
+        },
+        '& .rbc-off-range-bg'                                                                                          : {
+            backgroundColor: theme.palette.type === 'light' ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0.16)'
+        },
+        '& .rbc-show-more'                                                                                             : {
+            color     : theme.palette.secondary.main,
+            background: 'transparent'
+        },
+        '& .rbc-addons-dnd .rbc-addons-dnd-resizable-month-event'                                                      : {
+            position: 'static'
+        },
+        '& .rbc-addons-dnd .rbc-addons-dnd-resizable-month-event .rbc-addons-dnd-resize-month-event-anchor:first-child': {
+            left  : 0,
+            top   : 0,
+            bottom: 0,
+            height: 'auto'
+        },
+        '& .rbc-addons-dnd .rbc-addons-dnd-resizable-month-event .rbc-addons-dnd-resize-month-event-anchor:last-child' : {
+            right : 0,
+            top   : 0,
+            bottom: 0,
+            height: 'auto'
+        }
+    },
+    addButton: {
+        position: 'absolute',
+        right   : 12,
+        top     : 172,
+        zIndex  : 99
+    }
+}));
 
-    }
+function EmployeeOverview(props) {
+    // Get access to the employees
+    const dispatch = useDispatch();
+    const employeesRedux = useSelector(({overviewReducer}) => overviewReducer.employees.entities);
     
-    // Cholle
-    componentDidMount() {
-        this.populateWeatherData();
-        // 2Cholle
-        this.populateEmployeeData();
-    }
+    const classes = useStyles(props);
+
+    useEffect(() => {
+        dispatch(Actions.getEmployees());
+    }, [dispatch]);
     
-    // 2Cholle
-        static renderEmployeeList(empList){
-        
+ 
+    function getEmployees(){
+        dispatch(Actions.getEmployees());
+    }
+
+    function renderEmployeeList(empList){
         return(
             <table className='table' aria-labelledby="tabelLabel">
                 <thead>
@@ -71,8 +220,6 @@ class EmployeeOverview extends Component {
                     <th>LastName</th>
                     <th></th>
                     <th></th>
-
-
                 </tr>
                 </thead>
                 <tbody>
@@ -96,99 +243,46 @@ class EmployeeOverview extends Component {
             </table>
         )
     }
-    
-    // Cholle
-    static renderForecastsTable(forecasts) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-                </thead>
-                <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        );
-    }
-    
-    render()
-    {
-            // 2Cholle
-        let contentsEmployees = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : EmployeeOverview.renderEmployeeList(this.state.empList);
+
+    return(
+        <FusePageCarded
+            classes={{
+                content: "flex",
+                header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
+            }}
+            header={
+                <OrdersHeader/>
+            }
+            content={
+                <div>
+
+                    <OverviewTable/>
+
+                    <FuseAnimate animation="transition.expandIn" delay={500}>
+                        <Fab
+                            color="secondary"
+                            aria-label="add"
+                            className={classes.addButton}
+                            onClick={() => dispatch(Actions.openNewAddDialog({
+                                start: new Date(),
+                                end  : new Date()
+                            }))}
+                        >
+                            <Icon>add</Icon>
+                        </Fab>
+                    </FuseAnimate>
+                    
+                    
+                </div>
+            }
+            innerScroll
+            
+        />
         
-        const {classes} = this.props;
-        return (
-            <FusePageSimple
-                classes={{
-                    root: classes.layoutRoot
-                }}
-                header={
-                    <div className="p-24"><h4>Header</h4></div>
-                }
-                contentToolbar={
-                    <div className="px-24"><h4>Content Toolbar</h4>
-
-                        <button className="btn btn-primary" type="button">Tilføj Medarbejder</button>
-
-                    </div>
-                }
-                content={
-                    <div className="p-24">
-
-                        <div>
-                            <h1 id="tabelLabel" >Employee list</h1>
-                            <p>Employee data from database:</p>
-                            {contentsEmployees}
-                        </div>
-                        
-                        <h4>Content</h4>
-                        <br/>
-                        <DemoContent/>
-                    </div>
-                }
-            />
-        )
-    }
-    
-    
-
-    // Cholle
-    async populateWeatherData() {
-        const response = await fetch('weatherdata');
-        const data = await response.json();
-        this.setState({ forecasts: data, loading: false });
-    }
-    
-    // 2Cholle
-    async populateEmployeeData(){
-        //const response = await fetch('getemployees');
-        //const data = await response.json();
-
-        //this.setState({ empList: data, loading: false });
-
-        this.setState({ loading: false });
-
-        axios.get(`employees/all`)
-            .then(res => {
-                const employees = res.data;
-                this.setState({ empList: res.data });
-            })
-    }
+        
+        );
     
 }
 
-export default withStyles(styles, {withTheme: true})(EmployeeOverview);
+export default withReducer('overviewReducer', reducer)(EmployeeOverview);
+//export default withStyles(styles, {withTheme: true})(EmployeeOverview);
