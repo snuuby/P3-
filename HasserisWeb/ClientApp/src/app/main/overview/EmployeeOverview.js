@@ -3,23 +3,25 @@ import {withStyles} from '@material-ui/core/styles';
 import {
     AppBar, Button,
     Dialog, DialogActions,
-    DialogContent,
+    DialogContent, Fab,
     FormControlLabel, Icon, IconButton, Select,
     Switch,
     TextField,
     Toolbar,
     Typography
 } from '@material-ui/core';
-import {FusePageSimple, DemoContent} from '@fuse';
+import {FusePageSimple, FuseAnimate, FusePageCarded, DemoContent} from '@fuse';
 import axios from 'axios';
-import AddDialog from './AddDialog';
-import EventDialog from "../apps/calendar/EventDialog";
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from "react-redux";
 import reducer from './store/reducers';
 import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
+import OverviewTable from './OverviewTable';
+import OverviewTableHead from './OverviewTableHead';
+import OrdersHeader from './OverviewHeader';
+import AddDialog from './AddDialog';
 
 
 
@@ -49,7 +51,7 @@ function editWorker(id) {
 }
 
 function createEmployee() {
-    return(<EventDialog/>)
+    return(<AddDialog/>)
 }
 
 const useStyles = makeStyles(theme => ({
@@ -209,7 +211,6 @@ function EmployeeOverview(props) {
     }
 
     function renderEmployeeList(empList){
-        
         return(
             <table className='table' aria-labelledby="tabelLabel">
                 <thead>
@@ -244,40 +245,41 @@ function EmployeeOverview(props) {
     }
 
     return(
-            <FusePageSimple
-                classes={{
-                    root: classes.layoutRoot
-                }}
-                
-                header={
-                    <div className="p-24"><h4>Header</h4></div>
-                }
-                contentToolbar={
-                    <div className="px-24"><h4>Content Toolbar</h4>
+        <FusePageCarded
+            classes={{
+                content: "flex",
+                header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
+            }}
+            header={
+                <OrdersHeader/>
+            }
+            content={
+                <div>
 
-                        <button onClick={() => createEmployee()} className="btn btn-primary" type="button">Tilføj Medarbejder</button>
-                        
-                        <Button variant="contained" color="primary">
-                            Material UI test
-                        </Button>
-                        
-                    </div>
-                }
-                content={
-                    <div className="p-24">
-                        
-                        <div>
-                            <h1 id="tabelLabel" >Employee list</h1>
-                            <p>Employee data from database:</p>
-                            {employeesRedux.map(employee => employee.firstName)}
-                        </div>
-                        
-                        <h4>Content</h4>
-                        <br/>
-                        <DemoContent/>
-                    </div>
-                }
-            />
+                    <OverviewTable/>
+
+                    <FuseAnimate animation="transition.expandIn" delay={500}>
+                        <Fab
+                            color="secondary"
+                            aria-label="add"
+                            className={classes.addButton}
+                            onClick={() => dispatch(Actions.openNewAddDialog({
+                                start: new Date(),
+                                end  : new Date()
+                            }))}
+                        >
+                            <Icon>add</Icon>
+                        </Fab>
+                    </FuseAnimate>
+                    
+                    
+                </div>
+            }
+            innerScroll
+            
+        />
+        
+        
         );
     
 }

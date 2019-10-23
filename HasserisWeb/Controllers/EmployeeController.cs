@@ -13,6 +13,7 @@ namespace HasserisWeb.Controllers
     [Route("employees")]
     public class EmployeeController : Controller
     {
+        /* Just testing
         [Route("index")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult Index()
@@ -24,6 +25,7 @@ namespace HasserisWeb.Controllers
         {
             return Content("HEJ2");
         }
+        */
         
         [Route("all")]
         public string GetAllEmployees()        
