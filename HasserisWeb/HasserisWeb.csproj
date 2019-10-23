@@ -170,6 +170,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Database\Hasseris3.db" />
     <None Remove="Hasseris.db" />
   </ItemGroup>
 
