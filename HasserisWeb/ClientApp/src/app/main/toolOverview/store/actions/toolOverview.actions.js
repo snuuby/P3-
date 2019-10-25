@@ -13,10 +13,10 @@ export const ADD_TOOL = '[TOOL APP] ADD EMPLOYEE';
 export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
 
-// Gets all employees
+// Gets all tools
 export function getTools()
 {
-    const request = axios.get('Equipments/all');
+    const request = axios.get('Tool/all');
     request.then(response => console.log(response.data));
     
     return (dispatch) =>
@@ -37,8 +37,8 @@ export function setOverviewSearchText(event)
     }
 }
 
-// Action to add employees
-export function addEmployee(newEvent)
+// Action to add tool
+export function addTool(newEvent)
 {
     return (dispatch, getState) => {
 

@@ -3,46 +3,46 @@ import {Table, TableBody, TableCell, TablePagination, TableRow, Checkbox} from '
 import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
-import OverviewTableHead from './OverviewTableHead';
+import OverviewTableHead from './toolOverviewTableHead';
 //import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-function OverviewTable(props)
+function toolOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const employees = useSelector(({overviewReducer}) => overviewReducer.employees.entities);
-    const searchText = useSelector(({overviewReducer}) => overviewReducer.employees.searchText);
+    const tools = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.entities);
+    const searchText = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.searchText);
     //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
     const [selected, setSelected] = useState([]);
-    const [data, setData] = useState(employees);
+    const [data, setData] = useState(tools);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [employee, setEmployee] = useState({
+    const [tool, setTool] = useState({
         direction: 'asc',
         id       : null
     });
 
     useEffect(() => {
-        dispatch(Actions.getEmployees());
+        dispatch(Actions.getTools());
     }, [dispatch]);
 
     useEffect(() => {
-        setData(searchText.length === 0 ? employees : FuseUtils.filterArrayByString(employees, searchText))
-    }, [employees, searchText]);
+        setData(searchText.length === 0 ? tools : FuseUtils.filterArrayByString(tools, searchText))
+    }, [tools, searchText]);
 
     function handleRequestSort(event, property)
     {
         const id = property;
         let direction = 'desc';
 
-        if ( employee.id === property && employee.direction === 'desc' )
+        if ( tool.id === property && tool.direction === 'desc' )
         {
             direction = 'asc';
         }
 
-        setEmployee({
+        setTool({
             direction,
             id
         });
@@ -58,7 +58,7 @@ function OverviewTable(props)
         setSelected([]);
     }
 
-    // Det er ved click, måske mere employee information herinde?
+    // Det er ved click, måske mere tool information herinde?
     function handleClick(item)
     {
         props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
@@ -111,7 +111,7 @@ function OverviewTable(props)
 
                     <OverviewTableHead
                         numSelected={selected.length}
-                        employee={employee}
+                        tool={tool}
                         onSelectAllClick={handleSelectAllClick}
                         onRequestSort={handleRequestSort}
                         rowCount={data.length}
@@ -121,19 +121,15 @@ function OverviewTable(props)
                         {
                             _.orderBy(data, [
                                 (e) => {
-                                    switch ( employee.id )
+                                    switch ( tool.id )
                                     {
                                         case 'id':
                                         {
                                             return parseInt(e.id, 10);
                                         }
-                                        case 'fornavn':
+                                        case 'navn':
                                         {
-                                            return e.firstName;
-                                        }
-                                        case 'efternavn':
-                                        {
-                                            return e.lastName;
+                                            return e.name;
                                         }
                                         case 'type':
                                         {
@@ -141,11 +137,11 @@ function OverviewTable(props)
                                         }
                                         default:
                                         {
-                                            return e[employee.id];
+                                            return e[tool.id];
                                         }
                                     }
                                 }
-                            ], [employee.direction])
+                            ], [tool.direction])
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
                                     const isSelected = selected.indexOf(n.id) !== -1;
@@ -173,11 +169,7 @@ function OverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.firstName}
-                                            </TableCell>
-
-                                            <TableCell className="truncate" component="th" scope="row">
-                                                {n.lastName}
+                                                {n.name}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" align="right">
@@ -210,4 +202,4 @@ function OverviewTable(props)
     );
 }
 
-export default withRouter(OverviewTable);
+export default withRouter(toolOverviewTable);

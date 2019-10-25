@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import employees from './overview.reducer';
+import tool from './toolOoverview.reducer';
 
 const reducer = combineReducers({
-    employees,
+    tool,
 });
 
 export default reducer;

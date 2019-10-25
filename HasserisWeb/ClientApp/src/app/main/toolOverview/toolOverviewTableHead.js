@@ -12,26 +12,19 @@ const rows = [
         sort          : true
     },
     {
-        id            : 'fornavn',
+        id            : 'navn',
         align         : 'left',
         disablePadding: false,
-        label         : 'Fornavn',
-        sort          : true
-    },
-    {
-        id            : 'efternavn',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Efternavn',
+        label         : 'Navn',
         sort          : true
     },
     {
         id            : 'type',
-        align         : 'right',
+        align         : 'left',
         disablePadding: false,
         label         : 'Type',
         sort          : true
-    }
+    },
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function OverviewTableHead(props)
+function toolOverviewTableHead(props)
 {
     const classes = useStyles(props);
     const [selectedOrdersMenu, setSelectedOrdersMenu] = useState(null);
@@ -59,7 +52,7 @@ function OverviewTableHead(props)
         setSelectedOrdersMenu(null);
     }
 
-    //const {numSelected, employee, onSelectAllClick, orderby, rowCount} = props;
+    //const {numSelected, tool, onSelectAllClick, orderby, rowCount} = props;
 
     return (
         <TableHead>
@@ -107,7 +100,7 @@ function OverviewTableHead(props)
                             key={row.id}
                             align={row.align}
                             padding={row.disablePadding ? 'none' : 'default'}
-                            sortDirection={props.employee.id === row.id ? props.employee.direction : false}
+                            sortDirection={props.tool.id === row.id ? props.tool.direction : false}
                         >
                             {row.sort && (
                                 <Tooltip
@@ -116,8 +109,8 @@ function OverviewTableHead(props)
                                     enterDelay={300}
                                 >
                                     <TableSortLabel
-                                        active={props.employee.id === row.id}
-                                        direction={props.employee.direction}
+                                        active={props.tool.id === row.id}
+                                        direction={props.tool.direction}
                                         onClick={createSortHandler(row.id)}
                                     >
                                         {row.label}
@@ -132,4 +125,4 @@ function OverviewTableHead(props)
     );
 }
 
-export default OverviewTableHead;
+export default toolOverviewTableHead;

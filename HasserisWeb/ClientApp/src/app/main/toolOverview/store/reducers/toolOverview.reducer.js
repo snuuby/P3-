@@ -13,14 +13,14 @@ const initialState = {
     }
 };
 
-const overviewReducer = function (state = initialState, action) {
+const toolOverviewReducer = function (state = initialState, action) {
     switch (action.type) {
         
-        case Actions.GET_EMPLOYEES:
+        case Actions.GET_TOOLS:
         {
-            const entities = action.payload.map((employee) => (
+            const entities = action.payload.map((tool) => (
                 {
-                    ...employee
+                    ...tool
                 }
             ));
 
@@ -37,7 +37,7 @@ const overviewReducer = function (state = initialState, action) {
             };
         }
 
-        case Actions.ADD_EMPLOYEE:{
+        case Actions.ADD_TOOL:{
             return {
                 ...state,
                 searchText: action.searchText
@@ -85,4 +85,4 @@ const overviewReducer = function (state = initialState, action) {
     }
 
 }
-export default overviewReducer;
+export default toolOverviewReducer;

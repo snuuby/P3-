@@ -18,9 +18,9 @@ import reducer from './store/reducers';
 import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
-import OverviewTable from './OverviewTable';
-import OverviewTableHead from './OverviewTableHead';
-import OrdersHeader from './OverviewHeader';
+import toolOverviewTable from './toolOverviewTable';
+import toolOverviewTableHead from './toolOverviewTableHead';
+import OrdersHeader from './toolOverviewHeader';
 import AddDialog from './AddDialog';
 
 
@@ -30,10 +30,10 @@ const styles = theme => ({
 });
 
 
-function deleteWorker(id) {
+function deleteTool(id) {
     
     if (window.confirm("Er du sikker?")) {
-        axios.post(`employees/delete/` + id)
+        axios.post(`tools/delete/` + id)
             .then(res => {
 
             });
@@ -46,11 +46,11 @@ function deleteWorker(id) {
 
 }
 
-function editWorker(id) {
-    alert("Edit worker with: "  + id);
+function editTool(id) {
+    alert("Edit tool with: "  + id);
 }
 
-function createEmployee() {
+function createTool() {
     return(<AddDialog/>)
 }
 
@@ -194,30 +194,30 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function EmployeeOverview(props) {
-    // Get access to the employees
+function toolOverview(props) {
+    // Get access to the tools
     const dispatch = useDispatch();
-    const employeesRedux = useSelector(({overviewReducer}) => overviewReducer.employees.entities);
+    const toolsRedux = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.entities);
     
     const classes = useStyles(props);
 
     useEffect(() => {
-        dispatch(Actions.getEmployees());
+        dispatch(Actions.getTools());
     }, [dispatch]);
     
  
-    function getEmployees(){
-        dispatch(Actions.getEmployees());
+    function getTools(){
+        dispatch(Actions.getTools());
     }
 
-    function renderEmployeeList(empList){
+    function renderToolList(empList){
         return(
             <table className='table' aria-labelledby="tabelLabel">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
+                    <th>Name</th>
+                    <th>Type</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -226,15 +226,15 @@ function EmployeeOverview(props) {
                 {empList.map(emp =>
                     <tr key={emp.id}>
                         <td>{emp.id}</td>
-                        <td>{emp.firstName}</td>
+                        <td>{emp.name}</td>
                         <td>
-                            {emp.lastName}
+                            {emp.type}
                         </td>
                         <td>                            
-                            <button onClick={() => editWorker(emp.id)} className="btn btn-info" type="button">Rediger</button>
+                            <button onClick={() => editTool(emp.id)} className="btn btn-info" type="button">Rediger</button>
                         </td>
                         <td>
-                            <button onClick={() => deleteWorker(emp.id)} className="btn btn-info" type="button">Slet</button>
+                            <button onClick={() => deleteTool(emp.id)} className="btn btn-info" type="button">Slet</button>
                         </td>
                         
                     </tr>
@@ -256,7 +256,7 @@ function EmployeeOverview(props) {
             content={
                 <div>
 
-                    <OverviewTable/>
+                    <toolOverviewTable/>
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab
@@ -284,5 +284,5 @@ function EmployeeOverview(props) {
     
 }
 
-export default withReducer('overviewReducer', reducer)(EmployeeOverview);
+export default withReducer('toolOverviewReducer', reducer)(toolOverview);
 //export default withStyles(styles, {withTheme: true})(EmployeeOverview);

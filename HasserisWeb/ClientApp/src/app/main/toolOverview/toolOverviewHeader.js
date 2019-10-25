@@ -8,10 +8,10 @@ import AddDialog from "./AddDialog";
 
 
 
-function OverviewHeader(props)
+function toolOverviewHeader(props)
 {
     const dispatch = useDispatch();
-    const searchText = useSelector(({overviewReducer}) => overviewReducer.employees.searchText);
+    const searchText = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.searchText);
     const mainTheme = useSelector(({fuse}) => fuse.settings.mainTheme);
 
     return (
@@ -70,4 +70,4 @@ function OverviewHeader(props)
     );
 }
 
-export default OverviewHeader;
+export default toolOverviewHeader;

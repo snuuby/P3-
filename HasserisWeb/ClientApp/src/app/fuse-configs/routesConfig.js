@@ -16,6 +16,7 @@ const routeConfigs = [
     LoginConfig,
     ProfilePageConfig,
     ...appsConfigs,
+    toolOverviewConfig,
 ];
 
 const routes = [
