@@ -33,6 +33,12 @@ namespace HasserisWeb
         private string note { get; }
         public string workPhoneNumber { get; }
 
+        // For model binding - Experimental
+        public Task()
+        {
+            
+        }
+        
         public Task(string name, string type, Customer assignedCustomer, Address destination, 
                             double income, List<DateTime> Ldates, string note, string workPhoneNumber)
         {
