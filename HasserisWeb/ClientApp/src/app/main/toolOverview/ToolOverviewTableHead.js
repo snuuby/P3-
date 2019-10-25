@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function toolOverviewTableHead(props)
+function ToolOverviewTableHead(props)
 {
     const classes = useStyles(props);
     const [selectedOrdersMenu, setSelectedOrdersMenu] = useState(null);
@@ -125,4 +125,4 @@ function toolOverviewTableHead(props)
     );
 }
 
-export default toolOverviewTableHead;
+export default ToolOverviewTableHead;

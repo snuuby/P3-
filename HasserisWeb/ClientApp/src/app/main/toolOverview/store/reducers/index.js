@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import tool from './toolOverview.reducer';
+import tools from './toolOverview.reducer';
 
 const reducer = combineReducers({
-    tool,
+    tools,
 });
 
 export default reducer;

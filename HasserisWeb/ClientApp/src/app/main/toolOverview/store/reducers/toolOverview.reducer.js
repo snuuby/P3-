@@ -13,7 +13,7 @@ const initialState = {
     }
 };
 
-const toolOverviewReducer = function (state = initialState, action) {
+const toolReducer = function (state = initialState, action) {
     switch (action.type) {
         
         case Actions.GET_TOOLS:
@@ -85,4 +85,4 @@ const toolOverviewReducer = function (state = initialState, action) {
     }
 
 }
-export default toolOverviewReducer;
+export default toolReducer;

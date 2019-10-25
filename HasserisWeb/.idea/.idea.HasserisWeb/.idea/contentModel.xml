@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\cholle18 AAU\.Rider2019.2\config\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\cholle18 AAU\.Rider2019.2\config\extensions" t="IncludeRecursive" />
     <e p="C:\Users\cholle18 AAU\.Rider2019.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\cholle18 AAU\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_HasserisWeb.-918708194.00" t="ExcludeRecursive" />
@@ -1221,6 +1220,24 @@
                   <e p="TimelineTab.js" t="Include" />
                 </e>
               </e>
+              <e p="toolOverview" t="Include">
+                <e p="AddDialog.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="toolOverview.actions.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="toolOverview.reducer.js" t="Include" />
+                  </e>
+                </e>
+                <e p="ToolOverview.js" t="Include" />
+                <e p="ToolOverviewConfig.js" t="Include" />
+                <e p="toolOverviewHeader.js" t="Include" />
+                <e p="toolOverviewTable.js" t="Include" />
+                <e p="toolOverviewTableHead.js" t="Include" />
+              </e>
             </e>
             <e p="services" t="Include">
               <e p="auth0Service" t="Include">
@@ -1420,6 +1437,7 @@
         <e p="AuthenticationController.cs" t="Include" />
         <e p="EmployeeController.cs" t="Include" />
         <e p="MitComponentController.cs" t="Include" />
+        <e p="ToolController.cs" t="Include" />
         <e p="WeatherForecastController.cs" t="Include" />
       </e>
       <e p="database" t="Include">

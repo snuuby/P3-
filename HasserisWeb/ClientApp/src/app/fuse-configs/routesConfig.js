@@ -6,7 +6,7 @@ import {appsConfigs} from "app/main/apps/appsConfigs";
 import CalendarApp from "../main/apps/calendar/CalendarApp";
 import {ProfilePageConfig} from "app/main/profile/ProfilePageConfig";
 import { EmployeeOverviewConfig } from "../main/overview/EmployeeOverviewConfig";
-import { toolOverviewConfig } from "../main/toolOverview/toolOverviewConfig";
+import { ToolOverviewConfig } from "../main/toolOverview/ToolOverviewConfig";
 import * as Actions from 'app/store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -17,7 +17,7 @@ const routeConfigs = [
     LoginConfig,
     ProfilePageConfig,
     ...appsConfigs,
-    toolOverviewConfig,
+    ToolOverviewConfig,
 ];
 
 const routes = [

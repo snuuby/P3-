@@ -1,8 +1,8 @@
-import toolOverview from './toolOverview';
+import ToolOverview from './ToolOverview';
 import React from "react";
 import authRoles from "../../auth/authRoles";
 
-export const toolOverviewConfig = {
+export const ToolOverviewConfig = {
     settings: {
         layout: {
             config: {}
@@ -12,7 +12,7 @@ export const toolOverviewConfig = {
     routes  : [
         {
             path     : '/tool/overview',
-            component: React.lazy(() => import('./toolOverview'))
+            component: React.lazy(() => import('./ToolOverview'))
         }
     ]
 };

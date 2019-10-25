@@ -3,16 +3,16 @@ import {Table, TableBody, TableCell, TablePagination, TableRow, Checkbox} from '
 import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
-import OverviewTableHead from './toolOverviewTableHead';
+import ToolOverviewTableHead from './ToolOverviewTableHead';
 //import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-function toolOverviewTable(props)
+function ToolOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const tools = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.entities);
-    const searchText = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.searchText);
+    const tools = useSelector(({toolReducer}) => toolReducer.tools.entities);
+    const searchText = useSelector(({toolReducer}) => toolReducer.tools.searchText);
     //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
     const [selected, setSelected] = useState([]);
@@ -109,7 +109,7 @@ function toolOverviewTable(props)
 
                 <Table className="min-w-xl" aria-labelledby="tableTitle">
 
-                    <OverviewTableHead
+                    <ToolOverviewTableHead
                         numSelected={selected.length}
                         tool={tool}
                         onSelectAllClick={handleSelectAllClick}
@@ -202,4 +202,4 @@ function toolOverviewTable(props)
     );
 }
 
-export default withRouter(toolOverviewTable);
+export default withRouter(ToolOverviewTable);

@@ -18,9 +18,9 @@ import reducer from './store/reducers';
 import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
-import toolOverviewTable from './toolOverviewTable';
-import toolOverviewTableHead from './toolOverviewTableHead';
-import OrdersHeader from './toolOverviewHeader';
+import toolOverviewTable from './ToolOverviewTable';
+import toolOverviewTableHead from './ToolOverviewTableHead';
+import OrdersHeader from './ToolOverviewHeader.js';
 import AddDialog from './AddDialog';
 
 
@@ -194,10 +194,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function toolOverview(props) {
+function ToolOverview(props) {
     // Get access to the tools
     const dispatch = useDispatch();
-    const toolsRedux = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.entities);
+    const toolsRedux = useSelector(({toolReducer}) => toolReducer.tools.entities);
     
     const classes = useStyles(props);
 
@@ -284,5 +284,5 @@ function toolOverview(props) {
     
 }
 
-export default withReducer('toolOverviewReducer', reducer)(toolOverview);
+export default withReducer('toolReducer', reducer)(ToolOverview);
 //export default withStyles(styles, {withTheme: true})(EmployeeOverview);

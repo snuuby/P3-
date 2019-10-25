@@ -21,7 +21,7 @@ const defaultFormState = {
 function AddDialog(props)
 {
     const dispatch = useDispatch();
-    const eventDialog = useSelector(({toolOverviewReducer}) => toolOverviewReducer.tools.eventDialog);
+    const eventDialog = useSelector(({toolReducer}) => toolReducer.tools.eventDialog);
 
     const {form, handleChange, setForm} = useForm(defaultFormState);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
