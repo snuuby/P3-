@@ -2,7 +2,7 @@ import toolOverview from './toolOverview';
 import React from "react";
 import authRoles from "../../auth/authRoles";
 
-export const ToolOverviewConfig = {
+export const toolOverviewConfig = {
     settings: {
         layout: {
             config: {}

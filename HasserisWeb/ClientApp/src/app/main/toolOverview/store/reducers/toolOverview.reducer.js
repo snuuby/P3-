@@ -30,7 +30,7 @@ const toolOverviewReducer = function (state = initialState, action) {
             };
         }
         
-        case Actions.SET_OVERVIEW_SEARCH_TEXT:{
+        case Actions.SET_TOOLOVERVIEW_SEARCH_TEXT:{
             return {
                 ...state,
                 searchText: action.searchText

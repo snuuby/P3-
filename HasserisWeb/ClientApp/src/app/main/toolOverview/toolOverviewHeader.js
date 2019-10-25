@@ -56,7 +56,7 @@ function toolOverviewHeader(props)
                                 inputProps={{
                                     'aria-label': 'Search'
                                 }}
-                                onChange={ev => dispatch(Actions.setOverviewSearchText(ev))}
+                                onChange={ev => dispatch(Actions.setToolOverviewSearchText(ev))}
                             />
                         </Paper>
                     </FuseAnimate>

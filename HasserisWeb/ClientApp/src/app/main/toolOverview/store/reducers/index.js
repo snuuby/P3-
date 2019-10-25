@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import tool from './toolOoverview.reducer';
+import tool from './toolOverview.reducer';
 
 const reducer = combineReducers({
     tool,

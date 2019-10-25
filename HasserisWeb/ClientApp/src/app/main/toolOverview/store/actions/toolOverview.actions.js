@@ -8,7 +8,7 @@ import {
 } from "../../../apps/calendar/store/actions";
 
 export const GET_TOOLS = '[TOOL APP] GET EMPLOYEES';
-export const SET_OVERVIEW_SEARCH_TEXT = '[TOOL APP] SET OVERVIEW SEARCH TEXT';
+export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL APP] SET OVERVIEW SEARCH TEXT';
 export const ADD_TOOL = '[TOOL APP] ADD EMPLOYEE';
 export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
@@ -29,10 +29,10 @@ export function getTools()
 }
 
 // Is required for the SearchText
-export function setOverviewSearchText(event)
+export function setToolOverviewSearchText(event)
 {
     return {
-        type      : SET_OVERVIEW_SEARCH_TEXT,
+        type      : SET_TOOLOVERVIEW_SEARCH_TEXT,
         searchText: event.target.value
     }
 }
@@ -51,7 +51,7 @@ export function addTool(newEvent)
                 dispatch({
                     type: ADD_EVENT
                 })
-            ]).then(() => dispatch(getEmployees()))
+            ]).then(() => dispatch(getTools()))
         );
     };
 }
