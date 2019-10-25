@@ -11,7 +11,7 @@ export const REMOVE_EVENT = '[CALENDAR APP] REMOVE EVENT';
 
 export function getEvents()
 {
-        const request = axios.get('/calendar/all');
+    const request = axios.get('calendar/all');
 
     return (dispatch) =>
         request.then((response) =>
@@ -58,7 +58,7 @@ export function addEvent(newEvent)
 {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/add-event', {
+        const request = axios.post('calendar/add', {
             newEvent
         });
 

@@ -13,10 +13,12 @@ namespace HasserisWeb.Controllers
     public class CalendarController : Controller
     {
         [Route("all")]
-        public string GetAllEvents()        
+        public string GetAllEventsTwo()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Tasks");
+            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Task");
             return JsonConvert.SerializeObject((temp));
         }  
+        
+
     }
 }

@@ -16,12 +16,15 @@ const eventsReducer = function (state = initialState, action) {
     {
         case Actions.GET_EVENTS:
         {
+
             const entities = action.payload.map((event) => (
                 {
                     ...event,
-                    start: new Date(event.start),
-                    end  : new Date(event.end)
+                    title : event.name,
+                    start: new Date(event.dates[0]),
+                    end  : new Date(event.dates[1])
                 }
+                
             ));
 
             return {

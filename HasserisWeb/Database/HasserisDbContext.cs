@@ -295,6 +295,12 @@ namespace HasserisWeb
             foreach (string tempdate in tempDates)
             {
                 tempDateTimes.Add(Convert.ToDateTime(tempdate));
+                /*
+                DateTime.TryParseExact(tempdate, "yy/M/d",  
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.None, out DateTime dateFormat);
+                tempDateTimes.Add(dateFormat);
+                */
             }
             
             return tempDateTimes;
@@ -595,22 +601,22 @@ namespace HasserisWeb
                         return null;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Tasks");
+                    dynamic output = cnn.Query<dynamic>("select * from Tasks");
                     List<Task> tempList = new List<Task>();
                     if (output[0].Type == "Delivery")
                     {
                         Delivery temp;
                         foreach (var put in output)
                         {
-                            tempList.Add(temp = new Delivery(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
-                                new Address(output.DestinationAddress, output.DestinationZIP,
-                                output.DestinationCity, output.DestinationNote),
-                                (double)output.Income, CalculateDateFromDatabaseString(output.Date),
-                                output.Note, output.Workphone, output.Material, (int)output.Quantity));
-                            temp.id = (int)output.ID;
-                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
-                            temp.equipmentsIdString = output.EquipmentIDs;
-                            temp.employeesIdString = output.EmployeeIDs;
+                            tempList.Add(temp = new Delivery(put.Name, put.Type, GetCustomerFromDatabaseID((int)put.ID),
+                                new Address(put.DestinationAddress, put.DestinationZIP,
+                                    put.DestinationCity, put.DestinationNote),
+                                (double)put.Income, CalculateDateFromDatabaseString(put.Date),
+                                put.Note, put.Workphone, put.Material, (int)put.Quantity));
+                            temp.id = (int)put.ID;
+                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
+                            temp.equipmentsIdString = put.EquipmentIDs;
+                            temp.employeesIdString = put.EmployeeIDs;
                         }
                     }
                     else if (output[0].Type == "Moving")
