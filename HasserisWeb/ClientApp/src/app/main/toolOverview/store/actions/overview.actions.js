@@ -7,14 +7,14 @@ import {
     OPEN_NEW_EVENT_DIALOG
 } from "../../../apps/calendar/store/actions";
 
-export const GET_EMPLOYEES = '[EMPLOYEE APP] GET EMPLOYEES';
-export const SET_OVERVIEW_SEARCH_TEXT = '[EMPLOYEE APP] SET OVERVIEW SEARCH TEXT';
-export const ADD_EMPLOYEE = '[EMPLOYEE APP] ADD EMPLOYEE';
-export const OPEN_NEW_ADD_DIALOG = '[EMPLOYEE APP] OPEN NEW ADD DIALOG';
-export const CLOSE_NEW_ADD_DIALOG = '[EMPLOYEE APP] CLOSE NEW ADD DIALOG';
+export const GET_TOOLS = '[TOOL APP] GET EMPLOYEES';
+export const SET_OVERVIEW_SEARCH_TEXT = '[TOOL APP] SET OVERVIEW SEARCH TEXT';
+export const ADD_TOOL = '[TOOL APP] ADD EMPLOYEE';
+export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
+export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
 
 // Gets all employees
-export function getEmployees()
+export function getTools()
 {
     const request = axios.get('Equipments/all');
     request.then(response => console.log(response.data));
@@ -22,7 +22,7 @@ export function getEmployees()
     return (dispatch) =>
         request.then((response) =>
             dispatch({
-                type   : GET_EMPLOYEES,
+                type   : GET_TOOLS,
                 payload: response.data
             })
         );
