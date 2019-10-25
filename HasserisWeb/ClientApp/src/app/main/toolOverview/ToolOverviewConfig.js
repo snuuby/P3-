@@ -12,7 +12,7 @@ export const EmployeeOverviewConfig = {
     routes  : [
         {
             path     : '/employee/overview',
-            component: React.lazy(() => import('./EmployeeOverview'))
+            component: React.lazy(() => import('./EquipmentOverview'))
         }
     ]
 };

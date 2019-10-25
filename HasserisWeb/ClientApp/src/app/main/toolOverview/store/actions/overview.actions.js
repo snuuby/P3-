@@ -16,7 +16,7 @@ export const CLOSE_NEW_ADD_DIALOG = '[EMPLOYEE APP] CLOSE NEW ADD DIALOG';
 // Gets all employees
 export function getEmployees()
 {
-    const request = axios.get('employees/all');
+    const request = axios.get('Equipments/all');
     request.then(response => console.log(response.data));
     
     return (dispatch) =>
