@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj": {}
+    "/Users/Andreas/Documents/GitHub/P3-/HasserisWeb/HasserisWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj": {
+    "/Users/Andreas/Documents/GitHub/P3-/HasserisWeb/HasserisWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj",
+        "projectUniqueName": "/Users/Andreas/Documents/GitHub/P3-/HasserisWeb/HasserisWeb.csproj",
         "projectName": "HasserisWeb",
-        "projectPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj",
-        "packagesPath": "C:\\Users\\cholle18 AAU\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\obj\\",
+        "projectPath": "/Users/Andreas/Documents/GitHub/P3-/HasserisWeb/HasserisWeb.csproj",
+        "packagesPath": "/Users/Andreas/.nuget/packages/",
+        "outputPath": "/Users/Andreas/Documents/GitHub/P3-/HasserisWeb/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\cholle18 AAU\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/Andreas/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
