@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
+    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
+    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "projectUniqueName": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj",
         "projectName": "HasserisWeb",
-        "projectPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "projectPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj",
         "packagesPath": "C:\\Users\\cholle18 AAU\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-\\HasserisWeb\\obj\\",
+        "outputPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cholle18 AAU\\AppData\\Roaming\\NuGet\\NuGet.Config"

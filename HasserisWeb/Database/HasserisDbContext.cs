@@ -624,14 +624,14 @@ namespace HasserisWeb
                         Moving temp;
                         foreach (var put in output)
                         {
-                            tempList.Add(temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
-                                new Address(output.DestinationAddress, output.DestinationZIP,
-                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone,
-                                new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes));
-                            temp.id = (int)output.ID;
-                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
-                            temp.equipmentsIdString = output.EquipmentIDs;
-                            temp.employeesIdString = output.EmployeeIDs;
+                            tempList.Add(temp = new Moving(put.Name, put.Type, GetCustomerFromDatabaseID((int)put.ID),
+                                new Address(put.DestinationAddress, put.DestinationZIP,
+                                    put.DestinationCity, put.DestinationNote), put.income, CalculateDateFromDatabaseString(put.Date), put.Note, put.Workphone,
+                                new Address(put.StartingAddress, put.ZIP, put.City, put.Note), put.Lentboxes));
+                            temp.id = (int)put.ID;
+                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
+                            temp.equipmentsIdString = put.EquipmentIDs;
+                            temp.employeesIdString = put.EmployeeIDs;
                         }
                     }
                     else
