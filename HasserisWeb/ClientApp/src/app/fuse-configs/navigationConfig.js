@@ -90,11 +90,11 @@ const navigationConfig = [
                 'url': '/employee/overview'
             },
             {
-                'id': 'equipment',
+                'id': 'tool',
                 'title': 'Udstyr',
                 'type': 'item',
                 'icon': 'list',
-                'url': ''
+                'url': '/tool/overview'
             },
             {
                 'id': 'vehicles',
