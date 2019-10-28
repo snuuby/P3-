@@ -26,10 +26,10 @@ const rows = [
         sort          : true
     },
     {
-        id            : 'type',
+        id            : 'plate',
         align         : 'left',
         disablePadding: false,
-        label         : 'Type',
+        label         : 'Plate',
         sort          : true
     },
 ];
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function ToolOverviewTableHead(props)
+function VehicleOverviewTableHead(props)
 {
     const classes = useStyles(props);
     const [selectedOrdersMenu, setSelectedOrdersMenu] = useState(null);
@@ -59,7 +59,7 @@ function ToolOverviewTableHead(props)
         setSelectedOrdersMenu(null);
     }
 
-    //const {numSelected, tool, onSelectAllClick, orderby, rowCount} = props;
+    //const {numSelected, vehicle, onSelectAllClick, orderby, rowCount} = props;
 
     return (
         <TableHead>
@@ -107,7 +107,7 @@ function ToolOverviewTableHead(props)
                             key={row.id}
                             align={row.align}
                             padding={row.disablePadding ? 'none' : 'default'}
-                            sortDirection={props.tool.id === row.id ? props.tool.direction : false}
+                            sortDirection={props.vehicle.id === row.id ? props.vehicle.direction : false}
                         >
                             {row.sort && (
                                 <Tooltip
@@ -116,8 +116,8 @@ function ToolOverviewTableHead(props)
                                     enterDelay={300}
                                 >
                                     <TableSortLabel
-                                        active={props.tool.id === row.id}
-                                        direction={props.tool.direction}
+                                        active={props.vehicle.id === row.id}
+                                        direction={props.vehicle.direction}
                                         onClick={createSortHandler(row.id)}
                                     >
                                         {row.label}
@@ -132,4 +132,4 @@ function ToolOverviewTableHead(props)
     );
 }
 
-export default ToolOverviewTableHead;
+export default VehicleOverviewTableHead;

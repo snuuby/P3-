@@ -3,46 +3,46 @@ import {Table, TableBody, TableCell, TablePagination, TableRow, Checkbox} from '
 import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
-import ToolOverviewTableHead from './ToolOverviewTableHead';
+import VehicleOverviewTableHead from './VehicleOverviewTableHead';
 //import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-function ToolOverviewTable(props)
+function VehicleOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const tools = useSelector(({toolReducer}) => toolReducer.tools.entities);
-    const searchText = useSelector(({toolReducer}) => toolReducer.tools.searchText);
+    const vehicles = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.entities);
+    const searchText = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.searchText);
     //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
     const [selected, setSelected] = useState([]);
-    const [data, setData] = useState(tools);
+    const [data, setData] = useState(vehicles);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [tool, setTool] = useState({
+    const [vehicle, setVehicle] = useState({
         direction: 'asc',
         id       : null
     });
 
     useEffect(() => {
-        dispatch(Actions.getTools());
+        dispatch(Actions.getVehicles());
     }, [dispatch]);
 
     useEffect(() => {
-        setData(searchText.length === 0 ? tools : FuseUtils.filterArrayByString(tools, searchText))
-    }, [tools, searchText]);
+        setData(searchText.length === 0 ? vehicles : FuseUtils.filterArrayByString(vehicles, searchText))
+    }, [vehicles, searchText]);
 
     function handleRequestSort(event, property)
     {
         const id = property;
         let direction = 'desc';
 
-        if ( tool.id === property && tool.direction === 'desc' )
+        if ( vehicle.id === property && vehicle.direction === 'desc' )
         {
             direction = 'asc';
         }
 
-        setTool({
+        setVehicle({
             direction,
             id
         });
@@ -58,7 +58,7 @@ function ToolOverviewTable(props)
         setSelected([]);
     }
 
-    // Det er ved click, måske mere tool information herinde?
+    // Det er ved click, måske mere vehicle information herinde?
     function handleClick(item)
     {
         props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
@@ -109,9 +109,9 @@ function ToolOverviewTable(props)
 
                 <Table className="min-w-xl" aria-labelledby="tableTitle">
 
-                    <ToolOverviewTableHead
+                    <VehicleOverviewTableHead
                         numSelected={selected.length}
-                        tool={tool}
+                        vehicle={vehicle}
                         onSelectAllClick={handleSelectAllClick}
                         onRequestSort={handleRequestSort}
                         rowCount={data.length}
@@ -121,7 +121,7 @@ function ToolOverviewTable(props)
                         {
                             _.orderBy(data, [
                                 (e) => {
-                                    switch ( tool.id )
+                                    switch ( vehicle.id )
                                     {
                                         case 'id':
                                         {
@@ -135,17 +135,17 @@ function ToolOverviewTable(props)
                                         {
                                             return e.model;
                                         }
-                                        case 'type':
+                                        case 'nummerplade':
                                         {
-                                            return e.type;
+                                            return e.regNum;
                                         }
                                         default:
                                         {
-                                            return e[tool.id];
+                                            return e[vehicle.id];
                                         }
                                     }
                                 }
-                            ], [tool.direction])
+                            ], [vehicle.direction])
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
                                     const isSelected = selected.indexOf(n.id) !== -1;
@@ -182,7 +182,7 @@ function ToolOverviewTable(props)
 
                                             <TableCell component="th" scope="row" align="right">
                                                 <span>$</span>
-                                                {n.type}
+                                                {n.regNum}
                                             </TableCell>
                                                 
                                         </TableRow>
@@ -210,4 +210,4 @@ function ToolOverviewTable(props)
     );
 }
 
-export default withRouter(ToolOverviewTable);
+export default withRouter(VehicleOverviewTable);

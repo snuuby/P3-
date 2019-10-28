@@ -13,14 +13,14 @@ const initialState = {
     }
 };
 
-const toolReducer = function (state = initialState, action) {
+const vehicleReducer = function (state = initialState, action) {
     switch (action.type) {
         
-        case Actions.GET_TOOLS:
+        case Actions.GET_VEHICLES:
         {
-            const entities = action.payload.map((tool) => (
+            const entities = action.payload.map((vehicle) => (
                 {
-                    ...tool
+                    ...vehicle
                 }
             ));
 
@@ -30,14 +30,14 @@ const toolReducer = function (state = initialState, action) {
             };
         }
         
-        case Actions.SET_TOOLOVERVIEW_SEARCH_TEXT:{
+        case Actions.SET_VEHICLEOVERVIEW_SEARCH_TEXT:{
             return {
                 ...state,
                 searchText: action.searchText
             };
         }
 
-        case Actions.ADD_TOOL:{
+        case Actions.ADD_VEHICLE:{
             return {
                 ...state,
                 searchText: action.searchText
@@ -85,4 +85,4 @@ const toolReducer = function (state = initialState, action) {
     }
 
 }
-export default toolReducer;
+export default vehicleReducer;

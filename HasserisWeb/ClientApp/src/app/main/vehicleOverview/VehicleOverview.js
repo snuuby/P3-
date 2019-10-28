@@ -18,9 +18,9 @@ import reducer from './store/reducers';
 import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
-import ToolOverviewTable from './ToolOverviewTable';
-import ToolOverviewTableHead from './ToolOverviewTableHead';
-import OrdersHeader from './ToolOverviewHeader.js';
+import VehicleOverviewTable from './VehicleOverviewTable';
+import VehicleOverviewTableHead from './VehicleOverviewTableHead';
+import OrdersHeader from './VehicleOverviewHeader.js';
 import AddDialog from './AddDialog';
 
 
@@ -30,10 +30,10 @@ const styles = theme => ({
 });
 
 
-function deleteTool(id) {
+function deleteVehicle(id) {
     
     if (window.confirm("Er du sikker?")) {
-        axios.post(`tools/delete/` + id)
+        axios.post(`Vehicles/delete/` + id)
             .then(res => {
 
             });
@@ -46,11 +46,11 @@ function deleteTool(id) {
 
 }
 
-function editTool(id) {
-    alert("Edit tool with: "  + id);
+function editVehicle(id) {
+    alert("Edit vehicle with: "  + id);
 }
 
-function createTool() {
+function createVehicle() {
     return(<AddDialog/>)
 }
 
@@ -194,23 +194,23 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function ToolOverview(props) {
-    // Get access to the tools
+function VehicleOverview(props) {
+    // Get access to the vehicles
     const dispatch = useDispatch();
-    const toolsRedux = useSelector(({toolReducer}) => toolReducer.tools.entities);
+    const vehiclesRedux = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.entities);
     
     const classes = useStyles(props);
 
     useEffect(() => {
-        dispatch(Actions.getTools());
+        dispatch(Actions.getVehicles());
     }, [dispatch]);
     
  
-    function getTools(){
-        dispatch(Actions.getTools());
+    function getVehicles(){
+        dispatch(Actions.getVehicles());
     }
 
-    function renderToolList(empList){
+    function renderVehicleList(empList){
         return(
             <table className='table' aria-labelledby="tabelLabel">
                 <thead>
@@ -231,10 +231,10 @@ function ToolOverview(props) {
                             {emp.type}
                         </td>
                         <td>                            
-                            <button onClick={() => editTool(emp.id)} className="btn btn-info" type="button">Rediger</button>
+                            <button onClick={() => editVehicle(emp.id)} className="btn btn-info" type="button">Rediger</button>
                         </td>
                         <td>
-                            <button onClick={() => deleteTool(emp.id)} className="btn btn-info" type="button">Slet</button>
+                            <button onClick={() => deleteVehicle(emp.id)} className="btn btn-info" type="button">Slet</button>
                         </td>
                         
                     </tr>
@@ -256,7 +256,7 @@ function ToolOverview(props) {
             content={
                 <div>
 
-                    <ToolOverviewTable/>
+                    <VehicleOverviewTable/>
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab
@@ -284,5 +284,5 @@ function ToolOverview(props) {
     
 }
 
-export default withReducer('toolReducer', reducer)(ToolOverview);
+export default withReducer('vehicleReducer', reducer)(VehicleOverview);
 //export default withStyles(styles, {withTheme: true})(EmployeeOverview);

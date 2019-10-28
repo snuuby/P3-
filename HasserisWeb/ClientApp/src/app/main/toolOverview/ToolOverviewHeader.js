@@ -37,7 +37,7 @@ function ToolOverviewHeader(props)
                             end  : new Date()
                         }))}
                         variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
-                        Tilføj Medarbejder
+                        Tilføj Udstyr
                     </Button>
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>

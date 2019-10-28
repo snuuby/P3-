@@ -1,8 +1,8 @@
-import ToolOverview from './ToolOverview';
+import VehicleOverview from './VehicleOverview';
 import React from "react";
 import authRoles from "../../auth/authRoles";
 
-export const ToolOverviewConfig = {
+export const VehicleOverviewConfig = {
     settings: {
         layout: {
             config: {}
@@ -11,8 +11,8 @@ export const ToolOverviewConfig = {
     auth    : authRoles.adminPlus,
     routes  : [
         {
-            path     : '/tool/overview',
-            component: React.lazy(() => import('./ToolOverview'))
+            path     : '/vehicle/overview',
+            component: React.lazy(() => import('./VehicleOverview'))
         }
     ]
 };

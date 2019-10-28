@@ -98,10 +98,10 @@ const navigationConfig = [
             },
             {
                 'id': 'vehicles',
-                'title': 'K�ret�jer',
+                'title': 'Koeretoejer',
                 'type': 'item',
                 'icon': 'list',
-                'url': ''
+                'url': '/vehicle/overview'
             },
             ]}];
 export default navigationConfig;

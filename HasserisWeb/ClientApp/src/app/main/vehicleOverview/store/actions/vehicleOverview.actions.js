@@ -7,38 +7,38 @@ import {
     OPEN_NEW_EVENT_DIALOG
 } from "../../../apps/calendar/store/actions";
 
-export const GET_TOOLS = '[TOOL APP] GET EMPLOYEES';
-export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL APP] SET OVERVIEW SEARCH TEXT';
-export const ADD_TOOL = '[TOOL APP] ADD EMPLOYEE';
-export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
-export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
+export const GET_VEHICLES = '[VEHCILE APP] GET VEHICLES';
+export const SET_VEHICLEOVERVIEW_SEARCH_TEXT = '[VEHICLE APP] SET OVERVIEW SEARCH TEXT';
+export const ADD_VEHICLE = '[VEHICLE APP] ADD VEHICLE';
+export const OPEN_NEW_ADD_DIALOG = '[VEHICLE APP] OPEN NEW ADD DIALOG';
+export const CLOSE_NEW_ADD_DIALOG = '[VEHICLE APP] CLOSE NEW ADD DIALOG';
 
-// Gets all tools
-export function getTools()
+// Gets all vehicles
+export function getVehicles()
 {
-    const request = axios.get('Tool/all');
+    const request = axios.get('Vehicle/all');
     request.then(response => console.log(response.data));
     
     return (dispatch) =>
         request.then((response) =>
             dispatch({
-                type   : GET_TOOLS,
+                type: GET_VEHICLES,
                 payload: response.data
             })
         );
 }
 
 // Is required for the SearchText
-export function setToolOverviewSearchText(event)
+export function setVehicleOverviewSearchText(event)
 {
     return {
-        type      : SET_TOOLOVERVIEW_SEARCH_TEXT,
+        type      : SET_VEHICLEOVERVIEW_SEARCH_TEXT,
         searchText: event.target.value
     }
 }
 
-// Action to add tool
-export function addTool(newEvent)
+// Action to add vehicle
+export function addVehicle(newEvent)
 {
     return (dispatch, getState) => {
 
@@ -51,7 +51,7 @@ export function addTool(newEvent)
                 dispatch({
                     type: ADD_EVENT
                 })
-            ]).then(() => dispatch(getTools()))
+            ]).then(() => dispatch(getVehicles()))
         );
     };
 }
