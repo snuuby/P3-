@@ -21,3 +21,6 @@ HasserisWeb/obj/HasserisWeb.csproj.nuget.dgspec.json
 HasserisWeb/obj/HasserisWeb.csproj.nuget.g.props
 HasserisWeb/obj/HasserisWeb.csproj.nuget.g.targets
 HasserisWeb/obj/project.assets.json
+.DS_Store
+HasserisWeb/.DS_Store
+HasserisWeb/.idea/.idea.HasserisWeb/.idea/.DS_Store
