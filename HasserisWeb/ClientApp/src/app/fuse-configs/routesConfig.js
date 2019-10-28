@@ -8,6 +8,7 @@ import {ProfilePageConfig} from "app/main/profile/ProfilePageConfig";
 import { EmployeeOverviewConfig } from "../main/overview/EmployeeOverviewConfig";
 import { ToolOverviewConfig } from "../main/toolOverview/ToolOverviewConfig";
 import { VehicleOverviewConfig } from "../main/vehicleOverview/VehicleOverviewConfig";
+import { CustomerOverviewConfig } from "../main/customerOverview/CustomerOverviewConfig";
 import * as Actions from 'app/store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,6 +21,7 @@ const routeConfigs = [
     ...appsConfigs,
     ToolOverviewConfig,
     VehicleOverviewConfig,
+    CustomerOverviewConfig,
 ];
 
 const routes = [

@@ -80,7 +80,7 @@ const navigationConfig = [
                 'title': 'Kundekartotek',
                 'type': 'item',
                 'icon': 'person',
-                'url': ''
+                'url': '/customer/overview'
             },
             {
                 'id': 'employees',

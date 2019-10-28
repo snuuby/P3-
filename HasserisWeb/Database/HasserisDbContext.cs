@@ -521,30 +521,30 @@ namespace HasserisWeb
                     if (output[0].Type == "Private") {
                         Private temp;
                         foreach (var put in output) {
-                            tempList.Add(temp = new Private(output.firstName, output.Lastname, output.Type,
-                                new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber)));
-                            temp.id = (int)output.ID;
+                            tempList.Add(temp = new Private(put.firstName, put.Lastname, put.Type,
+                                new Address(put.Address, put.ZIP, put.City, put.Note),
+                                new ContactInfo(put.Email, put.Phonenumber)));
+                            temp.id = (int)put.ID;
                         }
                     }
                     else if (output[0].Type == "Business") {
                         Business temp;
                         foreach (var put in output) {
-                            tempList.Add(temp = new Business(output.firstName, output.Lastname, output.Type,
-                                new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber), 
-                                output.Name, output.CVR));
-                            temp.id = (int)output.ID;
+                            tempList.Add(temp = new Business(put.firstName, put.Lastname, put.Type,
+                                new Address(put.Address, put.ZIP, put.City, put.Note),
+                                new ContactInfo(put.Email, put.Phonenumber),
+                                put.Name, put.CVR));
+                            temp.id = (int)put.ID;
                         }
                     }
                     else if (output[0].Type == "Public") {
                         Public temp;
                         foreach (var put in output) {
-                            tempList.Add(temp = new Public(output.firstName, output.Lastname, output.Type,
-                                new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber), 
-                                output.Name, output.EAN));
-                        temp.id = (int)output.ID;
+                            tempList.Add(temp = new Public(put.firstName, put.Lastname, put.Type,
+                                new Address(put.Address, put.ZIP, put.City, put.Note),
+                                new ContactInfo(put.Email, put.Phonenumber),
+                                put.Name, put.EAN));
+                        temp.id = (int)put.ID;
                         }
                     }
                     else {
