@@ -8,10 +8,10 @@ import AddDialog from "./AddDialog";
 
 
 
-function ToolOverviewHeader(props)
+function VehicleOverviewHeader(props)
 {
     const dispatch = useDispatch();
-    const searchText = useSelector(({toolReducer}) => toolReducer.tools.searchText);
+    const searchText = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.searchText);
     const mainTheme = useSelector(({fuse}) => fuse.settings.mainTheme);
 
     return (
@@ -24,7 +24,7 @@ function ToolOverviewHeader(props)
                 </FuseAnimate>
 
                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                    <Typography className="hidden sm:flex" variant="h6">Udstyr</Typography>
+                    <Typography className="hidden sm:flex" variant="h6">Køretøjs oversigt</Typography>
                 </FuseAnimate>
             </div>
 
@@ -37,7 +37,7 @@ function ToolOverviewHeader(props)
                             end  : new Date()
                         }))}
                         variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
-                        Tilføj Udstyr
+                        Tilføj Køretøj
                     </Button>
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>
@@ -56,7 +56,7 @@ function ToolOverviewHeader(props)
                                 inputProps={{
                                     'aria-label': 'Search'
                                 }}
-                                onChange={ev => dispatch(Actions.setToolOverviewSearchText(ev))}
+                                onChange={ev => dispatch(Actions.setVehicleOverviewSearchText(ev))}
                             />
                         </Paper>
                     </FuseAnimate>
@@ -70,4 +70,4 @@ function ToolOverviewHeader(props)
     );
 }
 
-export default ToolOverviewHeader;
+export default VehicleOverviewHeader;

@@ -7,6 +7,7 @@ import CalendarApp from "../main/apps/calendar/CalendarApp";
 import {ProfilePageConfig} from "app/main/profile/ProfilePageConfig";
 import { EmployeeOverviewConfig } from "../main/overview/EmployeeOverviewConfig";
 import { ToolOverviewConfig } from "../main/toolOverview/ToolOverviewConfig";
+import { VehicleOverviewConfig } from "../main/vehicleOverview/VehicleOverviewConfig";
 import * as Actions from 'app/store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +19,7 @@ const routeConfigs = [
     ProfilePageConfig,
     ...appsConfigs,
     ToolOverviewConfig,
+    VehicleOverviewConfig,
 ];
 
 const routes = [
