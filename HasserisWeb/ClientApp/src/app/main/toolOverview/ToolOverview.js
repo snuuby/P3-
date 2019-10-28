@@ -18,8 +18,7 @@ import reducer from './store/reducers';
 import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
-import toolOverviewTable from './ToolOverviewTable';
-import toolOverviewTableHead from './ToolOverviewTableHead';
+import ToolOverviewTable from './ToolOverviewTable';
 import OrdersHeader from './ToolOverviewHeader.js';
 import AddDialog from './AddDialog';
 
@@ -256,7 +255,7 @@ function ToolOverview(props) {
             content={
                 <div>
 
-                    <toolOverviewTable/>
+                    <ToolOverviewTable/>
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab

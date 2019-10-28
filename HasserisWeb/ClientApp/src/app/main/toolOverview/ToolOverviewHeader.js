@@ -24,7 +24,7 @@ function ToolOverviewHeader(props)
                 </FuseAnimate>
 
                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                    <Typography className="hidden sm:flex" variant="h6">Medarbejdere</Typography>
+                    <Typography className="hidden sm:flex" variant="h6">Udstyr</Typography>
                 </FuseAnimate>
             </div>
 

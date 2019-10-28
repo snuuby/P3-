@@ -1220,6 +1220,24 @@
                   <e p="TimelineTab.js" t="Include" />
                 </e>
               </e>
+              <e p="toolOverview" t="Include">
+                <e p="AddDialog.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="toolOverview.actions.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="toolOverview.reducer.js" t="Include" />
+                  </e>
+                </e>
+                <e p="ToolOverview.js" t="Include" />
+                <e p="ToolOverviewConfig.js" t="Include" />
+                <e p="ToolOverviewHeader.js" t="Include" />
+                <e p="ToolOverviewTable.js" t="Include" />
+                <e p="ToolOverviewTableHead.js" t="Include" />
+              </e>
             </e>
             <e p="services" t="Include">
               <e p="auth0Service" t="Include">

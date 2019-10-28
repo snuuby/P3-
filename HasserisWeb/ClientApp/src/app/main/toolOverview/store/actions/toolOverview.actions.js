@@ -7,9 +7,9 @@ import {
     OPEN_NEW_EVENT_DIALOG
 } from "../../../apps/calendar/store/actions";
 
-export const GET_TOOLS = '[TOOL APP] GET EMPLOYEES';
-export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL APP] SET OVERVIEW SEARCH TEXT';
-export const ADD_TOOL = '[TOOL APP] ADD EMPLOYEE';
+export const GET_TOOLS = '[TOOL APP] GET TOOLS';
+export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL APP] SET TOOL SEARCH TEXT';
+export const ADD_TOOL = '[TOOL APP] ADD TOOL';
 export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
 
