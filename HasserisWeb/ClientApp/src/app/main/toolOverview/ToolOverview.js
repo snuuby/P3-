@@ -19,7 +19,6 @@ import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
 import ToolOverviewTable from './ToolOverviewTable';
-import ToolOverviewTableHead from './ToolOverviewTableHead';
 import OrdersHeader from './ToolOverviewHeader.js';
 import AddDialog from './AddDialog';
 
