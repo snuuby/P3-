@@ -16,7 +16,7 @@ export const CLOSE_NEW_ADD_DIALOG = '[CUSTOMER APP] CLOSE NEW ADD DIALOG';
 // Gets all customer
 export function getCustomers()
 {
-    const request = axios.get('Customer/all');
+    const request = axios.get('customers/all');
     request.then(response => console.log(response.data));
     
     return (dispatch) =>
