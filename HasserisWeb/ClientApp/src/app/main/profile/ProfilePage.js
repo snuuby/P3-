@@ -6,6 +6,8 @@ import TimelineTab from './tabs/TimelineTab';
 import PhotosVideosTab from './tabs/PhotosVideosTab';
 import AboutTab from './tabs/AboutTab';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Action from 'app/auth/store/actions';
+//import { dispatch } from 'rxjs/internal/observable/pairs';
 
 const useStyles = makeStyles(theme => ({
     layoutHeader: {
@@ -21,14 +23,44 @@ const useStyles = makeStyles(theme => ({
 function ProfilePage()
 {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [selectedTab, setSelectedTab] = useState(0);
     const user = useSelector(({ auth }) => auth.user);
-
     function handleTabChange(event, value)
     {
         setSelectedTab(value);
     }
+    let contentElement = document.getElementById("content");
 
+    // Button callback
+    async function onAvatarClicked() {
+        var files = await selectFile("image/*", false);
+        let fileURL = URL.createObjectURL(files);
+        dispatch(Action.setUserImage(fileURL, user.displayName));
+    }
+
+    // ---- function definition ----
+    function selectFile(contentType, multiple) {
+        return new Promise((resolve, reject) => {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.multiple = multiple;
+            input.accept = contentType;
+
+            input.onchange = _ => {
+                let files = Array.from(input.files);
+                if (multiple)
+                    resolve(files);
+                else
+                    resolve(files[0]);
+                input.error && reject(files);
+            };
+
+            input.click();
+
+
+        });
+    }
     return (
         <FusePageSimple
             classes={{
@@ -39,7 +71,7 @@ function ProfilePage()
                 <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
                     <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
                         <FuseAnimate animation="transition.expandIn" delay={300}>
-                            <Avatar className="w-96 h-96" src={user.data.photoURL}/>
+                            <Avatar className="w-96 h-96" src={user.data.photoURL} onClick={onAvatarClicked} />
                         </FuseAnimate>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.firstName} {user.data.lastName}</Typography>

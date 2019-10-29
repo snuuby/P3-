@@ -1,86 +1,107 @@
+import {authRoles} from 'app/auth';
+
 const navigationConfig = [
     {
-        
         'id'      : 'applications',
-        'title'   : 'Employees',
+        'title'   : 'Menu',
         'type'    : 'group',
         'icon'    : 'apps',
         'children': [
             {
-                'id'   : 'calendar',
-                'title': 'Calendar',
+                'id'   : 'dashboard',
+                'title': 'Dashboard',
                 'type' : 'item',
-                'icon' : 'today',
+                'icon' : 'dashboard',
                 'url'  : '/apps/calendar'
             },
             {
-                'id'      : 'dashboards',
-                'title'   : 'Dashboards',
-                'type'    : 'collapse',
-                'icon'    : 'dashboard',
+                'id': 'overview',
+                'title': 'Overblik',
+                'type': 'item',
+                'icon': 'today',
+                'url': ''
+            },
+            {
+                'id': 'createnew',
+                'title': 'Opret ny',
+                'type': 'collapse',
+                'icon': 'dashboard',
                 'children': [
                     {
-                        'id'   : 'analytics-dashboard',
-                        'title': 'Employee Overview',
-                        'type' : 'item',
-                        'url'  : '/employee/overview'
+                        'id': 'createinspectionreport',
+                        'title': 'Besigtigelsesreport',
+                        'type': 'item',
+                        'url': ''
                     },
                     {
-                        'id'   : 'analytics-dashboard',
-                        'title': 'Event Overview',
-                        'type' : 'item',
-                        'url'  : '/event/overview'
+                        'id': 'createoffer',
+                        'title': 'Tilbud',
+                        'type': 'item',
+                        'url': ''
                     },
                     {
-                        'id'   : 'analytics-dashboard',
-                        'title': 'Customer Overview',
-                        'type' : 'item',
-                        'url'  : '/customer/overview'
+                        'id': 'createtask',
+                        'title': 'Opgave',
+                        'type': 'item',
+                        'url': ''
                     }
                 ]
             },
             {
-                'id'      : 'e-commerce',
-                'title'   : 'E-Commerce',
-                'type'    : 'collapse',
-                'icon'    : 'shopping_cart',
-                'url'     : '/apps/e-commerce',
-                'children': [
-                    {
-                        'id'   : 'e-commerce-products',
-                        'title': 'Products',
-                        'type' : 'item',
-                        'url'  : '/apps/e-commerce/products',
-                        'exact': true
-                    },
-                    {
-                        'id'   : 'e-commerce-product-detail',
-                        'title': 'Product Detail',
-                        'type' : 'item',
-                        'url'  : '/apps/e-commerce/products/1/a-walk-amongst-friends-canvas-print',
-                        'exact': true
-                    },
-                    {
-                        'id'   : 'e-commerce-new-product',
-                        'title': 'New Product',
-                        'type' : 'item',
-                        'url'  : '/apps/e-commerce/products/new',
-                        'exact': true
-                    },
-                    {
-                        'id'   : 'e-commerce-orders',
-                        'title': 'Orders',
-                        'type' : 'item',
-                        'url'  : '/apps/e-commerce/orders',
-                        'exact': true
-                    },
-                    {
-                        'id'   : 'e-commerce-order-detail',
-                        'title': 'Order Detail',
-                        'type' : 'item',
-                        'url'  : '/apps/e-commerce/orders/1',
-                        'exact': true
-                    }
-                ]
-            }]}];
+                'id': 'messages',
+                'title': 'Beskeder',
+                'type': 'item',
+                'icon': 'message',
+                'url': ''
+            },
+            {
+                'id': 'notifications',
+                'title': 'Notifikationer',
+                'type': 'item',
+                'icon': 'message',
+                'url': ''
+            },
+            {
+                'id': 'Economic',
+                'title': 'Oekonomi',
+                'type': 'item',
+                'icon': 'money',
+                'url': ''
+            },
+            {
+                'id': 'storage',
+                'title': 'Lager',
+                'type': 'item',
+                'icon': 'storage',
+                'url': ''
+            },
+            {
+                'id': 'customers',
+                'title': 'Kundekartotek',
+                'type': 'item',
+                'icon': 'person',
+                'url': ''
+            },
+            {
+                'id': 'employees',
+                'title': 'Ansatte',
+                'type': 'item',
+                'icon': 'person',
+                'url': '/employee/overview'
+            },
+            {
+                'id': 'tool',
+                'title': 'Udstyr',
+                'type': 'item',
+                'icon': 'list',
+                'url': '/tool/overview'
+            },
+            {
+                'id': 'vehicles',
+                'title': 'Koeretoejer',
+                'type': 'item',
+                'icon': 'list',
+                'url': '/vehicle/overview'
+            },
+            ]}];
 export default navigationConfig;

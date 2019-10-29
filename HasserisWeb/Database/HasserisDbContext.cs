@@ -567,8 +567,8 @@ namespace HasserisWeb
                     if (output[0].Type == "Vehicle") {
                         Vehicle temp;
                         foreach (var put in output) {
-                            tempList.Add(temp = new Vehicle(output.Name, output.Type, output.Model, output.Plates));
-                            temp.id = (int)output.ID;
+                            tempList.Add(temp = new Vehicle(put.Name, put.Type, put.Model, put.Plates));
+                            temp.id = (int)put.ID;
                         }
                     }
                     else if (output[0].Type == "Tool") {

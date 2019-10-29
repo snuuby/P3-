@@ -52,8 +52,7 @@ function JWTLoginTab(props)
                     className="mb-16"
                     type="text"
                     name="username"
-                    label="Username"
-                    value="admin"
+                    label="Brugernavn"
                     validations={{
                         minLength: 4
                     }}
@@ -72,7 +71,6 @@ function JWTLoginTab(props)
                     type="password"
                     name="password"
                     label="Password"
-                    value="admin"
                     validations={{
                         minLength: 4
                     }}

@@ -1,5 +1,6 @@
 import EmployeeOverview from './EmployeeOverview';
 import React from "react";
+import authRoles from "../../auth/authRoles";
 
 export const EmployeeOverviewConfig = {
     settings: {
@@ -7,6 +8,7 @@ export const EmployeeOverviewConfig = {
             config: {}
         }
     },
+    auth    : authRoles.adminPlus,
     routes  : [
         {
             path     : '/employee/overview',
