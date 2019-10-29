@@ -35,8 +35,13 @@ function ProfilePage()
     // Button callback
     async function onAvatarClicked() {
         var files = await selectFile("image/*", false);
+        var image = document.getElementById("profileimg")
+        //var reader = new FileReader();
+        //reader.readAsDataURL(files)
         let fileURL = URL.createObjectURL(files);
-        dispatch(Action.setUserImage(fileURL, user.displayName));
+        alert(`file selected, is a ${files.type}`);
+
+        dispatch(Action.setUserImage(fileURL, user.data.displayName, files.type));
     }
 
     // ---- function definition ----
@@ -44,7 +49,7 @@ function ProfilePage()
         return new Promise((resolve, reject) => {
             let input = document.createElement('input');
             input.type = 'file';
-            input.multiple = multiple;
+            input.multiple = false;
             input.accept = contentType;
 
             input.onchange = _ => {
@@ -55,9 +60,9 @@ function ProfilePage()
                     resolve(files[0]);
                 input.error && reject(files);
             };
-
+            
             input.click();
-
+            
 
         });
     }
@@ -71,7 +76,7 @@ function ProfilePage()
                 <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
                     <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
                         <FuseAnimate animation="transition.expandIn" delay={300}>
-                            <Avatar className="w-96 h-96" src={user.data.photoURL} onClick={onAvatarClicked} />
+                            <Avatar id="profileimg" className="w-96 h-96" src={user.data.photoURL} onClick={onAvatarClicked} />
                         </FuseAnimate>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.firstName} {user.data.lastName}</Typography>

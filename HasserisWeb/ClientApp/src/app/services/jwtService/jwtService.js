@@ -78,6 +78,7 @@ class jwtService extends FuseUtils.EventEmitter {
                         from: 'database',
                         role: [response.data.user.type],
                         data: {
+                            photoURL: response.data.user.profilePhoto,
                             displayName: response.data.user.userName,
                             email: response.data.user.contactInfo.email,
                             firstName: response.data.user.firstName,
@@ -109,6 +110,7 @@ class jwtService extends FuseUtils.EventEmitter {
                             from: 'database',
                             role: [response.data.user.type],
                             data: {
+                                photoURL: response.data.user.profilePhoto,
                                 displayName: response.data.user.userName,
                                 email: response.data.user.contactInfo.email,
                                 firstName: response.data.user.firstName, 

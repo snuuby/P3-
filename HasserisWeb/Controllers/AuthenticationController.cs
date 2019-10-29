@@ -87,6 +87,7 @@ namespace HasserisWeb
 
                 returnObjects.user = HasserisDbContext.VerifyPassword(password, username);
                 returnObjects.user.type = returnObjects.user.type.ToLower();
+                returnObjects.user.profilePhoto = HasserisDbContext.GetEmployeeProfileImage(returnObjects.user.userName);
                 returnObjects.user.contactInfo.email = returnObjects.user.contactInfo.email.Replace('/', '@');
             }
             catch (Exception e)
@@ -108,6 +109,7 @@ namespace HasserisWeb
             try
             {
                 returnObjects.user = HasserisDbContext.GetAccessTokenUser(token);
+                returnObjects.user.profilePhoto = HasserisDbContext.GetEmployeeProfileImage(returnObjects.user.userName);
                 returnObjects.user.type = returnObjects.user.type.ToLower();
                 returnObjects.user.contactInfo.email = returnObjects.user.contactInfo.email.Replace('/', '@');
 

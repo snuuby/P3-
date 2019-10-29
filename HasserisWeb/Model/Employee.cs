@@ -7,6 +7,7 @@ namespace HasserisWeb
 {
     public class Employee
     {
+        public string profilePhoto { get; set; }
         public string firstName { get;  set; }
         public string lastName { get;  set; }
         public string userName { get; set; }
