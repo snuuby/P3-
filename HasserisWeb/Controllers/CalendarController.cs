@@ -69,8 +69,9 @@ namespace HasserisWeb.Controllers
             string eventStart = eNewEvent.newEvent.start;
             string eventEnd = eNewEvent.newEvent.end;
        
-            DateTime date1 = DateTime.Parse(eventStart);
-            DateTime date2 = DateTime.Parse(eventEnd);
+            DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
+            DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
+
             
             List<DateTime> dates = new List<DateTime>();
             dates.Add(date1);
@@ -101,6 +102,7 @@ namespace HasserisWeb.Controllers
 
             dynamic eNewEvent = JsonConvert.DeserializeObject(json.ToString());
 
+            
             string eventTitle = eNewEvent.newEvent.title;
             string eventDesc = eNewEvent.newEvent.desc;
             string eventStart = eNewEvent.newEvent.start;
