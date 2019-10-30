@@ -35,13 +35,13 @@ function ProfilePage()
     // Button callback
     async function onAvatarClicked() {
         var files = await selectFile("image/*", false);
-        var image = document.getElementById("profileimg")
-        //var reader = new FileReader();
-        //reader.readAsDataURL(files)
         let fileURL = URL.createObjectURL(files);
-        alert(`file selected, is a ${files.type}`);
-
+        //alert(`file selected, is a ${files.type}`);
+        //document.getElementById("profileimg").src = fileURL;
         dispatch(Action.setUserImage(fileURL, user.data.displayName, files.type));
+        if (window.confirm("Profil billede opdateret.\nSiden skal genindlaeses for at vise billedet.\nGenindlaes side nu?")) {
+            document.location.reload();
+        }
     }
 
     // ---- function definition ----
@@ -76,7 +76,9 @@ function ProfilePage()
                 <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
                     <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
                         <FuseAnimate animation="transition.expandIn" delay={300}>
-                            <Avatar id="profileimg" className="w-96 h-96" src={user.data.photoURL} onClick={onAvatarClicked} />
+                            <Avatar onClick={onAvatarClicked} className="w-96 h-96" >
+                                <img id="profileimg" src={user.data.photoURL} height="96" width="96" />
+                            </Avatar>
                         </FuseAnimate>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.firstName} {user.data.lastName}</Typography>
