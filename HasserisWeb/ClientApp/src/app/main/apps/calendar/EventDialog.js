@@ -28,6 +28,7 @@ function EventDialog(props)
     const eventDialog = useSelector(({calendarApp}) => calendarApp.events.eventDialog);
 
     const {form, handleChange, setForm} = useForm(defaultFormState);
+    // her
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     

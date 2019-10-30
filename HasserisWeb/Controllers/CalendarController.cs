@@ -110,8 +110,9 @@ namespace HasserisWeb.Controllers
             //eventEnd = eventEnd.Remove(eventEnd.Length - 3);
 
             
-            DateTime date1 = DateTime.Parse(eventStart);
-            DateTime date2 = DateTime.Parse(eventEnd);
+            // Den svenske virker men den danske kan ikke DateTime parse det vi får fra frontend: "12/31/2019 11:00:00" bliver til [31-12-2019 11:00:00] med svensk  
+            DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
+            DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
             
             
             // CultureInfo dk = new CultureInfo("da-DK");
