@@ -64,7 +64,8 @@ namespace HasserisWeb
         {
             //PrivateCustomer add
 
-            SystemControl.calendar.AddTask((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
+            // Uncommented for working with notes - Cholle
+            //SystemControl.calendar.AddTask((Delivery)HasserisDbContext.LoadElementFromDatabase("Delivery", 1));
 
 
 

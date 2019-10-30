@@ -1330,6 +1330,8 @@
       </e>
       <e p="database" t="Include">
         <e p="BACKUPHasseris.db" t="Include" />
+        <e p="BROKEN2Hasseris.db" t="Include" />
+        <e p="BROKENHasseris.db" t="Include" />
         <e p="Hasseris.db" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
       </e>

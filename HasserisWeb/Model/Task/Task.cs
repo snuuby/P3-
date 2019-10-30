@@ -30,7 +30,7 @@ namespace HasserisWeb
         private List<DateTime> pauseTimes {get; set;}
         private bool isPaused { get; set; }
         public TimeSpan taskDuration { get; set; }
-        private string note { get; }
+        public string description { get; set; }
         public string workPhoneNumber { get; }
 
         // For model binding - Experimental
@@ -40,14 +40,14 @@ namespace HasserisWeb
         }
         
         public Task(string name, string type, Customer assignedCustomer, Address destination, 
-                            double income, List<DateTime> Ldates, string note, string workPhoneNumber)
+                            double income, List<DateTime> Ldates, string description, string workPhoneNumber)
         {
             this.name = name;
             this.type = type;
             this.assignedCustomer = assignedCustomer;
             this.destination = destination;
             this.income = income;
-            this.note = note;
+            this.description = description;
             this.dates = Ldates;
             this.workPhoneNumber = workPhoneNumber;
             this.balance = this.income - this.expenses;
