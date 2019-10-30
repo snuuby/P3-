@@ -30,7 +30,7 @@ namespace HasserisWeb
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         public string Get(dynamic json)
-        {
+        {    
             dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
             string username = tempstring.name;
             string password = tempstring.pass;

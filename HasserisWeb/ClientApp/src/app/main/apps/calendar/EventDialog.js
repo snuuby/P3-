@@ -11,7 +11,7 @@ import axios from "axios";
 import {OPTIONS} from "react-select/src/__tests__/constants";
 
 const defaultFormState = {
-    id    : FuseUtils.generateGUID(),
+    id    : '',
     title : '',
     allDay: true,
     employees : null,
@@ -28,6 +28,7 @@ function EventDialog(props)
     const eventDialog = useSelector(({calendarApp}) => calendarApp.events.eventDialog);
 
     const {form, handleChange, setForm} = useForm(defaultFormState);
+    // her
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     
@@ -50,7 +51,7 @@ function EventDialog(props)
                 setForm({
                     ...defaultFormState,
                     ...eventDialog.data,
-                    id: FuseUtils.generateGUID()
+                    id: eventDialog.data.id,
                 });
             }
         },

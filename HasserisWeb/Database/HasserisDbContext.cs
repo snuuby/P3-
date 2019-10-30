@@ -123,11 +123,11 @@ namespace HasserisWeb
                     {
                         Moving task = (Moving)element;
                         string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, EmployeeIDs, EquipmentIDs, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote" +
-                                              "StartingAddress, StartingCity, StartingZIP, StartingNote, " +
-                                              "Values ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
+                                              "StartingAddress, StartingCity, StartingZIP, StartingNote, Description) " +
+                                              "VALUES ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
                                                task.assignedCustomer.id + "', '"  + task.employeesIdString + "', '" + task.equipmentsIdString + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
                                                task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
-                                               task.startingAddress.livingAdress + "', '" + task.startingAddress.city + "', '" + task.startingAddress.ZIP + "', '" + task.startingAddress.note + "')";
+                                               task.startingAddress.livingAdress + "', '" + task.startingAddress.city + "', '" + task.startingAddress.ZIP + "', '" + task.startingAddress.note + "', '" + task.description + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(task);
                     }
@@ -138,11 +138,11 @@ namespace HasserisWeb
                     {
                         Delivery task = (Delivery)element;
                         string sqlStatement = "INSERT INTO Tasks (Name, Type, Date, Duration, CustomerID, EmployeeIDs, EquipmentIDs, Income, Expenses, Balance, Workphone, DestinationAddress, DestinationCity, DestinationZIP, DestinationNote, " +
-                                               "Material, Quantity) " +
+                                               "Material, Quantity, Description) " +
                                                "VALUES ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
                                                task.assignedCustomer.id + "', '" + task.employeesIdString + "', '" + task.equipmentsIdString + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
                                                task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
-                                               task.material + "', '" + task.quantity + "')";
+                                               task.material + "', '" + task.quantity + "', '" + task.description + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(task);
                     }
@@ -316,6 +316,12 @@ namespace HasserisWeb
             foreach (string tempdate in tempDates)
             {
                 tempDateTimes.Add(Convert.ToDateTime(tempdate));
+                /*
+                DateTime.TryParseExact(tempdate, "yy/M/d",  
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.None, out DateTime dateFormat);
+                tempDateTimes.Add(dateFormat);
+                */
             }
             
             return tempDateTimes;
@@ -502,7 +508,7 @@ namespace HasserisWeb
             }
 
         }
-        
+
         public static dynamic LoadAllElementsFromDatabase(string type)
         {
             if (type == "Employee")
@@ -514,17 +520,19 @@ namespace HasserisWeb
                     {
                         return null;
                     }
+
                     dynamic output = cnn.Query<dynamic>("select * from Employees");
 
                     List<Employee> tempList = new List<Employee>();
                     foreach (var put in output)
                     {
                         Employee temp;
-                        tempList.Add((temp = new Employee(put.Firstname, put.Lastname, put.Type, (double)put.Wage,
+                        tempList.Add((temp = new Employee(put.Firstname, put.Lastname, put.Type, (double) put.Wage,
                             new ContactInfo(put.Email, put.Phonenumber),
                             new Address(put.Address, put.ZIP, put.City, put.Note))));
-                        temp.id = (int)put.ID; 
+                        temp.id = (int) put.ID;
                     }
+
                     return tempList;
                 }
             }
@@ -537,40 +545,49 @@ namespace HasserisWeb
                     {
                         return null;
                     }
+
                     List<Customer> tempList = new List<Customer>();
                     dynamic output = cnn.Query<dynamic>("select * from Customers");
-                    if (output[0].Type == "Private") {
+                    if (output[0].Type == "Private")
+                    {
                         Private temp;
-                        foreach (var put in output) {
+                        foreach (var put in output)
+                        {
                             tempList.Add(temp = new Private(output.firstName, output.Lastname, output.Type,
                                 new Address(output.Address, output.ZIP, output.City, output.Note),
                                 new ContactInfo(output.Email, output.Phonenumber)));
-                            temp.id = (int)output.ID;
+                            temp.id = (int) output.ID;
                         }
                     }
-                    else if (output[0].Type == "Business") {
+                    else if (output[0].Type == "Business")
+                    {
                         Business temp;
-                        foreach (var put in output) {
+                        foreach (var put in output)
+                        {
                             tempList.Add(temp = new Business(output.firstName, output.Lastname, output.Type,
                                 new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber), 
+                                new ContactInfo(output.Email, output.Phonenumber),
                                 output.Name, output.CVR));
-                            temp.id = (int)output.ID;
+                            temp.id = (int) output.ID;
                         }
                     }
-                    else if (output[0].Type == "Public") {
+                    else if (output[0].Type == "Public")
+                    {
                         Public temp;
-                        foreach (var put in output) {
+                        foreach (var put in output)
+                        {
                             tempList.Add(temp = new Public(output.firstName, output.Lastname, output.Type,
                                 new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber), 
+                                new ContactInfo(output.Email, output.Phonenumber),
                                 output.Name, output.EAN));
-                        temp.id = (int)output.ID;
+                            temp.id = (int) output.ID;
                         }
                     }
-                    else {
+                    else
+                    {
                         throw new Exception("No customer with that type");
                     }
+
                     return tempList;
                 }
             }
@@ -578,31 +595,37 @@ namespace HasserisWeb
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
+                    string sqlTest =
+                        "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Equipments) THEN 1 ELSE 0 END) AS isEmpty";
                     if (cnn.Execute(sqlTest) == 1)
                     {
                         return null;
                     }
+
                     List<Equipment> tempList = new List<Equipment>();
                     dynamic output = cnn.Query<dynamic>("select * from Equipments");
-                    if (output[0].Type == "Vehicle") {
+                    if (output[0].Type == "Vehicle")
+                    {
                         Vehicle temp;
                         foreach (var put in output) {
                             tempList.Add(temp = new Vehicle(put.Name, put.Type, put.Model, put.Plates));
                             temp.id = (int)put.ID;
                         }
                     }
-                    else if (output[0].Type == "Tool") {
+                    else if (output[0].Type == "Tool")
+                    {
                         Tool temp;
-                        foreach (var put in output) {
+                        foreach (var put in output)
+                        {
                             tempList.Add(temp = new Tool(output.Name, output.Type));
-                            temp.id = (int)output.ID;
-                        } 
+                            temp.id = (int) output.ID;
+                        }
                     }
                     else
                     {
                         throw new Exception("No Equipment with that type");
                     }
+
                     return tempList;
                 }
             }
@@ -616,54 +639,56 @@ namespace HasserisWeb
                         return null;
                     }
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Tasks");
+                    dynamic output = cnn.Query<dynamic>("select * from Tasks");
                     List<Task> tempList = new List<Task>();
-                    if (output[0].Type == "Delivery")
+
+
+                    foreach (var put in output)
                     {
-                        Delivery temp;
-                        foreach (var put in output)
+                        if (put.Type == "Delivery")
                         {
-                            tempList.Add(temp = new Delivery(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
-                                new Address(output.DestinationAddress, output.DestinationZIP,
-                                output.DestinationCity, output.DestinationNote),
-                                (double)output.Income, CalculateDateFromDatabaseString(output.Date),
-                                output.Note, output.Workphone, output.Material, (int)output.Quantity));
-                            temp.id = (int)output.ID;
-                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
-                            temp.equipmentsIdString = output.EquipmentIDs;
-                            temp.employeesIdString = output.EmployeeIDs;
+                            Delivery temp;
+                            tempList.Add(temp = new Delivery(put.Name, put.Type,
+                                GetCustomerFromDatabaseID((int)put.CustomerID),
+                                new Address(put.DestinationAddress, put.DestinationZIP,
+                                    put.DestinationCity, put.DestinationNote),
+                                (double)put.Income, CalculateDateFromDatabaseString(put.Date),
+                                put.Description, put.Workphone, put.Material, (int)put.Quantity));
+                            temp.id = (int)put.ID;
+                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
+                            temp.equipmentsIdString = put.EquipmentIDs;
+                            temp.employeesIdString = put.EmployeeIDs;
                         }
-                    }
-                    else if (output[0].Type == "Moving")
-                    {
-                        Moving temp;
-                        foreach (var put in output)
+                        else if (put.Type == "Moving")
                         {
-                            tempList.Add(temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
-                                new Address(output.DestinationAddress, output.DestinationZIP,
-                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone,
-                                new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes));
-                            temp.id = (int)output.ID;
-                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
-                            temp.equipmentsIdString = output.EquipmentIDs;
-                            temp.employeesIdString = output.EmployeeIDs;
+                            Moving temp;
+
+                            tempList.Add(temp = new Moving(put.Name, put.Type,
+                                GetCustomerFromDatabaseID((int) put.CustomerID),
+                                new Address(put.DestinationAddress, put.DestinationZIP,
+                                    put.DestinationCity, put.DestinationNote), put.income,
+                                CalculateDateFromDatabaseString(put.Date), put.Description, put.Workphone,
+                                new Address(put.StartingAddress, put.ZIP, put.City, put.Note), put.Lentboxes));
+                            temp.id = (int) put.ID;
+                            temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
+                            temp.equipmentsIdString = put.EquipmentIDs;
+                            temp.employeesIdString = put.EmployeeIDs;
                         }
+
                     }
-                    else
-                    {
-                        throw new Exception("No Task with that type");
-                    }
+
                     return tempList;
                 }
+                
             }
             else
             {
                 return new Exception("Can't load non-existing object");
             }
-
         }
 
-        
+
+
         public static TimeSpan ConvertDurationStringFromDatabaseToTimeSpan(string duration)
         {
             string[] split = duration.Split(":");
@@ -984,7 +1009,7 @@ namespace HasserisWeb
         }
         */
 
-        public static void UpdateElementInDatabase<T>(dynamic element)
+        public static void UpdateElementInDatabase<T>(dynamic element, int id)
         {
 
             if (element is Employee)
@@ -993,7 +1018,7 @@ namespace HasserisWeb
             }
             else if (element is Task)
             {
-                UpdateTask((Task)element);
+                UpdateTask((Task)element, id);
             }
             else if (element is Customer)
             {
@@ -1044,7 +1069,7 @@ namespace HasserisWeb
                 }
             }
         }
-        private static void UpdateTask(Task task)
+        private static void UpdateTask(Task task, int id)
         {
             string sqlStatement = null;
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -1064,8 +1089,10 @@ namespace HasserisWeb
                                "', Expenses = '" + task.expenses +
                                "', Balance = '" + task.balance +
                                "', Date = '" + string.Join("/", task.dates) +
-                               "', Workphone = '" + task.workPhoneNumber + "' where " +
-                               "ID = " + task.id;
+                               "', Workphone = '" + task.workPhoneNumber +
+                               "', Description = '" + task.description +
+                               "' where " +
+                               "ID = " + id;
                 cnn.Execute(sqlStatement);
                 if (task is Moving)
                 {
@@ -1181,5 +1208,8 @@ namespace HasserisWeb
             return Startup.ConnectionString;
         }
 
+
+
+        
     }
 }
