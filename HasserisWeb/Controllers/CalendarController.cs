@@ -91,7 +91,7 @@ namespace HasserisWeb.Controllers
             //delivery.AddElementToTask(employee_two);
             //delivery.AddElementToTask(vehicle);
             HasserisDbContext.SaveElementToDatabase<Delivery>(delivery);
-            return "din mor";
+            return "asdqwe";
 
         }
 
@@ -102,7 +102,7 @@ namespace HasserisWeb.Controllers
 
             dynamic eNewEvent = JsonConvert.DeserializeObject(json.ToString());
 
-            
+            int id = (int) eNewEvent.newEvent.id;
             string eventTitle = eNewEvent.newEvent.title;
             string eventDesc = eNewEvent.newEvent.desc;
             string eventStart = eNewEvent.newEvent.start;
@@ -136,8 +136,8 @@ namespace HasserisWeb.Controllers
             Delivery delivery = new Delivery(eventTitle, "Delivery", privateCustomer,
                 new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
             
-            HasserisDbContext.UpdateElementInDatabase<Task>(delivery);
-            return "hej";
+            HasserisDbContext.UpdateElementInDatabase<Task>(delivery, id);
+            return "asd";
         }
 
 

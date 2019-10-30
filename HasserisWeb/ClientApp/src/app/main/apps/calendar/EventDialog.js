@@ -11,7 +11,7 @@ import axios from "axios";
 import {OPTIONS} from "react-select/src/__tests__/constants";
 
 const defaultFormState = {
-    id    : FuseUtils.generateGUID(),
+    id    : '',
     title : '',
     allDay: true,
     employees : null,
@@ -51,7 +51,7 @@ function EventDialog(props)
                 setForm({
                     ...defaultFormState,
                     ...eventDialog.data,
-                    id: FuseUtils.generateGUID()
+                    id: eventDialog.data.id,
                 });
             }
         },
