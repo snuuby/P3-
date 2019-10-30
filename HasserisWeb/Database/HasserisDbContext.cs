@@ -551,36 +551,33 @@ namespace HasserisWeb
                     if (output[0].Type == "Private")
                     {
                         Private temp;
-                        foreach (var put in output)
-                        {
-                            tempList.Add(temp = new Private(output.firstName, output.Lastname, output.Type,
-                                new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber)));
-                            temp.id = (int) output.ID;
+                        foreach (var put in output) {
+                            tempList.Add(temp = new Private(put.Firstname, put.Lastname, put.Type,
+                                new Address(put.Address, put.ZIP, put.City, put.Note),
+                                new ContactInfo(put.Email, put.Phonenumber)));
+                            temp.id = (int)put.ID;
                         }
                     }
                     else if (output[0].Type == "Business")
                     {
                         Business temp;
-                        foreach (var put in output)
-                        {
-                            tempList.Add(temp = new Business(output.firstName, output.Lastname, output.Type,
-                                new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber),
-                                output.Name, output.CVR));
-                            temp.id = (int) output.ID;
+                        foreach (var put in output) {
+                            tempList.Add(temp = new Business(put.Firstname, put.Lastname, put.Type,
+                                new Address(put.Address, put.ZIP, put.City, put.Note),
+                                new ContactInfo(put.Email, put.Phonenumber),
+                                put.Name, put.CVR));
+                            temp.id = (int)put.ID;
                         }
                     }
                     else if (output[0].Type == "Public")
                     {
                         Public temp;
-                        foreach (var put in output)
-                        {
-                            tempList.Add(temp = new Public(output.firstName, output.Lastname, output.Type,
-                                new Address(output.Address, output.ZIP, output.City, output.Note),
-                                new ContactInfo(output.Email, output.Phonenumber),
-                                output.Name, output.EAN));
-                            temp.id = (int) output.ID;
+                        foreach (var put in output) {
+                            tempList.Add(temp = new Public(put.Firstname, put.Lastname, put.Type,
+                                new Address(put.Address, put.ZIP, put.City, put.Note),
+                                new ContactInfo(put.Email, put.Phonenumber),
+                                put.Name, put.EAN));
+                            temp.id = (int)put.ID;
                         }
                     }
                     else
@@ -680,6 +677,26 @@ namespace HasserisWeb
                     return tempList;
                 }
                 
+            }
+            else if (type == "Furniture")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Furnitures) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+                    List<Furniture> tempList = new List<Furniture>();
+                    dynamic output = cnn.Query<dynamic>("select * from Furnitures");
+                    Furniture temp;
+                    foreach (var put in output)
+                    {
+                        tempList.Add(temp = new Furniture(put.Name, (double)put.CubicSize, put.Type, (double)put.Weight));
+                        temp.id = (int)put.ID;
+                    }
+                    return tempList;
+                }
             }
             else
             {

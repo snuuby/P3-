@@ -22,6 +22,7 @@ const navigationConfig = [
                 'url': ''
             },
             {
+                auth: authRoles.admin,
                 'id': 'createnew',
                 'title': 'Opret ny',
                 'type': 'collapse',
@@ -52,7 +53,7 @@ const navigationConfig = [
                 'title': 'Beskeder',
                 'type': 'item',
                 'icon': 'message',
-                'url': ''
+                'url': '/apps/mail/inbox'
             },
             {
                 'id': 'notifications',
@@ -62,6 +63,7 @@ const navigationConfig = [
                 'url': ''
             },
             {
+                auth: authRoles.adminPlus,
                 'id': 'Economic',
                 'title': 'Oekonomi',
                 'type': 'item',
@@ -69,6 +71,7 @@ const navigationConfig = [
                 'url': ''
             },
             {
+                auth: authRoles.admin,
                 'id': 'storage',
                 'title': 'Lager',
                 'type': 'item',
@@ -76,13 +79,15 @@ const navigationConfig = [
                 'url': ''
             },
             {
+                auth: authRoles.admin,
                 'id': 'customers',
                 'title': 'Kundekartotek',
                 'type': 'item',
                 'icon': 'person',
-                'url': ''
+                'url': '/customer/overview'
             },
             {
+                auth: authRoles.adminPlus,
                 'id': 'employees',
                 'title': 'Ansatte',
                 'type': 'item',
@@ -90,6 +95,7 @@ const navigationConfig = [
                 'url': '/employee/overview'
             },
             {
+                auth: authRoles.admin,
                 'id': 'tool',
                 'title': 'Udstyr',
                 'type': 'item',
@@ -97,6 +103,7 @@ const navigationConfig = [
                 'url': '/tool/overview'
             },
             {
+                auth: authRoles.admin,
                 'id': 'vehicles',
                 'title': 'Koeretoejer',
                 'type': 'item',

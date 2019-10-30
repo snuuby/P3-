@@ -10,6 +10,7 @@ namespace HasserisWeb
     {
         public Address startingAddress { get; }
         public int lentBoxes { get; }
+        public List<Furniture> listofFurnitures { get; }
 
         public Moving(string name, string type, Customer assignedCustomer,
                   Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes)
@@ -17,6 +18,17 @@ namespace HasserisWeb
         {
             this.startingAddress = startingAddress;
             this.lentBoxes = lentBoxes;
+        }
+
+        //Calculates the total cubic size of all furniture on a specific moving task.
+        public double totalCubicSize(List<Furniture> listofFurnitures)
+        {
+            double totalSize = 0;
+            foreach( var element in listofFurnitures)
+            {
+                totalSize += element.cubicSize;
+            }
+            return totalSize;
         }
     }
 }
