@@ -1009,7 +1009,7 @@ namespace HasserisWeb
         }
         */
 
-        public static void UpdateElementInDatabase<T>(dynamic element, int id)
+        public static void UpdateElementInDatabase<T>(dynamic element)
         {
 
             if (element is Employee)
@@ -1018,7 +1018,7 @@ namespace HasserisWeb
             }
             else if (element is Task)
             {
-                UpdateTask((Task)element, id);
+                UpdateTask((Task)element);
             }
             else if (element is Customer)
             {
@@ -1069,7 +1069,7 @@ namespace HasserisWeb
                 }
             }
         }
-        private static void UpdateTask(Task task, int id)
+        private static void UpdateTask(Task task)
         {
             string sqlStatement = null;
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -1092,7 +1092,7 @@ namespace HasserisWeb
                                "', Workphone = '" + task.workPhoneNumber +
                                "', Description = '" + task.description +
                                "' where " +
-                               "ID = " + id;
+                               "ID = " + task.id;
                 cnn.Execute(sqlStatement);
                 if (task is Moving)
                 {

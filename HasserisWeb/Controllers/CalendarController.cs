@@ -135,8 +135,9 @@ namespace HasserisWeb.Controllers
             
             Delivery delivery = new Delivery(eventTitle, "Delivery", privateCustomer,
                 new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
-            
-            HasserisDbContext.UpdateElementInDatabase<Task>(delivery, id);
+
+            delivery.id = id;
+            HasserisDbContext.UpdateElementInDatabase<Task>(delivery);
             return "asd";
         }
 
