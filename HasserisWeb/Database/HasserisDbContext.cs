@@ -548,44 +548,41 @@ namespace HasserisWeb
 
                     List<Customer> tempList = new List<Customer>();
                     dynamic output = cnn.Query<dynamic>("select * from Customers");
-                    if (output[0].Type == "Private")
+                    foreach (var put in output) 
                     {
-                        Private temp;
-                        foreach (var put in output) {
-                            tempList.Add(temp = new Private(put.Firstname, put.Lastname, put.Type,
-                                new Address(put.Address, put.ZIP, put.City, put.Note),
-                                new ContactInfo(put.Email, put.Phonenumber)));
-                            temp.id = (int)put.ID;
-                        }
+                            if(put.Type == "Private")
+                            {
+                                Private temp;
+                                tempList.Add(temp = new Private(put.Firstname, put.Lastname, put.Type,
+                                    new Address(put.Address, put.ZIP, put.City, put.Note),
+                                    new ContactInfo(put.Email, put.Phonenumber)));
+                                temp.id = (int)put.ID;
+                            }
+                            else if (put.Type == "Business")
+                            {
+                                Business temp;
+                                tempList.Add(temp = new Business(put.Firstname, put.Lastname, put.Type,
+                                    new Address(put.Address, put.ZIP, put.City, put.Note),
+                                    new ContactInfo(put.Email, put.Phonenumber),
+                                    put.Name, put.CVR));
+                                temp.id = (int)put.ID;
+                            }
+                            else if (put.Type == "Public")
+                            {
+                                Public temp;
+                                tempList.Add(temp = new Public(put.Firstname, put.Lastname, put.Type,
+                                    new Address(put.Address, put.ZIP, put.City, put.Note),
+                                    new ContactInfo(put.Email, put.Phonenumber),
+                                    put.Name, put.EAN));
+                                temp.id = (int)put.ID;
+                            }
+                            else
+                            {
+                                throw new Exception("No customer with that type");
+                            }
                     }
-                    else if (output[0].Type == "Business")
-                    {
-                        Business temp;
-                        foreach (var put in output) {
-                            tempList.Add(temp = new Business(put.Firstname, put.Lastname, put.Type,
-                                new Address(put.Address, put.ZIP, put.City, put.Note),
-                                new ContactInfo(put.Email, put.Phonenumber),
-                                put.Name, put.CVR));
-                            temp.id = (int)put.ID;
-                        }
-                    }
-                    else if (output[0].Type == "Public")
-                    {
-                        Public temp;
-                        foreach (var put in output) {
-                            tempList.Add(temp = new Public(put.Firstname, put.Lastname, put.Type,
-                                new Address(put.Address, put.ZIP, put.City, put.Note),
-                                new ContactInfo(put.Email, put.Phonenumber),
-                                put.Name, put.EAN));
-                            temp.id = (int)put.ID;
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("No customer with that type");
-                    }
-
                     return tempList;
+
                 }
             }
             else if (type == "Equipment")
@@ -601,28 +598,26 @@ namespace HasserisWeb
 
                     List<Equipment> tempList = new List<Equipment>();
                     dynamic output = cnn.Query<dynamic>("select * from Equipments");
-                    if (output[0].Type == "Vehicle")
+
+                    foreach (var put in output)
                     {
-                        Vehicle temp;
-                        foreach (var put in output) {
+                        if (put.Type == "Tool")
+                        {
+                            Tool temp;
+                            tempList.Add(temp = new Tool(output.Name, output.Type));
+                            temp.id = (int)output.ID;
+                        }
+                        else if (put.Type == "Vehicle")
+                        {
+                            Vehicle temp;
                             tempList.Add(temp = new Vehicle(put.Name, put.Type, put.Model, put.Plates));
                             temp.id = (int)put.ID;
                         }
-                    }
-                    else if (output[0].Type == "Tool")
-                    {
-                        Tool temp;
-                        foreach (var put in output)
+                        else
                         {
-                            tempList.Add(temp = new Tool(output.Name, output.Type));
-                            temp.id = (int) output.ID;
+                            throw new Exception("No Equipment with that type");
                         }
                     }
-                    else
-                    {
-                        throw new Exception("No Equipment with that type");
-                    }
-
                     return tempList;
                 }
             }
@@ -665,7 +660,7 @@ namespace HasserisWeb
                                 new Address(put.DestinationAddress, put.DestinationZIP,
                                     put.DestinationCity, put.DestinationNote), put.income,
                                 CalculateDateFromDatabaseString(put.Date), put.Description, put.Workphone,
-                                new Address(put.StartingAddress, put.ZIP, put.City, put.Note), put.Lentboxes));
+                                new Address(put.StartingAddress, put.StartingZIP, put.StartingCity, put.StartingNote), put.Lentboxes));
                             temp.id = (int) put.ID;
                             temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
                             temp.equipmentsIdString = put.EquipmentIDs;
