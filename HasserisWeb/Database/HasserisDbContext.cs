@@ -635,6 +635,26 @@ namespace HasserisWeb
                     return tempList;
                 }
             }
+            else if (type == "Furniture")
+            {
+                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                {
+                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Furnitures) THEN 1 ELSE 0 END) AS isEmpty";
+                    if (cnn.Execute(sqlTest) == 1)
+                    {
+                        return null;
+                    }
+                    List<Furniture> tempList = new List<Furniture>();
+                    dynamic output = cnn.Query<dynamic>("select * from Furnitures");
+                    Furniture temp;
+                    foreach (var put in output)
+                    {
+                        tempList.Add(temp = new Furniture(put.Name, (double)put.CubicSize, put.Type, (double)put.Weight));
+                        temp.id = (int)put.ID;
+                    }
+                    return tempList;
+                }
+            }
             else
             {
                 return new Exception("Can't load non-existing object");
