@@ -24,18 +24,24 @@ namespace HasserisWeb
         [Microsoft.AspNetCore.Mvc.Route("uploadImage")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
-        public void uploadProfileImage(dynamic json)
+        public string uploadProfileImage(dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             string tempBase64 = temp.base64URL;
             string tempUsername = temp.username;
-            string filePath = "..//HasserisWeb/ClientApp/public/assets/images/avatars/" + tempUsername;
-            dynamic decodedStr = Base64UrlEncoder.Decode(tempBase64);
+            string tempType = temp.type;
+            string tempSubType = tempType.Substring(6);
+            string filePath = "..//HasserisWeb/ClientApp/public/assets/images/avatars/" + tempUsername + "." + tempSubType;
+            byte[] bytearray = Base64UrlEncoder.DecodeBytes(tempBase64);
+            int arrayCount = bytearray.Length;
             using (var imageFile = new System.IO.FileStream(filePath, FileMode.Create))
             {
-                imageFile.Write(decodedStr, 0, decodedStr.Length);
+                imageFile.Write(bytearray, 0, arrayCount);
                 imageFile.Flush();
             }
+            string newFilePath = "assets/images/avatars/" + tempUsername + "." + tempSubType;
+            HasserisDbContext.SetEmployeeProfileImage(tempUsername, newFilePath);
+            return newFilePath;
         }
 
     }

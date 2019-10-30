@@ -15,6 +15,27 @@ namespace HasserisWeb
 {
     public class HasserisDbContext : DbContext
     {
+        public static void SetEmployeeProfileImage(string username, string imagePath)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                cnn.Execute("UPDATE Employees SET Image = '" + imagePath + "' WHERE Username = '" + username + "'");
+            }
+        }
+        public static string GetEmployeeProfileImage(string username)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                
+                dynamic temp = cnn.QuerySingle("SELECT * FROM Employees WHERE Username = '" + username + "'");
+                string tempPath = temp.Image;
+                if (tempPath == null)
+                {
+                    return "assets/images/avatars/profile.jpg";
+                }
+                return tempPath;
+            }
+        }
         public static void SetAccessToken(string token, int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
