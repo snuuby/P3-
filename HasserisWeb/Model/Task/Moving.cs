@@ -18,6 +18,8 @@ namespace HasserisWeb
         {
             this.startingAddress = startingAddress;
             this.lentBoxes = lentBoxes;
+            this.assignedCustomer.lentBoxes = lentBoxes;
+
         }
 
         //Calculates the total cubic size of all furniture on a specific moving task.

@@ -127,18 +127,24 @@ function CustomerOverviewTable(props)
                                         {
                                             return parseInt(e.id, 10);
                                         }
-                                        case 'Fornavn':
+                                        case 'fornavn':
                                         {
                                             return e.firstName;
                                         }
-                                        case 'Efternavn':
+                                        case 'efternavn':
                                         {
                                             return e.lastName;
                                         }
-                                        case 'Type':
+                                        case 'type':
                                         {
                                             return e.type;
                                         }
+                                        case 'lentboxes':
+                                        {
+                                            return e.lentBoxes;
+                                        }
+                                            
+                                        
                                         default:
                                         {
                                             return e[customer.id];
@@ -181,10 +187,14 @@ function CustomerOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" align="right">
-                                                <span>$</span>
                                                 {n.type}
                                             </TableCell>
-                                                
+
+                                            <TableCell component="th" scope="row" align="right">
+                                                {n.lentBoxes}
+                                            </TableCell>
+
+
                                         </TableRow>
                                     );
                                 })}

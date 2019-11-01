@@ -159,7 +159,7 @@ namespace HasserisWeb
                         string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, CVR) " +
                                           "Values ('" + customer.businessName + "', '" + customer.type + "', '" +  "', '" + customer.address.livingAdress + "', '" +
                                           customer.address.ZIP + "', '" + customer.address.city + "', '" + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" +
-                                          customer.CVR + "')";
+                                          customer.CVR + "', '" + customer.lentBoxes + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
                     }
@@ -171,7 +171,7 @@ namespace HasserisWeb
                         Private customer = (Private)element;
                         string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Note, Phonenumber, Email) " +
                                               "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
-                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "')";
+                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" + customer.lentBoxes + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
                     }
@@ -183,7 +183,7 @@ namespace HasserisWeb
                         Public customer = (Public)element;
                         string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, EAN) " +
                                               "Values ('" + customer.businessName +  "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
-                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" + customer.EAN + "')";
+                                              customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" + customer.EAN + "', '" + customer.lentBoxes + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
                     }
@@ -369,6 +369,7 @@ namespace HasserisWeb
                         new ContactInfo(output.Email, output.Phonenumber));
 
                     temp.id = (int)output.ID;
+                    temp.lentBoxes = (int)output.Lentboxes;
                     return temp;
                 }
             }
@@ -390,6 +391,7 @@ namespace HasserisWeb
                         output.Name, output.CVR);
 
                     temp.id = (int)output.ID;
+                    temp.lentBoxes = (int)output.Lentboxes;
                     return temp;
                 }
             }
@@ -411,6 +413,7 @@ namespace HasserisWeb
                         output.Name, output.EAN);
 
                     temp.id = (int)output.ID;
+                    temp.lentBoxes = (int)output.Lentboxes;
                     return temp;
                 }
             }
@@ -557,6 +560,13 @@ namespace HasserisWeb
                                     new Address(put.Address, put.ZIP, put.City, put.Note),
                                     new ContactInfo(put.Email, put.Phonenumber)));
                                 temp.id = (int)put.ID;
+
+                                if (put.Lentboxes != null)
+                                {
+                                    temp.lentBoxes = (int)put.Lentboxes;    
+                                }
+                                
+
                             }
                             else if (put.Type == "Business")
                             {
@@ -566,6 +576,11 @@ namespace HasserisWeb
                                     new ContactInfo(put.Email, put.Phonenumber),
                                     put.Name, put.CVR));
                                 temp.id = (int)put.ID;
+                                if (put.Lentboxes != null)
+                                {
+                                    temp.lentBoxes = (int)put.Lentboxes;    
+                                }
+
                             }
                             else if (put.Type == "Public")
                             {
@@ -575,6 +590,11 @@ namespace HasserisWeb
                                     new ContactInfo(put.Email, put.Phonenumber),
                                     put.Name, put.EAN));
                                 temp.id = (int)put.ID;
+                                if (put.Lentboxes != null)
+                                {
+                                    temp.lentBoxes = (int)put.Lentboxes;    
+                                }
+
                             }
                             else
                             {
@@ -876,6 +896,10 @@ namespace HasserisWeb
                         new Address(output.Address, output.ZIP, output.City, output.Note),
                         new ContactInfo(output.Email, output.Phonenumber));
                     temp.id = (int)output.ID;
+                    if (output.Lentboxes != null)
+                    {
+                        temp.lentBoxes = (int)output.Lentboxes;    
+                    }
                     return temp;
                 }
                 else if (outputType == "Business")
@@ -888,6 +912,11 @@ namespace HasserisWeb
                         output_two.EAN, output_two.CVR);
 
                     temp.id = (int)output_two.ID;
+                    if (output.Lentboxes != null)
+                    {
+                        temp.lentBoxes = (int)output.Lentboxes;    
+                    }
+
                     return temp;
                 }
                 else if (outputType == "Public")
@@ -900,6 +929,10 @@ namespace HasserisWeb
                         output_two.Name, output_two.EAN);
 
                     temp.id = (int)output_two.ID;
+                    if (output.Lentboxes != null)
+                    {
+                        temp.lentBoxes = (int)output.Lentboxes;    
+                    }
                     return temp;
                 }
                 else throw new Exception();

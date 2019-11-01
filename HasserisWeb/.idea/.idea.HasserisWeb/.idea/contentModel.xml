@@ -219,42 +219,10 @@
             </e>
             <e p="images" t="Include">
               <e p="avatars" t="Include">
-                <e p="Abbott.jpg" t="Include" />
-                <e p="alice.jpg" t="Include" />
-                <e p="andrew.jpg" t="Include" />
-                <e p="Arnold.jpg" t="Include" />
-                <e p="Barrera.jpg" t="Include" />
-                <e p="Blair.jpg" t="Include" />
-                <e p="Boyle.jpg" t="Include" />
-                <e p="carl.jpg" t="Include" />
-                <e p="Christy.jpg" t="Include" />
-                <e p="Copeland.jpg" t="Include" />
-                <e p="danielle.jpg" t="Include" />
-                <e p="Estes.jpg" t="Include" />
-                <e p="garry.jpg" t="Include" />
-                <e p="Harper.jpg" t="Include" />
-                <e p="Helen.jpg" t="Include" />
-                <e p="Henderson.jpg" t="Include" />
-                <e p="james.jpg" t="Include" />
-                <e p="jane.jpg" t="Include" />
-                <e p="Josefina.jpg" t="Include" />
-                <e p="joyce.jpg" t="Include" />
-                <e p="katherine.jpg" t="Include" />
-                <e p="Katina.jpg" t="Include" />
-                <e p="Lily.jpg" t="Include" />
-                <e p="Mai.jpg" t="Include" />
-                <e p="Nancy.jpg" t="Include" />
-                <e p="Nora.jpg" t="Include" />
-                <e p="Odessa.jpg" t="Include" />
                 <e p="profile.jpg" t="Include" />
-                <e p="Reyna.jpg" t="Include" />
-                <e p="Shauna.jpg" t="Include" />
-                <e p="Shepard.jpg" t="Include" />
-                <e p="Tillman.jpg" t="Include" />
-                <e p="Trevino.jpg" t="Include" />
-                <e p="Tyson.jpg" t="Include" />
+                <e p="Snuuby.jpeg" t="Include" />
+                <e p="Snuuby.png" t="Include" />
                 <e p="Velazquez.jpg" t="Include" />
-                <e p="vincent.jpg" t="Include" />
               </e>
               <e p="backgrounds" t="Include">
                 <e p="dark-material-bg.jpg" t="Include" />
@@ -304,6 +272,7 @@
                 <e p="HasserisFlytteforetningLogo.svg" t="Include" />
                 <e p="HasserisFlytteforetningManLogo.svg" t="Include" />
                 <e p="HasserisFlytteforetningRigtigManLogo.svg" t="Include" />
+                <e p="HasserisFlytteforetningStorLogo.svg" t="Include" />
                 <e p="jwt.svg" t="Include" />
                 <e p="NewTux.svg" t="Include" />
               </e>
@@ -1184,6 +1153,25 @@
                   <e p="TodoToolbar.js" t="Include" />
                 </e>
               </e>
+              <e p="customerOverview" t="Include">
+                <e p="AddDialog.js" t="Include" />
+                <e p="CustomerOverview.js" t="Include" />
+                <e p="CustomerOverviewConfig.js" t="Include" />
+                <e p="CustomerOverviewHeader.js" t="Include" />
+                <e p="CustomerOverviewTable.js" t="Include" />
+                <e p="CustomerOverviewTableHead.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="customerOverview.actions.js" t="Include" />
+                    <e p="index.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="customerOverview.reducer.js" t="Include" />
+                    <e p="index.js" t="Include" />
+                  </e>
+                </e>
+              </e>
+              <e p="details" t="Include" />
               <e p="login" t="Include">
                 <e p="Login.js" t="Include" />
                 <e p="LoginConfig.js" t="Include" />
@@ -1220,6 +1208,42 @@
                   <e p="PhotosVideosTab.js" t="Include" />
                   <e p="TimelineTab.js" t="Include" />
                 </e>
+              </e>
+              <e p="toolOverview" t="Include">
+                <e p="AddDialog.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="toolOverview.actions.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="toolOverview.reducer.js" t="Include" />
+                  </e>
+                </e>
+                <e p="ToolOverview.js" t="Include" />
+                <e p="ToolOverviewConfig.js" t="Include" />
+                <e p="ToolOverviewHeader.js" t="Include" />
+                <e p="ToolOverviewTable.js" t="Include" />
+                <e p="ToolOverviewTableHead.js" t="Include" />
+              </e>
+              <e p="vehicleOverview" t="Include">
+                <e p="AddDialog.js" t="Include" />
+                <e p="store" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="vehicleOverview.actions.js" t="Include" />
+                  </e>
+                  <e p="reducers" t="Include">
+                    <e p="index.js" t="Include" />
+                    <e p="vehicleOverview.reducer.js" t="Include" />
+                  </e>
+                </e>
+                <e p="VehicleOverview.js" t="Include" />
+                <e p="VehicleOverviewConfig.js" t="Include" />
+                <e p="VehicleOverviewHeader.js" t="Include" />
+                <e p="VehicleOverviewTable.js" t="Include" />
+                <e p="VehicleOverviewTableHead.js" t="Include" />
               </e>
             </e>
             <e p="services" t="Include">
@@ -1324,14 +1348,16 @@
       <e p="Controllers" t="Include">
         <e p="AuthenticationController.cs" t="Include" />
         <e p="CalendarController.cs" t="Include" />
+        <e p="CustomerController.cs" t="Include" />
         <e p="EmployeeController.cs" t="Include" />
+        <e p="FurnitureController.cs" t="Include" />
+        <e p="ImageController.cs" t="Include" />
         <e p="MitComponentController.cs" t="Include" />
+        <e p="ToolController.cs" t="Include" />
+        <e p="VehicleController.cs" t="Include" />
         <e p="WeatherForecastController.cs" t="Include" />
       </e>
       <e p="database" t="Include">
-        <e p="BACKUPHasseris.db" t="Include" />
-        <e p="BROKEN2Hasseris.db" t="Include" />
-        <e p="BROKENHasseris.db" t="Include" />
         <e p="Hasseris.db" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
       </e>

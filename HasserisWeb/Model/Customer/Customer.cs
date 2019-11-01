@@ -12,6 +12,7 @@ namespace HasserisWeb
         public Address address { get; set; }
         public string type { get; set; }
         public ContactInfo contactInfo { get; set; }
+        public int lentBoxes { get; set; }
         public Customer(Address address, ContactInfo contactInfo, string type)
         {
             this.type = type;
