@@ -32,15 +32,30 @@ function ProfilePage()
     }
     let contentElement = document.getElementById("content");
 
+    function getExtension(fileName) {
+        var ext = fileName.split('.');
+        return ext[ext.length - 1];
+    }
+
     // Button callback
     async function onAvatarClicked() {
-        var files = await selectFile("image/*", false);
-        let fileURL = URL.createObjectURL(files);
-        //alert(`file selected, is a ${files.type}`);
-        //document.getElementById("profileimg").src = fileURL;
-        dispatch(Action.setUserImage(fileURL, user.data.displayName, files.type));
-        if (window.confirm("Profil billede opdateret.\nSiden skal genindlaeses for at vise billedet.\nGenindlaes side nu?")) {
-            document.location.reload();
+        var file = await selectFile("image/jpeg, image/png, image/jpg", false);
+        // Filtype check anvendt fra https://stackoverflow.com/questions/7977084/check-file-type-when-form-submit
+        var extension = getExtension(file.name);
+        //alert(`filename ${file.name}, extension is ${extension}`)
+        switch (extension.toLowerCase()) {
+            case "jpg":
+            case "png":
+            case "jpeg":
+                let fileURL = URL.createObjectURL(file);
+                //document.getElementById("profileimg").src = fileURL;
+                dispatch(Action.setUserImage(fileURL, user.data.displayName, file.type));
+                if (window.confirm("Profil billede opdateret.\nSiden skal genindlaeses for at vise billedet.\nGenindlaes side nu?")) {
+                    document.location.reload();
+                }
+                break;
+            default:
+                alert("Filtype ikke supportet. Supportet filtyper:\nJPG, JPEG, PNG")
         }
     }
 
