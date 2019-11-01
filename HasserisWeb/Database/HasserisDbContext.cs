@@ -36,6 +36,10 @@ namespace HasserisWeb
                 return tempPath;
             }
         }
+        public static string SetTaskImage(string ID, string ImagePath)
+        {
+            throw new NotImplementedException();
+        }
         public static void SetAccessToken(string token, int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
