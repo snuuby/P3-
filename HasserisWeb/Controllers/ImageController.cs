@@ -44,17 +44,17 @@ namespace HasserisWeb
             return newFilePath;
         }
         
-        [Microsoft.AspNetCore.Mvc.Route("uploadProfileImage")]
+        [Microsoft.AspNetCore.Mvc.Route("uploadTaskImage")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         public string uploadTaskImage(dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             string tempBase64 = temp.base64URL;
-            string ID = temp.taskid;
+            int ID = temp.taskid;
             string Type = temp.type;
             string tempSubType = Type.Substring(6);
-            string filePath = "..//HasserisWeb/ClientApp/public/assets/images/tasks/" + ID + "." + tempSubType;
+            string filePath = "..//HasserisWeb/ClientApp/public/assets/images/tasks/" + ID.ToString() + "." + tempSubType;
             byte[] bytearray = Base64UrlEncoder.DecodeBytes(tempBase64);
             int arrayCount = bytearray.Length;
             using (var imageFile = new System.IO.FileStream(filePath, FileMode.Create))

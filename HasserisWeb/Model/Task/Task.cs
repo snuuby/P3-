@@ -9,6 +9,7 @@ namespace HasserisWeb
         public int id { get; set; }
         public string name { get; }
         public string type { get; }
+        public string image { get; set; }
         public string employeesIdString { get; set; }
         //I made this to a list instead, because there might be more employees per appointment
         //The way we can save those in the database, is by having a variable called numberOfEmployees, which represents

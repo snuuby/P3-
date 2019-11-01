@@ -114,10 +114,10 @@ export function setTaskImage(imgUrl, taskid, type) {
         getBase64Image(imgUrl, function (base64image) {
             const imageData = { base64URL: base64image, taskid: taskid, type: type };
             axios.post('/images/uploadTaskImage', imageData).then(response => {
-                const thumb = response.data;
+                const image = response.data;
                 dispatch({
                     type: SET_TASK_IMAGE,
-                    payload: thumb
+                    payload: image
                 })
             });
             console.log(base64image);

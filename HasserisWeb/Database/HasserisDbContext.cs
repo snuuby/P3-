@@ -19,6 +19,7 @@ namespace HasserisWeb
         {
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
             {
+                
                 cnn.Execute("UPDATE Employees SET Image = '" + imagePath + "' WHERE Username = '" + username + "'");
             }
         }
@@ -36,9 +37,26 @@ namespace HasserisWeb
                 return tempPath;
             }
         }
-        public static string SetTaskImage(string ID, string ImagePath)
+        public static void SetTaskImage(int ID, string imagePath)
         {
-            throw new NotImplementedException();
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+                cnn.Execute("UPDATE Tasks SET Image = '" + imagePath + "' WHERE ID = '" + ID + "'");
+            }
+        }
+        public static string GetTaskImage(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+            {
+
+                dynamic temp = cnn.QuerySingle("SELECT * FROM Tasks WHERE ID = '" + ID + "'");
+                string tempPath = temp.Image;
+                if (tempPath == null)
+                {
+                    return "assets/images/tasks/placeholder.png";
+                }
+                return tempPath;
+            }
         }
         public static void SetAccessToken(string token, int id)
         {
@@ -57,7 +75,7 @@ namespace HasserisWeb
                     new Address(output.Address, output.ZIP, output.City, output.Note));
                 temp.hashCode = output.Password;
                 temp.userName = output.Username;
-
+                
                 temp.id = (int)output.ID;
                 temp.accessToken = output.AccessToken;
                 return temp;
@@ -472,7 +490,8 @@ namespace HasserisWeb
                                 output.DestinationCity, output.DestinationNote),
                                 (double)output.Income, CalculateDateFromDatabaseString(output.Date),
                                 output.Note, output.Workphone, output.Material, (int)output.Quantity);
-                    temp.id = (int)output.ID; 
+                    temp.id = (int)output.ID;
+                    temp.image = GetTaskImage(temp.id);
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.assignedEmployees = (List<Employee>)GetElementsFromIDString("Employee", output.EmployeeIDs);
@@ -498,6 +517,7 @@ namespace HasserisWeb
                                 output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
                                 new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
                     temp.id = (int)output.ID;
+                    temp.image = GetTaskImage(temp.id);
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.employeesIdString = output.EmployeeIDs;
@@ -652,6 +672,7 @@ namespace HasserisWeb
                                 put.Description, put.Workphone, put.Material, (int)put.Quantity));
                             temp.id = (int)put.ID;
                             temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
+                            temp.image = GetTaskImage(temp.id);
                             temp.equipmentsIdString = put.EquipmentIDs;
                             temp.employeesIdString = put.EmployeeIDs;
                         }
@@ -665,7 +686,8 @@ namespace HasserisWeb
                                     put.DestinationCity, put.DestinationNote), put.income,
                                 CalculateDateFromDatabaseString(put.Date), put.Description, put.Workphone,
                                 new Address(put.StartingAddress, put.StartingZIP, put.StartingCity, put.StartingNote), put.Lentboxes));
-                            temp.id = (int) put.ID;
+                            temp.id = (int)put.ID;
+                            temp.image = GetTaskImage(temp.id);
                             temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(put.Duration);
                             temp.equipmentsIdString = put.EquipmentIDs;
                             temp.employeesIdString = put.EmployeeIDs;
@@ -1194,6 +1216,7 @@ namespace HasserisWeb
                     new Address(output.Address, output.ZIP, output.City, output.Note));
                 temp.hashCode = output.Password;
                 temp.userName = output.Username;
+                temp.profilePhoto = output.Image;
                 temp.id = (int)output.ID;
                 return temp;
             }
