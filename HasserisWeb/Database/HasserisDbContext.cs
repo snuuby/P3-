@@ -15,6 +15,64 @@ namespace HasserisWeb
 {
     public class HasserisDbContext : DbContext
     {
+        public HasserisDbContext() : base()
+        {
+        }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<Furniture> Furniture { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(Startup.ConnectionString);
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Creating primary keys
+            modelBuilder.Entity<Employee>().HasKey(p => p.ID);
+            modelBuilder.Entity<Task>().HasKey(p => p.ID);
+            modelBuilder.Entity<Delivery>();
+            modelBuilder.Entity<Moving>();
+
+            modelBuilder.Entity<Equipment>().HasKey(p => p.ID);
+            modelBuilder.Entity<Furniture>().HasKey(p => p.ID);
+            modelBuilder.Entity<Customer>().HasKey(p => p.ID);
+            modelBuilder.Entity<Private>();
+            modelBuilder.Entity<Business>();
+            modelBuilder.Entity<Public>();
+
+            modelBuilder.Entity<Employee>().OwnsOne(p => p.Address);
+            modelBuilder.Entity<Employee>().OwnsOne(p => p.ContactInfo);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+
+
+
+
+
+
+
+
+
+
         public static void SetEmployeeProfileImage(string username, string imagePath)
         {
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -321,7 +379,7 @@ namespace HasserisWeb
                     System.Globalization.CultureInfo.InvariantCulture,
                     System.Globalization.DateTimeStyles.None, out DateTime dateFormat);
                 tempDateTimes.Add(dateFormat);
-                */
+                
             }
             
             return tempDateTimes;
@@ -883,6 +941,7 @@ namespace HasserisWeb
         //        throw new Exception("Can only remove objects from database that are in the database");
         //    }
         //}
+        /*
         public static Customer GetCustomerFromDatabaseID(int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -998,7 +1057,7 @@ namespace HasserisWeb
                 throw new Exception("Unknown element");
             }
         }
-        /*
+        
         public static List<Employee> GetEmployeeFromEmployeeString(string id)
         {
             Employee temp;
@@ -1052,7 +1111,7 @@ namespace HasserisWeb
                 return tempList;
             }
         }
-        */
+        
 
         public static void UpdateElementInDatabase<T>(dynamic element)
         {
@@ -1230,17 +1289,12 @@ namespace HasserisWeb
         public static Employee VerifyPassword(string password, string username)
         {
 
-            /* Fetch the stored value */
             string savedPasswordHash = LoadEmployeeHashPassword(username);
-            /* Extract the bytes */
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
-            /* Get the salt */
             byte[] salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);
-            /* Compute the hash on the password the user entered */
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
             byte[] hash = pbkdf2.GetBytes(20);
-            /* Compare the results */
             for (int i = 0; i < 20; i++)
                 if (hashBytes[i + 16] != hash[i])
                     throw new UnauthorizedAccessException();
@@ -1255,6 +1309,8 @@ namespace HasserisWeb
 
 
 
-        
+  */      
     }
+
 }
+

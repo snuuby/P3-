@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HasserisWeb
 {
     //Customer is an abstract class, meaning instances of customers has to be either a Private, Public or Business.
     public abstract class Customer
     {
-        public int id { get; set; }
-        public Address address { get; set; }
-        public string type { get; set; }
-        public ContactInfo contactInfo { get; set; }
-        public int lentBoxes { get; set; }
-        public Customer(Address address, ContactInfo contactInfo, string type)
+        public int ID { get; set; }
+        public Address Address { get; set; }
+        public string Type { get; set; }
+        public ContactInfo ContactInfo { get; set; }
+        public int LentBoxes { get; set; }
+        public Customer(Address Address, ContactInfo ContactInfo, string type)
         {
-            this.type = type;
-            this.address = address;
-            this.contactInfo = contactInfo;
+            this.Type = type;
+            this.Address = Address;
+            this.ContactInfo = ContactInfo;
+
+
         }
 
     }

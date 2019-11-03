@@ -16,8 +16,10 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllCustomers()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Customer");
-            return JsonConvert.SerializeObject((temp));
+            using (var db = new HasserisDbContext())
+            {
+                return JsonConvert.SerializeObject(db.Customers.ToList());
+            }
         }  
         
         /*

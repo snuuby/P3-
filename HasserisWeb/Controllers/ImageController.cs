@@ -40,7 +40,13 @@ namespace HasserisWeb
                 imageFile.Flush();
             }
             string newFilePath = "assets/images/avatars/" + tempUsername + "." + tempSubType;
-            HasserisDbContext.SetEmployeeProfileImage(tempUsername, newFilePath);
+            using (var db = new HasserisDbContext())
+            {
+                var employee = db.Employees.FirstOrDefault(e => e.Username == tempUsername);
+                employee.ProfilePhoto = newFilePath;
+                db.SaveChanges();
+
+            }
             return newFilePath;
         }
 

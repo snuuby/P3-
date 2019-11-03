@@ -17,17 +17,22 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllTools()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Equipment");
-            var TempVehicleList = new List<Equipment>();
-            foreach (var element in temp)
+            using (var db = new HasserisDbContext())
             {
-                if (element.type == "Vehicle")
+                var equipment = db.Equipment.ToList();
+
+                var TempVehicleList = new List<Equipment>();
+                foreach (var element in equipment)
                 {
-                    TempVehicleList.Add(element);
+                    if (element.Type == "Vehicle")
+                    {
+                        TempVehicleList.Add(element);
+                    }
                 }
+                return JsonConvert.SerializeObject(TempVehicleList);
             }
-            return JsonConvert.SerializeObject(TempVehicleList);
         }  
+
         
     }
 }

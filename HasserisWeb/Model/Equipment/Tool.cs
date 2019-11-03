@@ -10,7 +10,6 @@ namespace HasserisWeb
 
         public Tool(string name, string type) : base(name, type)
         {
-            this.isAvailable = true;
         }
     }
 }

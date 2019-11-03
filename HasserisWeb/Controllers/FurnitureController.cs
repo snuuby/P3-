@@ -16,8 +16,10 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllFurnitures()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Furniture");
-            return JsonConvert.SerializeObject((temp));
+            using (var db = new HasserisDbContext())
+            {
+                return JsonConvert.SerializeObject(db.Furniture.ToList());
+            }
         }  
     }
 }

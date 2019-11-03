@@ -7,13 +7,12 @@ namespace HasserisWeb
 {
     public class Vehicle : Equipment
     {
-        public string model { get; set; }
-        public string regNum { get; set; }
+        public string Model { get; set; }
+        public string RegNum { get; set; }
         public Vehicle(string name, string type, string model, string regNum) : base(name, type)
         {
-            this.model = model;
-            this.regNum = regNum;
-            this.isAvailable = true;
+            this.Model = model;
+            this.RegNum = regNum;
         }
 
     }

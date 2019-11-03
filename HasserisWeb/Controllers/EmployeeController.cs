@@ -30,36 +30,36 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllEmployees()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Employee");
-            return JsonConvert.SerializeObject((temp));
+            using (var db = new HasserisDbContext())
+            {
+                return JsonConvert.SerializeObject(db.Employees.ToList());
+            }
         }  
         
-        [Route("all/old")]
-        public IEnumerable<Employee> GetAllEmployeesOld()        
-        {
-            Employee[] employees = new Employee[9];
 
-            for (int i = 1; i < 10; i++)
-            {
-                employees[i - 1] = HasserisDbContext.LoadElementFromDatabase("Employee", 1);
-                
-            }
-
-            return employees;
-        }  
         
         // Delete
         [Route("delete/{id}")]
         public ActionResult DeleteEmployee(int id)
         {
-            HasserisDbContext.EmployeeNoLongerEmployee(id);
+            using (var db = new HasserisDbContext())
+            {
+                var employee = db.Employees.FirstOrDefault(e => e.ID == id);
+                employee.Employed = "Unemployed";
+                db.Employees.Update(employee);
+                db.SaveChanges();
+            }
             return Content("Success with: " + id);
         }
 
         [Route("firstname/{id}")]
         public Employee GetEmployeeFirstName(int id)
         {
-            return HasserisDbContext.LoadElementFromDatabase("Employee", id); 
+            using (var db = new HasserisDbContext())
+            {
+                return db.Employees.FirstOrDefault(e => e.ID == id);
+                
+            }
         }
     }
 }

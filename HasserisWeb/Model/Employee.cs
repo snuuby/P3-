@@ -7,19 +7,19 @@ namespace HasserisWeb
 {
     public class Employee
     {
-        public string profilePhoto { get; set; }
-        public string firstName { get;  set; }
-        public string lastName { get;  set; }
-        public string userName { get; set; }
-        public string hashCode { get; set; }
-        public bool isAvailable { get; private set; }
-        public string accessToken { get; set; }
-        public ContactInfo contactInfo { get; set; }
-        public double wage { get; private set; }
-        public int id { get; set; }
-        public Address address { get; set; }
-        public string type { get; set; }
-        public string employed { get; set; }
+        public string ProfilePhoto { get; set; }
+        public string Firstname { get;  set; }
+        public string Lastname { get;  set; }
+        public string Username { get; set; }
+        public string Hashcode { get; set; }
+        public bool IsAvailable { get; private set; }
+        public string AccessToken { get; set; }
+        public ContactInfo ContactInfo { get; set; }
+        public double Wage { get; private set; }
+        public int ID { get; set; }
+        public Address Address { get; set; }
+        public string Type { get; set; }
+        public string Employed { get; set; }
         // Test constructor Cholle
         public Employee()
         {
@@ -28,18 +28,18 @@ namespace HasserisWeb
         
         public Employee(string fName, string lName, string type, double pWage, ContactInfo contactInfo, Address address)
         {
-            this.firstName = fName;
-            this.lastName = lName;
-            this.wage = pWage;
-            this.contactInfo = contactInfo;
-            this.address = address;
-            this.type = type;
-            this.employed = "employed";
+            this.Firstname = fName;
+            this.Lastname = lName;
+            this.Wage = pWage;
+            this.ContactInfo = contactInfo;
+            this.Address = address;
+            this.Type = type;
+            this.Employed = "employed";
         }
         public void AddLoginInfo(string username, string password)
         {
-            this.userName = username;
-            this.hashCode = CalculateHash(password);
+            this.Username = username;
+            this.Hashcode = CalculateHash(password);
         }
         private string CalculateHash(string tempPassword)
         {

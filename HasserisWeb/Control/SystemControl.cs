@@ -9,29 +9,19 @@ namespace HasserisWeb
 {
     public class SystemControl
     {
-
-        public static Calendar calendar = new Calendar("Hasseris Calendar");
+        
         public SystemControl()
         {
 
-            DatabaseTester test = new DatabaseTester();
-            try
+            using (var db = new HasserisDbContext())
             {
-                Employee jakob = HasserisDbContext.VerifyPassword("Jakob17", "Snuuby");
-                Debug.WriteLine(jakob.id);
-                //Do something with Jakob here
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Debug.WriteLine("Wrong password");
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Likely wrong username");
+                db.Employees.Add(new Employee("Jakob", "Østenkjær", "AdminPlus", 150, new ContactInfo("jallehansen17/gmail.com", "28943519"), new Address("Herningvej 5", "9220", "Aalborg", "Første dør")));
+                db.SaveChanges();
             }
 
         }
 
 
     }
+    
 }

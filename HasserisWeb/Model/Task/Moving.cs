@@ -8,17 +8,17 @@ namespace HasserisWeb
     //Moving-type task, for moving furniture/other for a customer.
     public class Moving : Task
     {
-        public Address startingAddress { get; }
-        public int lentBoxes { get; }
-        public List<Furniture> listofFurnitures { get; }
+        public Address StartingAddress { get; }
+        public int LentBoxes { get; }
+        public ICollection<Furniture> Furnitures { get; }
 
         public Moving(string name, string type, Customer assignedCustomer,
                   Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes)
                 : base(name, type, assignedCustomer, destination, income, dates, description, workPhoneNumber)
         {
-            this.startingAddress = startingAddress;
-            this.lentBoxes = lentBoxes;
-            this.assignedCustomer.lentBoxes = lentBoxes;
+            this.StartingAddress = startingAddress;
+            this.LentBoxes = lentBoxes;
+            this.Customer.LentBoxes = lentBoxes;
 
         }
 
@@ -28,7 +28,7 @@ namespace HasserisWeb
             double totalSize = 0;
             foreach( var element in listofFurnitures)
             {
-                totalSize += element.cubicSize;
+                totalSize += element.CubicSize;
             }
             return totalSize;
         }

@@ -15,7 +15,7 @@ namespace HasserisWeb
         {
             
             Configuration = configuration;
-            ConnectionString = configuration.GetConnectionString("HasserisDbContext");
+            ConnectionString = configuration.GetConnectionString("HasserisDatabase");
             SystemControl system = new SystemControl();
 
         }
@@ -26,6 +26,7 @@ namespace HasserisWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
 
             services.AddControllersWithViews();
 

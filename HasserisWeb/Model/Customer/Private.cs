@@ -8,14 +8,14 @@ namespace HasserisWeb
     //Private-type customer class, for individuals/families.
     public class Private : Customer
     {
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
 
-        public Private(string fName, string lName, string type, Address address, ContactInfo contactInfo)
+        public Private(string Firstname, string Lastname, string type, Address address, ContactInfo contactInfo)
                 : base(address, contactInfo, type)
         {
-            this.firstName = fName;
-            this.lastName = lName;
+            this.Firstname = Firstname;
+            this.Lastname = Lastname;
         }
     }
 }

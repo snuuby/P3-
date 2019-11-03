@@ -1,19 +1,22 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace HasserisWeb
 {
+    
+    [Owned]
     public class Address
     {
-        public string livingAdress { get; set; }
+        public string LivingAddress { get; set; }
         public string ZIP { get; set; }
-        public string city { get; set; }
-        public string note { get; set; }
-        public Address(string address, string zip, string city, string note)
+        public string City { get; set; }
+        public string Note { get; set; }
+        public Address(string LivingAddress, string ZIP, string city, string note)
         {
-            this.livingAdress = address;
-            this.ZIP = zip;
-            this.city = city;
-            this.note = note;
+            this.LivingAddress = LivingAddress;
+            this.ZIP = ZIP;
+            this.City = city;
+            this.Note = note;
         }
     }
 }

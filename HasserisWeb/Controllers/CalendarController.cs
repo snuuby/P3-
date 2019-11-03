@@ -36,8 +36,12 @@ namespace HasserisWeb.Controllers
             dynamic deserializeObject = JsonConvert.DeserializeObject(json.ToString());
 
             int id = deserializeObject.eventId;
-            
-            HasserisDbContext.DeleteElementFromDatabase<Task>("Task", id);
+            using (var db = new HasserisDbContext())
+            {
+                var task = db.Tasks.Find(id);
+                db.Tasks.Remove(task);
+                db.SaveChanges();
+            }
 
             return "andreas: " + id;
         }
@@ -45,8 +49,10 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllTasks()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Task");
-            return JsonConvert.SerializeObject((temp));
+            using (var db = new HasserisDbContext())
+            {
+                return JsonConvert.SerializeObject(db.Tasks.ToList());
+            }
         }  
         
         /*
@@ -77,20 +83,7 @@ namespace HasserisWeb.Controllers
             dates.Add(date1);
             dates.Add(date2);
 
-            
-            Private privateCustomer = HasserisDbContext.LoadElementFromDatabase("Private", 1);
-            Employee employee_one = HasserisDbContext.LoadElementFromDatabase("Employee", 1);
-            Employee employee_two = HasserisDbContext.LoadElementFromDatabase("Employee", 2);
-            
-            Vehicle vehicle = new Vehicle("Stor bil", "Vehicle", "Opel", "12312123");
-            HasserisDbContext.SaveElementToDatabase<Vehicle>(vehicle);
 
-            Delivery delivery = new Delivery(eventTitle, "Delivery", privateCustomer,
-                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
-            //delivery.AddElementToTask(employee_one);
-            //delivery.AddElementToTask(employee_two);
-            //delivery.AddElementToTask(vehicle);
-            HasserisDbContext.SaveElementToDatabase<Delivery>(delivery);
             return "asdqwe";
 
         }
@@ -115,29 +108,35 @@ namespace HasserisWeb.Controllers
             // Den svenske virker men den danske kan ikke DateTime parse det vi får fra frontend: "12/31/2019 11:00:00" bliver til [31-12-2019 11:00:00] med svensk  
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
-            
-            
+
+
             // CultureInfo dk = new CultureInfo("da-DK");
             //DateTime date1 = DateTime.ParseExact(eventStart, "yyyy-MM-dd HH:mm", dk);
             //DateTime date2 = DateTime.ParseExact(eventStart, "dd-MM-yyyy HH:mm:ss", dk);
             // 03-12-2019 00:00:00/05-12-2019 00:00:00
             // HH er 24 hours
 
-            
-            List<DateTime> dates = new List<DateTime>();
-            dates.Add(date1);
-            dates.Add(date2);
-            
-            Private privateCustomer = HasserisDbContext.LoadElementFromDatabase("Private", 1);
-            Employee employee_one = HasserisDbContext.LoadElementFromDatabase("Employee", 1);
-            Employee employee_two = HasserisDbContext.LoadElementFromDatabase("Employee", 2);
+            using (var db = new HasserisDbContext())
+            {
 
-            
-            Delivery delivery = new Delivery(eventTitle, "Delivery", privateCustomer,
+                List<DateTime> dates = new List<DateTime>();
+                dates.Add(date1);
+                dates.Add(date2);
+
+                Private privateCustomer = (Private)db.Customers.FirstOrDefault(c => c.ID == 1);
+                Employee employee_one = db.Employees.FirstOrDefault(e => e.ID == 1);
+                Employee employee_two = db.Employees.FirstOrDefault(e => e.ID == 2);
+
+
+                Delivery delivery = new Delivery(eventTitle, "Delivery", privateCustomer,
                 new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
 
-            delivery.id = id;
-            HasserisDbContext.UpdateElementInDatabase<Task>(delivery);
+                delivery.ID = id;
+
+                db.Tasks.Update(delivery);
+                db.SaveChanges();
+            }
+
             return "asd";
         }
 

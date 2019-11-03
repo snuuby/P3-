@@ -7,18 +7,18 @@ namespace HasserisWeb
 {    
     public class Furniture
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public double cubicSize { get; set; }
-        public string type { get; set; }
-        public double weight { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public double CubicSize { get; set; }
+        public string Type { get; set; }
+        public double Weight { get; set; }
 
         public Furniture( string name, double cubicSize, string type, double weight)
         {
-            this.name = name;
-            this.cubicSize = cubicSize;
-            this.type = type;
-            this.weight = weight;
+            this.Name = name;
+            this.CubicSize = cubicSize;
+            this.Type = type;
+            this.Weight = weight;
         }
     }
 }

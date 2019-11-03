@@ -7,7 +7,7 @@ namespace HasserisWeb
 {
     public class DatabaseTester
     {
-
+        /*
         public DatabaseTester()
         {
             //CreatePeopleTester();
@@ -138,4 +138,6 @@ namespace HasserisWeb
 
     }
 
+    */
+    }
 }
