@@ -24,6 +24,10 @@ namespace HasserisWeb
 
 
         }
+        public Customer()
+        {
+
+        }
 
     }
 

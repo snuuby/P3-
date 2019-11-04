@@ -10,7 +10,10 @@ namespace HasserisWeb
     {
         public string material { get; }
         public int quantity { get; }
-        
+        public Delivery()
+        {
+
+        }
         public Delivery(string name, string type, Customer assignedCustomer,
                   Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, string material, int quantity) 
                 : base(name, type, assignedCustomer, destination, income, dates, description, workPhoneNumber)

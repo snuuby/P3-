@@ -21,6 +21,10 @@ namespace HasserisWeb
             this.Customer.LentBoxes = lentBoxes;
 
         }
+        public Moving()
+        {
+
+        }
 
         //Calculates the total cubic size of all furniture on a specific moving task.
         public double totalCubicSize(List<Furniture> listofFurnitures)

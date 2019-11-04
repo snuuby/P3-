@@ -17,5 +17,9 @@ namespace HasserisWeb
             this.Firstname = Firstname;
             this.Lastname = Lastname;
         }
+        public Private()
+        {
+
+        }
     }
 }

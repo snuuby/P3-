@@ -20,7 +20,11 @@ namespace HasserisWeb
     public class ImageController : ControllerBase
     {
 
-        
+        public HasserisDbContext database;
+        public ImageController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Microsoft.AspNetCore.Mvc.Route("uploadImage")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
@@ -40,13 +44,12 @@ namespace HasserisWeb
                 imageFile.Flush();
             }
             string newFilePath = "assets/images/avatars/" + tempUsername + "." + tempSubType;
-            using (var db = new HasserisDbContext())
-            {
-                var employee = db.Employees.FirstOrDefault(e => e.Username == tempUsername);
-                employee.ProfilePhoto = newFilePath;
-                db.SaveChanges();
 
-            }
+                var employee = database.Employees.FirstOrDefault(e => e.Username == tempUsername);
+                employee.ProfilePhoto = newFilePath;
+                database.SaveChanges();
+
+            
             return newFilePath;
         }
 

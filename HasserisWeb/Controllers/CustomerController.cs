@@ -13,13 +13,17 @@ namespace HasserisWeb.Controllers
     [Route("customers")]
     public class CustomerController : Controller
     {
+        public HasserisDbContext database;
+        public CustomerController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Route("all")]
         public string GetAllCustomers()        
         {
-            using (var db = new HasserisDbContext())
-            {
-                return JsonConvert.SerializeObject(db.Customers.ToList());
-            }
+
+                return JsonConvert.SerializeObject(database.Customers.ToList());
+            
         }  
         
         /*

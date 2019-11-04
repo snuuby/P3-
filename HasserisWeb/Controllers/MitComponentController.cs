@@ -9,6 +9,11 @@ namespace HasserisWeb.Controllers
     [Route("[controller]")]
     public class MitComponentController : ControllerBase
     {
+        public HasserisDbContext database;
+        public MitComponentController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [HttpGet]
         public IEnumerable<DateTime> Get()
         {

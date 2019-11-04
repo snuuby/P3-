@@ -55,7 +55,7 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[3.0.0, )"
             },
@@ -70,10 +70,6 @@
             "entityframework": {
               "target": "Package",
               "version": "[6.3.0, )"
-            },
-            "microsoft.entityframeworkcore.sqlserver": {
-              "target": "Package",
-              "version": "[3.0.0, )"
             }
           },
           "imports": [
