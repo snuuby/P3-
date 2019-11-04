@@ -10,7 +10,10 @@ namespace HasserisWeb
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        public Private()
+        {
 
+        }
         public Private(string Firstname, string Lastname, string type, Address address, ContactInfo contactInfo)
                 : base(address, contactInfo, type)
         {

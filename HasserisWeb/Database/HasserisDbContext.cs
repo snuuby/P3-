@@ -26,28 +26,46 @@ namespace HasserisWeb
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Startup.ConnectionString);
+            optionsBuilder.UseSqlite(ConfigurationManager.ConnectionStrings[0].ConnectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("HasserisDatabase");
+
+
             //Creating primary keys
+            
             modelBuilder.Entity<Employee>().HasKey(p => p.ID);
             modelBuilder.Entity<Task>().HasKey(p => p.ID);
-            modelBuilder.Entity<Delivery>();
-            modelBuilder.Entity<Moving>();
 
             modelBuilder.Entity<Equipment>().HasKey(p => p.ID);
             modelBuilder.Entity<Furniture>().HasKey(p => p.ID);
             modelBuilder.Entity<Customer>().HasKey(p => p.ID);
+
+            modelBuilder.Entity<Delivery>();
+            modelBuilder.Entity<Moving>();
+
             modelBuilder.Entity<Private>();
-            modelBuilder.Entity<Business>();
             modelBuilder.Entity<Public>();
+            modelBuilder.Entity<Business>();
+
+            modelBuilder.Entity<Vehicle>();
+            modelBuilder.Entity<Tool>();
+
+
+            //modelBuilder.Entity<Address>().HasNoKey();
+            //modelBuilder.Entity<ContactInfo>().HasNoKey();
+
+
 
             modelBuilder.Entity<Employee>().OwnsOne(p => p.Address);
             modelBuilder.Entity<Employee>().OwnsOne(p => p.ContactInfo);
+            modelBuilder.Entity<Customer>().OwnsOne(p => p.Address);
+            modelBuilder.Entity<Customer>().OwnsOne(p => p.ContactInfo);
 
             base.OnModelCreating(modelBuilder);
         }
+
 
 
 

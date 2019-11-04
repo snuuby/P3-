@@ -11,6 +11,10 @@ namespace HasserisWeb
         public string Name { get; set; }
         public string CVR { get; set; }
 
+        public Business()
+        {
+
+        }
         public Business(string Type, Address Address, ContactInfo ContactInfo, string Name, string CVR )
                         : base(Address, ContactInfo, Type)
         {

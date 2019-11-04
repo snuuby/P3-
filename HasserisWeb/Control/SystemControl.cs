@@ -15,7 +15,8 @@ namespace HasserisWeb
 
             using (var db = new HasserisDbContext())
             {
-                db.Employees.Add(new Employee("Jakob", "Østenkjær", "AdminPlus", 150, new ContactInfo("jallehansen17/gmail.com", "28943519"), new Address("Herningvej 5", "9220", "Aalborg", "Første dør")));
+                Employee temp = new Employee("Jakob", "Østenkjær", "AdminPlus", 150, new ContactInfo("jallehansen17/gmail.com", "28943519"), new Address("Herningvej 5", "9220", "Aalborg", "Første dør"));
+                db.Employees.Add(temp);
                 db.SaveChanges();
             }
 

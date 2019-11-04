@@ -12,7 +12,10 @@ namespace HasserisWeb
         public bool IsAvailable { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        public Equipment()
+        {
 
+        }
         public Equipment(string name, string type)
         {
             this.Name = name;

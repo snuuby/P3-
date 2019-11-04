@@ -7,7 +7,10 @@ namespace HasserisWeb
 {    
     public class Tool : Equipment
     {
+        public Tool()
+        {
 
+        }
         public Tool(string name, string type) : base(name, type)
         {
         }

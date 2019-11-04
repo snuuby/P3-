@@ -20,20 +20,19 @@ namespace HasserisWeb
         public Address Address { get; set; }
         public string Type { get; set; }
         public string Employed { get; set; }
-        // Test constructor Cholle
         public Employee()
         {
-            
+
         }
         
-        public Employee(string fName, string lName, string type, double pWage, ContactInfo contactInfo, Address address)
+        public Employee(string Firstname, string Lastname, string Type, double Wage, ContactInfo ContactInfo, Address Address)
         {
-            this.Firstname = fName;
-            this.Lastname = lName;
-            this.Wage = pWage;
-            this.ContactInfo = contactInfo;
-            this.Address = address;
-            this.Type = type;
+            this.Firstname = Firstname;
+            this.Lastname = Lastname;
+            this.Wage = Wage;
+            this.ContactInfo = ContactInfo;
+            this.Address = Address;
+            this.Type = Type;
             this.Employed = "employed";
         }
         public void AddLoginInfo(string username, string password)

@@ -28,11 +28,9 @@ namespace HasserisWeb
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
         public string WorkPhoneNumber { get; }
-
-        // For model binding - Experimental
         public Task()
         {
-            
+
         }
         
         public Task(string name, string type, Customer assignedCustomer, Address destination, 

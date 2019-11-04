@@ -14,6 +14,10 @@ namespace HasserisWeb
             this.Model = model;
             this.RegNum = regNum;
         }
+        public Vehicle()
+        {
+
+        }
 
     }
 }

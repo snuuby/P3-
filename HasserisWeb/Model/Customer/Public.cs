@@ -10,7 +10,10 @@ namespace HasserisWeb
     {
         public string Name { get; set; }
         public string EAN { get; set; }
+        public Public()
+        {
 
+        }
         public Public(string type, Address address, ContactInfo contactInfo, string Name, string EAN)
                         : base(address, contactInfo, type)
         {
