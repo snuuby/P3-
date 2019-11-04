@@ -109,11 +109,11 @@ export function removeEvent(eventId)
     };
 }
 
-export function setTaskImage(imgUrl, taskid, type) {
+export function setTaskImage(imgUrl, taskid, location, type) {
     return (dispatch) => {
         getBase64Image(imgUrl, function (base64image) {
-            const imageData = { base64URL: base64image, taskid: taskid, type: type };
-            axios.post('/images/uploadTaskImage', imageData).then(response => {
+            const imageData = { base64URL: base64image, value: taskid, location: location, type: type };
+            axios.post('/images/uploadImage', imageData).then(response => {
                 const image = response.data;
                 dispatch({
                     type: SET_TASK_IMAGE,

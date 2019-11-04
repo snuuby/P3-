@@ -14,12 +14,11 @@ export const REMOVE_USER_DATA = '[USER] REMOVE DATA';
 export const USER_LOGGED_OUT = '[USER] LOGGED OUT';
 
 
-export function setUserImage(imgUrl, username, type)
-{
+export function setUserImage(imgUrl, username, location, type) {
     return (dispatch) => {
         getBase64Image(imgUrl, function (base64image) {
-            const imageData = { base64URL: base64image, username: username, type: type };
-            axios.post('/images/uploadProfileImage', imageData).then(response => {
+            const imageData = { base64URL: base64image, value: username, location: location, type: type };
+            axios.post('/images/uploadImage', imageData).then(response => {
                 const photoURL = response.data;
                 dispatch({
                     type: SET_USER_IMAGE,

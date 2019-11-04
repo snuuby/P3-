@@ -38,7 +38,7 @@ function ProfilePage()
         let fileURL = URL.createObjectURL(files);
         //alert(`file selected, is a ${files.type}`);
         //document.getElementById("profileimg").src = fileURL;
-        dispatch(Action.setUserImage(fileURL, user.data.displayName, files.type));
+        dispatch(Action.setUserImage(fileURL, user.data.displayName, "avatars", files.type));
         if (window.confirm("Profil billede opdateret.\nSiden skal genindlaeses for at vise billedet.\nGenindlaes side nu?")) {
             document.location.reload();
         }
