@@ -26,14 +26,17 @@ namespace HasserisWeb.Controllers
             return Content("HEJ2");
         }
         */
-        
+        public HasserisDbContext database;
+        public EmployeeController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Route("all")]
         public string GetAllEmployees()        
         {
-            using (var db = new HasserisDbContext())
-            {
-                return JsonConvert.SerializeObject(db.Employees.ToList());
-            }
+
+                return JsonConvert.SerializeObject(database.Employees.ToList());
+            
         }  
         
 
@@ -42,24 +45,22 @@ namespace HasserisWeb.Controllers
         [Route("delete/{id}")]
         public ActionResult DeleteEmployee(int id)
         {
-            using (var db = new HasserisDbContext())
-            {
-                var employee = db.Employees.FirstOrDefault(e => e.ID == id);
+
+                var employee = database.Employees.FirstOrDefault(e => e.ID == id);
                 employee.Employed = "Unemployed";
-                db.Employees.Update(employee);
-                db.SaveChanges();
-            }
+            database.Employees.Update(employee);
+            database.SaveChanges();
+            
             return Content("Success with: " + id);
         }
 
         [Route("firstname/{id}")]
         public Employee GetEmployeeFirstName(int id)
         {
-            using (var db = new HasserisDbContext())
-            {
-                return db.Employees.FirstOrDefault(e => e.ID == id);
+
+                return database.Employees.FirstOrDefault(e => e.ID == id);
                 
-            }
+            
         }
     }
 }

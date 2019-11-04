@@ -10,19 +10,18 @@ namespace HasserisWeb
         public int ID { get; set; }
         public string Name { get; }
         public string Type { get; }
-        public ICollection<Employee> Employees { get; set; }
+        public ICollection<TaskAssignedEmployees> Employees { get; set; } 
         public Customer Customer { get; } 
         public Address Destination { get; }
         public double Income { get; }
         public double Expenses { get; set; }
-        public ICollection<Equipment> Equipment { get; set; }
-        [NotMapped]
+        public ICollection<TaskAssignedEquipment> Equipment { get; set; }
+        [Column(TypeName = "Date")]
         public ICollection<DateTime> Dates { get; internal set; }
         //Properties for calculating the total duration of a task, taskDuration.
         private DateTime StartTime { get; set; }
         private DateTime EndTime { get; set; }
 
-        [NotMapped]
         private ICollection<DateTime> PauseTimes {get; set;}
         private bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
@@ -44,8 +43,6 @@ namespace HasserisWeb
             this.Description = description;
             this.Dates = Ldates;
             this.WorkPhoneNumber = workPhoneNumber;
-            Employees = new List<Employee> { };
-            Equipment = new List<Equipment> { };
             PauseTimes = new List<DateTime>();
             this.IsPaused = false;
         }
@@ -106,6 +103,7 @@ namespace HasserisWeb
 
         //Just change it if the calculation is more complex (it probably is)
         //Maybe we have to take into account things like "feriepenge" and money spent on fuel etc..
+        /*
         private double CalculateBalance()
         {
             double totalCost = 0;
@@ -117,7 +115,7 @@ namespace HasserisWeb
             }
             return totalCost;
         }
-
+        
         //Adds element to appointment (can be both equipment and employee). 
         //Also adds this appointment to either employee or equipment object so all we have to do is call this function 
         //Also adds this elements id to the id string so we can transfer it to the database to keep track of all elements in this appointment
@@ -138,6 +136,7 @@ namespace HasserisWeb
 
         //Remove element from appointment (can be both equipment and employee)
         //Also removes the appointment from the element, and removes the elementID in the employeesIdString and equipmentsIdString
+        /*
         public void RemoveElementFromTask(dynamic element)
         {
             if (element is Employee)
@@ -162,6 +161,8 @@ namespace HasserisWeb
                     }
                 }
             }
+            
         }
+        */
     }
 }

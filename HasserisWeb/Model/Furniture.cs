@@ -20,5 +20,9 @@ namespace HasserisWeb
             this.Type = type;
             this.Weight = weight;
         }
+        public Furniture()
+        {
+
+        }
     }
 }

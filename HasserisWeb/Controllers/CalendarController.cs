@@ -29,6 +29,11 @@ namespace HasserisWeb.Controllers
     [Route("calendar")]
     public class CalendarController : Controller
     {
+        public HasserisDbContext database;
+        public CalendarController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [HttpPost]
         [Route("remove")]
         public string RemoveTask([FromBody]dynamic json)
@@ -36,12 +41,11 @@ namespace HasserisWeb.Controllers
             dynamic deserializeObject = JsonConvert.DeserializeObject(json.ToString());
 
             int id = deserializeObject.eventId;
-            using (var db = new HasserisDbContext())
-            {
-                var task = db.Tasks.Find(id);
-                db.Tasks.Remove(task);
-                db.SaveChanges();
-            }
+
+                var task = database.Tasks.Find(id);
+            database.Tasks.Remove(task);
+            database.SaveChanges();
+            
 
             return "andreas: " + id;
         }
@@ -49,10 +53,9 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllTasks()        
         {
-            using (var db = new HasserisDbContext())
-            {
-                return JsonConvert.SerializeObject(db.Tasks.ToList());
-            }
+
+                return JsonConvert.SerializeObject(database.Tasks.ToList());
+            
         }  
         
         /*
@@ -116,16 +119,14 @@ namespace HasserisWeb.Controllers
             // 03-12-2019 00:00:00/05-12-2019 00:00:00
             // HH er 24 hours
 
-            using (var db = new HasserisDbContext())
-            {
 
                 List<DateTime> dates = new List<DateTime>();
                 dates.Add(date1);
                 dates.Add(date2);
 
-                Private privateCustomer = (Private)db.Customers.FirstOrDefault(c => c.ID == 1);
-                Employee employee_one = db.Employees.FirstOrDefault(e => e.ID == 1);
-                Employee employee_two = db.Employees.FirstOrDefault(e => e.ID == 2);
+                Private privateCustomer = (Private)database.Customers.FirstOrDefault(c => c.ID == 1);
+                Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
+                Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
 
                 Delivery delivery = new Delivery(eventTitle, "Delivery", privateCustomer,
@@ -133,9 +134,9 @@ namespace HasserisWeb.Controllers
 
                 delivery.ID = id;
 
-                db.Tasks.Update(delivery);
-                db.SaveChanges();
-            }
+            database.Tasks.Update(delivery);
+            database.SaveChanges();
+            
 
             return "asd";
         }

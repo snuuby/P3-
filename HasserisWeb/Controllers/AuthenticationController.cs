@@ -25,7 +25,11 @@ namespace HasserisWeb
     {
 
         public ReturnObjects returnObjects = new ReturnObjects();
-
+        public HasserisDbContext database;
+        public AuthenticationController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Microsoft.AspNetCore.Mvc.Route("verify")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
@@ -39,14 +43,12 @@ namespace HasserisWeb
             if (CheckUser(username, password))
             {
                 returnObjects.access_token = GenerateToken(username);
-                using (var db = new HasserisDbContext())
-                {
-                    var employee = db.Employees.FirstOrDefault(employee => employee.Username == username);
 
+                    var employee = database.Employees.FirstOrDefault(employee => employee.Username == username);
                     employee.AccessToken = returnObjects.access_token;
-                    db.Employees.Update(employee);
-                    db.SaveChanges();
-                }
+                    database.Employees.Update(employee);
+                    database.SaveChanges();
+                
             }
 
             return JsonConvert.SerializeObject(returnObjects);
@@ -94,11 +96,10 @@ namespace HasserisWeb
 
                 returnObjects.user = VerifyPassword(password, username);
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
-                using (var db = new HasserisDbContext())
-                {
-                    returnObjects.user.ProfilePhoto = (db.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).ProfilePhoto;
-                    db.SaveChanges();
-                }
+
+                    returnObjects.user.ProfilePhoto = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).ProfilePhoto;
+                    database.SaveChanges();
+                
             }
             catch (Exception e)
             {
@@ -118,11 +119,10 @@ namespace HasserisWeb
             string token = tempstring.access_token;
             try
             {
-                using (var db = new HasserisDbContext())
-                {
-                    returnObjects.user = db.Employees.FirstOrDefault(e => e.AccessToken == token);
-                    returnObjects.user.ProfilePhoto = (db.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).ProfilePhoto;
-                }
+
+                    returnObjects.user = database.Employees.FirstOrDefault(e => e.AccessToken == token);
+                    returnObjects.user.ProfilePhoto = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).ProfilePhoto;
+
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
 
             }
@@ -135,9 +135,8 @@ namespace HasserisWeb
         }
         public Employee VerifyPassword(string password, string username)
         {
-            using (var db = new HasserisDbContext())
-            {
-                var employee = db.Employees.FirstOrDefault(e => e.Username == username);
+
+                var employee = database.Employees.FirstOrDefault(e => e.Username == username);
 
                 string savedPasswordHash = employee.Hashcode;
                 byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
@@ -149,7 +148,7 @@ namespace HasserisWeb
                     if (hashBytes[i + 16] != hash[i])
                         throw new UnauthorizedAccessException();
                 return employee;
-            }
+            
             
         }
 

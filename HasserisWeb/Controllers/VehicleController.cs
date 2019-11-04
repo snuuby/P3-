@@ -13,13 +13,17 @@ namespace HasserisWeb.Controllers
     [Route("Vehicle")]
     public class VehicleController : Controller
     {
-
+        public HasserisDbContext database;
+        public VehicleController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Route("all")]
         public string GetAllTools()        
         {
-            using (var db = new HasserisDbContext())
-            {
-                var equipment = db.Equipment.ToList();
+
+
+                var equipment = database.Equipment.ToList();
 
                 var TempVehicleList = new List<Equipment>();
                 foreach (var element in equipment)
@@ -30,7 +34,7 @@ namespace HasserisWeb.Controllers
                     }
                 }
                 return JsonConvert.SerializeObject(TempVehicleList);
-            }
+            
         }  
 
         

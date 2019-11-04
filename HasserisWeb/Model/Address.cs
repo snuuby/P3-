@@ -4,9 +4,9 @@ using System;
 namespace HasserisWeb
 {
     
-    [Owned]
     public class Address
     {
+        public int ID { get; set; }
         public string LivingAddress { get; set; }
         public string ZIP { get; set; }
         public string City { get; set; }
@@ -17,6 +17,10 @@ namespace HasserisWeb
             this.ZIP = ZIP;
             this.City = city;
             this.Note = note;
+        }
+        public Address()
+        {
+
         }
     }
 }

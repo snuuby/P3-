@@ -20,5 +20,9 @@ namespace HasserisWeb
             this.Name = Name;
             this.EAN = EAN;
         }
+        public Public()
+        {
+
+        }
     }
 }

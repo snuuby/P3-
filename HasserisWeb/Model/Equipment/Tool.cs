@@ -14,5 +14,9 @@ namespace HasserisWeb
         public Tool(string name, string type) : base(name, type)
         {
         }
+        public Tool()
+        {
+
+        }
     }
 }

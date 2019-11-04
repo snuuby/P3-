@@ -13,13 +13,16 @@ namespace HasserisWeb.Controllers
     [Route("Tool")]
     public class ToolController : Controller
     {
-
+        public HasserisDbContext database;
+        public ToolController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Route("all")]
         public string GetAllTools()        
         {
-            using (var db = new HasserisDbContext())
-            {
-                var equipment = db.Equipment.ToList();
+
+                var equipment = database.Equipment.ToList();
 
                 var TempToolList = new List<Equipment>();
                 foreach (var element in equipment)
@@ -30,7 +33,7 @@ namespace HasserisWeb.Controllers
                     }
                 }
                 return JsonConvert.SerializeObject(TempToolList);
-            }
+            
 
         }  
         

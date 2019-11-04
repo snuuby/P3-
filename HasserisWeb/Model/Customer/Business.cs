@@ -21,5 +21,9 @@ namespace HasserisWeb
             this.Name = Name;
             this.CVR = CVR;
         }
+        public Business()
+        {
+
+        }
     }
 }
