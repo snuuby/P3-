@@ -18,9 +18,7 @@ namespace HasserisWeb
         public HasserisDbContext(DbContextOptions<HasserisDbContext> options) : base(options)
         {
         }
-        public HasserisDbContext() : base()
-        {
-        }
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
@@ -29,7 +27,7 @@ namespace HasserisWeb
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(ConfigurationManager.ConnectionStrings[0].ConnectionString);
+            optionsBuilder.UseSqlite("Data Source=Database/HasserisDatabase.db;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
