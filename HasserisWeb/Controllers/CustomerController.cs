@@ -14,12 +14,18 @@ namespace HasserisWeb.Controllers
     public class CustomerController : Controller
     {
         [Route("all")]
-        public string GetAllCustomers()        
+        public string GetAllCustomers()
         {
             dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Customer");
             return JsonConvert.SerializeObject((temp));
-        }  
-        
+        }
+
+        [Route("{id}")]
+        public string GetSpecificCustomer(int id)
+        {
+            dynamic temp = HasserisDbContext.LoadElementFromDatabase("Customer", id);
+            return JsonConvert.SerializeObject((temp));
+        }
         /*
         // Delete
         [Route("delete/{id}")]

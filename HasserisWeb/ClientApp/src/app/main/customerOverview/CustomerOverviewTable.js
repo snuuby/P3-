@@ -61,7 +61,7 @@ function CustomerOverviewTable(props)
     // Det er ved click, måske mere customer information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/Customer' + item.id + '/' + item.handle);
     }
 
     function handleCheck(event, id)

@@ -13,6 +13,10 @@ export const CustomerOverviewConfig = {
         {
             path     : '/customer/overview',
             component: React.lazy(() => import('./CustomerOverview'))
+        },
+        {
+            path        : '/customer/:CustomerId',
+            component   : React.lazy(() => import('./Customer'))
         }
     ]
 };

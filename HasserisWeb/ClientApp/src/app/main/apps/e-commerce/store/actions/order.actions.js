@@ -3,12 +3,10 @@ import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_ORDER = '[E-COMMERCE APP] GET ORDER';
 export const SAVE_ORDER = '[E-COMMERCE APP] SAVE ORDER';
-export const ID = '[E-COMMERCE APP] ID ORDER';
 
 export function getOrder(params)
 {
-    const request = axios.get('customers/all', { params });
-    const ID = params;
+    const request = axios.get('/api/e-commerce-app/order', {params});
 
     return (dispatch) =>
         request.then((response) =>

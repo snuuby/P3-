@@ -28,6 +28,20 @@ export function getCustomers()
         );
 }
 
+export function getCustomer()
+{
+    const request = axios.get('customers/{id}');
+    request.then(respons => console.log(response.data));
+
+    return (dispatch) =>
+        request.then((response) =>
+            dispatch({
+                type    : GET_CUSTOMER,
+                payload : reponse.data
+            })
+        );
+}
+
 // Is required for the SearchText
 export function setCustomerOverviewSearchText(event)
 {
