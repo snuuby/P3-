@@ -62,6 +62,7 @@ namespace HasserisWeb
 
 
             //Mapping many-to-many relation between task/employees and task/equipment
+            
             modelBuilder.Entity<TaskAssignedEmployees>()
                 .HasKey(te => new { te.TaskID, te.EmployeeID });
             modelBuilder.Entity<TaskAssignedEquipment>()

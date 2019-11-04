@@ -23,9 +23,5 @@ namespace HasserisWeb
             this.Type = type;
             this.IsAvailable = true;
         }
-        public Equipment()
-        {
-
-        }
     }
 }

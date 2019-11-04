@@ -10,12 +10,12 @@ namespace HasserisWeb
         public int ID { get; set; }
         public string Name { get; }
         public string Type { get; }
-        public ICollection<TaskAssignedEmployees> Employees { get; set; } 
+        public ICollection<TaskAssignedEmployees> Employees { get; set; } = new List<TaskAssignedEmployees>();
         public Customer Customer { get; } 
         public Address Destination { get; }
         public double Income { get; }
         public double Expenses { get; set; }
-        public ICollection<TaskAssignedEquipment> Equipment { get; set; }
+        public ICollection<TaskAssignedEquipment> Equipment { get; set; } = new List<TaskAssignedEquipment>();
         [Column(TypeName = "Date")]
         public ICollection<DateTime> Dates { get; internal set; }
         //Properties for calculating the total duration of a task, taskDuration.
