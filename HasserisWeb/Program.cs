@@ -14,11 +14,7 @@ namespace HasserisWeb
     {
         public static void Main(string[] args)
         {
-            using (var db = new HasserisDbContext())
-            {
 
-                db.Database.EnsureCreated();
-            }
             CreateWebHostBuilder(args).Build().Run();
         }
 

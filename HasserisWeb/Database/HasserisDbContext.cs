@@ -44,10 +44,8 @@ namespace HasserisWeb
             modelBuilder.Entity<Vehicle>();
             modelBuilder.Entity<Tool>();
 
-
             //modelBuilder.Entity<Address>().HasNoKey();
             //modelBuilder.Entity<ContactInfo>().HasNoKey();
-
 
 
             modelBuilder.Entity<Vehicle>();
@@ -56,13 +54,11 @@ namespace HasserisWeb
             modelBuilder.Entity<Address>();
 
             modelBuilder.Entity<ContactInfo>();
-
-
-            
+            modelBuilder.Entity<DateTimes>();
 
 
             //Mapping many-to-many relation between task/employees and task/equipment
-            
+
             modelBuilder.Entity<TaskAssignedEmployees>()
                 .HasKey(te => new { te.TaskID, te.EmployeeID });
             modelBuilder.Entity<TaskAssignedEquipment>()
@@ -86,8 +82,6 @@ namespace HasserisWeb
                 .HasOne(te => te.Equipment)
                 .WithMany(t => t.taskAssignedEquipment)
                 .HasForeignKey(te => te.EquipmentID);
-
-
 
             base.OnModelCreating(modelBuilder);
         }

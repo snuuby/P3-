@@ -13,17 +13,19 @@ namespace HasserisWeb
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         public Customer Customer { get; } 
         public Address Destination { get; }
-        public double Income { get; }
+        public double Income { get; set; }
         public double Expenses { get; set; }
         public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
-        [Column(TypeName = "Date")]
-        public ICollection<DateTime> Dates { get; internal set; } = new List<DateTime>();
+
+        public ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
         //Properties for calculating the total duration of a task, taskDuration.
-        private DateTime StartTime { get; set; }
-        private DateTime EndTime { get; set; }
         [Column(TypeName = "Date")]
-        private ICollection<DateTime> PauseTimes {get; set;} = new List<DateTime>();
-        private bool IsPaused { get; set; }
+        public DateTime StartTime { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime EndTime { get; set; }
+
+        public ICollection<DateTimes> PauseTimes {get; set;} = new List<DateTimes>();
+        public bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
         public string WorkPhoneNumber { get; }
@@ -41,9 +43,14 @@ namespace HasserisWeb
             this.Destination = destination;
             this.Income = income;
             this.Description = description;
-            this.Dates = Ldates;
+            foreach (DateTime date in Ldates)
+            {
+                DateTimes temp = new DateTimes();
+                temp.Date = date;
+                Dates.Add(temp);
+            }
             this.WorkPhoneNumber = workPhoneNumber;
-            PauseTimes = new List<DateTime>();
+
             this.IsPaused = false;
         }
 
@@ -70,10 +77,11 @@ namespace HasserisWeb
                 //On first pause, add the time for task start and now to the list of pauseTimes.
                 if (PauseTimes.Count == 0)
                 {
-                    PauseTimes.Add(StartTime);
+                    PauseTimes.Add(new DateTimes() { Date = StartTime });
+
                 }
                 //add the current time to the pause list on every pause
-                PauseTimes.Add(temp);
+                PauseTimes.Add(new DateTimes() { Date = temp });
                 //also on first pause, make the current duration equal to the difference between now and task start.
                 if (PauseTimes.Count == 2)
                 {
