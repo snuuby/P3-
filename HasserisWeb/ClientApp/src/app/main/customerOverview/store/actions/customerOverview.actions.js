@@ -12,6 +12,7 @@ export const SET_CUSTOMEROVERVIEW_SEARCH_TEXT = '[CUSTOMER APP] SET OVERVIEW SEA
 export const ADD_CUSTOMER = '[CUSTOMER APP] ADD CUSTOMER';
 export const OPEN_NEW_ADD_DIALOG = '[CUSTOMER APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[CUSTOMER APP] CLOSE NEW ADD DIALOG';
+export const GET_CUSTOMER = '[CUSTOMER APP] GET SPECIFIC CUSTOMER'
 
 // Gets all customer
 export function getCustomers()
@@ -28,16 +29,16 @@ export function getCustomers()
         );
 }
 
-export function getCustomer()
+export function getCustomer(params)
 {
-    const request = axios.get('customers/{id}');
-    request.then(respons => console.log(response.data));
+    const request = axios.get('customers/:Id', { params });
+    request.then(response => console.log(response.data));
 
     return (dispatch) =>
         request.then((response) =>
             dispatch({
                 type    : GET_CUSTOMER,
-                payload : reponse.data
+                payload : response.data
             })
         );
 }

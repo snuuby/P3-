@@ -4,10 +4,10 @@ import { FuseAnimate, FusePageCarded } from '@fuse';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import withReducer from '../../store/withReducer';
-import * as Actions from '../store/actions';
-import reducer from '../store/reducers';
+import * as Actions from './store/actions';
+import reducer from './store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomers } from '../../../store/actions';
+import { getCustomer } from './store/actions';
 
 function Marker(props) {
     return (
@@ -19,15 +19,13 @@ function Marker(props) {
 
 function Customer(props) {
     const dispatch = useDispatch();
-    const customer = useSelector(({ customerReducer }) => customerReducer.customers.entities);
-
+    const customer = useSelector(({ customerReducer }) => customerReducer.customers);
     const [tabValue, setTabValue] = useState(0);
-    const [map, setMap] = useState('shipping');
-    /*
+
     useEffect(() => {
-        dispatch(Actions.getOrder(props.match.params));
-    }, [dispatch, props.match.params]);
-    */
+        dispatch(Actions.getCustomer(props.match.params));
+    }, [props.match.params]);
+    
 
     function handleChangeTab(event, tabValue) {
         setTabValue(tabValue);
@@ -46,7 +44,7 @@ function Customer(props) {
                         <div className="flex flex-1 flex-col items-center sm:items-start">
 
                             <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                                <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/apps/e-commerce/orders" color="inherit">
+                                <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/customer/overview" color="inherit">
                                     <Icon className="mr-4 text-20">arrow_back</Icon>
                                     Customers
                                 </Typography>
@@ -56,13 +54,13 @@ function Customer(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {'customer.firstName ' + 'customer.lastName'}
+                                        {customer.firstName + customer.lastName}
                                     </Typography>
                                 </FuseAnimate>
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography variant="caption">
-                                        {'customer.firstName ' + 'customer.lastName'}
+                                        {'test'}
                                     </Typography>
                                 </FuseAnimate>
                             </div>

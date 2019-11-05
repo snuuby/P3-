@@ -320,12 +320,32 @@ namespace HasserisWeb
                     temp.hashCode = output.Password;
                     temp.userName = output.Username;
 
-                    temp.id = (int)output.ID; 
+                    temp.id = (int)output.ID;
 
                     return temp;
                 }
             }
-            else if (type == "Private")
+            /*            else if (type == "Private")
+                        {
+                            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                            {
+                                string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                                if (cnn.Execute(sqlTest) == 1)
+                                {
+                                    return null;
+                                }
+
+                                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                                Private temp = new Private(output.Firstname, output.Lastname, output.Type,
+                                    new Address(output.Address, output.ZIP, output.City, output.Note),
+                                    new ContactInfo(output.Email, output.Phonenumber));
+
+                                temp.id = (int)output.ID;
+                                return temp;
+                            }
+                        }*/
+            else if (type == "Customer")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -337,56 +357,83 @@ namespace HasserisWeb
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
 
-                    Private temp = new Private(output.Firstname, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber));
-
-                    temp.id = (int)output.ID;
-                    return temp;
-                }
-            }
-            else if (type == "Business")
-            {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
-                {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
-                    if (cnn.Execute(sqlTest) == 1)
+                    if (output.Type == "Buisness")
                     {
-                        return null;
+                        Business temp = new Business(output.firstName, output.Lastname, output.Type,
+    new Address(output.Address, output.ZIP, output.City, output.Note),
+    new ContactInfo(output.Email, output.Phonenumber),
+    output.Name, output.CVR);
+
+                        temp.id = (int)output.ID;
+                        return temp;
                     }
-
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
-
-                    Business temp = new Business(output.firstName, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber), 
-                        output.Name, output.CVR);
-
-                    temp.id = (int)output.ID;
-                    return temp;
-                }
-            }
-            else if (type == "Public")
-            {
-                using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
-                {
-                    string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
-                    if (cnn.Execute(sqlTest) == 1)
+                    else if (output.Type == "Public")
                     {
-                        return null;
+                        Public temp = new Public(output.firstName, output.Lastname, output.Type,
+    new Address(output.Address, output.ZIP, output.City, output.Note),
+    new ContactInfo(output.Email, output.Phonenumber),
+    output.Name, output.EAN);
+
+                        temp.id = (int)output.ID;
+                        return temp;
                     }
+                    else if (output.Type == "Private")
+                    {
+                        Private temp = new Private(output.Firstname, output.Lastname, output.Type,
+    new Address(output.Address, output.ZIP, output.City, output.Note),
+    new ContactInfo(output.Email, output.Phonenumber));
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
-
-                    Public temp = new Public(output.firstName, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber), 
-                        output.Name, output.EAN);
-
-                    temp.id = (int)output.ID;
-                    return temp;
+                        temp.id = (int)output.ID;
+                        return temp;
+                    }
+                    else
+                    {
+                        throw new Exception("No customer with that type");
+                    }
                 }
             }
+            /*            else if (type == "Business")
+                        {
+                            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                            {
+                                string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                                if (cnn.Execute(sqlTest) == 1)
+                                {
+                                    return null;
+                                }
+
+                                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                                Business temp = new Business(output.firstName, output.Lastname, output.Type,
+                                    new Address(output.Address, output.ZIP, output.City, output.Note),
+                                    new ContactInfo(output.Email, output.Phonenumber),
+                                    output.Name, output.CVR);
+
+                                temp.id = (int)output.ID;
+                                return temp;
+                            }
+                        }
+                        else if (type == "Public")
+                        {
+                            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                            {
+                                string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                                if (cnn.Execute(sqlTest) == 1)
+                                {
+                                    return null;
+                                }
+
+                                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                                Public temp = new Public(output.firstName, output.Lastname, output.Type,
+                                    new Address(output.Address, output.ZIP, output.City, output.Note),
+                                    new ContactInfo(output.Email, output.Phonenumber),
+                                    output.Name, output.EAN);
+
+                                temp.id = (int)output.ID;
+                                return temp;
+                            }
+                        }*/
             else if (type == "Vehicle")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -441,7 +488,7 @@ namespace HasserisWeb
                                 output.DestinationCity, output.DestinationNote),
                                 (double)output.Income, CalculateDateFromDatabaseString(output.Date),
                                 output.Note, output.Workphone, output.Material, (int)output.Quantity);
-                    temp.id = (int)output.ID; 
+                    temp.id = (int)output.ID;
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.assignedEmployees = (List<Employee>)GetElementsFromIDString("Employee", output.EmployeeIDs);
@@ -464,7 +511,7 @@ namespace HasserisWeb
 
                     Moving temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
                                 new Address(output.DestinationAddress, output.DestinationZIP,
-                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
+                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone,
                                 new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
                     temp.id = (int)output.ID;
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
