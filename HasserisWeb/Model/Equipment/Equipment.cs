@@ -8,7 +8,7 @@ namespace HasserisWeb
     //Abstract class used for equipment. Derived class is either vehicles or work-tools.
     public abstract class Equipment
     {
-        public ICollection<TaskAssignedEquipment> Tasks { get; set; }
+        public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
         public int ID { get; set; }
         public bool IsAvailable { get; set; }
         public string Name { get; set; }

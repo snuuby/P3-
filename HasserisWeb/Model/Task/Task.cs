@@ -10,19 +10,19 @@ namespace HasserisWeb
         public int ID { get; set; }
         public string Name { get; }
         public string Type { get; }
-        public ICollection<TaskAssignedEmployees> Employees { get; set; } = new List<TaskAssignedEmployees>();
+        public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         public Customer Customer { get; } 
         public Address Destination { get; }
         public double Income { get; }
         public double Expenses { get; set; }
-        public ICollection<TaskAssignedEquipment> Equipment { get; set; } = new List<TaskAssignedEquipment>();
+        public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
         [Column(TypeName = "Date")]
-        public ICollection<DateTime> Dates { get; internal set; }
+        public ICollection<DateTime> Dates { get; internal set; } = new List<DateTime>();
         //Properties for calculating the total duration of a task, taskDuration.
         private DateTime StartTime { get; set; }
         private DateTime EndTime { get; set; }
-
-        private ICollection<DateTime> PauseTimes {get; set;}
+        [Column(TypeName = "Date")]
+        private ICollection<DateTime> PauseTimes {get; set;} = new List<DateTime>();
         private bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
@@ -49,7 +49,7 @@ namespace HasserisWeb
 
         public void BeginTasks()
         {
-            if (Employees.Count < 1)
+            if (taskAssignedEmployees.Count < 1)
                 //throw new SystemException("No employees assigned.");
             this.StartTime = DateTime.Now;
         }

@@ -18,7 +18,9 @@ namespace HasserisWeb
         public HasserisDbContext(DbContextOptions<HasserisDbContext> options) : base(options)
         {
         }
-
+        public HasserisDbContext() : base()
+        {
+        }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
@@ -68,21 +70,21 @@ namespace HasserisWeb
 
             modelBuilder.Entity<TaskAssignedEmployees>()
                 .HasOne(te => te.Task)
-                .WithMany(e => e.Employees)
+                .WithMany(e => e.taskAssignedEmployees)
                 .HasForeignKey(te => te.TaskID);
             modelBuilder.Entity<TaskAssignedEmployees>()
                 .HasOne(te => te.Employee)
-                .WithMany(t => t.Tasks)
+                .WithMany(t => t.taskAssignedEmployees)
                 .HasForeignKey(te => te.EmployeeID);
 
             modelBuilder.Entity<TaskAssignedEquipment>()
                 .HasOne(te => te.Task)
-                .WithMany(e => e.Equipment)
+                .WithMany(e => e.taskAssignedEquipment)
                 .HasForeignKey(te => te.TaskID);
 
             modelBuilder.Entity<TaskAssignedEquipment>()
                 .HasOne(te => te.Equipment)
-                .WithMany(t => t.Tasks)
+                .WithMany(t => t.taskAssignedEquipment)
                 .HasForeignKey(te => te.EquipmentID);
 
 

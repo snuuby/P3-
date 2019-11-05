@@ -16,7 +16,6 @@ namespace HasserisWeb
         {
             using (var db = new HasserisDbContext())
             {
-                db.Database.EnsureDeleted();
 
                 db.Database.EnsureCreated();
             }
