@@ -31,7 +31,7 @@ export function getCustomers()
 
 export function getCustomer(params)
 {
-    const request = axios.get('customers/:Id', { params });
+    const request = axios.get("customers/" + params.CustomerId);
     request.then(response => console.log(response.data));
 
     return (dispatch) =>
