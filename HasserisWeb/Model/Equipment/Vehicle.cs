@@ -19,7 +19,7 @@ namespace HasserisWeb
         }
         public Vehicle()
         {
-
+            base.Type = "Vehicle";
         }
 
     }

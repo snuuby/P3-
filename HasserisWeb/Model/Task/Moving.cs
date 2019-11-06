@@ -21,7 +21,7 @@ namespace HasserisWeb
             this.StartingAddress = startingAddress;
             this.LentBoxes = lentBoxes;
             this.Customer.LentBoxes = lentBoxes;
-
+            base.Type = "Moving";
         }
         public Moving()
         {

@@ -20,6 +20,7 @@ namespace HasserisWeb
         public Public(Address address, ContactInfo contactInfo, string Name, string EAN)
                         : base(address, contactInfo)
         {
+            base.Type = "Public";
             this.Name = Name;
             this.EAN = EAN;
         }

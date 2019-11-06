@@ -10,6 +10,7 @@ namespace HasserisWeb
     public abstract class Equipment
     {
         public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
+        public string Type { get; set; }
         public int ID { get; set; }
         [Required]
         public bool IsAvailable { get; set; } = true;

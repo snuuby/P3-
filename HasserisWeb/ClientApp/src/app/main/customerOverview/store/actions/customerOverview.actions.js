@@ -15,10 +15,11 @@ export const CLOSE_NEW_ADD_DIALOG = '[CUSTOMER APP] CLOSE NEW ADD DIALOG';
 export const GET_CUSTOMER = '[CUSTOMER APP] GET SPECIFIC CUSTOMER'
 
 // Gets all customer
-export function getCustomers()
-{
+export function getCustomers() {
     const request = axios.get('customers/all');
-    request.then(response => console.log(response.data));
+    request.then(response => {
+        console.log(response.data)
+    });
     
     return (dispatch) =>
         request.then((response) =>

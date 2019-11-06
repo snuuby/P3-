@@ -7,6 +7,7 @@ namespace HasserisWeb
 {
     public abstract class Task
     {
+        public string Type { get; set; }
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }

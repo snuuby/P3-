@@ -21,7 +21,6 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllCustomers()
         {
-
                 return JsonConvert.SerializeObject(database.Customers.ToList());
             
         }  

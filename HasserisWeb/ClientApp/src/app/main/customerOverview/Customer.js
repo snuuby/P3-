@@ -18,13 +18,13 @@ function Marker(props) {
 
 function Customer(props) {
     const dispatch = useDispatch();
-    const customer = useSelector(({ customerReducer }) => customerReducer.customers);
+    const customer = useSelector(({ customerReducer }) => customerReducer.Customers);
     const [tabValue, setTabValue] = useState(0);
-    const customerPhonenumber = ((customer || {}).contactInfo || {}).phoneNumber;
-    const customerEmail = ((customer || {}).contactInfo || {}).email;
-    const customerLivingaddress = ((customer || {}).address || {}).livingAddress;
-    const customerZip = ((customer || {}).address || {}).ZIP;
-    const customerCity = ((customer || {}).address || {}).city;
+    const customerPhonenumber = ((customer || {}).ContactInfo || {}).PhoneNumber;
+    const customerEmail = ((customer || {}).ContactInfo || {}).Email;
+    const customerLivingaddress = ((customer || {}).Address || {}).LivingAddress;
+    const customerZip = ((customer || {}).Address || {}).ZIP;
+    const customerCity = ((customer || {}).Address || {}).City;
 
 
     useEffect(() => {

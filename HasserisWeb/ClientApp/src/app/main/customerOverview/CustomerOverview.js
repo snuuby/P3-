@@ -224,17 +224,17 @@ function CustomerOverview(props) {
                 </thead>
                 <tbody>
                 {empList.map(emp =>
-                    <tr key={emp.id}>
-                        <td>{emp.id}</td>
-                        <td>{emp.name}</td>
+                    <tr key={emp.ID}>
+                        <td>{emp.ID}</td>
+                        <td>{emp.Name}</td>
                         <td>
-                            {emp.type}
+                            {emp.Type}
                         </td>
                         <td>                            
-                            <button onClick={() => editCustomer(emp.id)} className="btn btn-info" type="button">Rediger</button>
+                            <button onClick={() => editCustomer(emp.ID)} className="btn btn-info" type="button">Rediger</button>
                         </td>
                         <td>
-                            <button onClick={() => deleteCustomer(emp.id)} className="btn btn-info" type="button">Slet</button>
+                            <button onClick={() => deleteCustomer(emp.ID)} className="btn btn-info" type="button">Slet</button>
                         </td>
                         
                     </tr>

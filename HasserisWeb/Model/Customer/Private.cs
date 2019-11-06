@@ -20,6 +20,7 @@ namespace HasserisWeb
         public Private(string Firstname, string Lastname, Address address, ContactInfo contactInfo)
                 : base(address, contactInfo)
         {
+            base.Type = "Private";
             this.Firstname = Firstname;
             this.Lastname = Lastname;
         }
