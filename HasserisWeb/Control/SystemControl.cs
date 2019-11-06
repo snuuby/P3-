@@ -47,7 +47,6 @@ namespace HasserisWeb
                     Console.WriteLine($"{ctxTask.Name}:");
                     foreach (var employeename in ctxTask.taskAssignedEmployees.Select(ta => ta.Employee.Firstname))
                     {
-                        Console.WriteLine(ctxTask.PauseTimes);
                         Console.WriteLine($"  {employeename}");
                     }
                 }

@@ -74,15 +74,15 @@ class jwtService extends FuseUtils.EventEmitter {
                 {
 
                     const tempuser = {
-                        uid: response.data.user.id,
+                        uid: response.data.user.ID,
                         from: 'database',
-                        role: [response.data.user.type],
+                        role: [response.data.user.Type],
                         data: {
-                            photoURL: response.data.user.profilePhoto,
-                            displayName: response.data.user.userName,
-                            email: response.data.user.contactInfo.email,
-                            firstName: response.data.user.firstName,
-                            lastName: response.data.user.lastName
+                            photoURL: response.data.user.PhotoPath,
+                            displayName: response.data.user.Username,
+                            email: response.data.user.ContactInfo.Email,
+                            firstName: response.data.user.Firstname,
+                            lastName: response.data.user.Lastname
                         }
                     }
                     this.setSession(response.data.access_token);
@@ -106,15 +106,15 @@ class jwtService extends FuseUtils.EventEmitter {
                     if ( response.data.user )
                     {
                         const tempuser = {
-                            uid: response.data.user.id,
+                            uid: response.data.user.ID,
                             from: 'database',
-                            role: [response.data.user.type],
+                            role: [response.data.user.Type],
                             data: {
-                                photoURL: response.data.user.profilePhoto,
-                                displayName: response.data.user.userName,
-                                email: response.data.user.contactInfo.email,
-                                firstName: response.data.user.firstName, 
-                                lastName: response.data.user.lastName
+                                photoURL: response.data.user.PhotoPath,
+                                displayName: response.data.user.Username,
+                                email: response.data.user.ContactInfo.Email,
+                                firstName: response.data.user.Firstname,
+                                lastName: response.data.user.Lastname
                             }
                         }
                         this.setSession(response.data.access_token);
