@@ -7,6 +7,7 @@ const initialState = {
         props: {
             open: false
         },
+        image: 'assets/images/tasks/placeholder.png',
         data : null
     }
 };
@@ -91,8 +92,13 @@ const eventsReducer = function (state = initialState, action) {
                     data : null
                 }
             };
-        }
-        
+            }
+        case Actions.SET_TASK_IMAGE:
+            {
+                return Object.assign({}, state, {
+                    image: action.payload
+                })
+            }
         default:
         {
             return state;

@@ -49,7 +49,7 @@ function ProfilePage()
             case "jpeg":
                 let fileURL = URL.createObjectURL(file);
                 //document.getElementById("profileimg").src = fileURL;
-                dispatch(Action.setUserImage(fileURL, user.data.displayName, file.type));
+                dispatch(Action.setUserImage(fileURL, user.data.displayName, "avatars", file.type));
                 if (window.confirm("Profil billede opdateret.\nSiden skal genindlaeses for at vise billedet.\nGenindlaes side nu?")) {
                     document.location.reload();
                 }

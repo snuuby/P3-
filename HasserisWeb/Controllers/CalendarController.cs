@@ -22,6 +22,7 @@ namespace HasserisWeb.Controllers
         public string start { get; set; }
         public string end { get; set; }
         public string desc { get; set; }
+        public string photoURL { get; set; }
         public string combo { get; set; }
     }
     
