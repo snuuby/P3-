@@ -87,7 +87,7 @@ namespace HasserisWeb
                     Employee employee = (Employee)element;
                     string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note, Username, Password, Employed) " +
                                           "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.lastName + "', '" + employee.type + "', '" + employee.contactInfo.email +
-                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
+                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAddress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
                                           "', '" + employee.userName + "', '" + employee.hashCode + "', '" + employee.employed + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
@@ -105,8 +105,8 @@ namespace HasserisWeb
                                               "StartingAddress, StartingCity, StartingZIP, StartingNote, " +
                                               "Values ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
                                                task.assignedCustomer.id + "', '"  + task.employeesIdString + "', '" + task.equipmentsIdString + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
-                                               task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
-                                               task.startingAddress.livingAdress + "', '" + task.startingAddress.city + "', '" + task.startingAddress.ZIP + "', '" + task.startingAddress.note + "')";
+                                               task.destination.livingAddress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
+                                               task.startingAddress.livingAddress + "', '" + task.startingAddress.city + "', '" + task.startingAddress.ZIP + "', '" + task.startingAddress.note + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(task);
                     }
@@ -120,7 +120,7 @@ namespace HasserisWeb
                                                "Material, Quantity) " +
                                                "VALUES ('" + task.name + "', '" + task.type + "', '" + string.Join("/", task.dates) + "', '" + task.taskDuration.ToString() + "', '" +
                                                task.assignedCustomer.id + "', '" + task.employeesIdString + "', '" + task.equipmentsIdString + "', '" + task.income + "', '" + task.expenses + "', '" + task.balance + "', '" + task.workPhoneNumber + "', '" +
-                                               task.destination.livingAdress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
+                                               task.destination.livingAddress + "', '" + task.destination.city + "', '" + task.destination.ZIP + "', '" + task.destination.note + "', '" +
                                                task.material + "', '" + task.quantity + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(task);
@@ -136,7 +136,7 @@ namespace HasserisWeb
                     {
                         Business customer = (Business)element;
                         string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, CVR) " +
-                                          "Values ('" + customer.businessName + "', '" + customer.type + "', '" +  "', '" + customer.address.livingAdress + "', '" +
+                                          "Values ('" + customer.businessName + "', '" + customer.type + "', '" +  "', '" + customer.address.livingAddress + "', '" +
                                           customer.address.ZIP + "', '" + customer.address.city + "', '" + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" +
                                           customer.CVR + "')";
                         cnn.Execute(sqlStatement);
@@ -149,7 +149,7 @@ namespace HasserisWeb
                     {
                         Private customer = (Private)element;
                         string sqlStatement = "INSERT INTO Customers (Firstname, Lastname, Type, Address, ZIP, City, Note, Phonenumber, Email) " +
-                                              "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
+                                              "Values ('" + customer.firstName + "', '" + customer.lastName + "', '" + customer.type + "', '" + customer.address.livingAddress + "', '" +
                                               customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
@@ -161,7 +161,7 @@ namespace HasserisWeb
                     {
                         Public customer = (Public)element;
                         string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, EAN) " +
-                                              "Values ('" + customer.businessName +  "', '" + customer.type + "', '" + customer.address.livingAdress + "', '" +
+                                              "Values ('" + customer.businessName +  "', '" + customer.type + "', '" + customer.address.livingAddress + "', '" +
                                               customer.address.ZIP + "', '" + customer.address.city + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" + customer.EAN + "')";
                         cnn.Execute(sqlStatement);
                         RetrieveSpecificElementIDFromDatabase(customer);
@@ -1063,7 +1063,7 @@ namespace HasserisWeb
                                "', Email = '" + employee.contactInfo.email +
                                "', Note = '" + employee.address.note + 
                                "', Phonenumber = '" + employee.contactInfo.phoneNumber +
-                               "', Address = '" + employee.address.livingAdress +
+                               "', Address = '" + employee.address.livingAddress +
                                "', ZIP = '" + employee.address.ZIP +
                                "', City = '" + employee.address.city + "' where " +
                                "ID = " + employee.id;
@@ -1102,7 +1102,7 @@ namespace HasserisWeb
                                "', EmployeeIDs = '" + task.employeesIdString +
                                "', EquipmentIDs = '" + task.equipmentsIdString +
                                "', CustomerID = '" + task.assignedCustomer.id +
-                               "', DestinationAddress = '" + task.destination.livingAdress +
+                               "', DestinationAddress = '" + task.destination.livingAddress +
                                "', DestinationCity = '" + task.destination.city +
                                "', DestinationZIP = '" + task.destination.ZIP +
                                "', DestinationNote = '" + task.destination.note +
@@ -1116,7 +1116,7 @@ namespace HasserisWeb
                 if (task is Moving)
                 {
                     sqlStatement = "update Tasks " +
-                                   "set StartingAddress = '" + ((Moving)task).startingAddress.livingAdress +
+                                   "set StartingAddress = '" + ((Moving)task).startingAddress.livingAddress +
                                    "', StartingCity = '" + ((Moving)task).startingAddress.city +
                                    "', StartingZIP = '" + ((Moving)task).startingAddress.ZIP +
                                    "', StartingNote = '" + ((Moving)task).startingAddress.note +
@@ -1142,7 +1142,7 @@ namespace HasserisWeb
             {
                 sqlStatement = "update Customers " +
                                "set Type = '" + customer.type +
-                               "', Address = '" + customer.address.livingAdress +
+                               "', Address = '" + customer.address.livingAddress +
                                "', ZIP = '" + customer.address.ZIP +
                                "', City = '" + customer.address.city +
                                "', Note = '" + customer.address.note +

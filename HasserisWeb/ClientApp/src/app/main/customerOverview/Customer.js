@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, TextField, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
+import { Avatar, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded } from '@fuse';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -7,7 +7,6 @@ import withReducer from '../../store/withReducer';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomer } from './store/actions';
 
 function Marker(props) {
     return (
@@ -21,6 +20,12 @@ function Customer(props) {
     const dispatch = useDispatch();
     const customer = useSelector(({ customerReducer }) => customerReducer.customers);
     const [tabValue, setTabValue] = useState(0);
+    const customerPhonenumber = ((customer || {}).contactInfo || {}).phoneNumber;
+    const customerEmail = ((customer || {}).contactInfo || {}).email;
+    const customerLivingaddress = ((customer || {}).address || {}).livingAddress;
+    const customerZip = ((customer || {}).address || {}).ZIP;
+    const customerCity = ((customer || {}).address || {}).city;
+
 
     useEffect(() => {
         dispatch(Actions.getCustomer(props.match.params));
@@ -54,13 +59,13 @@ function Customer(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {customer.firstName + ' ' + customer.lastName}
+                                        {customer.firstName + customer.lastName}
                                     </Typography>
                                 </FuseAnimate>
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography variant="caption">
-                                        {'Customer ID: ' + customer.id}
+                                        {'test'}
                                     </Typography>
                                 </FuseAnimate>
                             </div>
@@ -105,22 +110,34 @@ function Customer(props) {
                                                             <th>Navn</th>
                                                             <th>email</th>
                                                             <th>tlf nummer</th>
+                                                            <th>Adresse</th>
+                                                            <th>By</th>
+                                                            <th>Postnummer</th>
                                                             <th>type</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                        <td>
-                                                            <Typography className="truncate">{customer.firstName + ' ' + customer.lastName}</Typography>
+                                                            <td>
+                                                                <Typography className="truncate">{customer.firstName}</Typography>
                                                             </td>
                                                             <td>
-                                                                <Typography className="truncate">{customer.email}</Typography>
+                                                                <Typography className="truncate">{customerEmail}</Typography>
                                                             </td>
                                                             <td>
-                                                                <Typography className="truncate">{customer.phoneNumber}</Typography>
+                                                                <Typography className="truncate">{customerPhonenumber}</Typography>
                                                             </td>
                                                             <td>
-                                                                <span className="truncate">{customer.type}</span>
+                                                                <Typography className="truncate">{customerLivingaddress}</Typography>
+                                                            </td>
+                                                            <td>
+                                                                <Typography className="truncate">{customerCity}</Typography>
+                                                            </td>
+                                                            <td>
+                                                                <Typography className="truncate">{customerZip}</Typography>
+                                                            </td>
+                                                            <td>
+                                                                    <span className="truncate">{customer.type}</span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -130,57 +147,6 @@ function Customer(props) {
                                     </div>
                                 </div>
                             )}
-                        {/*Text Fields*/}
-                        <div class="flex mb-4">
-                            <div class="w-1/3 bg-gray-0 h-12">
-                                <TextField
-                                    id="Name"
-                                    label="Navn"
-                                    className="mt-8 mb-16"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    name="Name"
-                                    value={customer.firstName}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                            </div>
-                            <div class="w-1/3 bg-gray-500 h-12">
-                                <TextField
-                                    id="Name"
-                                    label="Navn"
-                                    className="mt-8 mb-16"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    name="Name"
-                                    value={customer.firstName}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                            </div>
-                            <div class="w-1/3 bg-gray-400 h-12">
-                                <TextField
-                                    id="Name"
-                                    label="Navn"
-                                    className="mt-8 mb-16"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    name="Name"
-                                    value={customer.firstName}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                            </div>
-                        </div>
                     </div>
                 )
             }

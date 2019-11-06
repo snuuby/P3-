@@ -180,8 +180,8 @@ function CustomerOverviewTable(props)
                                                 {n.lastName}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
-                                                <span>$</span>
+                                            <TableCell component="th" scope="row">
+                                                <span></span>
                                                 {n.type}
                                             </TableCell>
                                                 
