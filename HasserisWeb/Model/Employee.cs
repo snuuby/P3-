@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace HasserisWeb
         [Required]
         public string Lastname { get;  set; }
         public string Username { get; set; }
+        [JsonIgnore]
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         public string Hashcode { get; set; }
         public bool IsAvailable { get; private set; } = true;

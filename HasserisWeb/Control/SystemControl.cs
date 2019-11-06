@@ -12,7 +12,8 @@ namespace HasserisWeb
         
         public SystemControl()
         {
-
+            
+            /*
             using (var db = new HasserisDbContext())
             {
                 db.Database.EnsureDeleted();
@@ -50,11 +51,12 @@ namespace HasserisWeb
                         Console.WriteLine($"  {employeename}");
                     }
                 }
-
+                var test = db.Employees.FirstOrDefault();
+                Console.WriteLine(test.ContactInfo.Email);
             }
-
+         */   
         }
-
+        
 
     }
     

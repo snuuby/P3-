@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HasserisWeb
 {
@@ -44,7 +46,10 @@ namespace HasserisWeb
             {
                 returnObjects.access_token = GenerateToken(username);
 
-                    var employee = database.Employees.FirstOrDefault(employee => employee.Username == username);
+                    var employee = database.Employees
+                                    .Include(contact => contact.ContactInfo)
+                                    .Include(address => address.Address)
+                                    .FirstOrDefault(e => e.Username == username); ;
                     employee.AccessToken = returnObjects.access_token;
                     database.Employees.Update(employee);
                     database.SaveChanges();
@@ -93,12 +98,11 @@ namespace HasserisWeb
 
             try
             {
+ 
 
                 returnObjects.user = VerifyPassword(password, username);
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
 
-                returnObjects.user.PhotoPath = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).PhotoPath;
-                database.SaveChanges();
                 
             }
             catch (Exception e)
@@ -119,10 +123,10 @@ namespace HasserisWeb
             string token = tempstring.access_token;
             try
             {
-
-                    returnObjects.user = database.Employees.FirstOrDefault(e => e.AccessToken == token);
-                    returnObjects.user.PhotoPath = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).PhotoPath;
-
+                returnObjects.user = database.Employees
+                                    .Include(contact => contact.ContactInfo)
+                                    .Include(address => address.Address)
+                                    .FirstOrDefault(e => e.AccessToken == token);
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
 
             }
@@ -136,7 +140,10 @@ namespace HasserisWeb
         public Employee VerifyPassword(string password, string username)
         {
 
-                var employee = database.Employees.FirstOrDefault(e => e.Username == username);
+                var employee = database.Employees
+                .Include(contact => contact.ContactInfo)
+                .Include(address => address.Address)
+                .FirstOrDefault(e => e.Username == username);
 
                 string savedPasswordHash = employee.Hashcode;
                 byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);

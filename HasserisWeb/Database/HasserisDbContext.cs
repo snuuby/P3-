@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using Microsoft.Extensions.Configuration;
 using Dapper;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using System.Data.Entity.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace HasserisWeb
 {
+    
     public class HasserisDbContext : DbContext
     {
         public HasserisDbContext(DbContextOptions<HasserisDbContext> options) : base(options)
         {
+            
         }
-        public HasserisDbContext() : base()
-        {
-        }
+        
+  
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
@@ -56,7 +58,6 @@ namespace HasserisWeb
             modelBuilder.Entity<PauseTimes>();
 
 
-
             //Mapping many-to-many relation between task/employees and task/equipment
 
             modelBuilder.Entity<TaskAssignedEmployees>()
@@ -64,23 +65,21 @@ namespace HasserisWeb
             modelBuilder.Entity<TaskAssignedEquipment>()
                 .HasKey(te => new { te.TaskID, te.EquipmentID });
 
-            modelBuilder.Entity<TaskAssignedEmployees>()
-                .HasOne(te => te.Task)
-                .WithMany(e => e.taskAssignedEmployees)
+            modelBuilder.Entity<Task>()
+                .HasMany(t => t.taskAssignedEmployees)
+                .WithOne(t => t.Task)
                 .HasForeignKey(te => te.TaskID);
-            modelBuilder.Entity<TaskAssignedEmployees>()
-                .HasOne(te => te.Employee)
-                .WithMany(t => t.taskAssignedEmployees)
+            modelBuilder.Entity<Task>()
+                .HasMany(t => t.taskAssignedEquipment)
+                .WithOne(t => t.Task)
+                .HasForeignKey(te => te.TaskID);
+            modelBuilder.Entity<Employee>()
+                .HasMany(t => t.taskAssignedEmployees)
+                .WithOne(t => t.Employee)
                 .HasForeignKey(te => te.EmployeeID);
-
-            modelBuilder.Entity<TaskAssignedEquipment>()
-                .HasOne(te => te.Task)
-                .WithMany(e => e.taskAssignedEquipment)
-                .HasForeignKey(te => te.TaskID);
-
-            modelBuilder.Entity<TaskAssignedEquipment>()
-                .HasOne(te => te.Equipment)
-                .WithMany(t => t.taskAssignedEquipment)
+            modelBuilder.Entity<Equipment>()
+                .HasMany(t => t.taskAssignedEquipment)
+                .WithOne(t => t.Equipment)
                 .HasForeignKey(te => te.EquipmentID);
 
             base.OnModelCreating(modelBuilder);

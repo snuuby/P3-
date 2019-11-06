@@ -30,6 +30,7 @@ namespace HasserisWeb
             services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
             services.AddControllersWithViews();
 
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
