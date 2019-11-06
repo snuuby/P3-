@@ -19,22 +19,9 @@ namespace HasserisWeb.Controllers
             database = sc;
         }
         [Route("all")]
-        public string GetAllTools()        
+        public string GetAllVehicles()        
         {
-
-
-                var equipment = database.Equipment.ToList();
-
-                var TempVehicleList = new List<Equipment>();
-                foreach (var element in equipment)
-                {
-                    if (element.Type == "Vehicle")
-                    {
-                        TempVehicleList.Add(element);
-                    }
-                }
-                return JsonConvert.SerializeObject(TempVehicleList);
-            
+                return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
         }  
 
         

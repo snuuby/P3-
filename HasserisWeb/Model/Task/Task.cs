@@ -8,37 +8,38 @@ namespace HasserisWeb
     public abstract class Task
     {
         public int ID { get; set; }
-        public string Name { get; }
-        public string Type { get; }
+        [Required]
+        public string Name { get; set; }
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
-        public Customer Customer { get; } 
+        [Required]
+        public Customer Customer { get; set; }
+        [Required]
         public Address Destination { get; }
+        [Required]
         public double Income { get; set; }
         public double Expenses { get; set; }
         public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
-
         public ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
         //Properties for calculating the total duration of a task, taskDuration.
         [Column(TypeName = "Date")]
         public DateTime StartTime { get; set; }
         [Column(TypeName = "Date")]
         public DateTime EndTime { get; set; }
-
-        public ICollection<DateTimes> PauseTimes {get; set;} = new List<DateTimes>();
+        public ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
         public bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
-        public string WorkPhoneNumber { get; }
+        public string WorkPhoneNumber { get; set; }
+        public string PhotoPath { get; set; }
         public Task()
         {
 
         }
         
-        public Task(string name, string type, Customer assignedCustomer, Address destination, 
+        public Task(string name, Customer assignedCustomer, Address destination, 
                             double income, List<DateTime> Ldates, string description, string workPhoneNumber)
         {
             this.Name = name;
-            this.Type = type;
             this.Customer = assignedCustomer;
             this.Destination = destination;
             this.Income = income;
@@ -77,11 +78,11 @@ namespace HasserisWeb
                 //On first pause, add the time for task start and now to the list of pauseTimes.
                 if (PauseTimes.Count == 0)
                 {
-                    PauseTimes.Add(new DateTimes() { Date = StartTime });
+                    PauseTimes.Add(new PauseTimes() { Date = StartTime });
 
                 }
                 //add the current time to the pause list on every pause
-                PauseTimes.Add(new DateTimes() { Date = temp });
+                PauseTimes.Add(new PauseTimes() { Date = temp });
                 //also on first pause, make the current duration equal to the difference between now and task start.
                 if (PauseTimes.Count == 2)
                 {

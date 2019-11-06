@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,18 +11,19 @@ namespace HasserisWeb
     {
         public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
         public int ID { get; set; }
-        public bool IsAvailable { get; set; }
+        [Required]
+        public bool IsAvailable { get; set; } = true;
+        [Required]
         public string Name { get; set; }
-        public string Type { get; set; }
+        public string PhotoPath { get; set; }
+
         public Equipment()
         {
 
         }
-        public Equipment(string name, string type)
+        public Equipment(string name)
         {
             this.Name = name;
-            this.Type = type;
-            this.IsAvailable = true;
         }
     }
 }

@@ -48,8 +48,6 @@ namespace HasserisWeb
             //modelBuilder.Entity<ContactInfo>().HasNoKey();
 
 
-            modelBuilder.Entity<Vehicle>();
-            modelBuilder.Entity<Tool>();
 
             modelBuilder.Entity<Address>();
 

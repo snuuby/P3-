@@ -46,7 +46,7 @@ namespace HasserisWeb
             string newFilePath = "assets/images/avatars/" + tempUsername + "." + tempSubType;
 
                 var employee = database.Employees.FirstOrDefault(e => e.Username == tempUsername);
-                employee.ProfilePhoto = newFilePath;
+                employee.PhotoPath = newFilePath;
                 database.SaveChanges();
 
             

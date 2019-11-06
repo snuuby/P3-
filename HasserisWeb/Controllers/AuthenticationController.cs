@@ -97,8 +97,8 @@ namespace HasserisWeb
                 returnObjects.user = VerifyPassword(password, username);
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
 
-                    returnObjects.user.ProfilePhoto = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).ProfilePhoto;
-                    database.SaveChanges();
+                returnObjects.user.PhotoPath = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).PhotoPath;
+                database.SaveChanges();
                 
             }
             catch (Exception e)
@@ -121,7 +121,7 @@ namespace HasserisWeb
             {
 
                     returnObjects.user = database.Employees.FirstOrDefault(e => e.AccessToken == token);
-                    returnObjects.user.ProfilePhoto = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).ProfilePhoto;
+                    returnObjects.user.PhotoPath = (database.Employees.FirstOrDefault(e => e.ID == returnObjects.user.ID)).PhotoPath;
 
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
 

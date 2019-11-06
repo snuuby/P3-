@@ -16,13 +16,13 @@ namespace HasserisWeb
 
         }
         public int ID { get; set; }
+        [Required]
         public Address Address { get; set; }
-        public string Type { get; set; }
+        [Required]
         public ContactInfo ContactInfo { get; set; }
         public int LentBoxes { get; set; }
-        public Customer(Address Address, ContactInfo ContactInfo, string type)
+        public Customer(Address Address, ContactInfo ContactInfo)
         {
-            this.Type = type;
             this.Address = Address;
             this.ContactInfo = ContactInfo;
 

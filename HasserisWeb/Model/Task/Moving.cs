@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,13 +9,14 @@ namespace HasserisWeb
     //Moving-type task, for moving furniture/other for a customer.
     public class Moving : Task
     {
-        public Address StartingAddress { get; }
-        public int LentBoxes { get; }
-        public ICollection<Furniture> Furnitures { get; }
+        [Required]
+        public Address StartingAddress { get; set; }
+        public int LentBoxes { get; set; }
+        public ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
 
-        public Moving(string name, string type, Customer assignedCustomer,
+        public Moving(string name, Customer assignedCustomer,
                   Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes)
-                : base(name, type, assignedCustomer, destination, income, dates, description, workPhoneNumber)
+                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
         {
             this.StartingAddress = startingAddress;
             this.LentBoxes = lentBoxes;

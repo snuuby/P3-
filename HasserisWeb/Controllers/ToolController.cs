@@ -22,20 +22,11 @@ namespace HasserisWeb.Controllers
         public string GetAllTools()        
         {
 
-                var equipment = database.Equipment.ToList();
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>().ToList());
 
-                var TempToolList = new List<Equipment>();
-                foreach (var element in equipment)
-                {
-                    if (element.Type == "Tool")
-                    {
-                        TempToolList.Add(element);
-                    }
-                }
-                return JsonConvert.SerializeObject(TempToolList);
-            
 
-        }  
-        
+
+        }
+
     }
 }

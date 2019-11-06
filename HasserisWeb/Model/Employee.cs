@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -7,19 +8,25 @@ namespace HasserisWeb
 {
     public class Employee
     {
-        public string ProfilePhoto { get; set; }
+        public string PhotoPath { get; set; }
+        [Required]
         public string Firstname { get;  set; }
+        [Required]
         public string Lastname { get;  set; }
         public string Username { get; set; }
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         public string Hashcode { get; set; }
-        public bool IsAvailable { get; private set; }
+        public bool IsAvailable { get; private set; } = true;
         public string AccessToken { get; set; }
         public ContactInfo ContactInfo { get; set; }
+        [Required]
         public double Wage { get; private set; }
         public int ID { get; set; }
+        [Required]
         public Address Address { get; set; }
+        [Required]
         public string Type { get; set; }
+        [Required]
         public string Employed { get; set; }
         public Employee()
         {
