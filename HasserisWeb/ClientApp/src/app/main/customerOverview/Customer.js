@@ -7,7 +7,6 @@ import withReducer from '../../store/withReducer';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomer } from './store/actions';
 
 function Marker(props) {
     return (
@@ -21,6 +20,12 @@ function Customer(props) {
     const dispatch = useDispatch();
     const customer = useSelector(({ customerReducer }) => customerReducer.customers);
     const [tabValue, setTabValue] = useState(0);
+    const customerPhonenumber = ((customer || {}).contactInfo || {}).phoneNumber;
+    const customerEmail = ((customer || {}).contactInfo || {}).email;
+    const customerLivingaddress = ((customer || {}).address || {}).livingAddress;
+    const customerZip = ((customer || {}).address || {}).ZIP;
+    const customerCity = ((customer || {}).address || {}).city;
+
 
     useEffect(() => {
         dispatch(Actions.getCustomer(props.match.params));
@@ -105,6 +110,9 @@ function Customer(props) {
                                                             <th>Navn</th>
                                                             <th>email</th>
                                                             <th>tlf nummer</th>
+                                                            <th>Adresse</th>
+                                                            <th>By</th>
+                                                            <th>Postnummer</th>
                                                             <th>type</th>
                                                         </tr>
                                                     </thead>
@@ -114,13 +122,22 @@ function Customer(props) {
                                                                 <Typography className="truncate">{customer.firstName}</Typography>
                                                             </td>
                                                             <td>
-                                                                <Typography className="truncate">{customer.email}</Typography>
+                                                                <Typography className="truncate">{customerEmail}</Typography>
                                                             </td>
                                                             <td>
-                                                                <Typography className="truncate">{customer.phoneNumber}</Typography>
+                                                                <Typography className="truncate">{customerPhonenumber}</Typography>
                                                             </td>
                                                             <td>
-                                                                <span className="truncate">{customer.type}</span>
+                                                                <Typography className="truncate">{customerLivingaddress}</Typography>
+                                                            </td>
+                                                            <td>
+                                                                <Typography className="truncate">{customerCity}</Typography>
+                                                            </td>
+                                                            <td>
+                                                                <Typography className="truncate">{customerZip}</Typography>
+                                                            </td>
+                                                            <td>
+                                                                    <span className="truncate">{customer.type}</span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
