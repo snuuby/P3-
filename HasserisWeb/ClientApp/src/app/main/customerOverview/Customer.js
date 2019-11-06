@@ -91,7 +91,7 @@ function Customer(props) {
                 customer && (
                     <div className="p-16 sm:p-24 max-w-2xl w-full">
                         {/*Customer Details*/}
-                        {tabValue === 0 &&
+                        {/*{tabValue === 0 &&
                             (
                                 <div>
                                     <div className="pb-48">
@@ -146,10 +146,11 @@ function Customer(props) {
                                     </div>
                                     </div>
                                 </div>
-                            )}
+                            )} */}
                         {/*Text Fields*/}
                         <div class="flex mb-4">
-                            <div class="w-2/5 bg-gray-0 h-12 pr-1 ">
+                            <div class="flex-1 bg-gray-0 h-12 pr-1 ">
+                                {/*Customer ID*/}
                                 <TextField
                                     id="CustomerID"
                                     label="Kunde ID"
@@ -158,14 +159,15 @@ function Customer(props) {
                                         shrink: true
                                     }}
                                     name="CustomerID"
-                                    value={customerPhonenumber}
+                                    value={customer.id}
                                     variant="outlined"
                                     autoFocus
                                     required
                                     fullWidth
                                 />
                             </div>
-                            <div class="w-2/5 bg-gray-0 h-12 pl-10">
+                            <div class="flex-1 bg-gray-0 h-12 pl-10">
+                                {/*Full Name*/}
                                 <TextField
                                     id="FullName"
                                     label="Navn"
@@ -183,16 +185,53 @@ function Customer(props) {
                             </div>
                         </div>
                         <div class="flex mb-4">
-                            <div class="w-full bg-gray-0 h-12 pt-10">
+                            <div class="flex-1 bg-gray-0 h-12 pt-64 pb-8">
+                                {/*Adresse*/}
                                 <TextField
-                                    id="CustomerID"
-                                    label="Kunde ID"
+                                    id="address"
+                                    label="Adresse"
                                     className="mt-8 mb-16"
                                     InputLabelProps={{
                                         shrink: true
                                     }}
                                     name="CustomerID"
-                                    value={customer.id}
+                                    value={customerLivingaddress + ' ' + customerZip + ' ' + customerCity}
+                                    variant="outlined"
+                                    autoFocus
+                                    required
+                                    fullWidth
+                                />
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                {/*Email*/}
+                                <TextField
+                                    id="CustomerEmail"
+                                    label="Kunde email"
+                                    className="mt-8 mb-16"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    name="CustomerEmail"
+                                    value={customerEmail}
+                                    variant="outlined"
+                                    autoFocus
+                                    required
+                                    fullWidth
+                                />
+                            </div>
+                            <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                {/*Tlf. nummer*/}
+                                <TextField
+                                    id="CustomerTelefonnummer"
+                                    label="Telefonnummer"
+                                    className="mt-8 mb-16"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    name="CustomerTelefonnummer"
+                                    value={customerPhonenumber}
                                     variant="outlined"
                                     autoFocus
                                     required
