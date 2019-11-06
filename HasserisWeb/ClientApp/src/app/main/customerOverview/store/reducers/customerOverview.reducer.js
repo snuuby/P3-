@@ -29,6 +29,13 @@ const customerReducer = function (state = initialState, action) {
                 entities
             };
         }
+
+        case Actions.GET_CUSTOMER:
+            {
+                return {
+                    ...action.payload
+                };
+            }
         
         case Actions.SET_CUSTOMEROVERVIEW_SEARCH_TEXT:{
             return {

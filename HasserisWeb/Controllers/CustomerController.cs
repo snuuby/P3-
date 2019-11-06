@@ -19,7 +19,7 @@ namespace HasserisWeb.Controllers
             database = sc;
         }
         [Route("all")]
-        public string GetAllCustomers()        
+        public string GetAllCustomers()
         {
 
                 return JsonConvert.SerializeObject(database.Customers.ToList());

@@ -61,7 +61,7 @@ function CustomerOverviewTable(props)
     // Det er ved click, måske mere customer information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/customer/' + item.id);
     }
 
     function handleCheck(event, id)
@@ -186,7 +186,8 @@ function CustomerOverviewTable(props)
                                                 {n.lastName}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
+                                            <TableCell component="th" scope="row">
+                                                <span></span>
                                                 {n.type}
                                             </TableCell>
 

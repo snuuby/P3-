@@ -202,7 +202,7 @@ namespace HasserisWeb
                     Employee employee = (Employee)element;
                     string sqlStatement = "INSERT INTO Employees (Wage, Firstname, Lastname, Type, Email, Phonenumber, Address, ZIP, City, Note, Username, Password, Employed) " +
                                           "VALUES ('" + employee.wage + "', '" + employee.firstName + "', '" + employee.lastName + "', '" + employee.type + "', '" + employee.contactInfo.email +
-                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAdress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
+                                          "', '" + employee.contactInfo.phoneNumber + "', '" + employee.address.livingAddress + "', '" + employee.address.ZIP + "', '" + employee.address.city + "', '" + employee.address.note + 
                                           "', '" + employee.userName + "', '" + employee.hashCode + "', '" + employee.employed + "')";
                     cnn.Execute(sqlStatement);
                     RetrieveSpecificElementIDFromDatabase(employee);
@@ -251,7 +251,7 @@ namespace HasserisWeb
                     {
                         Business customer = (Business)element;
                         string sqlStatement = "INSERT INTO Customers (Name, Type, Address, ZIP, City, Note, Phonenumber, Email, CVR) " +
-                                          "Values ('" + customer.businessName + "', '" + customer.type + "', '" +  "', '" + customer.address.livingAdress + "', '" +
+                                          "Values ('" + customer.businessName + "', '" + customer.type + "', '" +  "', '" + customer.address.livingAddress + "', '" +
                                           customer.address.ZIP + "', '" + customer.address.city + "', '" + "', '" + customer.address.note + "', '" + customer.contactInfo.phoneNumber + "', '" + customer.contactInfo.email + "', '" +
                                           customer.CVR + "', '" + customer.lentBoxes + "')";
                         cnn.Execute(sqlStatement);
@@ -441,12 +441,32 @@ namespace HasserisWeb
                     temp.hashCode = output.Password;
                     temp.userName = output.Username;
 
-                    temp.id = (int)output.ID; 
+                    temp.id = (int)output.ID;
 
                     return temp;
                 }
             }
-            else if (type == "Private")
+            /*            else if (type == "Private")
+                        {
+                            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                            {
+                                string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                                if (cnn.Execute(sqlTest) == 1)
+                                {
+                                    return null;
+                                }
+
+                                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                                Private temp = new Private(output.Firstname, output.Lastname, output.Type,
+                                    new Address(output.Address, output.ZIP, output.City, output.Note),
+                                    new ContactInfo(output.Email, output.Phonenumber));
+
+                                temp.id = (int)output.ID;
+                                return temp;
+                            }
+                        }*/
+            else if (type == "Customer")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
                 {
@@ -474,15 +494,29 @@ namespace HasserisWeb
                     string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
                     if (cnn.Execute(sqlTest) == 1)
                     {
-                        return null;
+                        Business temp = new Business(output.firstName, output.Lastname, output.Type,
+    new Address(output.Address, output.ZIP, output.City, output.Note),
+    new ContactInfo(output.Email, output.Phonenumber),
+    output.Name, output.CVR);
+
+                        temp.id = (int)output.ID;
+                        return temp;
                     }
+                    else if (output.Type == "Public")
+                    {
+                        Public temp = new Public(output.firstName, output.Lastname, output.Type,
+    new Address(output.Address, output.ZIP, output.City, output.Note),
+    new ContactInfo(output.Email, output.Phonenumber),
+    output.Name, output.EAN);
 
-                    dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
-
-                    Business temp = new Business(output.firstName, output.Lastname, output.Type,
-                        new Address(output.Address, output.ZIP, output.City, output.Note),
-                        new ContactInfo(output.Email, output.Phonenumber), 
-                        output.Name, output.CVR);
+                        temp.id = (int)output.ID;
+                        return temp;
+                    }
+                    else if (output.Type == "Private")
+                    {
+                        Private temp = new Private(output.Firstname, output.Lastname, output.Type,
+    new Address(output.Address, output.ZIP, output.City, output.Note),
+    new ContactInfo(output.Email, output.Phonenumber));
 
                     temp.id = (int)output.ID;
                     temp.lentBoxes = (int)output.Lentboxes;
@@ -496,7 +530,7 @@ namespace HasserisWeb
                     string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
                     if (cnn.Execute(sqlTest) == 1)
                     {
-                        return null;
+                        throw new Exception("No customer with that type");
                     }
 
                     dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
@@ -511,6 +545,48 @@ namespace HasserisWeb
                     return temp;
                 }
             }
+            /*            else if (type == "Business")
+                        {
+                            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                            {
+                                string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                                if (cnn.Execute(sqlTest) == 1)
+                                {
+                                    return null;
+                                }
+
+                                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                                Business temp = new Business(output.firstName, output.Lastname, output.Type,
+                                    new Address(output.Address, output.ZIP, output.City, output.Note),
+                                    new ContactInfo(output.Email, output.Phonenumber),
+                                    output.Name, output.CVR);
+
+                                temp.id = (int)output.ID;
+                                return temp;
+                            }
+                        }
+                        else if (type == "Public")
+                        {
+                            using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
+                            {
+                                string sqlTest = "SELECT (CASE WHEN NOT EXISTS(SELECT NULL FROM Customers) THEN 1 ELSE 0 END) AS isEmpty";
+                                if (cnn.Execute(sqlTest) == 1)
+                                {
+                                    return null;
+                                }
+
+                                dynamic output = cnn.QuerySingle<dynamic>("select * from Customers where ID = " + id.ToString());
+
+                                Public temp = new Public(output.firstName, output.Lastname, output.Type,
+                                    new Address(output.Address, output.ZIP, output.City, output.Note),
+                                    new ContactInfo(output.Email, output.Phonenumber),
+                                    output.Name, output.EAN);
+
+                                temp.id = (int)output.ID;
+                                return temp;
+                            }
+                        }*/
             else if (type == "Vehicle")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -565,7 +641,7 @@ namespace HasserisWeb
                                 output.DestinationCity, output.DestinationNote),
                                 (double)output.Income, CalculateDateFromDatabaseString(output.Date),
                                 output.Note, output.Workphone, output.Material, (int)output.Quantity);
-                    temp.id = (int)output.ID; 
+                    temp.id = (int)output.ID;
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
                     temp.equipmentsIdString = output.EquipmentIDs;
                     temp.assignedEmployees = (List<Employee>)GetElementsFromIDString("Employee", output.EmployeeIDs);
@@ -588,7 +664,7 @@ namespace HasserisWeb
 
                     Moving temp = new Moving(output.Name, output.Type, GetCustomerFromDatabaseID((int)output.ID),
                                 new Address(output.DestinationAddress, output.DestinationZIP,
-                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone, 
+                                output.DestinationCity, output.DestinationNote), output.income, CalculateDateFromDatabaseString(output.Date), output.Note, output.Workphone,
                                 new Address(output.StartingAddress, output.ZIP, output.City, output.Note), output.Lentboxes);
                     temp.id = (int)output.ID;
                     temp.taskDuration = ConvertDurationStringFromDatabaseToTimeSpan(output.Duration);
@@ -1182,7 +1258,7 @@ namespace HasserisWeb
                                "', Email = '" + employee.contactInfo.email +
                                "', Note = '" + employee.address.note + 
                                "', Phonenumber = '" + employee.contactInfo.phoneNumber +
-                               "', Address = '" + employee.address.livingAdress +
+                               "', Address = '" + employee.address.livingAddress +
                                "', ZIP = '" + employee.address.ZIP +
                                "', City = '" + employee.address.city + "' where " +
                                "ID = " + employee.id;
@@ -1221,7 +1297,7 @@ namespace HasserisWeb
                                "', EmployeeIDs = '" + task.employeesIdString +
                                "', EquipmentIDs = '" + task.equipmentsIdString +
                                "', CustomerID = '" + task.assignedCustomer.id +
-                               "', DestinationAddress = '" + task.destination.livingAdress +
+                               "', DestinationAddress = '" + task.destination.livingAddress +
                                "', DestinationCity = '" + task.destination.city +
                                "', DestinationZIP = '" + task.destination.ZIP +
                                "', DestinationNote = '" + task.destination.note +
@@ -1237,7 +1313,7 @@ namespace HasserisWeb
                 if (task is Moving)
                 {
                     sqlStatement = "update Tasks " +
-                                   "set StartingAddress = '" + ((Moving)task).startingAddress.livingAdress +
+                                   "set StartingAddress = '" + ((Moving)task).startingAddress.livingAddress +
                                    "', StartingCity = '" + ((Moving)task).startingAddress.city +
                                    "', StartingZIP = '" + ((Moving)task).startingAddress.ZIP +
                                    "', StartingNote = '" + ((Moving)task).startingAddress.note +
@@ -1263,7 +1339,7 @@ namespace HasserisWeb
             {
                 sqlStatement = "update Customers " +
                                "set Type = '" + customer.type +
-                               "', Address = '" + customer.address.livingAdress +
+                               "', Address = '" + customer.address.livingAddress +
                                "', ZIP = '" + customer.address.ZIP +
                                "', City = '" + customer.address.city +
                                "', Note = '" + customer.address.note +
