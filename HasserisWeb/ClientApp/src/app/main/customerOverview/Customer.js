@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
+import { Avatar, ExpansionPanel, TextField, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded } from '@fuse';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -59,7 +59,7 @@ function Customer(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {customer.firstName + customer.lastName}
+                                        {customer.firstName + ' ' + customer.lastName}
                                     </Typography>
                                 </FuseAnimate>
 
@@ -143,10 +143,63 @@ function Customer(props) {
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             )}
+                        {/*Text Fields*/}
+                        <div class="flex mb-4">
+                            <div class="w-2/5 bg-gray-0 h-12 pr-1 ">
+                                <TextField
+                                    id="CustomerID"
+                                    label="Kunde ID"
+                                    className="mt-8 mb-16"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    name="CustomerID"
+                                    value={customerPhonenumber}
+                                    variant="outlined"
+                                    autoFocus
+                                    required
+                                    fullWidth
+                                />
+                            </div>
+                            <div class="w-2/5 bg-gray-0 h-12 pl-10">
+                                <TextField
+                                    id="FullName"
+                                    label="Navn"
+                                    className="mt-8 mb-16"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    name="FullName"
+                                    value={customer.firstName + ' ' + customer.lastName}
+                                    variant="outlined"
+                                    autoFocus
+                                    required
+                                    fullWidth
+                                />
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            <div class="w-full bg-gray-0 h-12 pt-10">
+                                <TextField
+                                    id="CustomerID"
+                                    label="Kunde ID"
+                                    className="mt-8 mb-16"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    name="CustomerID"
+                                    value={customer.id}
+                                    variant="outlined"
+                                    autoFocus
+                                    required
+                                    fullWidth
+                                />
+                            </div>
+                        </div>
                     </div>
                 )
             }
@@ -155,4 +208,4 @@ function Customer(props) {
     )
 }
 
-export default Customer
+export default withReducer('customerReducer', reducer)(Customer);
