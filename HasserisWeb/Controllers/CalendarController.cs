@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 namespace HasserisWeb.Controllers
 {
     public class NewEvent
@@ -43,7 +45,30 @@ namespace HasserisWeb.Controllers
 
             int id = deserializeObject.eventId;
 
-                var task = database.Tasks.Find(id);
+                var task = database.Tasks.Include(dates => dates.Dates).
+                    Include(pauses => pauses.PauseTimes).
+                    Include(employees => employees.taskAssignedEmployees).
+                    Include(equipment => equipment.taskAssignedEquipment).FirstOrDefault(e => e.ID == id);
+            foreach (var item in task.taskAssignedEmployees)
+            {
+                database.Entry(item.EmployeeID).State = EntityState.Deleted;
+                database.Entry(item).State = EntityState.Deleted; // <= line added
+            }
+            foreach (var item in task.taskAssignedEquipment)
+            {
+                database.Entry(item.EquipmentID).State = EntityState.Deleted;
+                database.Entry(item).State = EntityState.Deleted; // <= line added
+            }
+            foreach (var item in task.Dates)
+            {
+                database.Entry(item.ID).State = EntityState.Deleted;
+                database.Entry(item).State = EntityState.Deleted; // <= line added
+            }
+            foreach (var item in task.PauseTimes)
+            {
+                database.Entry(item.ID).State = EntityState.Deleted;
+                database.Entry(item).State = EntityState.Deleted; // <= line added
+            }
             database.Tasks.Remove(task);
             database.SaveChanges();
             
@@ -55,7 +80,11 @@ namespace HasserisWeb.Controllers
         public string GetAllTasks()        
         {
 
-                return JsonConvert.SerializeObject(database.Tasks.ToList());
+                return JsonConvert.SerializeObject(database.Tasks.
+                    Include(dates => dates.Dates).
+                    Include(pauses => pauses.PauseTimes).
+                    Include(employees => employees.taskAssignedEmployees).
+                    Include(equipment => equipment.taskAssignedEquipment).ToList());
             
         }  
         
@@ -129,11 +158,9 @@ namespace HasserisWeb.Controllers
                 Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
                 Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
-
                 Delivery delivery = new Delivery(eventTitle, privateCustomer,
                 new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
 
-                delivery.ID = id;
 
             database.Tasks.Update(delivery);
             database.SaveChanges();

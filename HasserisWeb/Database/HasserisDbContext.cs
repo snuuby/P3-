@@ -21,6 +21,10 @@ namespace HasserisWeb
         {
             
         }
+        public HasserisDbContext() : base()
+        {
+
+        }
         
   
         public DbSet<Employee> Employees { get; set; }

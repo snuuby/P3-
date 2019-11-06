@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\simon\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
+    "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\simon\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
+    "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\simon\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "projectUniqueName": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
         "projectName": "HasserisWeb",
-        "projectPath": "C:\\Users\\simon\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
-        "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\simon\\Documents\\GitHub\\P3-\\HasserisWeb\\obj\\",
+        "projectPath": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "packagesPath": "C:\\Users\\hansen17\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\hansen17\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"

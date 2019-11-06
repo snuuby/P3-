@@ -141,9 +141,9 @@ namespace HasserisWeb
         {
 
                 var employee = database.Employees
-                .Include(contact => contact.ContactInfo)
-                .Include(address => address.Address)
-                .FirstOrDefault(e => e.Username == username);
+                    .Include(contact => contact.ContactInfo)
+                    .Include(address => address.Address)
+                    .FirstOrDefault(e => e.Username == username);
 
                 string savedPasswordHash = employee.Hashcode;
                 byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
