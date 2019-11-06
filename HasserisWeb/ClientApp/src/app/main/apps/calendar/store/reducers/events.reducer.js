@@ -21,11 +21,11 @@ const eventsReducer = function (state = initialState, action) {
             const entities = action.payload.map((event) => (
                 {
                     ...event,
-                    id: event.id,
-                    title : event.name,
-                    desc : event.description,
-                    start: new Date(event.dates[0]),
-                    end  : new Date(event.dates[1])
+                    id: event.ID,
+                    title : event.Name,
+                    desc : event.Description,
+                    start: new Date(event.Dates[0]),
+                    end  : new Date(event.Dates[1])
                 }
                 
             ));

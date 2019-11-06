@@ -51,10 +51,16 @@ namespace HasserisWeb
             switch (tempLocation)
             {
                 case "avatars":
-                    HasserisDbContext.SetEmployeeProfileImage(tempValue, newFilePath);
+                    var employee = database.Employees.FirstOrDefault(e => e.Username == tempValue);
+                    employee.PhotoPath = newFilePath;
+                    database.Employees.Update(employee);
+                    database.SaveChanges();
                     break;
                 case "tasks":
-                    HasserisDbContext.SetTaskImage(tempIntValue, newFilePath);
+                    var task = database.Tasks.FirstOrDefault(t => t.ID == tempIntValue);
+                    task.PhotoPath = newFilePath;
+                    database.Tasks.Update(task);
+                    database.SaveChanges();
                     break;
                 //cases goes here
                 default:

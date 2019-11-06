@@ -53,6 +53,8 @@ namespace HasserisWeb
 
             modelBuilder.Entity<ContactInfo>();
             modelBuilder.Entity<DateTimes>();
+            modelBuilder.Entity<PauseTimes>();
+
 
 
             //Mapping many-to-many relation between task/employees and task/equipment
@@ -487,7 +489,7 @@ namespace HasserisWeb
                                 temp.id = (int)output.ID;
                                 return temp;
                             }
-                        }*/
+                        }
             else if (type == "Customer")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))
@@ -608,7 +610,7 @@ namespace HasserisWeb
                                 temp.id = (int)output.ID;
                                 return temp;
                             }
-                        }*/
+                        }
             else if (type == "Vehicle")
             {
                 using (IDbConnection cnn = new SQLiteConnection(GetDefaultConnectionString()))

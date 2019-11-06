@@ -125,23 +125,23 @@ function CustomerOverviewTable(props)
                                     {
                                         case 'id':
                                         {
-                                            return parseInt(e.id, 10);
+                                            return parseInt(e.ID, 10);
                                         }
                                         case 'fornavn':
                                         {
-                                            return e.firstName;
+                                            return e.Firstname;
                                         }
                                         case 'efternavn':
                                         {
-                                            return e.lastName;
+                                            return e.Lastname;
                                         }
                                         case 'type':
                                         {
-                                            return e.type;
+                                            return e.Type;
                                         }
                                         case 'lentboxes':
-                                        {
-                                            return e.lentBoxes;
+                                            {
+                                                return e.LentBoxes;
                                         }
                                             
                                         
@@ -175,24 +175,24 @@ function CustomerOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.id}
+                                                {n.ID}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.firstName}
+                                                {n.Firstname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.lastName}
+                                                {n.Lastname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>
-                                                {n.type}
+                                                {n.Type}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" align="right">
-                                                {n.lentBoxes}
+                                                {n.LentBoxes}
                                             </TableCell>
 
 
