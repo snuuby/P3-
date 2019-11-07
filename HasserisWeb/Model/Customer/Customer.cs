@@ -16,7 +16,6 @@ namespace HasserisWeb
         {
 
         }
-        public string Type { get; set; }
         public int ID { get; set; }
         [Required]
         public Address Address { get; set; }

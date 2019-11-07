@@ -16,7 +16,7 @@ namespace HasserisWeb
             
             Configuration = configuration;
             ConnectionString = configuration.GetConnectionString("HasserisDatabase");
-            SystemControl system = new SystemControl();
+            // Database quick setup - SystemControl system = new SystemControl();
 
         }
 

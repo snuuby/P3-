@@ -8,7 +8,6 @@ namespace HasserisWeb
 {
     public abstract class Task
     {
-        public string Type { get; set; }
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
@@ -61,8 +60,6 @@ namespace HasserisWeb
 
         public void BeginTasks()
         {
-            if (taskAssignedEmployees.Count < 1)
-                //throw new SystemException("No employees assigned.");
             this.StartTime = DateTime.Now;
         }
         public void ResumeTasks() 

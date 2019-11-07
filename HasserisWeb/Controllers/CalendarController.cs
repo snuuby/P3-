@@ -49,26 +49,8 @@ namespace HasserisWeb.Controllers
                     Include(pauses => pauses.PauseTimes).
                     Include(employees => employees.taskAssignedEmployees).
                     Include(equipment => equipment.taskAssignedEquipment).FirstOrDefault(e => e.ID == id);
-            foreach (var item in task.taskAssignedEmployees)
-            {
-                database.Entry(item.EmployeeID).State = EntityState.Deleted;
-                database.Entry(item).State = EntityState.Deleted; // <= line added
-            }
-            foreach (var item in task.taskAssignedEquipment)
-            {
-                database.Entry(item.EquipmentID).State = EntityState.Deleted;
-                database.Entry(item).State = EntityState.Deleted; // <= line added
-            }
-            foreach (var item in task.Dates)
-            {
-                database.Entry(item.ID).State = EntityState.Deleted;
-                database.Entry(item).State = EntityState.Deleted; // <= line added
-            }
-            foreach (var item in task.PauseTimes)
-            {
-                database.Entry(item.ID).State = EntityState.Deleted;
-                database.Entry(item).State = EntityState.Deleted; // <= line added
-            }
+
+
             database.Tasks.Remove(task);
             database.SaveChanges();
             
@@ -79,7 +61,6 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllTasks()        
         {
-
                 return JsonConvert.SerializeObject(database.Tasks.
                     Include(dates => dates.Dates).
                     Include(pauses => pauses.PauseTimes).

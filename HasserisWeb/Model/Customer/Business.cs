@@ -21,7 +21,6 @@ namespace HasserisWeb
         public Business(Address Address, ContactInfo ContactInfo, string Name, string CVR )
                         : base(Address, ContactInfo)
         {
-            base.Type = "Business";
             this.Name = Name;
             this.CVR = CVR;
         }

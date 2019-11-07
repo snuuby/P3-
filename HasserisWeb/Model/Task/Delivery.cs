@@ -21,7 +21,6 @@ namespace HasserisWeb
                   Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, string material, int quantity) 
                 : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
         {
-            base.Type = "Delivery";
             this.Material = material;
             this.Quantity = quantity;
         }

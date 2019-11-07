@@ -86,6 +86,8 @@ namespace HasserisWeb
                 .WithOne(t => t.Equipment)
                 .HasForeignKey(te => te.EquipmentID);
 
+
+
             base.OnModelCreating(modelBuilder);
         }
 

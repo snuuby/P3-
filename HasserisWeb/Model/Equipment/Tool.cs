@@ -13,7 +13,6 @@ namespace HasserisWeb
         }
         public Tool(string name) : base(name)
         {
-            base.Type = "Tool";
         }
     }
 }
