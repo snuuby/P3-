@@ -59,7 +59,7 @@ function Customer(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {customer.firstName + customer.lastName}
+                                        {customer.Firstname + customer.Lastname}
                                     </Typography>
                                 </FuseAnimate>
 

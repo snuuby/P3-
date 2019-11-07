@@ -129,19 +129,19 @@ function ToolOverviewTable(props)
                                         }
                                         case 'navn':
                                         {
-                                            return e.name;
+                                            return e.Name;
                                         }
                                         case 'model':
                                         {
-                                            return e.model;
+                                            return e.Model;
                                         }
                                         case 'type':
                                         {
-                                            return e.type;
+                                            return e.Type;
                                         }
                                         default:
                                         {
-                                            return e[tool.id];
+                                            return e[tool.ID];
                                         }
                                     }
                                 }
@@ -169,20 +169,20 @@ function ToolOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.id}
+                                                {n.ID}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.name}
+                                                {n.Name}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.model}
+                                                {n.Model}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" align="right">
-                                                <span>$</span>
-                                                {n.type}
+                                                <span></span>
+                                                {n.Type}
                                             </TableCell>
                                                 
                                         </TableRow>

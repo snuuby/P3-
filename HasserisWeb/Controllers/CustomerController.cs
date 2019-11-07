@@ -24,6 +24,11 @@ namespace HasserisWeb.Controllers
                 return JsonConvert.SerializeObject(database.Customers.ToList());
             
         }  
+        [Route("{id}")]
+        public string GetSpecificCustomer(int id)
+        {
+            return JsonConvert.SerializeObject(database.Customers.FirstOrDefault(c => c.ID == id));
+        }
         
         /*
         // Delete

@@ -129,19 +129,19 @@ function OverviewTable(props)
                                         }
                                         case 'fornavn':
                                         {
-                                            return e.firstName;
+                                            return e.FirstName;
                                         }
                                         case 'efternavn':
                                         {
-                                            return e.lastName;
+                                            return e.LastName;
                                         }
                                         case 'type':
                                         {
-                                            return e.type;
+                                            return e.Type;
                                         }
                                         default:
                                         {
-                                            return e[employee.id];
+                                            return e[employee.Id];
                                         }
                                     }
                                 }
@@ -169,20 +169,20 @@ function OverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.id}
+                                                {n.ID}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.firstName}
+                                                {n.Firstname}
                                             </TableCell>
 
                                             <TableCell className="truncate" component="th" scope="row">
-                                                {n.lastName}
+                                                {n.Lastname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" align="right">
-                                                <span>$</span>
-                                                {n.type}
+                                                <span></span>
+                                                {n.Type}
                                             </TableCell>
                                                 
                                         </TableRow>
