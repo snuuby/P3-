@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace HasserisWeb.Controllers
 {
@@ -27,7 +28,10 @@ namespace HasserisWeb.Controllers
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
         {
-            return JsonConvert.SerializeObject(database.Customers.FirstOrDefault(c => c.ID == id));
+            return JsonConvert.SerializeObject(database.Customers
+                .Include(contact => contact.ContactInfo)
+                .Include(address => address.Address)
+                .FirstOrDefault(c => c.ID == id));
         }
         
         /*
