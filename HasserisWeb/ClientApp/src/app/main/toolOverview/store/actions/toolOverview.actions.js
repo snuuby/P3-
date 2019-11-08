@@ -12,11 +12,12 @@ export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL APP] SET TOOL SEARCH TEXT';
 export const ADD_TOOL = '[TOOL APP] ADD TOOL';
 export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
+export const GET_TOOL = '[TOOL APP] GET TOOL';
 
 // Gets all tools
 export function getTools()
 {
-    const request = axios.get('Tool/all');
+    const request = axios.get('Tools/all');
     request.then(response => console.log(response.data));
     
     return (dispatch) =>
@@ -28,6 +29,19 @@ export function getTools()
         );
 }
 
+// Get specific tool
+export function getTool(params) {
+    const request = axios.get("tools/" + params.ToolId);
+    request.then(response => console.log(response.data));
+
+    return (dispatch) =>
+        request.then((response) =>
+            dispatch({
+                type: GET_TOOL,
+                payload: response.data
+            })
+        );
+}
 // Is required for the SearchText
 export function setToolOverviewSearchText(event)
 {

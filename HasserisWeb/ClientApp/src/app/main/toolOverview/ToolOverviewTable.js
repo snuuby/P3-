@@ -61,7 +61,7 @@ function ToolOverviewTable(props)
     // Det er ved click, måske mere tool information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/tool/' + item.id);
     }
 
     function handleCheck(event, id)

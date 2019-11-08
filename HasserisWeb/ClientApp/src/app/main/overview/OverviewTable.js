@@ -61,7 +61,7 @@ function OverviewTable(props)
     // Det er ved click, måske mere employee information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/employee/' + item.ID);
     }
 
     function handleCheck(event, id)

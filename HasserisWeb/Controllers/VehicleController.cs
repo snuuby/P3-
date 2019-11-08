@@ -10,13 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace HasserisWeb.Controllers
 {
-    [Route("Vehicle")]
+    [Route("Vehicles")]
     public class VehicleController : Controller
     {
 
         [Route("all")]
         public string GetAllTools()        
         {
+<<<<<<< Updated upstream
             dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Equipment");
             var TempVehicleList = new List<Equipment>();
             foreach (var element in temp)
@@ -29,5 +30,16 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(TempVehicleList);
         }  
         
+=======
+                return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
+        }
+
+        [Route("{id}")]
+        public string GetSpecificVehicle(int id)
+        {
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>()
+                .FirstOrDefault(c => c.ID == id));
+        }
+>>>>>>> Stashed changes
     }
 }

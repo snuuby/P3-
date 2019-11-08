@@ -10,13 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace HasserisWeb.Controllers
 {
-    [Route("Tool")]
+    [Route("Tools")]
     public class ToolController : Controller
     {
 
         [Route("all")]
         public string GetAllTools()        
         {
+<<<<<<< Updated upstream
             dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Equipment");
             var TempToolList = new List<Equipment>();
             foreach (var element in temp)
@@ -29,5 +30,19 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(TempToolList);
         }  
         
+=======
+
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>().ToList());
+
+        }
+
+        [Route("{id}")]
+        public string GetSpecificTool(int id)
+        {
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>()
+                .FirstOrDefault(c => c.ID == id));
+        }
+
+>>>>>>> Stashed changes
     }
 }
