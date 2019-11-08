@@ -13,27 +13,16 @@ namespace HasserisWeb.Controllers
     [Route("Tools")]
     public class ToolController : Controller
     {
+        public HasserisDbContext database;
+        public ToolController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
 
         [Route("all")]
         public string GetAllTools()        
         {
-<<<<<<< Updated upstream
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Equipment");
-            var TempToolList = new List<Equipment>();
-            foreach (var element in temp)
-            {
-                if (element.type == "Tool")
-                {
-                    TempToolList.Add(element);
-                }
-            }
-            return JsonConvert.SerializeObject(TempToolList);
-        }  
-        
-=======
-
             return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>().ToList());
-
         }
 
         [Route("{id}")]
@@ -42,7 +31,5 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>()
                 .FirstOrDefault(c => c.ID == id));
         }
-
->>>>>>> Stashed changes
     }
 }
