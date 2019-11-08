@@ -18,6 +18,7 @@ namespace HasserisWeb.Controllers
         public string GetAllTools()        
         {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Equipment");
             var TempVehicleList = new List<Equipment>();
             foreach (var element in temp)
@@ -31,6 +32,8 @@ namespace HasserisWeb.Controllers
         }  
         
 =======
+=======
+>>>>>>> Stashed changes
                 return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
         }
 
@@ -40,6 +43,9 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>()
                 .FirstOrDefault(c => c.ID == id));
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }

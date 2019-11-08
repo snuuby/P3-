@@ -15,6 +15,7 @@ namespace HasserisWeb.Controllers
     public class EmployeeController : Controller
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         /* Just testing
         [Route("index")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
@@ -50,6 +51,8 @@ namespace HasserisWeb.Controllers
         }  
         
 =======
+=======
+>>>>>>> Stashed changes
         public HasserisDbContext database;
         public EmployeeController(HasserisDbContext sc)
         {
@@ -62,6 +65,21 @@ namespace HasserisWeb.Controllers
                 return JsonConvert.SerializeObject(database.Employees.ToList());
             
         }
+<<<<<<< Updated upstream
+
+        [Route("{id}")]
+        public string GetSpecificEmployee(int id)
+        {
+            return JsonConvert.SerializeObject(database.Employees
+                .Include(contact => contact.ContactInfo)
+                .Include(address => address.Address)
+                .FirstOrDefault(c => c.ID == id));
+        }
+
+
+
+>>>>>>> Stashed changes
+=======
 
         [Route("{id}")]
         public string GetSpecificEmployee(int id)
