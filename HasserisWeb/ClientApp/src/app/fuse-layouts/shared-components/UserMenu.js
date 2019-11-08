@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 
 function UserMenu(props)
 {
+    
     const dispatch = useDispatch();
     const user = useSelector(({auth}) => auth.user);
 
@@ -25,7 +26,9 @@ function UserMenu(props)
             <Button className="h-64" onClick={userMenuClick}>
                 {user.data.photoURL ?
                     (
-                        <Avatar className="" alt="user photo" src={user.data.photoURL}/>
+                        <Avatar className="" alt="user photo">
+                            <img id="userIMG" src={user.data.photoURL} />
+                        </Avatar>
                     )
                     :
                     (

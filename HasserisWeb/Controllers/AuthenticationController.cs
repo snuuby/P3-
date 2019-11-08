@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HasserisWeb
 {
@@ -25,21 +27,33 @@ namespace HasserisWeb
     {
 
         public ReturnObjects returnObjects = new ReturnObjects();
-
+        public HasserisDbContext database;
+        public AuthenticationController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Microsoft.AspNetCore.Mvc.Route("verify")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         public string Get(dynamic json)
-        {
+        {    
             dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
             string username = tempstring.name;
             string password = tempstring.pass;
-
+            
 
             if (CheckUser(username, password))
             {
                 returnObjects.access_token = GenerateToken(username);
-                HasserisDbContext.SetAccessToken(returnObjects.access_token, returnObjects.user.id);
+
+                    var employee = database.Employees
+                                    .Include(contact => contact.ContactInfo)
+                                    .Include(address => address.Address)
+                                    .FirstOrDefault(e => e.Username == username); ;
+                    employee.AccessToken = returnObjects.access_token;
+                    database.Employees.Update(employee);
+                    database.SaveChanges();
+                
             }
 
             return JsonConvert.SerializeObject(returnObjects);
@@ -84,10 +98,12 @@ namespace HasserisWeb
 
             try
             {
+ 
 
-                returnObjects.user = HasserisDbContext.VerifyPassword(password, username);
-                returnObjects.user.type = returnObjects.user.type.ToLower();
-                returnObjects.user.contactInfo.email = returnObjects.user.contactInfo.email.Replace('/', '@');
+                returnObjects.user = VerifyPassword(password, username);
+                returnObjects.user.Type = returnObjects.user.Type.ToLower();
+
+                
             }
             catch (Exception e)
             {
@@ -107,9 +123,11 @@ namespace HasserisWeb
             string token = tempstring.access_token;
             try
             {
-                returnObjects.user = HasserisDbContext.GetAccessTokenUser(token);
-                returnObjects.user.type = returnObjects.user.type.ToLower();
-                returnObjects.user.contactInfo.email = returnObjects.user.contactInfo.email.Replace('/', '@');
+                returnObjects.user = database.Employees
+                                    .Include(contact => contact.ContactInfo)
+                                    .Include(address => address.Address)
+                                    .FirstOrDefault(e => e.AccessToken == token);
+                returnObjects.user.Type = returnObjects.user.Type.ToLower();
 
             }
             catch(Exception)
@@ -118,7 +136,29 @@ namespace HasserisWeb
             }
             returnObjects.access_token = token;
             return JsonConvert.SerializeObject(returnObjects);
-        } 
+        }
+        public Employee VerifyPassword(string password, string username)
+        {
+
+                var employee = database.Employees
+                    .Include(contact => contact.ContactInfo)
+                    .Include(address => address.Address)
+                    .FirstOrDefault(e => e.Username == username);
+
+                string savedPasswordHash = employee.Hashcode;
+                byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
+                byte[] salt = new byte[16];
+                Array.Copy(hashBytes, 0, salt, 0, 16);
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+                for (int i = 0; i < 20; i++)
+                    if (hashBytes[i + 16] != hash[i])
+                        throw new UnauthorizedAccessException();
+                return employee;
+            
+            
+        }
+
         /*
         [Route("verify")]
         [HttpPost]

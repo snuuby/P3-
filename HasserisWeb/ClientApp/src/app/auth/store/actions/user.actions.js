@@ -6,11 +6,60 @@ import * as Actions from 'app/store/actions';
 import firebase from 'firebase/app';
 import firebaseService from 'app/services/firebaseService';
 import auth0Service from 'app/services/auth0Service';
+import axios from 'axios';
 import jwtService from 'app/services/jwtService';
-
+export const SET_USER_IMAGE = '[USER] SET IMAGE';
 export const SET_USER_DATA = '[USER] SET DATA';
 export const REMOVE_USER_DATA = '[USER] REMOVE DATA';
 export const USER_LOGGED_OUT = '[USER] LOGGED OUT';
+
+
+export function setUserImage(imgUrl, username, location, type) {
+    return (dispatch) => {
+        getBase64Image(imgUrl, function (base64image) {
+            const imageData = { base64URL: base64image, value: username, location: location, type: type };
+            axios.post('/images/uploadImage', imageData).then(response => {
+                const photoURL = response.data;
+                dispatch({
+                    type: SET_USER_IMAGE,
+                    payload: photoURL
+                })
+            });
+            console.log(base64image);
+        });
+
+
+        /*
+        Set User Image
+         */
+        
+    }
+     function getBase64Image(imgUrl, callback) {
+
+        var img = new Image();
+
+        // onload fires when the image is fully loadded, and has width and height
+
+        img.onload = function () {
+
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            var dataURL = canvas.toDataURL("image/png"),
+                dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+            callback(dataURL); // the base64 string
+
+        };
+
+        // set attributes and src 
+        img.setAttribute('crossOrigin', 'anonymous'); //
+        img.src = imgUrl;
+
+    }
+}
 
 /**
  * Set user data from Auth0 token data

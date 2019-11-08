@@ -36,7 +36,15 @@ const user = function (state = initialState, action) {
         case Actions.USER_LOGGED_OUT:
         {
             return initialState;
-        }
+            }
+        case Actions.SET_USER_IMAGE:
+            {
+                return Object.assign({}, state, {
+                     photoURL: action.payload
+
+                })
+            }
+
         default:
         {
             return state

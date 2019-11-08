@@ -4,15 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace HasserisWeb
-{    
-    public class Tool : Equipment
+{
+    public class DateTimes
     {
-        public Tool()
+        public int ID { get; set; }
+        public DateTime Date { get; set; }
+        public DateTimes()
         {
 
-        }
-        public Tool(string name) : base(name)
-        {
         }
     }
 }

@@ -23,6 +23,7 @@ const navigationConfig = [
             },
             {
                 auth: authRoles.admin,
+                auth: authRoles.adminPlus,
                 'id': 'createnew',
                 'title': 'Opret ny',
                 'type': 'collapse',
@@ -72,6 +73,7 @@ const navigationConfig = [
             },
             {
                 auth: authRoles.admin,
+                auth: authRoles.adminPlus,
                 'id': 'storage',
                 'title': 'Lager',
                 'type': 'item',
@@ -80,6 +82,7 @@ const navigationConfig = [
             },
             {
                 auth: authRoles.admin,
+                auth: authRoles.adminPlus,
                 'id': 'customers',
                 'title': 'Kundekartotek',
                 'type': 'item',
@@ -96,6 +99,7 @@ const navigationConfig = [
             },
             {
                 auth: authRoles.admin,
+                auth: authRoles.adminPlus,
                 'id': 'tool',
                 'title': 'Udstyr',
                 'type': 'item',
@@ -104,6 +108,7 @@ const navigationConfig = [
             },
             {
                 auth: authRoles.admin,
+                auth: authRoles.adminPlus,
                 'id': 'vehicles',
                 'title': 'Koeretoejer',
                 'type': 'item',

@@ -8,10 +8,11 @@ export const CLOSE_EDIT_EVENT_DIALOG = '[CALENDAR APP] CLOSE EDIT EVENT DIALOG';
 export const ADD_EVENT = '[CALENDAR APP] ADD EVENT';
 export const UPDATE_EVENT = '[CALENDAR APP] UPDATE EVENT';
 export const REMOVE_EVENT = '[CALENDAR APP] REMOVE EVENT';
+export const SET_TASK_IMAGE = '[CALENDAR APP] SET IMAGE'
 
 export function getEvents()
 {
-    const request = axios.get('/api/calendar-app/events');
+    const request = axios.get('calendar/all');
 
     return (dispatch) =>
         request.then((response) =>
@@ -58,7 +59,7 @@ export function addEvent(newEvent)
 {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/add-event', {
+        const request = axios.post('calendar/add', {
             newEvent
         });
 
@@ -72,12 +73,12 @@ export function addEvent(newEvent)
     };
 }
 
-export function updateEvent(event)
+export function updateEvent(newEvent)
 {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/update-event', {
-            event
+        const request = axios.post('calendar/update', {
+            newEvent
         });
 
         return request.then((response) =>
@@ -94,7 +95,7 @@ export function removeEvent(eventId)
 {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/remove-event', {
+        const request = axios.post('calendar/remove', {
             eventId
         });
 
@@ -106,4 +107,51 @@ export function removeEvent(eventId)
             ]).then(() => dispatch(getEvents()))
         );
     };
+}
+
+export function setTaskImage(imgUrl, taskid, location, type) {
+    return (dispatch) => {
+        getBase64Image(imgUrl, function (base64image) {
+            const imageData = { base64URL: base64image, value: taskid, location: location, type: type };
+            axios.post('/images/uploadImage', imageData).then(response => {
+                const image = response.data;
+                dispatch({
+                    type: SET_TASK_IMAGE,
+                    payload: image
+                })
+            });
+            console.log(base64image);
+        });
+
+
+        /*
+        Set User Image
+         */
+
+    }
+    function getBase64Image(imgUrl, callback) {
+
+        var img = new Image();
+
+        // onload fires when the image is fully loadded, and has width and height
+
+        img.onload = function () {
+
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            var dataURL = canvas.toDataURL("image/png"),
+                dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+            callback(dataURL); // the base64 string
+
+        };
+
+        // set attributes and src 
+        img.setAttribute('crossOrigin', 'anonymous'); //
+        img.src = imgUrl;
+
+    }
 }

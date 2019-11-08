@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -7,38 +9,46 @@ namespace HasserisWeb
 {
     public class Employee
     {
-        public string firstName { get;  set; }
-        public string lastName { get;  set; }
-        public string userName { get; set; }
-        public string hashCode { get; set; }
-        public bool isAvailable { get; private set; }
-        public string accessToken { get; set; }
-        public ContactInfo contactInfo { get; set; }
-        public double wage { get; private set; }
-        public int id { get; set; }
-        public Address address { get; set; }
-        public string type { get; set; }
-        public string employed { get; set; }
-        // Test constructor Cholle
+        public string PhotoPath { get; set; }
+        [Required]
+        public string Firstname { get;  set; }
+        [Required]
+        public string Lastname { get;  set; }
+        public string Username { get; set; }
+        [JsonIgnore]
+        public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
+        public string Hashcode { get; set; }
+        public bool IsAvailable { get; private set; } = true;
+        public string AccessToken { get; set; }
+        public ContactInfo ContactInfo { get; set; }
+        [Required]
+        public double Wage { get; private set; }
+        public int ID { get; set; }
+        [Required]
+        public Address Address { get; set; }
+        [Required]
+        public string Type { get; set; }
+        [Required]
+        public string Employed { get; set; }
         public Employee()
         {
-            
+
         }
         
-        public Employee(string fName, string lName, string type, double pWage, ContactInfo contactInfo, Address address)
+        public Employee(string Firstname, string Lastname, string Type, double Wage, ContactInfo ContactInfo, Address Address)
         {
-            this.firstName = fName;
-            this.lastName = lName;
-            this.wage = pWage;
-            this.contactInfo = contactInfo;
-            this.address = address;
-            this.type = type;
-            this.employed = "employed";
+            this.Firstname = Firstname;
+            this.Lastname = Lastname;
+            this.Wage = Wage;
+            this.ContactInfo = ContactInfo;
+            this.Address = Address;
+            this.Type = Type;
+            this.Employed = "employed";
         }
         public void AddLoginInfo(string username, string password)
         {
-            this.userName = username;
-            this.hashCode = CalculateHash(password);
+            this.Username = username;
+            this.Hashcode = CalculateHash(password);
         }
         private string CalculateHash(string tempPassword)
         {

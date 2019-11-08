@@ -32,6 +32,13 @@ const rows = [
         label         : 'Type',
         sort          : true
     },
+    {
+        id            : 'lentboxes',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Lånte kasser',
+        sort          : true
+    },
 ];
 
 const useStyles = makeStyles(theme => ({

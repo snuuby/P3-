@@ -61,7 +61,7 @@ function CustomerOverviewTable(props)
     // Det er ved click, måske mere customer information herinde?
     function handleClick(item)
     {
-        props.history.push('/customer/' + item.id);
+        props.history.push('/customer/' + item.ID);
     }
 
     function handleCheck(event, id)
@@ -125,20 +125,26 @@ function CustomerOverviewTable(props)
                                     {
                                         case 'id':
                                         {
-                                            return parseInt(e.id, 10);
+                                            return parseInt(e.ID, 10);
                                         }
-                                        case 'Fornavn':
+                                        case 'fornavn':
                                         {
-                                            return e.firstName;
+                                            return e.Firstname;
                                         }
-                                        case 'Efternavn':
+                                        case 'efternavn':
                                         {
-                                            return e.lastName;
+                                            return e.Lastname;
                                         }
-                                        case 'Type':
+                                        case 'type':
                                         {
-                                            return e.type;
+                                            return e.Type;
                                         }
+                                        case 'lentboxes':
+                                            {
+                                                return e.LentBoxes;
+                                        }
+                                            
+                                        
                                         default:
                                         {
                                             return e[customer.id];
@@ -169,22 +175,27 @@ function CustomerOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.id}
+                                                {n.ID}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.firstName}
+                                                {n.Firstname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.lastName}
+                                                {n.Lastname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>
-                                                {n.type}
+                                                {n.Type}
                                             </TableCell>
-                                                
+
+                                            <TableCell component="th" scope="row" align="right">
+                                                {n.LentBoxes}
+                                            </TableCell>
+
+
                                         </TableRow>
                                     );
                                 })}

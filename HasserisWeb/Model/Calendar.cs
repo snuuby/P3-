@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
+    /*
     public class Calendar
     {
         public List<Task> tasks { get; set; }
@@ -45,4 +46,5 @@ namespace HasserisWeb
             tasks.Remove(task);
         }
     }
+    */
 }

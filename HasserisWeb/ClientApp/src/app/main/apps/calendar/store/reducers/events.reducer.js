@@ -7,6 +7,7 @@ const initialState = {
         props: {
             open: false
         },
+        image: 'assets/images/tasks/placeholder.png',
         data : null
     }
 };
@@ -16,12 +17,18 @@ const eventsReducer = function (state = initialState, action) {
     {
         case Actions.GET_EVENTS:
         {
+
             const entities = action.payload.map((event) => (
                 {
                     ...event,
-                    start: new Date(event.start),
-                    end  : new Date(event.end)
+
+                    id: event.ID,
+                    title : event.Name,
+                    desc: event.Description,
+                    start: new Date(event.Dates[0].Date),
+                    end  : new Date(event.Dates[1].Date)
                 }
+                
             ));
 
             return {
@@ -86,7 +93,13 @@ const eventsReducer = function (state = initialState, action) {
                     data : null
                 }
             };
-        }
+            }
+        case Actions.SET_TASK_IMAGE:
+            {
+                return Object.assign({}, state, {
+                    image: action.payload
+                })
+            }
         default:
         {
             return state;

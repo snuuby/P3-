@@ -13,11 +13,17 @@ namespace HasserisWeb.Controllers
     [Route("furnitures")]
     public class FurnituresController : Controller
     {
+        public HasserisDbContext database;
+        public FurnituresController(HasserisDbContext sc)
+        {
+            database = sc;
+        }
         [Route("all")]
         public string GetAllFurnitures()        
         {
-            dynamic temp = HasserisDbContext.LoadAllElementsFromDatabase("Furniture");
-            return JsonConvert.SerializeObject((temp));
+
+                return JsonConvert.SerializeObject(database.Furniture.ToList());
+            
         }  
     }
 }

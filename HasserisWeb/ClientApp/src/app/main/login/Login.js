@@ -36,22 +36,11 @@ function Login()
             <div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-start md:flex-shrink-0 md:flex-1 md:text-left">
 
                 <FuseAnimate animation="transition.expandIn">
-                    <img className="w-128 mb-32" src="assets/images/logos/HasserisFlytteforetningRigtigManLogo.svg" alt="logo"/>
+                    <img className="w-150 mb-150" src="assets/images/logos/HasserisFlytteforetningStorLogo.svg" alt="logo"/>
                 </FuseAnimate>
 
-                <FuseAnimate animation="transition.slideUpIn" delay={300}>
-                    <Typography variant="h3" color="inherit" className="font-light">
-                        Velkommen til Hasseris Flytteforetning!
-                    </Typography>
-                </FuseAnimate>
+                </div>
 
-                <FuseAnimate delay={400}>
-                    <Typography variant="subtitle1" color="inherit" className="max-w-512 mt-16">
-                        Dette er en planlægnings-tjeneste for Hasseris Flytteforetning.
-                        Kontakt din adminstrator for brugernavn og password.
-                    </Typography>
-                </FuseAnimate>
-            </div>
 
             <FuseAnimate animation={{translateX: [0, '100%']}}>
 

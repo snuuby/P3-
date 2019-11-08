@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,16 +9,22 @@ namespace HasserisWeb
     //Moving-type task, for moving furniture/other for a customer.
     public class Moving : Task
     {
-        public Address startingAddress { get; }
-        public int lentBoxes { get; }
-        public List<Furniture> listofFurnitures { get; }
+        [Required]
+        public Address StartingAddress { get; set; }
+        public int LentBoxes { get; set; }
+        public ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
 
-        public Moving(string name, string type, Customer assignedCustomer,
-                  Address destination, double income, List<DateTime> dates, string note, string workPhoneNumber, Address startingAddress, int lentBoxes)
-                : base(name, type, assignedCustomer, destination, income, dates, note, workPhoneNumber)
+        public Moving(string name, Customer assignedCustomer,
+                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes)
+                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
         {
-            this.startingAddress = startingAddress;
-            this.lentBoxes = lentBoxes;
+            this.StartingAddress = startingAddress;
+            this.LentBoxes = lentBoxes;
+            this.Customer.LentBoxes = lentBoxes;
+        }
+        public Moving()
+        {
+
         }
 
         //Calculates the total cubic size of all furniture on a specific moving task.
@@ -26,7 +33,7 @@ namespace HasserisWeb
             double totalSize = 0;
             foreach( var element in listofFurnitures)
             {
-                totalSize += element.cubicSize;
+                totalSize += element.CubicSize;
             }
             return totalSize;
         }

@@ -224,17 +224,17 @@ function EmployeeOverview(props) {
                 </thead>
                 <tbody>
                 {empList.map(emp =>
-                    <tr key={emp.id}>
-                        <td>{emp.id}</td>
-                        <td>{emp.firstName}</td>
+                    <tr key={emp.ID}>
+                        <td>{emp.ID}</td>
+                        <td>{emp.Firstname}</td>
                         <td>
-                            {emp.lastName}
+                            {emp.Lastname}
                         </td>
                         <td>                            
-                            <button onClick={() => editWorker(emp.id)} className="btn btn-info" type="button">Rediger</button>
+                            <button onClick={() => editWorker(emp.ID)} className="btn btn-info" type="button">Rediger</button>
                         </td>
                         <td>
-                            <button onClick={() => deleteWorker(emp.id)} className="btn btn-info" type="button">Slet</button>
+                            <button onClick={() => deleteWorker(emp.ID)} className="btn btn-info" type="button">Slet</button>
                         </td>
                         
                     </tr>
