@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb.Controllers
 {
@@ -27,7 +28,12 @@ namespace HasserisWeb.Controllers
         public string photoURL { get; set; }
         public string combo { get; set; }
     }
-    
+
+    public class TaskAssigned
+    {
+        public List<Employee> Employees;
+        public List<Equipment> Equipment;
+    }
     
     [Route("calendar")]
     public class CalendarController : Controller
@@ -59,15 +65,41 @@ namespace HasserisWeb.Controllers
         }
         
         [Route("all")]
-        public string GetAllTasks()        
+        public string GetAllTasks()
         {
-                return JsonConvert.SerializeObject(database.Tasks.
-                    Include(dates => dates.Dates).
-                    Include(pauses => pauses.PauseTimes).
-                    Include(employees => employees.taskAssignedEmployees).
-                    Include(equipment => equipment.taskAssignedEquipment).ToList());
             
-        }  
+            var movingList = database.Tasks.OfType<Moving>().Select(task => new
+            {
+                task,
+                task.Dates,
+                StartingAddress = ((Moving)task).StartingAddress,
+                Destination = ((Moving)task).Destination,
+
+                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
+                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
+            }).ToList();
+    
+            var deliveryList = database.Tasks.OfType<Delivery>().Select(task => new
+            {
+                task,
+                task.Dates,
+                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
+                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
+            }).ToList();
+
+
+            var jMoving = JsonConvert.SerializeObject(movingList);
+            var jDelivery = JsonConvert.SerializeObject(deliveryList);
+
+
+//            var arrayOfObjects = JsonConvert.SerializeObject(
+//                new[] {JsonConvert.DeserializeObject(jMoving), JsonConvert.DeserializeObject(jDelivery)}
+//            );
+//                
+            return arrayOfObjects;
+        }
+        
+        
         
         /*
         [HttpPost]
@@ -90,14 +122,29 @@ namespace HasserisWeb.Controllers
             string eventEnd = eNewEvent.newEvent.end;
        
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
+            date1 = date1.AddHours(-1);
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
+            date2 = date2.AddHours(-1);
 
             
             List<DateTime> dates = new List<DateTime>();
             dates.Add(date1);
             dates.Add(date2);
+            
+            
+            
+            
+            //dynamic tempCustomer = database.Customers.FirstOrDefault(c => c.ID == eNewEvent.Customer.ID);
+            Private privateCustomer = (Private)database.Customers.FirstOrDefault(c => c.ID == 1);
+            Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
+            Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
+            Delivery delivery = new Delivery(eventTitle, privateCustomer,
+                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
 
+            database.Tasks.Add(delivery);
+            database.SaveChanges();
+            
             return "asdqwe";
 
         }
@@ -106,9 +153,18 @@ namespace HasserisWeb.Controllers
         [Route("update")]
         public string UpdateTask([FromBody]dynamic json)
         {
-
+//            // 2019-11-03 00:00:00
+//            var settings = new JsonSerializerSettings
+//            {
+//                DateFormatString = "yyyy-MM-ddTH:mm:ss.fff2",
+//                DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind
+//            };
+//            
+//            var eDateTimes = JsonConvert.DeserializeObject(json.Dates.ToString(), );
+            
             dynamic eNewEvent = JsonConvert.DeserializeObject(json.ToString());
 
+            
             int id = (int) eNewEvent.newEvent.id;
             string eventTitle = eNewEvent.newEvent.title;
             string eventDesc = eNewEvent.newEvent.desc;
@@ -121,8 +177,9 @@ namespace HasserisWeb.Controllers
             
             // Den svenske virker men den danske kan ikke DateTime parse det vi får fra frontend: "12/31/2019 11:00:00" bliver til [31-12-2019 11:00:00] med svensk  
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
+            date1 = date1.AddHours(-1);
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
-
+            date2 = date2.AddHours(-1);
 
             // CultureInfo dk = new CultureInfo("da-DK");
             //DateTime date1 = DateTime.ParseExact(eventStart, "yyyy-MM-dd HH:mm", dk);

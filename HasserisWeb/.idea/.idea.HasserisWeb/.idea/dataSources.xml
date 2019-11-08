@@ -7,5 +7,17 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Database/Hasseris.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Hasseris.db [2]" uuid="b8d8fc1d-062b-46b7-b954-c83a487a573f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Database/Hasseris.db</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="HasserisDatabase.db" uuid="c473232b-661d-481b-92d7-5a2d2c01fda0">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Database/HasserisDatabase.db</jdbc-url>
+    </data-source>
   </component>
 </project>

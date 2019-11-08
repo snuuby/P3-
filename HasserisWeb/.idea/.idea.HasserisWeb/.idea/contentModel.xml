@@ -219,8 +219,8 @@
             </e>
             <e p="images" t="Include">
               <e p="avatars" t="Include">
+                <e p="Cholle.png" t="Include" />
                 <e p="profile.jpg" t="Include" />
-                <e p="Snuuby.jpeg" t="Include" />
                 <e p="Snuuby.png" t="Include" />
                 <e p="Velazquez.jpg" t="Include" />
               </e>
@@ -308,6 +308,9 @@
                 <e p="header-1.jpg" t="Include" />
                 <e p="header-2.jpg" t="Include" />
                 <e p="mail.jpg" t="Include" />
+              </e>
+              <e p="tasks" t="Include">
+                <e p="placeholder.png" t="Include" />
               </e>
             </e>
           </e>
@@ -1155,11 +1158,13 @@
               </e>
               <e p="customerOverview" t="Include">
                 <e p="AddDialog.js" t="Include" />
+                <e p="Customer.js" t="Include" />
                 <e p="CustomerOverview.js" t="Include" />
                 <e p="CustomerOverviewConfig.js" t="Include" />
                 <e p="CustomerOverviewHeader.js" t="Include" />
                 <e p="CustomerOverviewTable.js" t="Include" />
                 <e p="CustomerOverviewTableHead.js" t="Include" />
+                <e p="NewFile.txt" t="Include" />
                 <e p="store" t="Include">
                   <e p="actions" t="Include">
                     <e p="customerOverview.actions.js" t="Include" />
@@ -1359,7 +1364,12 @@
       </e>
       <e p="database" t="Include">
         <e p="Hasseris.db" t="Include" />
+        <e p="HasserisDatabase.db" t="Include" />
+        <e p="HasserisDatabase.db-shm" t="Include" />
+        <e p="HasserisDatabase.db-wal" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
+        <e p="TaskAssignedEmployees.cs" t="Include" />
+        <e p="TaskAssignedEquipment.cs" t="Include" />
       </e>
       <e p="HasserisWeb.csproj" t="IncludeRecursive" />
       <e p="HasserisWeb.sln" t="IncludeFlat" />
@@ -1391,6 +1401,7 @@
           <e p="Private.cs" t="Include" />
           <e p="Public.cs" t="Include" />
         </e>
+        <e p="DateTimes.cs" t="Include" />
         <e p="Employee.cs" t="Include" />
         <e p="Equipment" t="Include">
           <e p="Equipment.cs" t="Include" />
@@ -1398,6 +1409,7 @@
           <e p="Vehicle.cs" t="Include" />
         </e>
         <e p="Furniture.cs" t="Include" />
+        <e p="PauseTimes.cs" t="Include" />
         <e p="Task" t="Include">
           <e p="Delivery.cs" t="Include" />
           <e p="Moving.cs" t="Include" />

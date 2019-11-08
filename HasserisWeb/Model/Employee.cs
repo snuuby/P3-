@@ -15,7 +15,6 @@ namespace HasserisWeb
         [Required]
         public string Lastname { get;  set; }
         public string Username { get; set; }
-        [JsonIgnore]
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         public string Hashcode { get; set; }
         public bool IsAvailable { get; private set; } = true;
@@ -44,6 +43,7 @@ namespace HasserisWeb
             this.Address = Address;
             this.Type = Type;
             this.Employed = "employed";
+            this.PhotoPath = "assets/images/avatars/profile.jpg";
         }
         public void AddLoginInfo(string username, string password)
         {

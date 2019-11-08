@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const GET_EVENTS = '[CALENDAR APP] GET EVENTS';
+export const GET_TASK_ASSIGNED = '[CALENDAR APP] GET TASK ASSIGNED';
 export const OPEN_NEW_EVENT_DIALOG = '[CALENDAR APP] OPEN NEW EVENT DIALOG';
 export const CLOSE_NEW_EVENT_DIALOG = '[CALENDAR APP] CLOSE NEW EVENT DIALOG';
 export const OPEN_EDIT_EVENT_DIALOG = '[CALENDAR APP] OPEN EDIT EVENT DIALOG';
@@ -20,7 +21,8 @@ export function getEvents()
                 type   : GET_EVENTS,
                 payload: response.data
             })
-        );
+        )
+        
 }
 
 

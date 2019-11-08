@@ -15,6 +15,8 @@ const defaultFormState = {
     title : '',
     allDay: true,
     employees : null,
+    customer : null,
+    equipment : null,
     start : new Date(),
     end   : new Date(),
     desc  : '',

@@ -11,7 +11,6 @@ namespace HasserisWeb
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        [JsonIgnore]
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         [Required]
         public Customer Customer { get; set; }
@@ -20,7 +19,6 @@ namespace HasserisWeb
         [Required]
         public double Income { get; set; }
         public double Expenses { get; set; }
-        [JsonIgnore]
         public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
         public ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
         //Properties for calculating the total duration of a task, taskDuration.
@@ -56,6 +54,7 @@ namespace HasserisWeb
             this.WorkPhoneNumber = workPhoneNumber;
 
             this.IsPaused = false;
+            this.PhotoPath = "assets/images/tasks/placeholder.png";
         }
 
         public void BeginTasks()
