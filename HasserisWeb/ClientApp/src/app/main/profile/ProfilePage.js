@@ -59,6 +59,16 @@ function ProfilePage()
         }
     }
 
+    function onHoverOn() {
+        var icon = document.getElementById("profileimg");
+        icon.src = "/assets/images/avatars/newimage.png"
+    }
+    function onHoverOff() {
+        var icon = document.getElementById("profileimg");
+        icon.src = user.data.photoURL;
+    }
+
+
     // ---- function definition ----
     function selectFile(contentType, multiple) {
         return new Promise((resolve, reject) => {
@@ -92,8 +102,9 @@ function ProfilePage()
                     <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
                         <FuseAnimate animation="transition.expandIn" delay={300}>
                             <Avatar onClick={onAvatarClicked} className="w-96 h-96" >
-                                <img id="profileimg" src={user.data.photoURL} height="96" width="96" />
+                                <img id="profileimg" src={user.data.photoURL} height="96" width="96" onMouseEnter={onHoverOn} onMouseLeave={onHoverOff} />
                             </Avatar>
+                           
                         </FuseAnimate>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.firstName} {user.data.lastName}</Typography>
