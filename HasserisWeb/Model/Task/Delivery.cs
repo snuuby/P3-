@@ -10,9 +10,9 @@ namespace HasserisWeb
     public class Delivery : Task
     {
         [Required]
-        public string Material { get; }
+        public string Material { get; set; }
         [Required]
-        public int Quantity { get; }
+        public int Quantity { get; set; }
         public Delivery()
         {
 

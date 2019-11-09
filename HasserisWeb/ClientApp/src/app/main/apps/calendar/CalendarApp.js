@@ -165,7 +165,10 @@ const useStyles = makeStyles(theme => ({
 function CalendarApp(props)
 {
     const dispatch = useDispatch();
-    const events = useSelector(({calendarApp}) => calendarApp.events.entities);
+    const deliveries = useSelector(({ calendarApp }) => calendarApp.events.Deliveries);
+    const movings = useSelector(({ calendarApp }) => calendarApp.events.Movings);
+    const events = deliveries.concat(movings);
+
     const classes = useStyles(props);
     const headerEl = useRef(null);
 

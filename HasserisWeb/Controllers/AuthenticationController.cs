@@ -62,7 +62,7 @@ namespace HasserisWeb
 
 
 
-        public string GenerateToken(string username, int expireMinutes = 20)
+        public string GenerateToken(string username, int expireMinutes = 60)
         {
             var hmac = new HMACSHA256();
             var key = Convert.ToBase64String(hmac.Key);

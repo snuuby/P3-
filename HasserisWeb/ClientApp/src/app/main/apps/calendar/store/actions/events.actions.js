@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 export const GET_EVENTS = '[CALENDAR APP] GET EVENTS';
+export const GET_DELIVERY_EVENTS = '[CALENDAR APP] GET DELIVERY EVENTS';
+export const GET_MOVING_EVENTS = '[CALENDAR APP] GET MOVING EVENTS';
+
 export const GET_TASK_ASSIGNED = '[CALENDAR APP] GET TASK ASSIGNED';
 export const OPEN_NEW_EVENT_DIALOG = '[CALENDAR APP] OPEN NEW EVENT DIALOG';
 export const CLOSE_NEW_EVENT_DIALOG = '[CALENDAR APP] CLOSE NEW EVENT DIALOG';
@@ -13,15 +16,26 @@ export const SET_TASK_IMAGE = '[CALENDAR APP] SET IMAGE'
 
 export function getEvents()
 {
-    const request = axios.get('calendar/all');
+    const delivery_request = axios.get('calendar/Delivery');
+    const moving_request = axios.get('calendar/Moving');
 
-    return (dispatch) =>
-        request.then((response) =>
+
+    return (dispatch) => {
+        delivery_request.then((response) => 
             dispatch({
-                type   : GET_EVENTS,
+                type: GET_DELIVERY_EVENTS,
                 payload: response.data
             })
-        )
+        );
+        moving_request.then((response) =>
+            dispatch({
+                type: GET_MOVING_EVENTS,
+                payload: response.data
+            })
+        );
+    }
+
+        
         
 }
 

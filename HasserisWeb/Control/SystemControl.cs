@@ -43,8 +43,8 @@ namespace HasserisWeb
 
 
 
-                List<DateTime> testList = new List<DateTime>() { new DateTime(2019, 05, 03), new DateTime(2019, 05, 04) };
-                List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 03), new DateTime(2019, 12, 04) };
+                List<DateTime> testList = new List<DateTime>() { new DateTime(2019, 11, 13), new DateTime(2019, 11, 14) };
+                List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 03), new DateTime(2019, 11, 04) };
 
                 Delivery tempDelivery = new Delivery("Test Delivery", tempCustomer, new Address("Hasseris vej", "9220", "Aalborg", "Tredje dør til venstre"), 600, testList, "Giv erik noget", "28313131", "Foam", 5);
                 tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_one, Task = tempDelivery });
@@ -141,7 +141,7 @@ namespace HasserisWeb
                     foreach (var date in ctxTask.Dates)
                     {
 
-                        Console.WriteLine($"  {date.Date}");
+                        Console.WriteLine($"  {date.Date.DayOfYear}");
                     }
 
                 }

@@ -15,7 +15,7 @@ namespace HasserisWeb
         [Required]
         public Customer Customer { get; set; }
         [Required]
-        public Address Destination { get; }
+        public Address Destination { get; set; }
         [Required]
         public double Income { get; set; }
         public double Expenses { get; set; }

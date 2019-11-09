@@ -56,48 +56,51 @@ namespace HasserisWeb.Controllers
                     Include(employees => employees.taskAssignedEmployees).
                     Include(equipment => equipment.taskAssignedEquipment).FirstOrDefault(e => e.ID == id);
 
-
             database.Tasks.Remove(task);
             database.SaveChanges();
             
 
             return "andreas: " + id;
         }
-        
-        [Route("all")]
-        public string GetAllTasks()
-        {
-            
-            var movingList = database.Tasks.OfType<Moving>().Select(task => new
-            {
-                task,
-                task.Dates,
-                StartingAddress = ((Moving)task).StartingAddress,
-                Destination = ((Moving)task).Destination,
 
-                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
-                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
-            }).ToList();
-    
+        [Route("Delivery")]
+        public string GetMovingTask()
+        {
             var deliveryList = database.Tasks.OfType<Delivery>().Select(task => new
             {
                 task,
                 task.Dates,
+                task.Customer,
+                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
+                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
+            }).ToList();
+
+            return JsonConvert.SerializeObject(deliveryList);
+        }
+
+        [Route("Moving")]
+        public string GetDeliveryTask()
+        {
+            
+            var movingList = database.Tasks.OfType<Moving>().Include(f => f.Furnitures).Select(task => new
+            {
+                task,
+                Dates = task.Dates.OrderBy(c => c.Date).ToList(),
+                task.StartingAddress,
+                task.Destination,
+                task.Customer,
+                task.Furnitures,
+
                 Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
                 Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
             }).ToList();
 
 
-            var jMoving = JsonConvert.SerializeObject(movingList);
-            var jDelivery = JsonConvert.SerializeObject(deliveryList);
-
-
-//            var arrayOfObjects = JsonConvert.SerializeObject(
-//                new[] {JsonConvert.DeserializeObject(jMoving), JsonConvert.DeserializeObject(jDelivery)}
-//            );
-//                
-            return arrayOfObjects;
+            //                
+            return JsonConvert.SerializeObject(movingList);
         }
+
+
         
         
         

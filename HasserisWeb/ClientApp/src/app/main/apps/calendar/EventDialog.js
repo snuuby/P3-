@@ -11,16 +11,28 @@ import axios from "axios";
 import {OPTIONS} from "react-select/src/__tests__/constants";
 
 const defaultFormState = {
+    //Common task properties
     id    : '',
     title : '',
     allDay: true,
     employees : null,
     customer : null,
-    equipment : null,
+    equipment: null,
     start : new Date(),
     end   : new Date(),
     desc  : '',
-    combo : ''
+    combo: '',
+    image: '',
+    destination: null,
+
+    //Moving task specific properties
+    furniture: null,
+    startingaddress: null,
+    lentboxes: null,
+
+    //Delivery task specific properties
+    material: null,
+    quantity: null,
 };
 
 

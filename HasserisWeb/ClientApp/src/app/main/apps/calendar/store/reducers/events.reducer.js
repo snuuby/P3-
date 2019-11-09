@@ -1,13 +1,13 @@
 import * as Actions from '../actions';
 
 const initialState = {
-    entities   : [],
+    Deliveries: [],
+    Movings: [],
     eventDialog: {
         type : 'new',
         props: {
             open: false
         },
-        image: 'assets/images/tasks/placeholder.png',
         data : null
     }
 };
@@ -15,27 +15,57 @@ const initialState = {
 const eventsReducer = function (state = initialState, action) {
     switch ( action.type )
     {
-        case Actions.GET_EVENTS:
+        case Actions.GET_DELIVERY_EVENTS:
         {
             
-            const entities = action.payload.map((event) => (
+            const Deliveries = action.payload.map((delivery) => (
                 {
-                    ...event,
-                    id: event.ID,
-                    title : event.task.Name,
-                    desc: event.task.Description,
-                    customer : event.task.Customer,
-                    start: new Date(event.task.Dates[0].Date),
-                    end  : new Date(event.task.Dates[1].Date)
+                    id: delivery.task.ID,
+                    title: delivery.task.Name,
+                    desc: delivery.task.Description,
+                    customer: delivery.Customer,
+                    employees: delivery.Employees,
+                    equipment: delivery.Equipment,
+                    quantity: delivery.task.Quantity,
+                    material: delivery.task.Material,
+                    start: new Date(delivery.Dates[0].Date),
+                    end: new Date(delivery.Dates[delivery.Dates.length - 1].Date),
+                    image: delivery.task.PhotoPath
                 }
-                
             ));
 
             return {
                 ...state,
-                entities,
+                Deliveries,
             };
         }
+        case Actions.GET_MOVING_EVENTS:
+            {
+
+                const Movings = action.payload.map((moving) => (
+                    {
+                        id: moving.task.ID,
+                        title: moving.task.Name,
+                        desc: moving.task.Description,
+                        customer: moving.Customer,
+                        employees: moving.Employees,
+                        equipment: moving.Equipment,
+                        lentboxes: moving.task.LentBoxes,
+                        start: new Date(moving.Dates[0].Date),
+                        startingaddress: moving.StartingAddress,
+                        destination: moving.Destination,
+                        furniture: moving.Furniture,
+                        end: new Date(moving.Dates[moving.Dates.length - 1].Date),
+                        image: moving.task.PhotoPath
+                    }
+                ));
+
+                return {
+                    ...state,
+                    Movings,
+                };
+            }
+        
         case Actions.OPEN_NEW_EVENT_DIALOG:
         {
             return {

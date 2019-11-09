@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj": {}
+    "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj": {
+    "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj",
+        "projectUniqueName": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
         "projectName": "HasserisWeb",
-        "projectPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\HasserisWeb.csproj",
-        "packagesPath": "C:\\Users\\cholle18 AAU\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cholle18 AAU\\Documents\\Github\\P3\\P3-dis\\HasserisWeb\\obj\\",
+        "projectPath": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\HasserisWeb.csproj",
+        "packagesPath": "C:\\Users\\hansen17\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hansen17\\Documents\\GitHub\\P3-\\HasserisWeb\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\cholle18 AAU\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\hansen17\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -68,6 +75,12 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
+            "Microsoft.TypeScript.MSBuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.7.2, )"
+            },
             "System.Data.SQLite.Core": {
               "target": "Package",
               "version": "[1.0.111, )"
@@ -90,7 +103,16 @@
             "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
