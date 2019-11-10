@@ -8,6 +8,7 @@ const initialState = {
         props: {
             open: false
         },
+        eventType : null,
         data : null
     }
 };

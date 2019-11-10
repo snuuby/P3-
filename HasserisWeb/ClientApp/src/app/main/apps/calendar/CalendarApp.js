@@ -14,6 +14,8 @@ import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import EventDialog from './EventDialog';
 import CalendarHeader from './CalendarHeader';
+import DecideTask from './DecideTask';
+
 import * as ReactDOM from 'react-dom';
 
 const localizer = momentLocalizer(moment);
@@ -168,6 +170,7 @@ function CalendarApp(props)
     const deliveries = useSelector(({ calendarApp }) => calendarApp.events.Deliveries);
     const movings = useSelector(({ calendarApp }) => calendarApp.events.Movings);
     const events = deliveries.concat(movings);
+    const calendarAppEl = document.getElementById(props.id);
 
     const classes = useStyles(props);
     const headerEl = useRef(null);
@@ -218,22 +221,19 @@ function CalendarApp(props)
                     toolbar: (props) => {
                         return headerEl.current ?
                             ReactDOM.createPortal(
-                                <CalendarHeader {...props}/>,
+                                <CalendarHeader {...props} />,
                                 headerEl.current
-                            ) : <CalendarHeader {...props}/>;
+                            ) : <CalendarHeader {...props} />;
                     }
                 }}
-                
-                
+
+
                 // onNavigate={handleNavigate}
                 onSelectEvent={event => {
                     dispatch(Actions.openEditEventDialog(event));
                 }}
-                onSelectSlot={slotInfo => dispatch(Actions.openNewEventDialog({
-                    start: slotInfo.start.toLocaleString(),
-                    end  : slotInfo.end.toLocaleString()
-                }))}
-            />
+                onSelectSlot={slotInfo => ReactDOM.createPortal(< DecideTask {...slotInfo} />, document.getElementById('root')) }
+        />
 
             <EventDialog/>
         </div>

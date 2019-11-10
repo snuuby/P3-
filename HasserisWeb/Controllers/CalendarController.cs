@@ -56,6 +56,9 @@ namespace HasserisWeb.Controllers
                     Include(employees => employees.taskAssignedEmployees).
                     Include(equipment => equipment.taskAssignedEquipment).FirstOrDefault(e => e.ID == id);
 
+
+                database.Tasks.RemoveRange(task);
+
             database.Tasks.Remove(task);
             database.SaveChanges();
             
