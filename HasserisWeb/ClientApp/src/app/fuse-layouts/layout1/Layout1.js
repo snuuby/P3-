@@ -138,7 +138,7 @@ function Layout1(props)
                                         <FooterLayout1/>
                                     )}
 
-                                    <SettingsPanel/>
+                                    
 
                                 </div>
 
@@ -207,16 +207,16 @@ function Layout1(props)
 
                                     {props.children}
 
-                                    {config.footer.display && config.footer.position === 'below' && config.footer.style !== 'fixed' && (
+                                    {config.footer.display && config.footer.position === 'below' && config.footer.style !== 'static' && (
                                         <FooterLayout1/>
                                     )}
                                 </FuseScrollbars>
 
-                                {config.footer.display && config.footer.position === 'below' && config.footer.style === 'fixed' && (
+                                {config.footer.display && config.footer.position === 'below' && config.footer.style === 'static' && (
                                     <FooterLayout1/>
                                 )}
 
-                                <SettingsPanel/>
+                                
 
                             </div>
 
