@@ -36,7 +36,7 @@ namespace HasserisWeb.Controllers
                 .FirstOrDefault(c => c.ID == id));
         }
 
-
+        /*
         // Delete
         [Route("delete/{id}")]
         public ActionResult DeleteEmployee(int id)
@@ -49,6 +49,6 @@ namespace HasserisWeb.Controllers
         public Employee GetEmployeeFirstName(int id)
         {
             return HasserisDbContext.LoadElementFromDatabase("Employee", id); 
-        }
+        }*/
     }
 }

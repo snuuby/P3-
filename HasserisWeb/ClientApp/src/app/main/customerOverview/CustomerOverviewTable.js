@@ -140,10 +140,9 @@ function CustomerOverviewTable(props)
                                             return e.Type;
                                         }
                                         case 'lentboxes':
-                                            {
-                                                return e.LentBoxes;
+                                        {
+                                            return e.LentBoxes;
                                         }
-                                            
                                         
                                         default:
                                         {
@@ -191,7 +190,7 @@ function CustomerOverviewTable(props)
                                                 {n.Type}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
+                                            <TableCell component="th" scope="row">
                                                 {n.LentBoxes}
                                             </TableCell>
 

@@ -10,13 +10,10 @@ namespace HasserisWeb
     public class SystemControl
     {
 
-        public static Calendar calendar = new Calendar("Hasseris Calendar");
+        //public static Calendar calendar = new Calendar("Hasseris Calendar");
         public SystemControl()
         {
-<<<<<<< Updated upstream
-=======
-            
-            
+
             using (var db = new HasserisDbContext())
             {
                 db.Database.EnsureDeleted();
@@ -38,9 +35,9 @@ namespace HasserisWeb
 
                 Customer tempCustomer = new Private("Erik", "Larsen", new Address("Aalborg Vej", "9220", "Aalborg", "Første dør til højre"), new ContactInfo("Erik@gmail.com", "23131313"));
                 Customer tempCustomer_one = new Private("Lars", "Eriksen", new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"));
-                
+
                 Furniture tempFurniture = new Furniture("Sofa møbel", 10, "Sofa", 10);
-                
+
                 Equipment testEquipment = new Vehicle("Stor lastbil", "Opel", "13131313");
                 Equipment testEquipment_one = new Vehicle("Alimndelig bil", "Citroen", "13131313");
 
@@ -97,27 +94,26 @@ namespace HasserisWeb
                 db.Equipment.Add(testEquipment_one);
                 db.Furniture.Add(tempFurniture);
 
+                /*
+                DatabaseTester test = new DatabaseTester();
+                try
+                {
+                    Employee jakob = HasserisDbContext.VerifyPassword("Jakob17", "Snuuby");
+                    Debug.WriteLine(jakob.ID);
+                    //Do something with Jakob here
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Debug.WriteLine("Wrong password");
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Likely wrong username");
+                }
+                */
+            }
 
->>>>>>> Stashed changes
-
-            DatabaseTester test = new DatabaseTester();
-            try
-            {
-                Employee jakob = HasserisDbContext.VerifyPassword("Jakob17", "Snuuby");
-                Debug.WriteLine(jakob.id);
-                //Do something with Jakob here
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Debug.WriteLine("Wrong password");
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Likely wrong username");
-            }
 
         }
-
-
     }
 }

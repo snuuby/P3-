@@ -125,19 +125,19 @@ function VehicleOverviewTable(props)
                                     {
                                         case 'id':
                                         {
-                                            return parseInt(e.id, 10);
+                                            return parseInt(e.ID, 10);
                                         }
                                         case 'navn':
                                         {
-                                            return e.name;
+                                            return e.Name;
                                         }
                                         case 'model':
                                         {
-                                            return e.model;
+                                            return e.Model;
                                         }
                                         case 'nummerplade':
                                         {
-                                            return e.regNum;
+                                            return e.RegNum;
                                         }
                                         default:
                                         {
@@ -169,20 +169,19 @@ function VehicleOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.id}
+                                                {n.ID}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.name}
+                                                {n.Name}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.model}
+                                                {n.Model}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
-                                                <span>$</span>
-                                                {n.regNum}
+                                            <TableCell component="th" scope="row">
+                                                {n.RegNum}
                                             </TableCell>
                                                 
                                         </TableRow>
