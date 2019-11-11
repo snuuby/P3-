@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\cholle18 AAU\.Rider2019.2\config\consoles\db" t="IncludeRecursive" />
-    <e p="C:\Users\cholle18 AAU\.Rider2019.2\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\cholle18 AAU\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\cholle18 AAU\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_HasserisWeb.-604758082.00" t="ExcludeRecursive" />
-    <e p="C:\Users\cholle18 AAU\Documents\Github\P3\P3-dis\HasserisWeb" t="IncludeRecursive">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
@@ -18,44 +14,44 @@
         <e p="CREDITS" t="Include" />
         <e p="jsconfig.json" t="Include" />
         <e p="LICENSE" t="Include" />
-        <e p="node_modules\@babel\core" t="IncludeRecursive" />
-        <e p="node_modules\@babel\node" t="IncludeRecursive" />
-        <e p="node_modules\@babel\parser" t="IncludeRecursive" />
-        <e p="node_modules\@babel\preset-env" t="IncludeRecursive" />
-        <e p="node_modules\@babel\types" t="IncludeRecursive" />
-        <e p="node_modules\@date-io\date-fns" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\app" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\database" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\firestore" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\functions" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\installations" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\logger" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\messaging" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\performance" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\polyfill" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\storage" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\util" t="IncludeRecursive" />
-        <e p="node_modules\@firebase\webchannel-wrapper" t="IncludeRecursive" />
-        <e p="node_modules\@grpc\proto-loader" t="IncludeRecursive" />
-        <e p="node_modules\@jest\console" t="IncludeRecursive" />
-        <e p="node_modules\@jest\core" t="IncludeRecursive" />
-        <e p="node_modules\@jest\environment" t="IncludeRecursive" />
-        <e p="node_modules\@jest\fake-timers" t="IncludeRecursive" />
-        <e p="node_modules\@jest\reporters" t="IncludeRecursive" />
-        <e p="node_modules\@jest\source-map" t="IncludeRecursive" />
-        <e p="node_modules\@jest\test-result" t="IncludeRecursive" />
-        <e p="node_modules\@jest\test-sequencer" t="IncludeRecursive" />
-        <e p="node_modules\@jest\types" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\core" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\icons" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\pickers" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\styles" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\system" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\types" t="IncludeRecursive" />
-        <e p="node_modules\@material-ui\utils" t="IncludeRecursive" />
-        <e p="node_modules\@mrmlnc\readdir-enhanced" t="IncludeRecursive" />
-        <e p="node_modules\@nodelib\fs.stat" t="IncludeRecursive" />
-        <e p="node_modules\@types" t="IncludeRecursive">
+        <e p="node_modules/@babel/core" t="IncludeRecursive" />
+        <e p="node_modules/@babel/node" t="IncludeRecursive" />
+        <e p="node_modules/@babel/parser" t="IncludeRecursive" />
+        <e p="node_modules/@babel/preset-env" t="IncludeRecursive" />
+        <e p="node_modules/@babel/types" t="IncludeRecursive" />
+        <e p="node_modules/@date-io/date-fns" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/app" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/database" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/firestore" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/functions" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/installations" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/logger" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/messaging" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/performance" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/polyfill" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/storage" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/util" t="IncludeRecursive" />
+        <e p="node_modules/@firebase/webchannel-wrapper" t="IncludeRecursive" />
+        <e p="node_modules/@grpc/proto-loader" t="IncludeRecursive" />
+        <e p="node_modules/@jest/console" t="IncludeRecursive" />
+        <e p="node_modules/@jest/core" t="IncludeRecursive" />
+        <e p="node_modules/@jest/environment" t="IncludeRecursive" />
+        <e p="node_modules/@jest/fake-timers" t="IncludeRecursive" />
+        <e p="node_modules/@jest/reporters" t="IncludeRecursive" />
+        <e p="node_modules/@jest/source-map" t="IncludeRecursive" />
+        <e p="node_modules/@jest/test-result" t="IncludeRecursive" />
+        <e p="node_modules/@jest/test-sequencer" t="IncludeRecursive" />
+        <e p="node_modules/@jest/types" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/core" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/icons" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/pickers" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/styles" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/system" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/types" t="IncludeRecursive" />
+        <e p="node_modules/@material-ui/utils" t="IncludeRecursive" />
+        <e p="node_modules/@mrmlnc/readdir-enhanced" t="IncludeRecursive" />
+        <e p="node_modules/@nodelib/fs.stat" t="IncludeRecursive" />
+        <e p="node_modules/@types" t="IncludeRecursive">
           <e p="babel__generator" t="IncludeRecursive" />
           <e p="babel__template" t="IncludeRecursive" />
           <e p="babel__traverse" t="IncludeRecursive" />
@@ -69,126 +65,126 @@
           <e p="react" t="IncludeRecursive" />
           <e p="yargs-parser" t="IncludeRecursive" />
         </e>
-        <e p="node_modules\auth0-lock" t="IncludeRecursive" />
-        <e p="node_modules\autosuggest-highlight" t="IncludeRecursive" />
-        <e p="node_modules\axios" t="IncludeRecursive" />
-        <e p="node_modules\axios-mock-adapter" t="IncludeRecursive" />
-        <e p="node_modules\chalk" t="IncludeRecursive" />
-        <e p="node_modules\chart.js" t="IncludeRecursive" />
-        <e p="node_modules\chokidar" t="IncludeRecursive" />
-        <e p="node_modules\clsx" t="IncludeRecursive" />
-        <e p="node_modules\compute-scroll-into-view" t="IncludeRecursive" />
-        <e p="node_modules\create-react-context" t="IncludeRecursive" />
-        <e p="node_modules\cross-env" t="IncludeRecursive" />
-        <e p="node_modules\csstype" t="IncludeRecursive" />
-        <e p="node_modules\date-fns" t="IncludeRecursive" />
-        <e p="node_modules\diff-sequences" t="IncludeRecursive" />
-        <e p="node_modules\dotenv-expand" t="IncludeRecursive" />
-        <e p="node_modules\downshift" t="IncludeRecursive" />
-        <e p="node_modules\es6-promise" t="IncludeRecursive" />
-        <e p="node_modules\expect" t="IncludeRecursive" />
-        <e p="node_modules\fast-glob" t="IncludeRecursive" />
-        <e p="node_modules\firebase" t="IncludeRecursive" />
-        <e p="node_modules\formsy-react" t="IncludeRecursive" />
-        <e p="node_modules\google-map-react" t="IncludeRecursive" />
-        <e p="node_modules\grpc" t="IncludeRecursive" />
-        <e p="node_modules\idb" t="IncludeRecursive" />
-        <e p="node_modules\immutable" t="IncludeRecursive" />
-        <e p="node_modules\is-in-browser" t="IncludeRecursive" />
-        <e p="node_modules\is-plain-object" t="IncludeRecursive" />
-        <e p="node_modules\isobject" t="IncludeRecursive" />
-        <e p="node_modules\jest" t="IncludeRecursive" />
-        <e p="node_modules\jest-changed-files" t="IncludeRecursive" />
-        <e p="node_modules\jest-cli" t="IncludeRecursive" />
-        <e p="node_modules\jest-config" t="IncludeRecursive" />
-        <e p="node_modules\jest-diff" t="IncludeRecursive" />
-        <e p="node_modules\jest-each" t="IncludeRecursive" />
-        <e p="node_modules\jest-environment-jsdom" t="IncludeRecursive" />
-        <e p="node_modules\jest-environment-node" t="IncludeRecursive" />
-        <e p="node_modules\jest-get-type" t="IncludeRecursive" />
-        <e p="node_modules\jest-haste-map" t="IncludeRecursive" />
-        <e p="node_modules\jest-jasmine2" t="IncludeRecursive" />
-        <e p="node_modules\jest-leak-detector" t="IncludeRecursive" />
-        <e p="node_modules\jest-message-util" t="IncludeRecursive" />
-        <e p="node_modules\jest-mock" t="IncludeRecursive" />
-        <e p="node_modules\jest-regex-util" t="IncludeRecursive" />
-        <e p="node_modules\jest-resolve" t="IncludeRecursive" />
-        <e p="node_modules\jest-resolve-dependencies" t="IncludeRecursive" />
-        <e p="node_modules\jest-runner" t="IncludeRecursive" />
-        <e p="node_modules\jest-runtime" t="IncludeRecursive" />
-        <e p="node_modules\jest-serializer" t="IncludeRecursive" />
-        <e p="node_modules\jest-snapshot" t="IncludeRecursive" />
-        <e p="node_modules\jest-util" t="IncludeRecursive" />
-        <e p="node_modules\jest-validate" t="IncludeRecursive" />
-        <e p="node_modules\jest-worker" t="IncludeRecursive" />
-        <e p="node_modules\js-beautify" t="IncludeRecursive" />
-        <e p="node_modules\jsonwebtoken" t="IncludeRecursive" />
-        <e p="node_modules\jss" t="IncludeRecursive" />
-        <e p="node_modules\jss-extend" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-camel-case" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-default-unit" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-global" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-nested" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-props-sort" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-rule-value-function" t="IncludeRecursive" />
-        <e p="node_modules\jss-plugin-vendor-prefixer" t="IncludeRecursive" />
-        <e p="node_modules\jwt-decode" t="IncludeRecursive" />
-        <e p="node_modules\keycode" t="IncludeRecursive" />
-        <e p="node_modules\lodash" t="IncludeRecursive" />
-        <e p="node_modules\marked" t="IncludeRecursive" />
-        <e p="node_modules\material-table" t="IncludeRecursive" />
-        <e p="node_modules\material-ui-popup-state" t="IncludeRecursive" />
-        <e p="node_modules\mobile-detect" t="IncludeRecursive" />
-        <e p="node_modules\moment" t="IncludeRecursive" />
-        <e p="node_modules\normalize-scroll-left" t="IncludeRecursive" />
-        <e p="node_modules\notistack" t="IncludeRecursive" />
-        <e p="node_modules\path-to-regexp" t="IncludeRecursive" />
-        <e p="node_modules\perfect-scrollbar" t="IncludeRecursive" />
-        <e p="node_modules\popper.js" t="IncludeRecursive" />
-        <e p="node_modules\postcss" t="IncludeRecursive" />
-        <e p="node_modules\postcss-selector-parser" t="IncludeRecursive" />
-        <e p="node_modules\pretty-format" t="IncludeRecursive" />
-        <e p="node_modules\prismjs" t="IncludeRecursive" />
-        <e p="node_modules\purgecss" t="IncludeRecursive" />
-        <e p="node_modules\qs" t="IncludeRecursive" />
-        <e p="node_modules\raw-loader" t="IncludeRecursive" />
-        <e p="node_modules\react" t="IncludeRecursive" />
-        <e p="node_modules\react-autosuggest" t="IncludeRecursive" />
-        <e p="node_modules\react-beautiful-dnd" t="IncludeRecursive" />
-        <e p="node_modules\react-big-calendar" t="IncludeRecursive" />
-        <e p="node_modules\react-chartjs-2" t="IncludeRecursive" />
-        <e p="node_modules\react-dom" t="IncludeRecursive" />
-        <e p="node_modules\react-draggable" t="IncludeRecursive" />
-        <e p="node_modules\react-frame-component" t="IncludeRecursive" />
-        <e p="node_modules\react-masonry-css" t="IncludeRecursive" />
-        <e p="node_modules\react-number-format" t="IncludeRecursive" />
-        <e p="node_modules\react-popper" t="IncludeRecursive" />
-        <e p="node_modules\react-redux" t="IncludeRecursive" />
-        <e p="node_modules\react-router-config" t="IncludeRecursive" />
-        <e p="node_modules\react-router-dom" t="IncludeRecursive" />
-        <e p="node_modules\react-scripts" t="IncludeRecursive" />
-        <e p="node_modules\react-select" t="IncludeRecursive" />
-        <e p="node_modules\react-spring" t="IncludeRecursive" />
-        <e p="node_modules\react-swipeable-views" t="IncludeRecursive" />
-        <e p="node_modules\react-table" t="IncludeRecursive" />
-        <e p="node_modules\react-text-mask" t="IncludeRecursive" />
-        <e p="node_modules\react-virtualized" t="IncludeRecursive" />
-        <e p="node_modules\react-window" t="IncludeRecursive" />
-        <e p="node_modules\realpath-native" t="IncludeRecursive" />
-        <e p="node_modules\redux" t="IncludeRecursive" />
-        <e p="node_modules\redux-thunk" t="IncludeRecursive" />
-        <e p="node_modules\rifm" t="IncludeRecursive" />
-        <e p="node_modules\rxjs" t="IncludeRecursive" />
-        <e p="node_modules\source-map" t="IncludeRecursive" />
-        <e p="node_modules\symbol-observable" t="IncludeRecursive" />
-        <e p="node_modules\tailwindcss" t="IncludeRecursive" />
-        <e p="node_modules\tiny-warning" t="IncludeRecursive" />
-        <e p="node_modules\tslib" t="IncludeRecursive" />
-        <e p="node_modules\typeface-muli" t="IncludeRecursive" />
-        <e p="node_modules\upath" t="IncludeRecursive" />
-        <e p="node_modules\velocity-react" t="IncludeRecursive" />
-        <e p="node_modules\webpack-bundle-analyzer" t="IncludeRecursive" />
-        <e p="node_modules\worker-farm" t="IncludeRecursive" />
+        <e p="node_modules/auth0-lock" t="IncludeRecursive" />
+        <e p="node_modules/autosuggest-highlight" t="IncludeRecursive" />
+        <e p="node_modules/axios" t="IncludeRecursive" />
+        <e p="node_modules/axios-mock-adapter" t="IncludeRecursive" />
+        <e p="node_modules/chalk" t="IncludeRecursive" />
+        <e p="node_modules/chart.js" t="IncludeRecursive" />
+        <e p="node_modules/chokidar" t="IncludeRecursive" />
+        <e p="node_modules/clsx" t="IncludeRecursive" />
+        <e p="node_modules/compute-scroll-into-view" t="IncludeRecursive" />
+        <e p="node_modules/create-react-context" t="IncludeRecursive" />
+        <e p="node_modules/cross-env" t="IncludeRecursive" />
+        <e p="node_modules/csstype" t="IncludeRecursive" />
+        <e p="node_modules/date-fns" t="IncludeRecursive" />
+        <e p="node_modules/diff-sequences" t="IncludeRecursive" />
+        <e p="node_modules/dotenv-expand" t="IncludeRecursive" />
+        <e p="node_modules/downshift" t="IncludeRecursive" />
+        <e p="node_modules/es6-promise" t="IncludeRecursive" />
+        <e p="node_modules/expect" t="IncludeRecursive" />
+        <e p="node_modules/fast-glob" t="IncludeRecursive" />
+        <e p="node_modules/firebase" t="IncludeRecursive" />
+        <e p="node_modules/formsy-react" t="IncludeRecursive" />
+        <e p="node_modules/google-map-react" t="IncludeRecursive" />
+        <e p="node_modules/grpc" t="IncludeRecursive" />
+        <e p="node_modules/idb" t="IncludeRecursive" />
+        <e p="node_modules/immutable" t="IncludeRecursive" />
+        <e p="node_modules/is-in-browser" t="IncludeRecursive" />
+        <e p="node_modules/is-plain-object" t="IncludeRecursive" />
+        <e p="node_modules/isobject" t="IncludeRecursive" />
+        <e p="node_modules/jest" t="IncludeRecursive" />
+        <e p="node_modules/jest-changed-files" t="IncludeRecursive" />
+        <e p="node_modules/jest-cli" t="IncludeRecursive" />
+        <e p="node_modules/jest-config" t="IncludeRecursive" />
+        <e p="node_modules/jest-diff" t="IncludeRecursive" />
+        <e p="node_modules/jest-each" t="IncludeRecursive" />
+        <e p="node_modules/jest-environment-jsdom" t="IncludeRecursive" />
+        <e p="node_modules/jest-environment-node" t="IncludeRecursive" />
+        <e p="node_modules/jest-get-type" t="IncludeRecursive" />
+        <e p="node_modules/jest-haste-map" t="IncludeRecursive" />
+        <e p="node_modules/jest-jasmine2" t="IncludeRecursive" />
+        <e p="node_modules/jest-leak-detector" t="IncludeRecursive" />
+        <e p="node_modules/jest-message-util" t="IncludeRecursive" />
+        <e p="node_modules/jest-mock" t="IncludeRecursive" />
+        <e p="node_modules/jest-regex-util" t="IncludeRecursive" />
+        <e p="node_modules/jest-resolve" t="IncludeRecursive" />
+        <e p="node_modules/jest-resolve-dependencies" t="IncludeRecursive" />
+        <e p="node_modules/jest-runner" t="IncludeRecursive" />
+        <e p="node_modules/jest-runtime" t="IncludeRecursive" />
+        <e p="node_modules/jest-serializer" t="IncludeRecursive" />
+        <e p="node_modules/jest-snapshot" t="IncludeRecursive" />
+        <e p="node_modules/jest-util" t="IncludeRecursive" />
+        <e p="node_modules/jest-validate" t="IncludeRecursive" />
+        <e p="node_modules/jest-worker" t="IncludeRecursive" />
+        <e p="node_modules/js-beautify" t="IncludeRecursive" />
+        <e p="node_modules/jsonwebtoken" t="IncludeRecursive" />
+        <e p="node_modules/jss" t="IncludeRecursive" />
+        <e p="node_modules/jss-extend" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-camel-case" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-default-unit" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-global" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-nested" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-props-sort" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-rule-value-function" t="IncludeRecursive" />
+        <e p="node_modules/jss-plugin-vendor-prefixer" t="IncludeRecursive" />
+        <e p="node_modules/jwt-decode" t="IncludeRecursive" />
+        <e p="node_modules/keycode" t="IncludeRecursive" />
+        <e p="node_modules/lodash" t="IncludeRecursive" />
+        <e p="node_modules/marked" t="IncludeRecursive" />
+        <e p="node_modules/material-table" t="IncludeRecursive" />
+        <e p="node_modules/material-ui-popup-state" t="IncludeRecursive" />
+        <e p="node_modules/mobile-detect" t="IncludeRecursive" />
+        <e p="node_modules/moment" t="IncludeRecursive" />
+        <e p="node_modules/normalize-scroll-left" t="IncludeRecursive" />
+        <e p="node_modules/notistack" t="IncludeRecursive" />
+        <e p="node_modules/path-to-regexp" t="IncludeRecursive" />
+        <e p="node_modules/perfect-scrollbar" t="IncludeRecursive" />
+        <e p="node_modules/popper.js" t="IncludeRecursive" />
+        <e p="node_modules/postcss" t="IncludeRecursive" />
+        <e p="node_modules/postcss-selector-parser" t="IncludeRecursive" />
+        <e p="node_modules/pretty-format" t="IncludeRecursive" />
+        <e p="node_modules/prismjs" t="IncludeRecursive" />
+        <e p="node_modules/purgecss" t="IncludeRecursive" />
+        <e p="node_modules/qs" t="IncludeRecursive" />
+        <e p="node_modules/raw-loader" t="IncludeRecursive" />
+        <e p="node_modules/react" t="IncludeRecursive" />
+        <e p="node_modules/react-autosuggest" t="IncludeRecursive" />
+        <e p="node_modules/react-beautiful-dnd" t="IncludeRecursive" />
+        <e p="node_modules/react-big-calendar" t="IncludeRecursive" />
+        <e p="node_modules/react-chartjs-2" t="IncludeRecursive" />
+        <e p="node_modules/react-dom" t="IncludeRecursive" />
+        <e p="node_modules/react-draggable" t="IncludeRecursive" />
+        <e p="node_modules/react-frame-component" t="IncludeRecursive" />
+        <e p="node_modules/react-masonry-css" t="IncludeRecursive" />
+        <e p="node_modules/react-number-format" t="IncludeRecursive" />
+        <e p="node_modules/react-popper" t="IncludeRecursive" />
+        <e p="node_modules/react-redux" t="IncludeRecursive" />
+        <e p="node_modules/react-router-config" t="IncludeRecursive" />
+        <e p="node_modules/react-router-dom" t="IncludeRecursive" />
+        <e p="node_modules/react-scripts" t="IncludeRecursive" />
+        <e p="node_modules/react-select" t="IncludeRecursive" />
+        <e p="node_modules/react-spring" t="IncludeRecursive" />
+        <e p="node_modules/react-swipeable-views" t="IncludeRecursive" />
+        <e p="node_modules/react-table" t="IncludeRecursive" />
+        <e p="node_modules/react-text-mask" t="IncludeRecursive" />
+        <e p="node_modules/react-virtualized" t="IncludeRecursive" />
+        <e p="node_modules/react-window" t="IncludeRecursive" />
+        <e p="node_modules/realpath-native" t="IncludeRecursive" />
+        <e p="node_modules/redux" t="IncludeRecursive" />
+        <e p="node_modules/redux-thunk" t="IncludeRecursive" />
+        <e p="node_modules/rifm" t="IncludeRecursive" />
+        <e p="node_modules/rxjs" t="IncludeRecursive" />
+        <e p="node_modules/source-map" t="IncludeRecursive" />
+        <e p="node_modules/symbol-observable" t="IncludeRecursive" />
+        <e p="node_modules/tailwindcss" t="IncludeRecursive" />
+        <e p="node_modules/tiny-warning" t="IncludeRecursive" />
+        <e p="node_modules/tslib" t="IncludeRecursive" />
+        <e p="node_modules/typeface-muli" t="IncludeRecursive" />
+        <e p="node_modules/upath" t="IncludeRecursive" />
+        <e p="node_modules/velocity-react" t="IncludeRecursive" />
+        <e p="node_modules/webpack-bundle-analyzer" t="IncludeRecursive" />
+        <e p="node_modules/worker-farm" t="IncludeRecursive" />
         <e p="package-lock.json" t="Include" />
         <e p="package.json" t="Include" />
         <e p="public" t="Include">
@@ -219,6 +215,7 @@
             </e>
             <e p="images" t="Include">
               <e p="avatars" t="Include">
+                <e p="Cholle.png" t="Include" />
                 <e p="profile.jpg" t="Include" />
                 <e p="Snuuby.jpeg" t="Include" />
                 <e p="Snuuby.png" t="Include" />
@@ -1310,12 +1307,6 @@
       </e>
       <e p="ClientAppOld" t="Include">
         <e p=".gitignore" t="Include" />
-        <e p="node_modules\cross-env" t="IncludeRecursive" />
-        <e p="node_modules\eslint" t="IncludeRecursive" />
-        <e p="node_modules\eslint-plugin-flowtype" t="IncludeRecursive" />
-        <e p="node_modules\eslint-plugin-import" t="IncludeRecursive" />
-        <e p="node_modules\oidc-client" t="IncludeRecursive" />
-        <e p="node_modules\react-scripts" t="IncludeRecursive" />
         <e p="package-lock.json" t="Include" />
         <e p="package.json" t="Include" />
         <e p="public" t="Include">
@@ -1358,29 +1349,13 @@
         <e p="WeatherForecastController.cs" t="Include" />
       </e>
       <e p="database" t="Include">
+        <e p="BROKENDB.db" t="Include" />
+        <e p="BrokenVeryHasseris.db" t="Include" />
         <e p="Hasseris.db" t="Include" />
         <e p="HasserisDbContext.cs" t="Include" />
       </e>
       <e p="HasserisWeb.csproj" t="IncludeRecursive" />
       <e p="HasserisWeb.sln" t="IncludeFlat" />
-      <e p="HasserisWebUnitTesting" t="Include">
-        <e p="obj" t="Include">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
-              <e p="HasserisWebUnitTesting.AssemblyInfo.cs" t="Include" />
-              <e p="HasserisWebUnitTesting.AssemblyInfoInputs.cache" t="Include" />
-              <e p="HasserisWebUnitTesting.assets.cache" t="Include" />
-              <e p="HasserisWebUnitTesting.csprojAssemblyReference.cache" t="Include" />
-            </e>
-          </e>
-          <e p="HasserisWebUnitTesting.csproj.nuget.cache" t="Include" />
-          <e p="HasserisWebUnitTesting.csproj.nuget.dgspec.json" t="Include" />
-          <e p="HasserisWebUnitTesting.csproj.nuget.g.props" t="Include" />
-          <e p="HasserisWebUnitTesting.csproj.nuget.g.targets" t="Include" />
-          <e p="project.assets.json" t="Include" />
-          <e p="project.packagespec.json" t="Include" />
-        </e>
-      </e>
       <e p="Model" t="Include">
         <e p="Address.cs" t="Include" />
         <e p="Calendar.cs" t="Include" />
@@ -1404,9 +1379,9 @@
           <e p="Task.cs" t="Include" />
         </e>
       </e>
-      <e p="node_modules\bootstrap" t="IncludeRecursive" />
-      <e p="node_modules\react-dropdown" t="IncludeRecursive" />
-      <e p="node_modules\react-widgets" t="IncludeRecursive" />
+      <e p="node_modules/bootstrap" t="IncludeRecursive" />
+      <e p="node_modules/react-dropdown" t="IncludeRecursive" />
+      <e p="node_modules/react-widgets" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.0" t="Include">
@@ -1430,5 +1405,10 @@
       <e p="WeatherForecast.cs" t="Include" />
       <e p="yarn.lock" t="Include" />
     </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_HasserisWeb.1349358876.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
   </component>
 </project>

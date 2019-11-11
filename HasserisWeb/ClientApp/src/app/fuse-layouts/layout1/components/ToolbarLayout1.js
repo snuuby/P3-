@@ -35,9 +35,7 @@ function ToolbarLayout1(props)
                     )}
 
                     <div className="flex flex-1">
-                        <Hidden mdDown>
-                            <FuseShortcuts className="px-16"/>
-                        </Hidden>
+                        
                     </div>
 
                     <div className="flex">
@@ -46,7 +44,7 @@ function ToolbarLayout1(props)
 
                         <div className={classes.separator}/>
 
-                        <FuseSearch/>
+                        
 
                         <Hidden lgUp>
 
@@ -56,7 +54,7 @@ function ToolbarLayout1(props)
 
                         <div className={classes.separator}/>
 
-                        <QuickPanelToggleButton/>
+                        
                     </div>
 
                     {config.navbar.display && config.navbar.position === 'right' && (
