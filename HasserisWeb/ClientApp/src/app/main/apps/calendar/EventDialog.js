@@ -45,8 +45,8 @@ function EventDialog(props)
     // her
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
-    
-    
+
+
     const initDialog = useCallback(
         () => {
             /**
@@ -81,8 +81,8 @@ function EventDialog(props)
             initDialog();
         }
     }, [eventDialog.props.open, initDialog]);
-    
-    
+
+
     function closeComposeDialog()
     {
         eventDialog.type === 'edit' ? dispatch(Actions.closeEditEventDialog()) : dispatch(Actions.closeNewEventDialog());
@@ -115,15 +115,15 @@ function EventDialog(props)
         dispatch(Actions.removeEvent(form.id));
         closeComposeDialog();
     }
-    
+
     return (
-        
-        
-        
+
+
+
         <Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 
-            
-            
+
+
             <AppBar position="static">
                 <Toolbar className="flex w-full">
                     <Typography variant="subtitle1" color="inherit">
@@ -182,7 +182,7 @@ function EventDialog(props)
                         variant="outlined"
                         fullWidth
                     />
-                    
+
                     <TextField
                         id="end"
                         name="end"
@@ -202,12 +202,12 @@ function EventDialog(props)
                     />
 
 
-                                        
+
                     <Select
                         textField='name'
-                        groupBy='lastName'                    
+                        groupBy='lastName'
                     />
-                    
+
                     <TextField
                         className="mt-8 mb-16"
                         id="desc" label="Beskrivelse"

@@ -36,8 +36,8 @@ namespace HasserisWeb
         {
 
         }
-        
-        public Task(string name, Customer assignedCustomer, Address destination, 
+
+        public Task(string name, Customer assignedCustomer, Address destination,
                             double income, List<DateTime> Ldates, string description, string workPhoneNumber)
         {
             this.Name = name;
@@ -61,7 +61,7 @@ namespace HasserisWeb
         {
             this.StartTime = DateTime.Now;
         }
-        public void ResumeTasks() 
+        public void ResumeTasks()
         {
             if (IsPaused)
             {
@@ -69,7 +69,7 @@ namespace HasserisWeb
                 StartTime = DateTime.Now;
             }
         }
-        public void PauseTasks() 
+        public void PauseTasks()
         {
             if (!IsPaused)
             {
@@ -100,11 +100,11 @@ namespace HasserisWeb
         {
             this.EndTime = DateTime.Now;
             TimeSpan t = EndTime - StartTime;
-            if (PauseTimes.Count >= 2) 
+            if (PauseTimes.Count >= 2)
             {
                 TaskDuration += t;
             }
-            else 
+            else
             {
                 TaskDuration = t;
             }
@@ -124,9 +124,9 @@ namespace HasserisWeb
             }
             return totalCost;
         }
-        
-        //Adds element to appointment (can be both equipment and employee). 
-        //Also adds this appointment to either employee or equipment object so all we have to do is call this function 
+
+        //Adds element to appointment (can be both equipment and employee).
+        //Also adds this appointment to either employee or equipment object so all we have to do is call this function
         //Also adds this elements id to the id string so we can transfer it to the database to keep track of all elements in this appointment
         public void AddElementToTask(dynamic element)
         {
@@ -170,7 +170,7 @@ namespace HasserisWeb
                     }
                 }
             }
-            
+
         }
         */
     }

@@ -12,6 +12,8 @@ export const SET_OVERVIEW_SEARCH_TEXT = '[EMPLOYEE APP] SET OVERVIEW SEARCH TEXT
 export const ADD_EMPLOYEE = '[EMPLOYEE APP] ADD EMPLOYEE';
 export const OPEN_NEW_ADD_DIALOG = '[EMPLOYEE APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[EMPLOYEE APP] CLOSE NEW ADD DIALOG';
+export const GET_EMPLOYEE = '[EMPLOYEE APP] GET SPECIFIC EMPLOYEE';
+
 
 // Gets all employees
 export function getEmployees()
@@ -23,6 +25,19 @@ export function getEmployees()
         request.then((response) =>
             dispatch({
                 type   : GET_EMPLOYEES,
+                payload: response.data
+            })
+        );
+}
+
+export function getEmployee(params) {
+    const request = axios.get("employees/" + params.EmployeeId);
+    request.then(response => console.log(response.data));
+
+    return (dispatch) =>
+        request.then((response) =>
+            dispatch({
+                type: GET_EMPLOYEE,
                 payload: response.data
             })
         );

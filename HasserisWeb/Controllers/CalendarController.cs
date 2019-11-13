@@ -34,7 +34,7 @@ namespace HasserisWeb.Controllers
         public List<Employee> Employees;
         public List<Equipment> Equipment;
     }
-    
+
     [Route("calendar")]
     public class CalendarController : Controller
     {
@@ -61,7 +61,7 @@ namespace HasserisWeb.Controllers
 
             database.Tasks.Remove(task);
             database.SaveChanges();
-            
+
 
             return "andreas: " + id;
         }
@@ -84,7 +84,7 @@ namespace HasserisWeb.Controllers
         [Route("Moving")]
         public string GetDeliveryTask()
         {
-            
+
             var movingList = database.Tasks.OfType<Moving>().Include(f => f.Furnitures).Select(task => new
             {
                 task,
@@ -99,22 +99,22 @@ namespace HasserisWeb.Controllers
             }).ToList();
 
 
-            //                
+            //
             return JsonConvert.SerializeObject(movingList);
         }
 
 
-        
-        
-        
+
+
+
         /*
         [HttpPost]
         [Route("add")]
         public JsonResult AddEvent()
         {
             return Json("asd");
-        } 
-        */ 
+        }
+        */
 
         [HttpPost]
         [Route("add")]
@@ -126,20 +126,20 @@ namespace HasserisWeb.Controllers
             string eventDesc = eNewEvent.newEvent.desc;
             string eventStart = eNewEvent.newEvent.start;
             string eventEnd = eNewEvent.newEvent.end;
-       
+
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
             date1 = date1.AddHours(-1);
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
             date2 = date2.AddHours(-1);
 
-            
+
             List<DateTime> dates = new List<DateTime>();
             dates.Add(date1);
             dates.Add(date2);
-            
-            
-            
-            
+
+
+
+
             //dynamic tempCustomer = database.Customers.FirstOrDefault(c => c.ID == eNewEvent.Customer.ID);
             Private privateCustomer = (Private)database.Customers.FirstOrDefault(c => c.ID == 1);
             Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
@@ -150,7 +150,7 @@ namespace HasserisWeb.Controllers
 
             database.Tasks.Add(delivery);
             database.SaveChanges();
-            
+
             return "asdqwe";
 
         }
@@ -165,12 +165,12 @@ namespace HasserisWeb.Controllers
 //                DateFormatString = "yyyy-MM-ddTH:mm:ss.fff2",
 //                DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind
 //            };
-//            
+//
 //            var eDateTimes = JsonConvert.DeserializeObject(json.Dates.ToString(), );
-            
+
             dynamic eNewEvent = JsonConvert.DeserializeObject(json.ToString());
 
-            
+
             int id = (int) eNewEvent.newEvent.id;
             string eventTitle = eNewEvent.newEvent.title;
             string eventDesc = eNewEvent.newEvent.desc;
@@ -180,8 +180,8 @@ namespace HasserisWeb.Controllers
             //eventStart = eventStart.Remove(eventStart.Length - 3);
             //eventEnd = eventEnd.Remove(eventEnd.Length - 3);
 
-            
-            // Den svenske virker men den danske kan ikke DateTime parse det vi får fra frontend: "12/31/2019 11:00:00" bliver til [31-12-2019 11:00:00] med svensk  
+
+            // Den svenske virker men den danske kan ikke DateTime parse det vi får fra frontend: "12/31/2019 11:00:00" bliver til [31-12-2019 11:00:00] med svensk
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
             date1 = date1.AddHours(-1);
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
@@ -208,7 +208,7 @@ namespace HasserisWeb.Controllers
 
             database.Tasks.Update(delivery);
             database.SaveChanges();
-            
+
 
             return "asd";
         }

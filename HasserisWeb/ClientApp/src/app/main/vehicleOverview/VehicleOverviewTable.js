@@ -61,7 +61,7 @@ function VehicleOverviewTable(props)
     // Det er ved click, måske mere vehicle information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/vehicle/' + item.ID);
     }
 
     function handleCheck(event, id)
@@ -180,11 +180,10 @@ function VehicleOverviewTable(props)
                                                 {n.Model}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
-                                                <span></span>
+                                            <TableCell component="th" scope="row">
                                                 {n.RegNum}
                                             </TableCell>
-                                                
+
                                         </TableRow>
                                     );
                                 })}

@@ -18,7 +18,7 @@ const eventsReducer = function (state = initialState, action) {
     {
         case Actions.GET_DELIVERY_EVENTS:
         {
-            
+
             const Deliveries = action.payload.map((delivery) => (
                 {
                     id: delivery.task.ID,
@@ -33,6 +33,7 @@ const eventsReducer = function (state = initialState, action) {
                     end: new Date(delivery.Dates[delivery.Dates.length - 1].Date),
                     image: delivery.task.PhotoPath
                 }
+
             ));
 
             return {
@@ -66,7 +67,7 @@ const eventsReducer = function (state = initialState, action) {
                     Movings,
                 };
             }
-        
+
         case Actions.OPEN_NEW_EVENT_DIALOG:
         {
             return {

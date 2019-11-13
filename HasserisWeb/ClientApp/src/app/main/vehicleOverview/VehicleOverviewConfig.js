@@ -13,6 +13,10 @@ export const VehicleOverviewConfig = {
         {
             path     : '/vehicle/overview',
             component: React.lazy(() => import('./VehicleOverview'))
+        },
+        {
+            path        : '/vehicle/:VehicleId',
+            component   : React.lazy(() => import('./Vehicle'))
         }
     ]
 };
