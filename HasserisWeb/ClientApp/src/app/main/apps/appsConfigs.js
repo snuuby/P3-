@@ -9,7 +9,13 @@ import {ChatAppConfig} from "./chat/ChatAppConfig";
 import {ECommerceAppConfig} from './e-commerce/ECommerceAppConfig';
 import {ScrumboardAppConfig} from './scrumboard/ScrumboardAppConfig';
 import {AcademyAppConfig} from './academy/AcademyAppConfig';
-import {NotesAppConfig} from './notes/NotesAppConfig';
+import { NotesAppConfig } from './notes/NotesAppConfig';
+import { LoginConfig } from "../login/LoginConfig";
+import { ProfilePageConfig } from "../profile/ProfilePageConfig";
+import { EmployeeOverviewConfig } from "../overview/EmployeeOverviewConfig";
+import { ToolOverviewConfig } from "../toolOverview/ToolOverviewConfig";
+import { VehicleOverviewConfig } from "../vehicleOverview/VehicleOverviewConfig";
+import { CustomerOverviewConfig } from "../customerOverview/CustomerOverviewConfig";
 
 export const appsConfigs = [
     AnalyticsDashboardAppConfig,
@@ -23,5 +29,11 @@ export const appsConfigs = [
     ECommerceAppConfig,
     ScrumboardAppConfig,
     AcademyAppConfig,
-    NotesAppConfig
+    NotesAppConfig,
+    EmployeeOverviewConfig,
+    LoginConfig,
+    ProfilePageConfig,
+    ToolOverviewConfig,
+    VehicleOverviewConfig,
+    CustomerOverviewConfig,
 ];

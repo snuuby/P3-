@@ -15,13 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Vi skal have flere routeConfigs her
 const routeConfigs = [
-    EmployeeOverviewConfig,
-    LoginConfig,
-    ProfilePageConfig,
-    ...appsConfigs,
-    ToolOverviewConfig,
-    VehicleOverviewConfig,
-    CustomerOverviewConfig,
+    ...appsConfigs
 ];
 
 const routes = [

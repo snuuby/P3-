@@ -162,7 +162,7 @@ class jwtService extends FuseUtils.EventEmitter {
             return false;
         }
         const decoded = jwtDecode(access_token);
-        const currentTime = Date.now() / 1000;
+        const currentTime = Date.now() / 10000;
         if ( decoded.exp < currentTime )
         {
             console.warn('access token expired');
