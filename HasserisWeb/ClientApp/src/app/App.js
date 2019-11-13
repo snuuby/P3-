@@ -8,7 +8,8 @@ import {Auth} from './auth';
 import store from './store';
 import AppContext from './AppContext';
 import routes from './fuse-configs/routesConfig';
-import {create} from 'jss';
+import { create } from 'jss';
+import ReactNotification from 'react-notifications-component';
 import {StylesProvider, jssPreset, createGenerateClassName} from '@material-ui/styles';
 
 const jss = create({
@@ -21,11 +22,13 @@ const generateClassName = createGenerateClassName();
 
 const App = () => {
     return (
+        
         <AppContext.Provider
             value={{
                 routes
             }}
         >
+            <ReactNotification/>
             <StylesProvider jss={jss} generateClassName={generateClassName}>
                 <Provider store={store}>
                     <Auth>

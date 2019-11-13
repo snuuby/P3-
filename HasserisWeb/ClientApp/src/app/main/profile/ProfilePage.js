@@ -6,6 +6,9 @@ import TimelineTab from './tabs/TimelineTab';
 import PhotosVideosTab from './tabs/PhotosVideosTab';
 import AboutTab from './tabs/AboutTab';
 import { useDispatch, useSelector } from 'react-redux';
+import { store } from 'react-notifications-component'; //https://github.com/teodosii/react-notifications-component#options
+import 'react-notifications-component/dist/theme.css';
+import 'animate.css';
 import * as Action from 'app/auth/store/actions';
 //import { dispatch } from 'rxjs/internal/observable/pairs';
 
@@ -22,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 function ProfilePage()
 {
+    var counter = 2;
     const classes = useStyles();
     const dispatch = useDispatch();
     const [selectedTab, setSelectedTab] = useState(0);
@@ -35,6 +39,21 @@ function ProfilePage()
     function getExtension(fileName) {
         var ext = fileName.split('.');
         return ext[ext.length - 1];
+    }
+    
+    function displayNotif() {
+        store.addNotification({
+            title: "Information",
+            message: "You have " + counter + " new messages",
+            type: "info",
+            container: "bottom-right",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 6000,
+                pauseOnHover: true,
+            }
+        });
     }
 
     // Button callback
@@ -80,6 +99,9 @@ function ProfilePage()
             
 
         });
+    }
+    if (counter > 0) {
+        displayNotif();
     }
     return (
         <FusePageSimple

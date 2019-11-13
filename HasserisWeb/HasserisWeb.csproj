@@ -32,10 +32,14 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <Compile Remove="ClientApp\src\app\main\notifications\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <Content Remove="ClientApp\src\app\main\notifications\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\notifications\**" />
     <EntityDeploy Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\notifications\**" />
     <Content Include="ClientApp\src\@fake-db\db\academy-db.js" />
     <Content Include="ClientApp\src\@fake-db\db\analytics-dashboard-db.js" />
     <Content Include="ClientApp\src\@fake-db\db\auth-db.js" />
@@ -160,10 +164,12 @@
     <Content Include="ClientApp\src\app\main\overview\store\reducers\index.js" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <None Remove="ClientApp\src\app\main\notifications\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\main\notifications\notifications.js" />
     <None Remove="Database\Hasseris3.db" />
     <None Remove="Hasseris.db" />
   </ItemGroup>
