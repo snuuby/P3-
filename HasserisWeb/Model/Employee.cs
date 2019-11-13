@@ -15,6 +15,7 @@ namespace HasserisWeb
         [Required]
         public string Lastname { get;  set; }
         public string Username { get; set; }
+        [JsonIgnore]
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
         public string Hashcode { get; set; }
         public bool IsAvailable { get; private set; } = true;
@@ -33,7 +34,7 @@ namespace HasserisWeb
         {
 
         }
-        
+
         public Employee(string Firstname, string Lastname, string Type, double Wage, ContactInfo ContactInfo, Address Address)
         {
             this.Firstname = Firstname;
@@ -60,7 +61,7 @@ namespace HasserisWeb
             var pbkdf2 = new Rfc2898DeriveBytes(tempPassword, salt, 10000);
             byte[] hash = pbkdf2.GetBytes(20);
 
-            //Step 3: Combine the salt and password bytes for later use 
+            //Step 3: Combine the salt and password bytes for later use
             byte[] hashBytes = new byte[36];
             Array.Copy(salt, 0, hashBytes, 0, 16);
             Array.Copy(hash, 0, hashBytes, 16, 20);

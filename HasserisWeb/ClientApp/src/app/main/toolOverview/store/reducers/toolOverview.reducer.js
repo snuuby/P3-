@@ -29,6 +29,13 @@ const toolReducer = function (state = initialState, action) {
                 entities
             };
         }
+
+        case Actions.GET_TOOL:
+            {
+                return {
+                    ...action.payload
+                };
+            }
         
         case Actions.SET_TOOLOVERVIEW_SEARCH_TEXT:{
             return {

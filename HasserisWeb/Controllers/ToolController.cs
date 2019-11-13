@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace HasserisWeb.Controllers
 {
-    [Route("Tool")]
+    [Route("Tools")]
     public class ToolController : Controller
     {
         public HasserisDbContext database;
@@ -18,15 +18,18 @@ namespace HasserisWeb.Controllers
         {
             database = sc;
         }
+
         [Route("all")]
-        public string GetAllTools()        
+        public string GetAllTools()
         {
-
             return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>().ToList());
-
-
-
         }
 
+        [Route("{id}")]
+        public string GetSpecificTool(int id)
+        {
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>()
+                .FirstOrDefault(c => c.ID == id));
+        }
     }
 }

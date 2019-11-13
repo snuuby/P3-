@@ -61,7 +61,7 @@ function OverviewTable(props)
     // Det er ved click, måske mere employee information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/employee/' + item.ID);
     }
 
     function handleCheck(event, id)
@@ -125,15 +125,15 @@ function OverviewTable(props)
                                     {
                                         case 'id':
                                         {
-                                            return parseInt(e.id, 10);
+                                            return parseInt(e.ID, 10);
                                         }
                                         case 'fornavn':
                                         {
-                                            return e.FirstName;
+                                            return e.Firstname;
                                         }
                                         case 'efternavn':
                                         {
-                                            return e.LastName;
+                                            return e.Lastname;
                                         }
                                         case 'type':
                                         {
@@ -176,15 +176,14 @@ function OverviewTable(props)
                                                 {n.Firstname}
                                             </TableCell>
 
-                                            <TableCell className="truncate" component="th" scope="row">
+                                            <TableCell component="th" scope="row">
                                                 {n.Lastname}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
-                                                <span></span>
+                                            <TableCell component="th" scope="row">
                                                 {n.Type}
                                             </TableCell>
-                                                
+
                                         </TableRow>
                                     );
                                 })}

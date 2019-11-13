@@ -29,6 +29,13 @@ const overviewReducer = function (state = initialState, action) {
                 entities
             };
         }
+
+        case Actions.GET_EMPLOYEE:
+            {
+                return {
+                    ...action.payload
+                };
+            }
         
         case Actions.SET_OVERVIEW_SEARCH_TEXT:{
             return {

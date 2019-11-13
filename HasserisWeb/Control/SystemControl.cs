@@ -9,11 +9,11 @@ namespace HasserisWeb
 {
     public class SystemControl
     {
-        
+
         public SystemControl()
         {
-            
-            
+
+
             using (var db = new HasserisDbContext())
             {
                 db.Database.EnsureDeleted();
@@ -35,9 +35,9 @@ namespace HasserisWeb
 
                 Customer tempCustomer = new Private("Erik", "Larsen", new Address("Aalborg Vej", "9220", "Aalborg", "Første dør til højre"), new ContactInfo("Erik@gmail.com", "23131313"));
                 Customer tempCustomer_one = new Private("Lars", "Eriksen", new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"));
-                
+
                 Furniture tempFurniture = new Furniture("Sofa møbel", 10, "Sofa", 10);
-                
+
                 Equipment testEquipment = new Vehicle("Stor lastbil", "Opel", "13131313");
                 Equipment testEquipment_one = new Vehicle("Alimndelig bil", "Citroen", "13131313");
 
@@ -148,10 +148,53 @@ namespace HasserisWeb
                 var test = db.Employees.FirstOrDefault();
                 Console.WriteLine(test.ContactInfo.Email);
             }
-         
-        }
-        
 
+        }
+
+
+
+
+
+
+                db.Tasks.Add(tempDelivery);
+                db.Tasks.Add(tempMoving);
+
+                db.Employees.Add(tempEmployee);
+                db.Employees.Add(tempEmployee_one);
+                db.Employees.Add(tempEmployee_two);
+                db.Employees.Add(tempEmployee_three);
+                db.Employees.Add(tempEmployee_four);
+                db.Employees.Add(tempEmployee_five);
+                db.Employees.Add(tempEmployee_six);
+
+                db.Customers.Add(tempCustomer);
+                db.Customers.Add(tempCustomer_one);
+
+                db.Equipment.Add(testEquipment);
+                db.Equipment.Add(testEquipment_one);
+                db.Furniture.Add(tempFurniture);
+
+                /*
+                DatabaseTester test = new DatabaseTester();
+                try
+                {
+                    Employee jakob = HasserisDbContext.VerifyPassword("Jakob17", "Snuuby");
+                    Debug.WriteLine(jakob.ID);
+                    //Do something with Jakob here
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Debug.WriteLine("Wrong password");
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Likely wrong username");
+                }
+                */
+            }
+
+
+        }
     }
-    
+
 }

@@ -13,7 +13,7 @@ namespace HasserisWeb
     {
         public Startup(IConfiguration configuration)
         {
-            
+
             Configuration = configuration;
             ConnectionString = configuration.GetConnectionString("HasserisDatabase");
             // Database quick setup -  system = new SystemControl();

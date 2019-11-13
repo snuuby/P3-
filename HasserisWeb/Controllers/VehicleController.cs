@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace HasserisWeb.Controllers
 {
-    [Route("Vehicle")]
+    [Route("Vehicles")]
     public class VehicleController : Controller
     {
         public HasserisDbContext database;
@@ -18,12 +18,18 @@ namespace HasserisWeb.Controllers
         {
             database = sc;
         }
+
         [Route("all")]
-        public string GetAllVehicles()        
+        public string GetAllVehicles()
         {
                 return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
-        }  
+        }
 
-        
+        [Route("{id}")]
+        public string GetSpecificVehicle(int id)
+        {
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>()
+                .FirstOrDefault(c => c.ID == id));
+        }
     }
 }

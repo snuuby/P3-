@@ -21,7 +21,7 @@ export function getEvents()
 
 
     return (dispatch) => {
-        delivery_request.then((response) => 
+        delivery_request.then((response) =>
             dispatch({
                 type: GET_DELIVERY_EVENTS,
                 payload: response.data
@@ -35,8 +35,8 @@ export function getEvents()
         );
     }
 
-        
-        
+
+
 }
 
 
@@ -165,7 +165,7 @@ export function setTaskImage(imgUrl, taskid, location, type) {
 
         };
 
-        // set attributes and src 
+        // set attributes and src
         img.setAttribute('crossOrigin', 'anonymous'); //
         img.src = imgUrl;
 

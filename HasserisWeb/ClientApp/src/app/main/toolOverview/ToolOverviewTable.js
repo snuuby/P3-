@@ -61,7 +61,7 @@ function ToolOverviewTable(props)
     // Det er ved click, måske mere tool information herinde?
     function handleClick(item)
     {
-        props.history.push('/apps/e-commerce/orders/' + item.id + '/' + item.handle);
+        props.history.push('/tool/' + item.id);
     }
 
     function handleCheck(event, id)
@@ -125,7 +125,7 @@ function ToolOverviewTable(props)
                                     {
                                         case 'id':
                                         {
-                                            return parseInt(e.id, 10);
+                                            return parseInt(e.ID, 10);
                                         }
                                         case 'navn':
                                         {
@@ -180,11 +180,10 @@ function ToolOverviewTable(props)
                                                 {n.Model}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row" align="right">
-                                                <span></span>
+                                            <TableCell component="th" scope="row">
                                                 {n.Type}
                                             </TableCell>
-                                                
+
                                         </TableRow>
                                     );
                                 })}

@@ -29,6 +29,13 @@ const vehicleReducer = function (state = initialState, action) {
                 entities
             };
         }
+
+        case Actions.GET_VEHICLE:
+            {
+                return {
+                    ...action.payload
+                };
+            }
         
         case Actions.SET_VEHICLEOVERVIEW_SEARCH_TEXT:{
             return {

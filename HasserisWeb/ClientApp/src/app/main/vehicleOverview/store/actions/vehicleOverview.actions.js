@@ -12,17 +12,32 @@ export const SET_VEHICLEOVERVIEW_SEARCH_TEXT = '[VEHICLE APP] SET OVERVIEW SEARC
 export const ADD_VEHICLE = '[VEHICLE APP] ADD VEHICLE';
 export const OPEN_NEW_ADD_DIALOG = '[VEHICLE APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[VEHICLE APP] CLOSE NEW ADD DIALOG';
+export const GET_VEHICLE = '[VEHICLE APP] GET VEHICLE';
 
 // Gets all vehicles
 export function getVehicles()
 {
-    const request = axios.get('Vehicle/all');
+    const request = axios.get('Vehicles/all');
     request.then(response => console.log(response.data));
     
     return (dispatch) =>
         request.then((response) =>
             dispatch({
                 type: GET_VEHICLES,
+                payload: response.data
+            })
+        );
+}
+
+//Get specific vehicle
+export function getVehicle(params) {
+    const request = axios.get("vehicles/" + params.VehicleId);
+    request.then(response => console.log(response.data));
+
+    return (dispatch) =>
+        request.then((response) =>
+            dispatch({
+                type: GET_VEHICLE,
                 payload: response.data
             })
         );
