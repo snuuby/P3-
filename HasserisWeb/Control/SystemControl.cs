@@ -155,7 +155,7 @@ namespace HasserisWeb
 
 
 
-
+/*
                 db.Tasks.Add(tempDelivery);
                 db.Tasks.Add(tempMoving);
 
@@ -195,6 +195,3 @@ namespace HasserisWeb
 
 
         }
-    }
-
-}
