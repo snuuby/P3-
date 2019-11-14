@@ -36,7 +36,9 @@ namespace HasserisWeb.Controllers
         public string CreateTool([FromBody]dynamic json)
         {
             dynamic eNewTool = JsonConvert.DeserializeObject(json.ToString());
-            Tool tool = new Tool(eNewTool.name);
+            string toolName = eNewTool.newTool.name;
+           
+            Tool tool = new Tool(toolName);
 
             database.Equipment.Add(tool);
             database.SaveChanges();

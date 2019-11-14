@@ -117,7 +117,7 @@ function AddDialog(props)
                             max: end
                         }}
                         name="name"
-                        value="form.name"
+                        value={form.name}
                         onChange={handleChange}
                         variant="outlined"
                         autoFocus
