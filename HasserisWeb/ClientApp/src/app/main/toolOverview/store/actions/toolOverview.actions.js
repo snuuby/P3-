@@ -13,6 +13,9 @@ export const ADD_TOOL = '[TOOL APP] ADD TOOL';
 export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
 export const GET_TOOL = '[TOOL APP] GET TOOL';
+export const CLOSE_EDIT_TOOL_DIALOG = '[TOOL APP]';
+export const REMOVE_TOOL = '[TOOL APP] REMOVE TOOL';
+export const UPDATE_TOOLS = '[TOOL APP] UPDATE TOOL'
 
 // Gets all tools
 export function getTools()
@@ -52,18 +55,17 @@ export function setToolOverviewSearchText(event)
 }
 
 // Action to add tool
-export function addTool(newEvent)
-{
+export function addTool(newTool) {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/add-event', {
-            newEvent
+        const request = axios.post('Tools/add', {
+            newTool
         });
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: ADD_EVENT
+                    type: ADD_TOOL
                 })
             ]).then(() => dispatch(getTools()))
         );
@@ -84,4 +86,44 @@ export function closeNewAddDialog()
     return {
         type: CLOSE_NEW_ADD_DIALOG
     }
+}
+
+export function closeEditToolDialog() {
+    return {
+        type: CLOSE_EDIT_TOOL_DIALOG
+    }
+}
+
+export function removeTool(toolId) {
+    return (dispatch, getState) => {
+
+        const request = axios.post('Tools/remove', {
+            toolId
+        });
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: REMOVE_TOOL
+                })
+            ]).then(() => dispatch(getTools()))
+        );
+    };
+}
+
+export function updateTool(newEvent) {
+    return (dispatch, getState) => {
+
+        const request = axios.post('Tools/update', {
+            newEvent
+        });
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: UPDATE_TOOLS
+                })
+            ]).then(() => dispatch(getEvents()))
+        );
+    };
 }
