@@ -15,13 +15,6 @@ const navigationConfig = [
                 'url'  : '/apps/calendar'
             },
             {
-                'id': 'overview',
-                'title': 'Overblik',
-                'type': 'item',
-                'icon': 'today',
-                'url': ''
-            },
-            {
                 auth: authRoles.admin,
                 auth: authRoles.adminPlus,
                 'id': 'createnew',
@@ -44,6 +37,32 @@ const navigationConfig = [
                     {
                         'id': 'createtask',
                         'title': 'Opgave',
+                        'type': 'item',
+                        'url': ''
+                    }
+                ]
+            },
+            {
+                'id': 'taskoverview',
+                'title': 'Opgave oversigt',
+                'type': 'collapse',
+                'icon': 'today',
+                'children': [
+                    {
+                        'id': 'inspectionreportoverview',
+                        'title': 'Besigtigelsesreporter',
+                        'type': 'item',
+                        'url': ''
+                    },
+                    {
+                        'id': 'offeroverview',
+                        'title': 'Tilbud',
+                        'type': 'item',
+                        'url': ''
+                    },
+                    {
+                        'id': 'taskoverview',
+                        'title': 'Opgaver',
                         'type': 'item',
                         'url': ''
                     }
@@ -83,37 +102,37 @@ const navigationConfig = [
             {
                 auth: authRoles.admin,
                 auth: authRoles.adminPlus,
-                'id': 'customers',
-                'title': 'Kundekartotek',
-                'type': 'item',
-                'icon': 'person',
-                'url': '/customer/overview'
-            },
-            {
-                auth: authRoles.adminPlus,
-                'id': 'employees',
-                'title': 'Ansatte',
-                'type': 'item',
-                'icon': 'person',
-                'url': '/employee/overview'
-            },
-            {
-                auth: authRoles.admin,
-                auth: authRoles.adminPlus,
-                'id': 'tool',
-                'title': 'Udstyr',
-                'type': 'item',
+                'id': 'resourceoverview',
+                'title': 'Oversigt',
+                'type': 'collapse',
                 'icon': 'list',
-                'url': '/tool/overview'
-            },
-            {
-                auth: authRoles.admin,
-                auth: authRoles.adminPlus,
-                'id': 'vehicles',
-                'title': 'Koeretoejer',
-                'type': 'item',
-                'icon': 'list',
-                'url': '/vehicle/overview'
+                'children': [
+                    {
+                        'id': 'customeroverview',
+                        'title': 'Kundekartotek',
+                        'type': 'item',
+                        'url': '/customer/overview'
+                    },
+                    {
+                        auth: authRoles.adminPlus,
+                        'id': 'employees',
+                        'title': 'Ansatte',
+                        'type': 'item',
+                        'url': '/employee/overview'
+                    },
+                    {
+                        'id': 'tool',
+                        'title': 'Udstyr',
+                        'type': 'item',
+                        'url': '/tool/overview'
+                    },
+                    {
+                        'id': 'vehicles',
+                        'title': 'Koeretoejer',
+                        'type': 'item',
+                        'url': '/vehicle/overview'
+                    }
+                ]
             },
             ]}];
 export default navigationConfig;

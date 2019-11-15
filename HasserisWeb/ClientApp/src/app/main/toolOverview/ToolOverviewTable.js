@@ -61,7 +61,7 @@ function ToolOverviewTable(props)
     // Det er ved click, måske mere tool information herinde?
     function handleClick(item)
     {
-        props.history.push('/tool/' + item.id);
+        props.history.push('/tool/' + item.ID);
     }
 
     function handleCheck(event, id)
@@ -131,13 +131,9 @@ function ToolOverviewTable(props)
                                         {
                                             return e.Name;
                                         }
-                                        case 'model':
+                                        case 'Available':
                                         {
-                                            return e.Model;
-                                        }
-                                        case 'type':
-                                        {
-                                            return e.Type;
+                                            return e.IsAvailable;
                                         }
                                         default:
                                         {
@@ -177,11 +173,7 @@ function ToolOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.Model}
-                                            </TableCell>
-
-                                            <TableCell component="th" scope="row">
-                                                {n.Type}
+                                                {n.IsAvailable}
                                             </TableCell>
 
                                         </TableRow>
