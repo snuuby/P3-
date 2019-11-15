@@ -4,7 +4,6 @@ import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
 import VehicleOverviewTableHead from './VehicleOverviewTableHead';
-//import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -13,7 +12,6 @@ function VehicleOverviewTable(props)
     const dispatch = useDispatch();
     const vehicles = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.entities);
     const searchText = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.searchText);
-    //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
     const [selected, setSelected] = useState([]);
     const [data, setData] = useState(vehicles);
