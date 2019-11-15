@@ -19,17 +19,10 @@ const rows = [
         sort          : true
     },
     {
-        id            : 'model',
+        id            : 'Available',
         align         : 'left',
         disablePadding: false,
-        label         : 'Model',
-        sort          : true
-    },
-    {
-        id            : 'type',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Type',
+        label         : 'Tilgængelighed',
         sort          : true
     },
 ];

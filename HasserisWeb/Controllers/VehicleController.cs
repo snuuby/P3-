@@ -31,5 +31,21 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>()
                 .FirstOrDefault(c => c.ID == id));
         }
+
+        [Route("add")]
+        public string CreateVehicle([FromBody]dynamic json)
+        {
+            dynamic eNewVehicle = JsonConvert.DeserializeObject(json.ToString());
+            string vehicleName = eNewVehicle.newVehicle.name;
+            string vehicleModel = eNewVehicle.newVehicle.Model;
+            string vehicleRegNum = eNewVehicle.newVehicle.RegNum;
+
+            Vehicle vehicle = new Vehicle(vehicleName, vehicleModel, vehicleRegNum);
+
+            database.Equipment.Add(vehicle);
+            database.SaveChanges();
+
+            return "succesfully added new vehicle";
+        }
     }
 }

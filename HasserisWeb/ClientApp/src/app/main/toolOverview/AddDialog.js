@@ -4,7 +4,7 @@ import FuseUtils from '@fuse/FuseUtils';
 import {useForm} from '@fuse/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
-import * as Actions from '../apps/calendar/store/actions';
+import * as Actions from './store/actions';
 import * as ActionsAdd from './store/actions';
 import Checkbox from "@material-ui/core/Checkbox";
 import Select from "react-select";
@@ -12,10 +12,8 @@ import Select from "react-select";
 
 
 const defaultFormState = {
-    id    : FuseUtils.generateGUID(),
-    title : '',
-    allDay: true,
-    desc  : ''
+    id    : '',
+    name  : ''
 };
 
 function AddDialog(props)
@@ -64,13 +62,13 @@ function AddDialog(props)
 
     function closeComposeDialog()
     {
-        eventDialog.type === 'edit' ? dispatch(Actions.closeEditEventDialog()) : dispatch(ActionsAdd.closeNewAddDialog());
+        eventDialog.type === 'edit' ? dispatch(Actions.closeEditToolDialog()) : dispatch(ActionsAdd.closeNewAddDialog());
     }
 
     function canBeSubmitted()
     {
         return (
-            form.title.length > 0
+            form.name.length > 0
         );
     }
 
@@ -80,18 +78,18 @@ function AddDialog(props)
 
         if ( eventDialog.type === 'new' )
         {
-            dispatch(Actions.addEvent(form));
+            dispatch(Actions.addTool(form));
         }
         else
         {
-            dispatch(Actions.updateEvent(form));
+            dispatch(Actions.updateTool(form));
         }
         closeComposeDialog();
     }
 
     function handleRemove()
     {
-        dispatch(Actions.removeEvent(form.id));
+        dispatch(Actions.removeTool(form.id));
         closeComposeDialog();
     }
 
@@ -101,7 +99,7 @@ function AddDialog(props)
             <AppBar position="static">
                 <Toolbar className="flex w-full">
                     <Typography variant="subtitle1" color="inherit">
-                        {eventDialog.type === 'new' ? 'New Event' : 'Edit Event'}
+                        {eventDialog.type === 'new' ? 'Nyt Udstyr' : 'Edit Event'}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -109,8 +107,8 @@ function AddDialog(props)
             <form noValidate onSubmit={handleSubmit}>
                 <DialogContent classes={{root: "p-16 pb-0 sm:p-24 sm:pb-0"}}>
                     <TextField
-                        id="fornavn"
-                        label="Fornavn"
+                        id="Name"
+                        label="Navn"
                         className="mt-8 mb-16"
                         InputLabelProps={{
                             shrink: true
@@ -118,15 +116,15 @@ function AddDialog(props)
                         inputProps={{
                             max: end
                         }}
-                        name="fornavn"
-                        value="jim"
+                        name="name"
+                        value={form.name}
                         onChange={handleChange}
                         variant="outlined"
                         autoFocus
                         required
                         fullWidth
                     />
-
+                    {/*
                     <TextField
                         id="efternavn"
                         label="Efternavn"
@@ -186,7 +184,7 @@ function AddDialog(props)
                         multiline rows={5}
                         variant="outlined"
                         fullWidth
-                    />
+                    /> */}
                 </DialogContent>
 
                 {eventDialog.type === 'new' ? (
@@ -197,7 +195,7 @@ function AddDialog(props)
                             type="submit"
                             disabled={!canBeSubmitted()}
                         >
-                            Add
+                            Tilføj
                         </Button>
                     </DialogActions>
                 ) : (
