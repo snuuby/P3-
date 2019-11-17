@@ -13,14 +13,15 @@ namespace HasserisWeb
         public Address StartingAddress { get; set; }
         public int LentBoxes { get; set; }
         public ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
-
+        public bool WithPacking { get; set; }
         public Moving(string name, Customer assignedCustomer,
-                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes)
+                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes, bool WithPacking)
                 : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
         {
             this.StartingAddress = startingAddress;
             this.LentBoxes = lentBoxes;
             this.Customer.LentBoxes = lentBoxes;
+            this.WithPacking = WithPacking;
         }
         public Moving()
         {

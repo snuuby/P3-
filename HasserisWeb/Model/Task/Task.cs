@@ -8,10 +8,15 @@ namespace HasserisWeb
 {
     public abstract class Task
     {
+        //represents phase 3 in the process of an order
+        //Goes from VisitingReport -> Offer -> Task. It is collected in this Task class so information can be saved in one object through different phases.
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
+        public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
+        public InspectionReport InspectionReport { get; set; }
+        public Offer Offer { get; set; }
         [Required]
         public Customer Customer { get; set; }
         [Required]
@@ -19,7 +24,6 @@ namespace HasserisWeb
         [Required]
         public double Income { get; set; }
         public double Expenses { get; set; }
-        public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
         public ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
         //Properties for calculating the total duration of a task, taskDuration.
         [Column(TypeName = "Date")]

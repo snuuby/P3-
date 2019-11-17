@@ -68,6 +68,10 @@ namespace HasserisWeb
                 .HasKey(te => new { te.TaskID, te.EmployeeID });
             modelBuilder.Entity<TaskAssignedEquipment>()
                 .HasKey(te => new { te.TaskID, te.EquipmentID });
+            modelBuilder.Entity<InspectionAssignedEmployees>()
+                .HasKey(te => new { te.InspectionID, te.EmployeeID });
+            modelBuilder.Entity<InspectionAssignedEquipment>()
+                .HasKey(te => new { te.InspectionID, te.EquipmentID });
 
             modelBuilder.Entity<Task>()
                 .HasMany(t => t.taskAssignedEmployees)
@@ -83,6 +87,23 @@ namespace HasserisWeb
                 .HasForeignKey(te => te.EmployeeID);
             modelBuilder.Entity<Equipment>()
                 .HasMany(t => t.taskAssignedEquipment)
+                .WithOne(t => t.Equipment)
+                .HasForeignKey(te => te.EquipmentID);
+
+            modelBuilder.Entity<InspectionReport>()
+                .HasMany(t => t.Employees)
+                .WithOne(t => t.InspectionReport)
+                .HasForeignKey(te => te.InspectionID);
+            modelBuilder.Entity<InspectionReport>()
+                .HasMany(t => t.Equipment)
+                .WithOne(t => t.InspectionReport)
+                .HasForeignKey(te => te.InspectionID);
+            modelBuilder.Entity<Employee>()
+                .HasMany(t => t.Inspections)
+                .WithOne(t => t.Employee)
+                .HasForeignKey(te => te.EmployeeID);
+            modelBuilder.Entity<Equipment>()
+                .HasMany(t => t.Inspections)
                 .WithOne(t => t.Equipment)
                 .HasForeignKey(te => te.EquipmentID);
 

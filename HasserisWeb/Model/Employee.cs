@@ -17,6 +17,8 @@ namespace HasserisWeb
         public string Username { get; set; }
         [JsonIgnore]
         public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
+        public ICollection<InspectionAssignedEmployees> Inspections { get; set; } = new List<InspectionAssignedEmployees>();
+
         public string Hashcode { get; set; }
         public bool IsAvailable { get; private set; } = true;
         public string AccessToken { get; set; }

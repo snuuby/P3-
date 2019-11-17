@@ -58,7 +58,7 @@ namespace HasserisWeb
                     tempDelivery.PauseTimes.Add(temp);
                 }
 
-                Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5);
+                Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true);
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_two, Task = tempMoving });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_three, Task = tempMoving });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_four, Task = tempMoving });
