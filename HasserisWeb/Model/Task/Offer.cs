@@ -17,6 +17,16 @@ namespace HasserisWeb
         public DateTime ExpirationDate { get; set; }
         public int ExpectedHours { get; set; }
         public int LentBoxes { get; set; }
+        public Offer(Customer Customer, Address StartingAddress, DateTime VisitingDate, DateTime MovingDate, 
+                    DateTime ExpirationDate, int ExpectedHours, int LentBoxes) {
+                        this.Customer = Customer;
+                        this.StartingAddress = StartingAddress;
+                        this.VisitingDate = VisitingDate;
+                        this.MovingDate = MovingDate;
+                        this.ExpirationDate = ExpirationDate;
+                        this.ExpectedHours = ExpectedHours;
+                        this.LentBoxes = LentBoxes;
+                    }
         public Offer()
         {
 

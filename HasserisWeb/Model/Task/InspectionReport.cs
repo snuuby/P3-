@@ -21,6 +21,14 @@ namespace HasserisWeb
         public ICollection<InspectionAssignedEquipment> Equipment { get; set; } = new List<InspectionAssignedEquipment>();
         public int LentBoxes { get; set; }
 
+        public InspectionReport(Customer Customer, string Name, Address StartingAddress, string Notes, 
+                                DateTime VisitingDate) {
+                                    this.Customer = Customer;
+                                    this.Name = Name;
+                                    this.StartingAddress = StartingAddress;
+                                    this.Notes = Notes;
+                                    this.VisitingDate = VisitingDate;
+                                }
         public InspectionReport()
         {
 
