@@ -118,7 +118,11 @@ namespace HasserisWeb.Controllers
             string eventDesc = eNewEvent.newEvent.desc;
             string eventStart = eNewEvent.newEvent.start;
             string eventEnd = eNewEvent.newEvent.end;
-
+            
+            /* When parsing the DateTime from the view component, we use the swedish culture
+             because it is able convert the '/' to a DateTime object.
+             And this adds 1 hour to our current timezone (DK), and we subtract 1 hour.
+            */ 
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
             date1 = date1.AddHours(-1);
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
@@ -154,21 +158,24 @@ namespace HasserisWeb.Controllers
             string eventStart = eNewEvent.newEvent.start;
             string eventEnd = eNewEvent.newEvent.end;
             
-            // Den svenske virker men den danske kan ikke DateTime parse det vi får fra frontend: "12/31/2019 11:00:00" bliver til [31-12-2019 11:00:00] med svensk
+            /* When parsing the DateTime from the view component, we use the swedish culture
+             because it is able convert the '/' to a DateTime object.
+             And this adds 1 hour to our current timezone (DK), and we subtract 1 hour.
+            */ 
             DateTime date1 = DateTime.Parse(eventStart, CultureInfo.GetCultureInfo("sv-SE"));
             date1 = date1.AddHours(-1);
             DateTime date2 = DateTime.Parse(eventEnd, CultureInfo.GetCultureInfo("sv-SE"));
             date2 = date2.AddHours(-1);
             
-                List<DateTime> dates = new List<DateTime>();
-                dates.Add(date1);
-                dates.Add(date2);
+            List<DateTime> dates = new List<DateTime>();
+            dates.Add(date1);
+            dates.Add(date2);
 
-                Private privateCustomer = (Private)database.Customers.FirstOrDefault(c => c.ID == 1);
-                Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
-                Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
+            Private privateCustomer = (Private)database.Customers.FirstOrDefault(c => c.ID == 1);
+            Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
+            Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
-                Delivery delivery = new Delivery(eventTitle, privateCustomer,
+            Delivery delivery = new Delivery(eventTitle, privateCustomer, 
                 new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
 
 
