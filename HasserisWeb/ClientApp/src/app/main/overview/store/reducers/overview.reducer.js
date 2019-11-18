@@ -4,6 +4,7 @@ const initialState = {
     entities   : [],
     searchText: '',
     loading: true,
+    employeeData: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -32,9 +33,9 @@ const overviewReducer = function (state = initialState, action) {
 
         case Actions.GET_EMPLOYEE:
             {
-                return {
-                    ...action.payload
-                };
+                return Object.assign({}, state, {
+                    employeeData: action.payload
+                })
             }
         
         case Actions.SET_OVERVIEW_SEARCH_TEXT:{

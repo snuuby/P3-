@@ -43,7 +43,7 @@ namespace HasserisWeb.Controllers
             database.Equipment.Add(tool);
             database.SaveChanges();
 
-            return "abc";
+            return "Succesfully added new tool";
 
         }
     }

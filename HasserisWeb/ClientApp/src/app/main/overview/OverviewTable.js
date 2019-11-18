@@ -12,8 +12,6 @@ function OverviewTable(props)
 {
     const dispatch = useDispatch();
     const employees = useSelector(({overviewReducer}) => overviewReducer.employees.entities);
-    const searchText = useSelector(({overviewReducer}) => overviewReducer.employees.searchText);
-    //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
     const [selected, setSelected] = useState([]);
     const [data, setData] = useState(employees);
@@ -29,8 +27,8 @@ function OverviewTable(props)
     }, [dispatch]);
 
     useEffect(() => {
-        setData(searchText.length === 0 ? employees : FuseUtils.filterArrayByString(employees, searchText))
-    }, [employees, searchText]);
+        setData(employees)
+    }, [employees]); 
 
     function handleRequestSort(event, property)
     {

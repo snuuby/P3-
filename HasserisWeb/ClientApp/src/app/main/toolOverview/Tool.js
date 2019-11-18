@@ -18,7 +18,7 @@ function Marker(props) {
 
 function Tool(props) {
     const dispatch = useDispatch();
-    const tool = useSelector(({ toolReducer }) => toolReducer.tools);
+    const tool = useSelector(({ toolReducer }) => toolReducer.tools.toolData);
     const [tabValue, setTabValue] = useState(0);
 
     useEffect(() => {

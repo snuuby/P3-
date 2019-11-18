@@ -11,7 +11,6 @@ function VehicleOverviewTable(props)
 {
     const dispatch = useDispatch();
     const vehicles = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.entities);
-    const searchText = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.searchText);
 
     const [selected, setSelected] = useState([]);
     const [data, setData] = useState(vehicles);
@@ -27,8 +26,8 @@ function VehicleOverviewTable(props)
     }, [dispatch]);
 
     useEffect(() => {
-        setData(searchText.length === 0 ? vehicles : FuseUtils.filterArrayByString(vehicles, searchText))
-    }, [vehicles, searchText]);
+        setData(vehicles)
+    }, [vehicles]); 
 
     function handleRequestSort(event, property)
     {

@@ -76,7 +76,7 @@ export function openNewAddDialog(data)
 {
     return {
         type: OPEN_NEW_ADD_DIALOG,
-        data
+        payload: data,
     }
 }
 

@@ -4,6 +4,7 @@ const initialState = {
     entities   : [],
     searchText: '',
     loading: true,
+    vehicleData: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -32,9 +33,9 @@ const vehicleReducer = function (state = initialState, action) {
 
         case Actions.GET_VEHICLE:
             {
-                return {
-                    ...action.payload
-                };
+                return Object.assign({}, state, {
+                    vehicleData: action.payload
+                })
             }
         
         case Actions.SET_VEHICLEOVERVIEW_SEARCH_TEXT:{

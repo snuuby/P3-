@@ -4,6 +4,7 @@ const initialState = {
     entities   : [],
     searchText: '',
     loading: true,
+    customerData: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -32,9 +33,9 @@ const customerReducer = function (state = initialState, action) {
 
         case Actions.GET_CUSTOMER:
             {
-                return {
-                    ...action.payload
-                };
+                return Object.assign({}, state, {
+                    customerData: action.payload
+                })
             }
         
         case Actions.SET_CUSTOMEROVERVIEW_SEARCH_TEXT:{
@@ -61,7 +62,7 @@ const customerReducer = function (state = initialState, action) {
                         open: true
                     },
                     data : {
-                        ...action.data
+                        ...action.payload
                     }
                 }
             };
