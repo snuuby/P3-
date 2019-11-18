@@ -13,9 +13,13 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.typescript.msbuild\3.7.2\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('$(NuGetPackageRoot)microsoft.typescript.msbuild\3.7.2\build\Microsoft.TypeScript.MSBuild.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.0.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.0.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
     <Import Project="$(NuGetPackageRoot)entityframework\6.3.0\buildTransitive\EntityFramework.props" Condition="Exists('$(NuGetPackageRoot)entityframework\6.3.0\buildTransitive\EntityFramework.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_TypeScript_MSBuild Condition=" '$(PkgMicrosoft_TypeScript_MSBuild)' == '' ">C:\Users\hansen17\.nuget\packages\microsoft.typescript.msbuild\3.7.2</PkgMicrosoft_TypeScript_MSBuild>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\hansen17\.nuget\packages\microsoft.entityframeworkcore.tools\3.0.0</PkgMicrosoft_EntityFrameworkCore_Tools>
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\hansen17\.nuget\packages\entityframework\6.3.0</PkgEntityFramework>
   </PropertyGroup>
 </Project>

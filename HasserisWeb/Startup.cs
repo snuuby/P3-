@@ -13,10 +13,10 @@ namespace HasserisWeb
     {
         public Startup(IConfiguration configuration)
         {
-            
+
             Configuration = configuration;
-            ConnectionString = configuration.GetConnectionString("HasserisDbContext");
-            DatabaseTester test = new DatabaseTester();
+            ConnectionString = configuration.GetConnectionString("HasserisDatabase");
+            // Database quick setup -  system = new SystemControl();
 
         }
 
@@ -27,7 +27,9 @@ namespace HasserisWeb
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
             services.AddControllersWithViews();
+
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

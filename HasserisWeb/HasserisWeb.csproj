@@ -7,32 +7,173 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <ApplicationIcon>ClientApp\public\favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="entityframework" Version="6.3.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
-    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.111" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <Content Include="ClientApp\src\@fake-db\db\academy-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\analytics-dashboard-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\auth-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\calendar-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\chat-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\contacts-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\e-commerce-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\faq-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\file-manager-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\icons-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\invoices-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\knowledge-base-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\mail-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\notes-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\profile-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\project-dashboard-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\quick-panel-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\scrumboard-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\search-db.js" />
+    <Content Include="ClientApp\src\@fake-db\db\todo-db.js" />
+    <Content Include="ClientApp\src\@fake-db\index.js" />
+    <Content Include="ClientApp\src\@fake-db\mock.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\AcademyAppConfig.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\courses\Courses.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\course\Course.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\store\actions\course.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\store\actions\courses.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\store\reducers\course.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\store\reducers\courses.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\academy\store\reducers\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\appsConfigs.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarApp.css" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarApp.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarAppConfig.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarHeader.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\EventDialog.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\EventDialogOld.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\events.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\store\reducers\events.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\calendar\store\reducers\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\Chat.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\ChatApp.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\ChatAppConfig.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\ChatsSidebar.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\ContactListItem.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\ContactSidebar.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\StatusIcon.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\actions\chat.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\actions\contacts.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\actions\sidebars.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\actions\user.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\reducers\chat.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\reducers\contacts.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\reducers\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\reducers\sidebars.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\store\reducers\user.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\chat\UserSidebar.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactDialog.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactsApp.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactsAppConfig.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactsHeader.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactsList.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactsMultiSelectMenu.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\ContactsSidebarContent.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\store\actions\contacts.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\store\actions\user.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\store\reducers\contacts.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\store\reducers\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\contacts\store\reducers\user.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\AnalyticsDashboardApp.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\AnalyticsDashboardAppConfig.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\store\actions\widgets.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\store\reducers\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\store\reducers\widgets.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget1.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget2.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget3.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget4.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget5.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget6.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget7.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget8.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\analytics\widgets\Widget9.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\ProjectDashboardApp.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\ProjectDashboardAppConfig.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\store\actions\projects.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\store\actions\widgets.actions.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\store\reducers\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\store\reducers\projects.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\store\reducers\widgets.reducer.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget1.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget10.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget11.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget2.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget3.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget4.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget5.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget6.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget7.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget8.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\Widget9.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\WidgetNow.js" />
+    <Content Include="ClientApp\src\app\main\apps\dashboards\project\widgets\WidgetWeather.js" />
+    <Content Include="ClientApp\src\app\main\apps\e-commerce\order\Order.js" />
+    <Content Include="ClientApp\src\app\main\apps\e-commerce\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\apps\e-commerce\store\actions\order.actions.js" />
+    <Content Include="ClientApp\src\app\main\overview\AddDialog.js" />
+    <Content Include="ClientApp\src\app\main\login\Login.js" />
+    <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
+    <Content Include="ClientApp\src\app\main\overview\OverviewHeader.js" />
+    <Content Include="ClientApp\src\app\main\overview\OverviewTableHead.js" />
+    <Content Include="ClientApp\src\app\main\overview\OverviewTable.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\actions\overview.actions.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\actions\index.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\reducers\overview.reducer.js" />
+    <Content Include="ClientApp\src\app\main\overview\store\reducers\index.js" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Database\Hasseris3.db" />
     <None Remove="Hasseris.db" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Hasseris.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="ClientApp\src\app\main\details\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
