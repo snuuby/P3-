@@ -18,12 +18,11 @@ namespace HasserisWeb.Controllers
         {
             database = sc;
         }
+        
         [Route("all")]
         public string GetAllFurnitures()        
         {
-
                 return JsonConvert.SerializeObject(database.Furniture.ToList());
-            
         }  
     }
 }

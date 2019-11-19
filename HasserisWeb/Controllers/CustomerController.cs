@@ -19,12 +19,14 @@ namespace HasserisWeb.Controllers
         {
             database = sc;
         }
+        
         [Route("all")]
         public string GetAllCustomers()
         {
                 return JsonConvert.SerializeObject(database.Customers.ToList());
             
-        }  
+        }
+        
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
         {
@@ -33,6 +35,7 @@ namespace HasserisWeb.Controllers
                 .Include(address => address.Address)
                 .FirstOrDefault(c => c.ID == id));
         }
+        
         [Route("add")]
         public string CreateCustomer([FromBody]dynamic json)
         {
@@ -74,21 +77,5 @@ namespace HasserisWeb.Controllers
 
             return "succesfully added new customer";
         }
-
-        /*
-        // Delete
-        [Route("delete/{id}")]
-        public ActionResult DeleteCustomer(int id)
-        {
-            HasserisDbContext.DeleteElementFromDatabase(Customer,id);
-            return Content("Success with: " + id);
-        }
-        
-        [Route("firstname/{id}")]
-        public Employee GetEmployeeFirstName(int id)
-        {
-            return HasserisDbContext.LoadElementFromDatabase("Employee", id); 
-        }
-        */
     }
 }

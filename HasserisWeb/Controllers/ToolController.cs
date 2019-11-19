@@ -44,7 +44,6 @@ namespace HasserisWeb.Controllers
             database.SaveChanges();
 
             return "abc";
-
         }
     }
 }

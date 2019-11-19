@@ -14,19 +14,22 @@ namespace HasserisWeb.Controllers
     [Route("employees")]
     public class EmployeeController : Controller
     {
-
+        // Dependency injection by constructor
         public HasserisDbContext database;
+        
         public EmployeeController(HasserisDbContext sc)
         {
             database = sc;
         }
+
+        // Method to retrieve all employees for the employee overview in the view component.
         [Route("all")]
         public string GetAllEmployees()
         {
-
                 return JsonConvert.SerializeObject(database.Employees.ToList());
-
         }
+        
+        // Method to retrieve a specific employee by ID
         [Route("{id}")]
         public string GetSpecificEmployee(int id)
         {
@@ -36,14 +39,14 @@ namespace HasserisWeb.Controllers
                 .FirstOrDefault(c => c.ID == id));
         }
 
-        /*
+        /* Dead code? should be deleted
         // Delete
         [Route("delete/{id}")]
         public ActionResult DeleteEmployee(int id)
         {
 
-                var employee = database.Employees.FirstOrDefault(e => e.ID == id);
-                employee.Employed = "Unemployed";
+            var employee = database.Employees.FirstOrDefault(e => e.ID == id);
+            employee.Employed = "Unemployed";
             database.Employees.Update(employee);
             database.SaveChanges();
 
