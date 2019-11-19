@@ -18,8 +18,8 @@ namespace HasserisWeb
 
         }
         public Delivery(string name, Customer assignedCustomer,
-                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, string material, int quantity)
-                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
+                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, string material, int quantity, int phase)
+                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber, phase)
         {
             this.Material = material;
             this.Quantity = quantity;

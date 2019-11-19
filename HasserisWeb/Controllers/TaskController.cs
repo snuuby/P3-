@@ -24,7 +24,7 @@ namespace HasserisWeb
         {
             this.database = database;
         }
-
+        /*
         [Route("MakeInspectionReport")]
         public void MakeInspectionReport(string json)
         {
@@ -37,7 +37,8 @@ namespace HasserisWeb
 
             Moving moving = new Moving();
             moving.inspectionReport = inspectionReport;
-            database.Tasks.add(moving);
+            database.Tasks.Add(moving);
         }
+        */
     }
 }

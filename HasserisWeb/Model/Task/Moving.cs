@@ -15,8 +15,8 @@ namespace HasserisWeb
         public ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
         public bool WithPacking { get; set; }
         public Moving(string name, Customer assignedCustomer,
-                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes, bool WithPacking)
-                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
+                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes, bool WithPacking, int phase)
+                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber, phase)
         {
             this.StartingAddress = startingAddress;
             this.LentBoxes = lentBoxes;

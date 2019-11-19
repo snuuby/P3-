@@ -146,7 +146,7 @@ namespace HasserisWeb.Controllers
             Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
             Delivery delivery = new Delivery(eventTitle, privateCustomer,
-                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
+                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2, 3);
 
             database.Tasks.Add(delivery);
             database.SaveChanges();
@@ -203,7 +203,7 @@ namespace HasserisWeb.Controllers
                 Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
                 Delivery delivery = new Delivery(eventTitle, privateCustomer,
-                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
+                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2, 3);
 
 
             database.Tasks.Update(delivery);

@@ -36,14 +36,16 @@ namespace HasserisWeb
         public string Description { get; set; }
         public string WorkPhoneNumber { get; set; }
         public string PhotoPath { get; set; }
+        public int Phase { get; set; }
         public Task()
         {
 
         }
 
         public Task(string name, Customer assignedCustomer, Address destination,
-                            double income, List<DateTime> Ldates, string description, string workPhoneNumber)
+                            double income, List<DateTime> Ldates, string description, string workPhoneNumber, int phase)
         {
+            this.Phase = phase;
             this.Name = name;
             this.Customer = assignedCustomer;
             this.Destination = destination;

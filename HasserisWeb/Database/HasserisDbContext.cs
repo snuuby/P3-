@@ -39,14 +39,16 @@ namespace HasserisWeb
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            //Sub classes of Task
             modelBuilder.Entity<Delivery>();
             modelBuilder.Entity<Moving>();
 
+            //Sub classes of Customer
             modelBuilder.Entity<Private>();
             modelBuilder.Entity<Public>();
             modelBuilder.Entity<Business>();
 
+            //Sub classes of Equipment
             modelBuilder.Entity<Vehicle>();
             modelBuilder.Entity<Tool>();
 
@@ -73,39 +75,45 @@ namespace HasserisWeb
             modelBuilder.Entity<InspectionAssignedEquipment>()
                 .HasKey(te => new { te.InspectionID, te.EquipmentID });
 
-            modelBuilder.Entity<Task>()
-                .HasMany(t => t.taskAssignedEmployees)
-                .WithOne(t => t.Task)
-                .HasForeignKey(te => te.TaskID);
-            modelBuilder.Entity<Task>()
-                .HasMany(t => t.taskAssignedEquipment)
-                .WithOne(t => t.Task)
-                .HasForeignKey(te => te.TaskID);
-            modelBuilder.Entity<Employee>()
-                .HasMany(t => t.taskAssignedEmployees)
-                .WithOne(t => t.Employee)
-                .HasForeignKey(te => te.EmployeeID);
-            modelBuilder.Entity<Equipment>()
-                .HasMany(t => t.taskAssignedEquipment)
-                .WithOne(t => t.Equipment)
-                .HasForeignKey(te => te.EquipmentID);
+            modelBuilder.Entity<TaskAssignedEmployees>()
+                .HasOne(t => t.Task)
+                .WithMany(e => e.taskAssignedEmployees)
+                .HasForeignKey(t => t.TaskID);
+            modelBuilder.Entity<TaskAssignedEmployees>()
+                .HasOne(t => t.Employee)
+                .WithMany(e => e.taskAssignedEmployees)
+                .HasForeignKey(t => t.EmployeeID);
 
-            modelBuilder.Entity<InspectionReport>()
-                .HasMany(t => t.Employees)
-                .WithOne(t => t.InspectionReport)
-                .HasForeignKey(te => te.InspectionID);
-            modelBuilder.Entity<InspectionReport>()
-                .HasMany(t => t.Equipment)
-                .WithOne(t => t.InspectionReport)
-                .HasForeignKey(te => te.InspectionID);
-            modelBuilder.Entity<Employee>()
-                .HasMany(t => t.Inspections)
-                .WithOne(t => t.Employee)
+            modelBuilder.Entity<TaskAssignedEquipment>()
+                .HasOne(t => t.Task)
+                .WithMany(e => e.taskAssignedEquipment)
+                .HasForeignKey(t => t.TaskID);
+            modelBuilder.Entity<TaskAssignedEquipment>()
+                .HasOne(t => t.Equipment)
+                .WithMany(e => e.taskAssignedEquipment)
+                .HasForeignKey(t => t.EquipmentID);
+
+
+
+            modelBuilder.Entity<InspectionAssignedEmployees>()
+                .HasOne(t => t.Employee)
+                .WithMany(t => t.Inspections)
                 .HasForeignKey(te => te.EmployeeID);
-            modelBuilder.Entity<Equipment>()
-                .HasMany(t => t.Inspections)
-                .WithOne(t => t.Equipment)
+            modelBuilder.Entity<InspectionAssignedEmployees>()
+                .HasOne(t => t.InspectionReport)
+                .WithMany(t => t.Employees)
+                .HasForeignKey(te => te.InspectionID);
+
+            modelBuilder.Entity<InspectionAssignedEquipment>()
+                .HasOne(t => t.Equipment)
+                .WithMany(t => t.Inspections)
                 .HasForeignKey(te => te.EquipmentID);
+            modelBuilder.Entity<InspectionAssignedEquipment>()
+                .HasOne(t => t.InspectionReport)
+                .WithMany(t => t.Equipment)
+                .HasForeignKey(te => te.InspectionID);
+
+
 
 
 

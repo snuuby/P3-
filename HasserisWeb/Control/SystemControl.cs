@@ -46,7 +46,7 @@ namespace HasserisWeb
                 List<DateTime> testList = new List<DateTime>() { new DateTime(2019, 11, 13), new DateTime(2019, 11, 14) };
                 List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 03), new DateTime(2019, 11, 04) };
 
-                Delivery tempDelivery = new Delivery("Test Delivery", tempCustomer, new Address("Hasseris vej", "9220", "Aalborg", "Tredje dør til venstre"), 600, testList, "Giv erik noget", "28313131", "Foam", 5);
+                Delivery tempDelivery = new Delivery("Test Delivery", tempCustomer, new Address("Hasseris vej", "9220", "Aalborg", "Tredje dør til venstre"), 600, testList, "Giv erik noget", "28313131", "Foam", 5, 3);
                 tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_one, Task = tempDelivery });
                 tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee, Task = tempDelivery });
                 tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_five, Task = tempDelivery });
@@ -58,7 +58,10 @@ namespace HasserisWeb
                     tempDelivery.PauseTimes.Add(temp);
                 }
 
-                Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true);
+                Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 1);
+                tempMoving.InspectionReport = new InspectionReport(tempCustomer_one, "Tjek flyttemængde", new Address("tjek vej", "9000", "Aalborg", "første dør til venstre"), "Første dør til højre", DateTime.Now);
+                tempMoving.InspectionReport.Employees.Add(new InspectionAssignedEmployees() { Employee = tempEmployee_two, InspectionReport = tempMoving.InspectionReport });
+                tempMoving.InspectionReport.Equipment.Add(new InspectionAssignedEquipment() { Equipment = testEquipment, InspectionReport = tempMoving.InspectionReport });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_two, Task = tempMoving });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_three, Task = tempMoving });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_four, Task = tempMoving });
