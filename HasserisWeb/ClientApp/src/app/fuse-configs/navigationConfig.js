@@ -26,19 +26,19 @@ const navigationConfig = [
                         'id': 'createinspectionreport',
                         'title': 'Besigtigelsesreport',
                         'type': 'item',
-                        'url': ''
+                        'url': '/InspectionReport/Make'
                     },
                     {
                         'id': 'createoffer',
                         'title': 'Tilbud',
                         'type': 'item',
-                        'url': ''
+                        'url': '/Offer/Make'
                     },
                     {
                         'id': 'createtask',
                         'title': 'Opgave',
                         'type': 'item',
-                        'url': ''
+                        'url': '/Task/Make'
                     }
                 ]
             },

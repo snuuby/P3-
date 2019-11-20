@@ -24,7 +24,7 @@ namespace HasserisWeb
         {
             this.database = database;
         }
-        /*
+        
         [Route("MakeInspectionReport")]
         public void MakeInspectionReport(string json)
         {
@@ -33,12 +33,14 @@ namespace HasserisWeb
                         NullValueHandling = NullValueHandling.Ignore,
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     };
-            inspectionReport inspectionReport = JsonConvert.DeserializeObject<InspectionReport>(json, settings);
+            InspectionReport inspectionReport = JsonConvert.DeserializeObject<InspectionReport>(json, settings);
+            Customer tempCustomer_one = new Private("InspectionCustomer", "Eriksen", new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"));
+            List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 03), new DateTime(2019, 11, 04) };
 
-            Moving moving = new Moving();
-            moving.inspectionReport = inspectionReport;
-            database.Tasks.Add(moving);
+            Moving tempMoving = new Moving("InspectionTest", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 1);
+            tempMoving.InspectionReport = inspectionReport;
+            database.Tasks.Add(tempMoving);
         }
-        */
+        
     }
 }

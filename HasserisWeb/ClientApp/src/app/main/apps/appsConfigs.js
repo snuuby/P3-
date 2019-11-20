@@ -16,6 +16,8 @@ import { EmployeeOverviewConfig } from "../overview/EmployeeOverviewConfig";
 import { ToolOverviewConfig } from "../toolOverview/ToolOverviewConfig";
 import { VehicleOverviewConfig } from "../vehicleOverview/VehicleOverviewConfig";
 import { CustomerOverviewConfig } from "../customerOverview/CustomerOverviewConfig";
+import { MakeTaskConfig } from "../createtasks/MakeTaskConfig";
+
 
 export const appsConfigs = [
     AnalyticsDashboardAppConfig,
@@ -36,4 +38,5 @@ export const appsConfigs = [
     ToolOverviewConfig,
     VehicleOverviewConfig,
     CustomerOverviewConfig,
+    MakeTaskConfig,
 ];
