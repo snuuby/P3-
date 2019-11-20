@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, ExpansionPanel, TextField, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography, Button } from '@material-ui/core';
+import { Avatar, ExpansionPanel, TextField, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography, Button, Box } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded } from '@fuse';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -66,34 +66,17 @@ function InspectionReport(props) {
                     <div className="p-16 sm:p-24 max-w-2xl w-full">
                         {/*Text Fields*/}
                         <div class="flex mb-4">
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 ">
-                                {/*Customer ID*/}
+                            <div class="flex-1 bg-gray-0 h-12 pr-1">
+                                {/*Navn*/}
                                 <TextField
-                                    id="InspectionReportID"
-                                    label="Besigtigelsesrapport ID"
-                                    className="mt-8 mb-16"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    name="InspectionReportID"
-                                    //value={customer.ID}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                            </div>
-                            <div class="flex-1 bg-gray-0 h-12 pl-10">
-                                {/*Full Name*/}
-                                <TextField
-                                    id="FullName"
+                                    id="Name"
                                     label="Navn"
                                     className="mt-8 mb-16"
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="FullName"
-                                    //value={customer.Firstname + ' ' + customer.Lastname}
+                                    name="Name"
+                                    //value="ASDASDADADADADADAD"
                                     variant="outlined"
                                     autoFocus
                                     required
@@ -101,6 +84,300 @@ function InspectionReport(props) {
                                 />
                             </div>
                         </div>
+                            <div class="flex mb-4">
+                                <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                    {/*Customer*/}
+                                    <TextField
+                                        id="Customer"
+                                        label="Kunde"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="Customer"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required
+                                        fullWidth
+                                    />
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                    {/*VisitingDate*/}
+                                    <TextField
+                                        id="InspectionReportDate"
+                                        label="Besigtigelsesdato"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="InspectionReportDate"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required
+                                        fullWidth
+                                    />
+                                </div>
+
+                                <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                    {/*MovingDate*/}
+                                    <TextField
+                                        id="MovingDate"
+                                        label="Flyttedato"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="MovingDate"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required={false}
+                                        fullWidth
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="flex mb-4">
+                                <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                    
+                                    <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                        <Typography className="text-16 sm:text-20 truncate">
+                                            Start ved:
+                                        </Typography>
+                                    </FuseAnimate>
+                                </div>
+                                <div class="flex mb-4">
+                                    <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                        {/*Start Addresse*/}
+                                        
+                                        <TextField
+                                            id="Startaddress"
+                                            label="addresse"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="Startaddress"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                        {/*city*/}
+                                        <TextField
+                                            id="StartCity"
+                                            label="By"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="StartCity"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required={false}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                        {/*ZIP*/}
+                                        <TextField
+                                            id="StartZIP"
+                                            label="ZIP"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="StartZIP"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required={false}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                        {/*Note*/}
+                                        <TextField
+                                            id="StartNote"
+                                            label="Note"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="StartNote"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required={false}
+                                            fullWidth
+                                        />
+                                    </div>
+                                </div>  
+                            </div>   
+
+                            <div class="flex mb-4">
+                                <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                    
+                                    <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                        <Typography className="text-16 sm:text-20 truncate" >
+                                            Flyt til:
+                                        </Typography>
+                                    </FuseAnimate>
+                                </div>
+                                <div class="flex mb-4">
+                                    <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                        {/*Destination Addresse*/}
+                                        <TextField
+                                            id="Destinationaddress"
+                                            label="addresse"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="Destinationaddress"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                        {/*Destinationcity*/}
+                                        <TextField
+                                            id="DestinationCity"
+                                            label="By"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="DestinationCity"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required={false}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                        {/*DestinationZIP*/}
+                                        <TextField
+                                            id="DestinationZIP"
+                                            label="ZIP"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="DestinationZIP"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required={false}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                        {/*DestinationNote*/}
+                                        <TextField
+                                            id="DestinationNote"
+                                            label="Note"
+                                            className="mt-8 mb-16"
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            name="DestinationNote"
+                                            //value={customer.ID}
+                                            variant="outlined"
+                                            autoFocus
+                                            required={false}
+                                            fullWidth
+                                        />
+                                    </div>
+                                </div>    
+                            </div>
+                            
+                            <div class="flex mb-4">
+
+                                <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                    {/*Employee*/}
+                                    <TextField
+                                        id="Employee"
+                                        label="Ansat på besøg"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="Employee"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required
+                                        fullWidth
+                                    />
+                                </div>
+                                <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                    {/*Car*/}
+                                    <TextField
+                                        id="Car"
+                                        label="Bil som bliver kørt i"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="Car"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required
+                                        fullWidth
+                                    />
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                                    {/*ExpectedHours*/}
+                                    <TextField
+                                        id="ExpectedHours"
+                                        label="Forventet timeantal"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="ExpectedHours"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required={false}
+                                        fullWidth
+                                    />
+                                </div>
+                                <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
+                                    {/*LentBoxes*/}
+                                    <TextField
+                                        id="LentBoxes"
+                                        label="Lånte flyttekasser"
+                                        className="mt-8 mb-16"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        name="LentBoxes"
+                                        //value={customer.ID}
+                                        variant="outlined"
+                                        autoFocus
+                                        required={false}
+                                        fullWidth
+                                    />
+                                </div>
+                            </div>
+                        
 
 
                     </div>

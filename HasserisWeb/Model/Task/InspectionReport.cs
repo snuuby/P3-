@@ -17,8 +17,8 @@ namespace HasserisWeb
         public DateTime VisitingDate { get; set; }
         public DateTime MovingDate { get; set; }
         public int ExpectedHours { get; set; }
-        public ICollection<InspectionAssignedEmployees> Employees { get; set; } = new List<InspectionAssignedEmployees>();
-        public ICollection<InspectionAssignedEquipment> Equipment { get; set; } = new List<InspectionAssignedEquipment>();
+        public Employee Employee {get; set;}
+        public Vehicle Car {get; set;}
         public int LentBoxes { get; set; }
 
         public InspectionReport(Customer Customer, string Name, Address StartingAddress, string Notes, 

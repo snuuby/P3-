@@ -60,8 +60,8 @@ namespace HasserisWeb
 
                 Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 1);
                 tempMoving.InspectionReport = new InspectionReport(tempCustomer_one, "Tjek flyttemængde", new Address("tjek vej", "9000", "Aalborg", "første dør til venstre"), "Første dør til højre", DateTime.Now);
-                tempMoving.InspectionReport.Employees.Add(new InspectionAssignedEmployees() { Employee = tempEmployee_two, InspectionReport = tempMoving.InspectionReport });
-                tempMoving.InspectionReport.Equipment.Add(new InspectionAssignedEquipment() { Equipment = testEquipment, InspectionReport = tempMoving.InspectionReport });
+                tempMoving.InspectionReport.Car = (Vehicle)testEquipment_one;
+                tempMoving.InspectionReport.Employee = tempEmployee;
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_two, Task = tempMoving });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_three, Task = tempMoving });
                 tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_four, Task = tempMoving });
