@@ -12,15 +12,16 @@ namespace HasserisWeb
     //Customer is an abstract class, meaning instances of customers has to be either a Private, Public or Business.
     public abstract class Customer
     {
-        public Customer()
+
+        protected Customer()
         {
 
         }
         public int ID { get; set; }
         [Required]
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
         [Required]
-        public ContactInfo ContactInfo { get; set; }
+        public virtual ContactInfo ContactInfo { get; set; }
         public int LentBoxes { get; set; }
         public Customer(Address Address, ContactInfo ContactInfo)
         {
@@ -29,6 +30,7 @@ namespace HasserisWeb
 
 
         }
+
 
     }
 

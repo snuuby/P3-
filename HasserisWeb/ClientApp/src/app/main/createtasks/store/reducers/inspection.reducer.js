@@ -9,7 +9,7 @@ const initialState = {
         made: false,
         image: '',
         props: {
-            open: true
+            open: true,
         },
         data : null
     }
@@ -26,9 +26,9 @@ const inspectionReducer = function (state = initialState, action) {
                         props: {
                             open: true
                         },
-                        data: {
+                        data : {
                             ...action.data
-                        }
+                        }                    
                     }
                 };
             }

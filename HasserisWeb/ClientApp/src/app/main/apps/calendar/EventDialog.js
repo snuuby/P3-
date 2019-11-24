@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {TextField, Button, NativeSelect, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch} from '@material-ui/core';
 import FuseUtils from '@fuse/FuseUtils';
-import { Combobox } from 'react-widgets'
 import {useForm} from '@fuse/hooks';
 import Select from 'react-select';
 import {useDispatch, useSelector} from 'react-redux';

@@ -22,7 +22,10 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllCustomers()
         {
-                return JsonConvert.SerializeObject(database.Customers.ToList());
+                return JsonConvert.SerializeObject(database.Customers.
+                Include(contact => contact.ContactInfo).
+                Include(address => address.Address).
+                ToList());
             
         }  
         [Route("{id}")]

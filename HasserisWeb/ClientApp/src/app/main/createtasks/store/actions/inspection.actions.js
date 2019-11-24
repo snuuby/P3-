@@ -12,7 +12,7 @@ export const GET_CUSTOMERS = '[INSPECTION REPORT] GET CUSTOMERS';
 export function openNewInspectionReport(data) {
     return {
         type: OPEN_NEW_INSPECTION_REPORT,
-        data
+        data,
     }
 }
 
@@ -60,9 +60,7 @@ export function getAvailableCars() {
 export function addInspectionReport(report) {
     return (dispatch, getState) => {
 
-        const request = axios.post('Task/MakeInspectionReport', {
-            report
-        });
+        const request = axios.post('Task/MakeInspectionReport', report);
 
         return request.then((response) =>
             Promise.all([

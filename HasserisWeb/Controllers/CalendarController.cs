@@ -16,24 +16,7 @@ using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb.Controllers
 {
-    public class NewEvent
-    {
-        public string id { get; set; }
-        public string title { get; set; }
-        public bool allDay { get; set; }
-        public object employees { get; set; }
-        public string start { get; set; }
-        public string end { get; set; }
-        public string desc { get; set; }
-        public string photoURL { get; set; }
-        public string combo { get; set; }
-    }
-
-    public class TaskAssigned
-    {
-        public List<Employee> Employees;
-        public List<Equipment> Equipment;
-    }
+    
 
     [Route("calendar")]
     public class CalendarController : Controller
@@ -51,10 +34,10 @@ namespace HasserisWeb.Controllers
 
             int id = deserializeObject.eventId;
 
-                var task = database.Tasks.Include(dates => dates.Dates).
-                    Include(pauses => pauses.PauseTimes).
-                    Include(employees => employees.taskAssignedEmployees).
-                    Include(equipment => equipment.taskAssignedEquipment).FirstOrDefault(e => e.ID == id);
+                var task = database.Tasks.Include(t => t.Dates).
+                    Include(t => t.PauseTimes).
+                    Include(t => t.Employees).
+                    Include(t => t.Equipment).FirstOrDefault(t => t.ID == id);
 
 
                 database.Tasks.RemoveRange(task);
@@ -67,24 +50,29 @@ namespace HasserisWeb.Controllers
         }
 
         [Route("Delivery")]
-        public string GetMovingTask()
+        public string GetDeliveryTasks()
         {
-            var deliveryList = database.Tasks.OfType<Delivery>().Select(task => new
+            return JsonConvert.SerializeObject(database.Tasks.OfType<Delivery>().ToList());
+                        
+            
+            /*var deliveryList = database.Tasks.OfType<Delivery>().Select(task => new
             {
                 task,
                 task.Dates,
                 task.Customer,
-                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
-                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
+                Employees = task.Employees.ToList(),
+                Equipment = task.Equipment.ToList()
             }).ToList();
 
             return JsonConvert.SerializeObject(deliveryList);
+            */
         }
 
         [Route("Moving")]
-        public string GetDeliveryTask()
+        public string GetMovingTasks()
         {
-
+            return JsonConvert.SerializeObject(database.Tasks.OfType<Moving>().ToList());
+                                        /*
             var movingList = database.Tasks.OfType<Moving>().Include(f => f.Furnitures).Select(task => new
             {
                 task,
@@ -94,13 +82,14 @@ namespace HasserisWeb.Controllers
                 task.Customer,
                 task.Furnitures,
 
-                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
-                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
+                Employees = task.Employees.ToList(),
+                Equipment = task.Equipment.ToList()
             }).ToList();
 
 
             //
             return JsonConvert.SerializeObject(movingList);
+            */
         }
 
 

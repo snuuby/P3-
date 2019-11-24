@@ -36,6 +36,8 @@ namespace HasserisWeb
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=Database/HasserisDatabase.db;");
+            optionsBuilder.UseLazyLoadingProxies();
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,9 +54,6 @@ namespace HasserisWeb
             modelBuilder.Entity<Vehicle>();
             modelBuilder.Entity<Tool>();
 
-            //modelBuilder.Entity<Address>().HasNoKey();
-            //modelBuilder.Entity<ContactInfo>().HasNoKey();
-
 
 
             modelBuilder.Entity<Address>();
@@ -65,58 +64,6 @@ namespace HasserisWeb
 
 
             //Mapping many-to-many relation between task/employees and task/equipment
-
-            modelBuilder.Entity<TaskAssignedEmployees>()
-                .HasKey(te => new { te.TaskID, te.EmployeeID });
-            modelBuilder.Entity<TaskAssignedEquipment>()
-                .HasKey(te => new { te.TaskID, te.EquipmentID });
-            
-
-
-            modelBuilder.Entity<TaskAssignedEmployees>()
-                .HasOne(t => t.Task)
-                .WithMany(e => e.taskAssignedEmployees)
-                .HasForeignKey(t => t.TaskID);
-            modelBuilder.Entity<TaskAssignedEmployees>()
-                .HasOne(t => t.Employee)
-                .WithMany(e => e.taskAssignedEmployees)
-                .HasForeignKey(t => t.EmployeeID);
-
-            modelBuilder.Entity<TaskAssignedEquipment>()
-                .HasOne(t => t.Task)
-                .WithMany(e => e.taskAssignedEquipment)
-                .HasForeignKey(t => t.TaskID);
-            modelBuilder.Entity<TaskAssignedEquipment>()
-                .HasOne(t => t.Equipment)
-                .WithMany(e => e.taskAssignedEquipment)
-                .HasForeignKey(t => t.EquipmentID);
-/*
-            modelBuilder.Entity<InspectionAssignedEmployees>()
-                .HasKey(te => new { te.InspectionID, te.EmployeeID });
-            modelBuilder.Entity<InspectionAssignedEquipment>()
-                .HasKey(te => new { te.InspectionID, te.EquipmentID });
-
-            modelBuilder.Entity<InspectionAssignedEmployees>()
-                .HasOne(t => t.Employee)
-                .WithMany(t => t.Inspections)
-                .HasForeignKey(te => te.EmployeeID);
-            modelBuilder.Entity<InspectionAssignedEmployees>()
-                .HasOne(t => t.InspectionReport)
-                .WithMany(t => t.Employees)
-                .HasForeignKey(te => te.InspectionID);
-
-            modelBuilder.Entity<InspectionAssignedEquipment>()
-                .HasOne(t => t.Equipment)
-                .WithMany(t => t.Inspections)
-                .HasForeignKey(te => te.EquipmentID);
-            modelBuilder.Entity<InspectionAssignedEquipment>()
-                .HasOne(t => t.InspectionReport)
-                .WithMany(t => t.Equipment)
-                .HasForeignKey(te => te.InspectionID);
- */
-
-
-
 
             base.OnModelCreating(modelBuilder);
         }

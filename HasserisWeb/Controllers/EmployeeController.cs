@@ -23,13 +23,15 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllEmployees()
         {
-            return JsonConvert.SerializeObject(database.Employees.ToList());
+            return JsonConvert.SerializeObject(database.Employees.Include(address => address.Address).
+                                                Include(contact => contact.ContactInfo).ToList());
         }
         [Route("available")]
         public string GetAvailableEmployees()
         {
             return JsonConvert.SerializeObject(database.Employees.
-                Where(employee => employee.IsAvailable && (employee.Type == "Admin" || employee.Type == "AdminPlus")).ToList());
+                Where(employee => employee.IsAvailable && (employee.Type == "Admin" || employee.Type == "AdminPlus")).
+                Include(contact => contact.ContactInfo).Include(address => address.Address).ToList());
         }
         [Route("{id}")]
         public string GetSpecificEmployee(int id)

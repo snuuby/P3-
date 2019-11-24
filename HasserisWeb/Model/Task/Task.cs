@@ -13,31 +13,30 @@ namespace HasserisWeb
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public ICollection<TaskAssignedEmployees> taskAssignedEmployees { get; set; } = new List<TaskAssignedEmployees>();
-        public ICollection<TaskAssignedEquipment> taskAssignedEquipment { get; set; } = new List<TaskAssignedEquipment>();
-        public InspectionReport InspectionReport { get; set; }
-        public Offer Offer { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+        public virtual List<Equipment> Equipment { get; set; } = new List<Equipment>();
+        public virtual InspectionReport InspectionReport { get; set; }
+        public virtual Offer Offer { get; set; }
         [Required]
-        public Customer Customer { get; set; }
-        [Required]
-        public Address Destination { get; set; }
-        [Required]
+        public virtual Customer Customer { get; set; }
+        public virtual Address Destination { get; set; }
         public double Income { get; set; }
         public double Expenses { get; set; }
-        public ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
+        public virtual ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
         //Properties for calculating the total duration of a task, taskDuration.
         [Column(TypeName = "Date")]
         public DateTime StartTime { get; set; }
         [Column(TypeName = "Date")]
         public DateTime EndTime { get; set; }
-        public ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
+        public virtual ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
         public bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
         public string WorkPhoneNumber { get; set; }
         public string PhotoPath { get; set; }
         public int Phase { get; set; }
-        public Task()
+
+        protected Task()
         {
 
         }

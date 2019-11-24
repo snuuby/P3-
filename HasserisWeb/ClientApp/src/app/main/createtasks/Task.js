@@ -326,23 +326,6 @@ function Task(props) {
 
                         </div>
                         <div class="flex mb-4">
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                                {/*ExpectedHours*/}
-                                <TextField
-                                    id="ExpectedHours"
-                                    label="Forventet timeantal"
-                                    className="mt-8 mb-16"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    name="ExpectedHours"
-                                    //value={customer.ID}
-                                    variant="outlined"
-                                    autoFocus
-                                    required={false}
-                                    fullWidth
-                                />
-                            </div>
                             <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
                                 {/*LentBoxes*/}
                                 <TextField

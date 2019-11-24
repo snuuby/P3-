@@ -28,8 +28,8 @@ namespace HasserisWeb
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
             services.AddControllersWithViews();
+            services.AddDbContext<HasserisDbContext>(options => options.UseLazyLoadingProxies().UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
 
 
             // In production, the React files will be served from this directory

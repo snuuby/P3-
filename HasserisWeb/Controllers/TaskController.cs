@@ -24,22 +24,46 @@ namespace HasserisWeb
         {
             this.database = database;
         }
-        
+        [HttpPost]
         [Route("MakeInspectionReport")]
-        public void MakeInspectionReport(string json)
+        public void MakeInspectionReport([FromBody]string json)
         {
             var settings = new JsonSerializerSettings
                     {
                         NullValueHandling = NullValueHandling.Ignore,
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     };
-            InspectionReport inspectionReport = JsonConvert.DeserializeObject<InspectionReport>(json, settings);
-            Customer tempCustomer_one = new Private("InspectionCustomer", "Eriksen", new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"));
-            List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 03), new DateTime(2019, 11, 04) };
-
-            Moving tempMoving = new Moving("InspectionTest", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 1);
-            tempMoving.InspectionReport = inspectionReport;
+            InspectionReport tempI = JsonConvert.DeserializeObject<InspectionReport>(json, settings);
+            Moving tempMoving = new Moving();
+            tempMoving.InspectionReport = tempI;
             database.Tasks.Add(tempMoving);
+            database.SaveChanges();
+            /*
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString(), settings);
+            int customerID = temp.Customer.ID;
+            int employeeID = temp.Employee.ID;
+            int carID = temp.Car.ID;
+            string address = temp.Address;
+            string ZIP = temp.ZIP;
+            string City = temp.City;
+            string AddressNote = temp.AddressNote;
+            Address startingAddress = new Address(address, ZIP, City, AddressNote);
+            Customer tempCustomer= database.Customers.FirstOrDefault(cus => cus.ID == customerID);
+            Employee tempEmployee= database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
+            Vehicle tempCar= database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);
+
+            DateTime date1 = DateTime.Parse(temp.Start, CultureInfo.GetCultureInfo("sv-SE"));
+            date1 = date1.AddHours(-1);
+
+            InspectionReport inspection = new InspectionReport(tempCustomer, temp.Name, startingAddress, tempEmployee, tempCar, temp.Notes, date1 );
+
+            List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 07), new DateTime(2019, 11, 08) };
+
+            Moving tempMoving = new Moving("InspectionTaskTest", tempCustomer, startingAddress, 700, testList_two, "Hjï¿½lp Lars med at flytte", "23131343", tempCustomer.Address, 5, true, 1);
+            tempMoving.InspectionReport = inspection;
+            database.Tasks.Add(tempMoving);
+            database.SaveChanges();
+            */
         }
         
     }
