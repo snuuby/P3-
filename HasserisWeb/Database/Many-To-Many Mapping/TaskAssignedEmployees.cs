@@ -9,7 +9,7 @@ namespace HasserisWeb
     {
         public int TaskID { get; set; }
         public int EmployeeID { get; set; }
-        public Task Task { get; set; }
-        public Employee Employee { get; set; }
+        public virtual Task Task { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

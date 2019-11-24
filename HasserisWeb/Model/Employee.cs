@@ -30,7 +30,7 @@ namespace HasserisWeb
         public string Type { get; set; }
         [Required]
         public string Employed { get; set; }
-
+        public virtual ICollection<TaskAssignedEmployees> Tasks { get; set; } = new List<TaskAssignedEmployees>();
         protected Employee()
         {
 

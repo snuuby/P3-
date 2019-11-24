@@ -12,7 +12,8 @@ import {OPTIONS} from "react-select/src/__tests__/constants";
 const defaultFormState = {
     //Common task properties
     id    : '',
-    title : '',
+    title: '',
+    Name: '',
     allDay: true,
     employees : null,
     customer : null,
@@ -90,7 +91,7 @@ function EventDialog(props)
     function canBeSubmitted()
     {
         return (
-            form.title.length > 0
+            form.Name.length > 0
         );
     }
 

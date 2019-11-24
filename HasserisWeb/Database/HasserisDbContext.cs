@@ -61,8 +61,14 @@ namespace HasserisWeb
             modelBuilder.Entity<ContactInfo>();
             modelBuilder.Entity<DateTimes>();
             modelBuilder.Entity<PauseTimes>();
+            
+            modelBuilder.Entity<TaskAssignedEmployees>()
+                    .HasKey(e => new { e.EmployeeID, e.TaskID });
+            modelBuilder.Entity<TaskAssignedEquipment>()
+                    .HasKey(e => new { e.EquipmentID, e.TaskID });
 
 
+                
             //Mapping many-to-many relation between task/employees and task/equipment
 
             base.OnModelCreating(modelBuilder);

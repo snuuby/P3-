@@ -13,8 +13,8 @@ namespace HasserisWeb
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
-        public virtual List<Equipment> Equipment { get; set; } = new List<Equipment>();
+        public virtual ICollection<TaskAssignedEmployees> Employees { get; set; } = new List<TaskAssignedEmployees>();
+        public virtual ICollection<TaskAssignedEquipment> Equipment { get; set; } = new List<TaskAssignedEquipment>();
         public virtual InspectionReport InspectionReport { get; set; }
         public virtual Offer Offer { get; set; }
         [Required]
@@ -23,11 +23,6 @@ namespace HasserisWeb
         public double Income { get; set; }
         public double Expenses { get; set; }
         public virtual ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
-        //Properties for calculating the total duration of a task, taskDuration.
-        [Column(TypeName = "Date")]
-        public DateTime StartTime { get; set; }
-        [Column(TypeName = "Date")]
-        public DateTime EndTime { get; set; }
         public virtual ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
         public bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
@@ -62,58 +57,9 @@ namespace HasserisWeb
             this.PhotoPath = "assets/images/tasks/placeholder.png";
         }
 
-        public void BeginTasks()
-        {
-            this.StartTime = DateTime.Now;
-        }
-        public void ResumeTasks()
-        {
-            if (IsPaused)
-            {
-                IsPaused = false;
-                StartTime = DateTime.Now;
-            }
-        }
-        public void PauseTasks()
-        {
-            if (!IsPaused)
-            {
-                IsPaused = true;
-                DateTime temp = DateTime.Now;
-                //On first pause, add the time for task start and now to the list of pauseTimes.
-                if (PauseTimes.Count == 0)
-                {
-                    PauseTimes.Add(new PauseTimes() { Date = StartTime });
-
-                }
-                //add the current time to the pause list on every pause
-                PauseTimes.Add(new PauseTimes() { Date = temp });
-                //also on first pause, make the current duration equal to the difference between now and task start.
-                if (PauseTimes.Count == 2)
-                {
-                    TaskDuration = temp - StartTime;
-                }
-                //on subsequent pauses, add the difference between now and last resume.
-                if (PauseTimes.Count > 2)
-                {
-                    TaskDuration += temp - StartTime;
-                }
-            }
-        }
-
-        public void EndTasks()
-        {
-            this.EndTime = DateTime.Now;
-            TimeSpan t = EndTime - StartTime;
-            if (PauseTimes.Count >= 2)
-            {
-                TaskDuration += t;
-            }
-            else
-            {
-                TaskDuration = t;
-            }
-        }
+  
+        
+        
 
         //Just change it if the calculation is more complex (it probably is)
         //Maybe we have to take into account things like "feriepenge" and money spent on fuel etc..

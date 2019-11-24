@@ -53,43 +53,12 @@ namespace HasserisWeb.Controllers
         public string GetDeliveryTasks()
         {
             return JsonConvert.SerializeObject(database.Tasks.OfType<Delivery>().ToList());
-                        
-            
-            /*var deliveryList = database.Tasks.OfType<Delivery>().Select(task => new
-            {
-                task,
-                task.Dates,
-                task.Customer,
-                Employees = task.Employees.ToList(),
-                Equipment = task.Equipment.ToList()
-            }).ToList();
-
-            return JsonConvert.SerializeObject(deliveryList);
-            */
         }
 
         [Route("Moving")]
         public string GetMovingTasks()
         {
             return JsonConvert.SerializeObject(database.Tasks.OfType<Moving>().ToList());
-                                        /*
-            var movingList = database.Tasks.OfType<Moving>().Include(f => f.Furnitures).Select(task => new
-            {
-                task,
-                Dates = task.Dates.OrderBy(c => c.Date).ToList(),
-                task.StartingAddress,
-                task.Destination,
-                task.Customer,
-                task.Furnitures,
-
-                Employees = task.Employees.ToList(),
-                Equipment = task.Equipment.ToList()
-            }).ToList();
-
-
-            //
-            return JsonConvert.SerializeObject(movingList);
-            */
         }
 
 

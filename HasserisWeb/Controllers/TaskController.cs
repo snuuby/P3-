@@ -26,20 +26,11 @@ namespace HasserisWeb
         }
         [HttpPost]
         [Route("MakeInspectionReport")]
-        public void MakeInspectionReport([FromBody]string json)
+        public void MakeInspectionReport([FromBody]dynamic json)
         {
-            var settings = new JsonSerializerSettings
-                    {
-                        NullValueHandling = NullValueHandling.Ignore,
-                        MissingMemberHandling = MissingMemberHandling.Ignore
-                    };
-            InspectionReport tempI = JsonConvert.DeserializeObject<InspectionReport>(json, settings);
-            Moving tempMoving = new Moving();
-            tempMoving.InspectionReport = tempI;
-            database.Tasks.Add(tempMoving);
-            database.SaveChanges();
-            /*
-            dynamic temp = JsonConvert.DeserializeObject(json.ToString(), settings);
+
+
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int customerID = temp.Customer.ID;
             int employeeID = temp.Employee.ID;
             int carID = temp.Car.ID;
@@ -59,11 +50,11 @@ namespace HasserisWeb
 
             List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 07), new DateTime(2019, 11, 08) };
 
-            Moving tempMoving = new Moving("InspectionTaskTest", tempCustomer, startingAddress, 700, testList_two, "Hj�lp Lars med at flytte", "23131343", tempCustomer.Address, 5, true, 1);
+            Moving tempMoving = new Moving(temp.Name, tempCustomer, startingAddress, 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer.Address, 5, true, 1);
             tempMoving.InspectionReport = inspection;
             database.Tasks.Add(tempMoving);
             database.SaveChanges();
-            */
+            
         }
         
     }
