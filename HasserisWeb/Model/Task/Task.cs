@@ -11,13 +11,11 @@ namespace HasserisWeb
         //represents phase 3 in the process of an order
         //Goes from VisitingReport -> Offer -> Task. It is collected in this Task class so information can be saved in one object through different phases.
         public int ID { get; set; }
-        [Required]
         public string Name { get; set; }
         public virtual ICollection<TaskAssignedEmployees> Employees { get; set; } = new List<TaskAssignedEmployees>();
         public virtual ICollection<TaskAssignedEquipment> Equipment { get; set; } = new List<TaskAssignedEquipment>();
         public virtual InspectionReport InspectionReport { get; set; }
         public virtual Offer Offer { get; set; }
-        [Required]
         public virtual Customer Customer { get; set; }
         public virtual Address Destination { get; set; }
         public double Income { get; set; }

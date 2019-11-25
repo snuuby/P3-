@@ -1,27 +1,26 @@
-import InspectionReport from './InspectionReport';
 import React from "react";
-import authRoles from "../../auth/authRoles";
+import authRoles from "../../../../auth/authRoles";
 
-export const MakeTaskConfig = {
+export const InspectionsOverviewConfig = {
     settings: {
         layout: {
             config: {}
         }
     },
-    auth: authRoles.admin, auth: authRoles.adminPlus,
+    auth    : authRoles.adminPlus,
     routes  : [
         {
             path     : '/InspectionReport/Make',
-            component: React.lazy(() => import('./InspectionReport'))
+            component: React.lazy(() => import('./CreateInspectionReport'))
         },
         {
-            path: '/Offer/Make',
-            component: React.lazy(() => import('./Offer'))
+            path: '/inspections/overview',
+            component: React.lazy(() => import('./InspectionsOverview'))
         },
         {
-            path: '/Task/Make',
-            component: React.lazy(() => import('./Task'))
-        },
+            path        : '/inspections/:InspectionId',
+            component   : React.lazy(() => import('./InspectionReport'))
+        }
     ]
 };
 

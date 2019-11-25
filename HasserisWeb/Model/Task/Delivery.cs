@@ -9,9 +9,7 @@ namespace HasserisWeb
     //Delivery-type task, for sale of a product (material) in a given quantity to a customer.
     public class Delivery : Task
     {
-        [Required]
         public string Material { get; set; }
-        [Required]
         public int Quantity { get; set; }
         public Delivery()
         {

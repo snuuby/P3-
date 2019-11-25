@@ -6,8 +6,17 @@ export const SAVE_INSPECTION_REPORT = '[INSPECTION REPORT] SAVE INSPECTION REPOR
 export const GET_AVAILABLE_EMPLOYEES = '[INSPECTION REPORT] GET AVAILABLE EMPLOYEES';
 export const GET_AVAILABLE_CARS = '[INSPECTION REPORT] GET AVAILABLE CARS';
 export const GET_CUSTOMERS = '[INSPECTION REPORT] GET CUSTOMERS';
+export const GET_INSPECTION_REPORT = '[INSPECTION REPORT} GET INSPECTION REPORT';
+export const GET_ALL_INSPECTION_REPORT = '[INSPECTION REPORT} GET ALL INSPECTION REPORT';
+export const SET_INSPECTIONOVERVIEW_SEARCH_TEXT = '[INSPECTION REPORT] SET OVERVIEW SEARCH TEXT';
 
 
+export function setInspectionOverviewSearchText(event) {
+    return {
+        type: SET_INSPECTIONOVERVIEW_SEARCH_TEXT,
+        searchText: event.target.value
+    }
+}
 
 export function openNewInspectionReport(data) {
     return {
@@ -16,6 +25,31 @@ export function openNewInspectionReport(data) {
     }
 }
 
+export function getInspectionReport(params)
+{
+    const request = axios.get('Task/' + params.InspectionId);
+
+    return (dispatch) => request.then((response) =>
+        Promise.all([
+            dispatch({
+                type: GET_INSPECTION_REPORT,
+                payload: response.data,
+            })
+        ])
+        );
+}
+export function getAllInspectionReports()
+{
+    const request = axios.get('Task/getAllInspectionReports');
+
+    return (dispatch) => request.then((response) =>
+        Promise.all([
+            dispatch({
+                type: GET_ALL_INSPECTION_REPORT,
+                payload: response.data,
+            })
+        ]));
+}
 export function closeNewInspectionReport() {
     return {
         type: CLOSE_NEW_INSPECTION_REPORT

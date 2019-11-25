@@ -9,9 +9,7 @@ namespace HasserisWeb
     //Public-type customer class, for public work/communial.
     public class Public : Customer
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string EAN { get; set; }
         public Public()
         {

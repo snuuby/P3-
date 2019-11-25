@@ -52,7 +52,7 @@ const navigationConfig = [
                         'id': 'inspectionreportoverview',
                         'title': 'Besigtigelsesreporter',
                         'type': 'item',
-                        'url': ''
+                        'url': '/inspections/overview'
                     },
                     {
                         'id': 'offeroverview',

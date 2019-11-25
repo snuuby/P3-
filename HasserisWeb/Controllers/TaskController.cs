@@ -28,8 +28,6 @@ namespace HasserisWeb
         [Route("MakeInspectionReport")]
         public void MakeInspectionReport([FromBody]dynamic json)
         {
-
-
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int customerID = temp.Customer.ID;
             int employeeID = temp.Employee.ID;
@@ -38,24 +36,38 @@ namespace HasserisWeb
             string ZIP = temp.ZIP;
             string City = temp.City;
             string AddressNote = temp.AddressNote;
+            string name = temp.Name;
+            string notes = temp.Notes;
             Address startingAddress = new Address(address, ZIP, City, AddressNote);
             Customer tempCustomer= database.Customers.FirstOrDefault(cus => cus.ID == customerID);
             Employee tempEmployee= database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
             Vehicle tempCar= database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);
-
-            DateTime date1 = DateTime.Parse(temp.Start, CultureInfo.GetCultureInfo("sv-SE"));
+            string start = temp.Start;
+            DateTime date1 = DateTime.Parse(start, CultureInfo.GetCultureInfo("sv-SE"));
             date1 = date1.AddHours(-1);
 
-            InspectionReport inspection = new InspectionReport(tempCustomer, temp.Name, startingAddress, tempEmployee, tempCar, temp.Notes, date1 );
-
-            List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 07), new DateTime(2019, 11, 08) };
-
-            Moving tempMoving = new Moving(temp.Name, tempCustomer, startingAddress, 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer.Address, 5, true, 1);
-            tempMoving.InspectionReport = inspection;
-            database.Tasks.Add(tempMoving);
+            InspectionReport inspection = new InspectionReport(tempCustomer, name, startingAddress, tempEmployee, tempCar, notes, date1 );
+            Moving moving = new Moving();
+            moving.Phase = 1;
+            moving.InspectionReport = inspection;
+            database.Tasks.Add(moving);
             database.SaveChanges();
-            
         }
-        
+
+        [HttpGet]
+        [Route("{id}")]
+        public string GetInspectionReport(int id)
+        { 
+            InspectionReport tempReport = database.Inspections.FirstOrDefault(i => i.ID == id);
+            return JsonConvert.SerializeObject(tempReport);
+        }
+        [HttpGet]
+        [Route("getAllInspectionReports")]
+        public string GetAllInspectionReports()
+        {
+
+            List<InspectionReport> tempReports = database.Inspections.ToList();
+            return JsonConvert.SerializeObject(tempReports);
+        }
     }
 }

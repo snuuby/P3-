@@ -18,9 +18,7 @@ namespace HasserisWeb
 
         }
         public int ID { get; set; }
-        [Required]
         public virtual Address Address { get; set; }
-        [Required]
         public virtual ContactInfo ContactInfo { get; set; }
         public int LentBoxes { get; set; }
         public Customer(Address Address, ContactInfo ContactInfo)

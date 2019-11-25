@@ -9,9 +9,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import withReducer from '../../store/withReducer';
-import * as Actions from './store/actions';
-import reducer from './store/reducers';
+import withReducer from '../../../../store/withReducer';
+import * as Actions from '../../store/actions';
+import reducer from '../../store/reducers';
 import { Select } from '@material-ui/core';
 import moment from 'moment';
 import InputNumber from 'react-input-number';
@@ -83,7 +83,6 @@ function InspectionReport(props) {
                 dispatch(Actions.getCustomers());
                 setForm({
                     ...defaultFormState,        
-                    ...eventDialog.data,        
                 });
             }
 
@@ -109,12 +108,13 @@ function InspectionReport(props) {
 
     function canBeSubmitted() {
         return (
-            (form.Name.length > 0)
+            form.Customer && form.Car && form.Employee && (form.Name.length > 0)
         );
     }
 
     function handleSubmit(event) {
         event.preventDefault();
+        props.history.push('/inspections/overview');
 
         dispatch(Actions.addInspectionReport(form));
         
@@ -203,11 +203,11 @@ function InspectionReport(props) {
                                         required
                                     />
                                     <TextField
-                                        id="AddressNotes"
+                                        id="AddressNote"
                                         label="Noter til addressen"
                                         className={classes.formControl}
-                                        name="AddressNotes"
-                                        value={form.AdressNotes}
+                                        name="AddressNote"
+                                        value={form.AddressNote}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
@@ -314,26 +314,8 @@ function InspectionReport(props) {
                                     fullWidth
                                 />
                                 
-                                <TextField
-                                    className={classes.formControl}
-                                    id="Lentboxes" label="Boxe"
-                                    type="number"
-                                    name="Lentboxes"
-                                    value={form.Lentboxes}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                />
-                                
-                                <TextField
-                                    className={classes.formControl}
-                                    id="ExpectedHours" label="Forventet timeantal"
-                                    type="number"
-                                    name="ExpectedHours"
-                                    value={form.ExpectedHours}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                />
 
+                                
 
 
                                 <Button

@@ -26,7 +26,9 @@ namespace HasserisWeb
 
         }
         
-  
+        public DbSet<InspectionReport> Inspections { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
