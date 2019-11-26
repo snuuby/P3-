@@ -25,15 +25,14 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
     },
 }));
-
 const defaultFormState = {
     //Common task properties
-    CustomerName: '',
+    Name: '',
+    InspectionReport: null,
     Employee: null,
     Customer: null,
     Car: null,
-    InspectionDate: new Date(),
-    MovingDate: new Date(),
+    Start: new Date(),
     End: new Date(),
     Notes: '',
     combo: '',
@@ -41,17 +40,16 @@ const defaultFormState = {
     Destination: null,
     ExpectedHours: null,
 
-    //Address
 
-    StartAddress: null,
-    StartZIP: null,
-    StartCity: null,
+    //Address
+    StartingAddress: 'h',
+    StartingZIP: null,
+    StartingCity: null,
     DestinationAddress: null,
     DestinationZIP: null,
     DestinationCity: null,
     //Moving task specific properties
     furniture: null,
-    startingaddress: null,
     Lentboxes: null,
 
     //Delivery task specific properties
@@ -59,16 +57,16 @@ const defaultFormState = {
     quantity: null,
 };
 
-function InspectionReport(props) {
+function OfferReport(props) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.inspections.eventDialog);
+    const eventDialog = useSelector(({ makeReducer }) => makeReducer.offers.eventDialog);
 
-    const customers = useSelector(({ makeReducer }) => makeReducer.inspections.customers);
-    const employees = useSelector(({ makeReducer }) => makeReducer.inspections.availableEmployees);
-    const cars = useSelector(({ makeReducer }) => makeReducer.inspections.availableCars);
+    const customers = useSelector(({ makeReducer }) => makeReducer.offers.customers);
+    const employees = useSelector(({ makeReducer }) => makeReducer.offers.availableEmployees);
+    const cars = useSelector(({ makeReducer }) => makeReducer.offers.availableCars);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -76,28 +74,27 @@ function InspectionReport(props) {
     const [labelWidth, setLabelWidth] = useState(0);
 
     useEffect(() => {
-        dispatch(Actions.getInspectionReport(props.match.params));
-    }, [props.match.params]);
-
-    useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth + 20);
     }, []);
-
     const initDialog = useCallback(
         () => {
             const event = {start: start};
-            if (eventDialog.type === 'new') {
-                dispatch(Actions.getAvailableEmployees());
-                dispatch(Actions.getAvailableCars());
+            if (!eventDialog.wasInspection) {
                 dispatch(Actions.getCustomers());
                 setForm({
-                    ...eventDialog.data,        
+                    ...defaultFormState,        
+                });
+            }
+            if (eventDialog.wasInspection) {
+
+                setForm({
+                    ...eventDialog.data,
                 });
             }
 
 
         },
-        [eventDialog.data, eventDialog.type, setForm],
+        [eventDialog.data, eventDialog.type, setForm, eventDialog.wasInspection],
     );
 
     useEffect(() => {
@@ -108,54 +105,31 @@ function InspectionReport(props) {
             initDialog();
 
         }
+
     }, [eventDialog.props.open, initDialog]);
     
 
     function closeComposeDialog() {
-        dispatch(Actions.closeNewInspectionReport());
+        dispatch(Actions.closeNewOffer());
     }
 
     function canBeSubmitted() {
         return (
-            form.Customer && form.Car && form.Employee 
+            form.Customer && form.Car && form.Employee && (form.Name.length > 0)
         );
     }
 
     function handleSubmit(event) {
         event.preventDefault();
+        props.history.push('/offers/overview');
 
-        dispatch(Actions.addInspectionReport(form));
+        dispatch(Actions.addOffer(form));
         
         closeComposeDialog();
         
     }
-    function OfferSubmit(event)
-    {
-        event.preventDefault();
-        dispatch(Actions.addFromInspectionReport(form));
-
-        props.history.push('/Offer/Make/');
 
 
-        
-    }
-
-    function handleChangeSelect(event, type)
-    {
-        const selectID = event.target.value;
-        if (type == 'employee') {
-            const employee = employees.find(e => e.ID === selectID);
-            handleChange(event)
-        }
-        else if (type == 'customer') {
-            const customer = customers.find(c => c.ID === selectID);
-            handleChange(customer)
-        }
-        else if (type == 'car') {
-            const car = cars.find(c => c.ID === selectID);
-            handleChange(car)
-        }
-    }
 
     return (
         <FusePageCarded
@@ -168,49 +142,48 @@ function InspectionReport(props) {
 
                     <div className="flex flex-1 flex-col items-center sm:items-start">
 
-                        <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                            <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/inspections/overview" color="inherit">
-                                <Icon className="mr-4 text-20">arrow_back</Icon>
-                                Besigtigelsesrapporter
-                                </Typography>
-                        </FuseAnimate>
-                        <div>
-                            <Button
-                                className={classes.formControl}
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                disabled={!canBeSubmitted()}
-                                onClick={OfferSubmit}
-                            >
-                                Overfør som tilbud
-                                </Button>
-                        </div>
-  
 
+                        <div className="flex flex-col min-w-0 items-center sm:items-start">
+
+                            <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                <Typography className="text-16 sm:text-20 truncate">
+                                    Lav Tilbud
+                                    </Typography>
+                            </FuseAnimate>
+
+                        </div>
                     </div>
                 </div>
+
             }
             content={
                 <div>
                     <AppBar position="static">
-                    
-                    <form noValidate onSubmit={handleSubmit} >
+
+                        <form noValidate onSubmit={handleSubmit} >
                             <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                                
-                                <TextField
-                                    id="CustomerName"
-                                    label="Navn"
-                                    className={classes.formControl}
-                                    name="CustomerName"
-                                    value={form.CustomerName}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                                
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                        Kunde
+                                        </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="Customer"
+                                        name="Customer"
+                                        value={form.Customer}
+                                        onChange={handleChange}
+                                        required
+
+                                        labelWidth={labelWidth}
+                                    >
+                                        <MenuItem value={null}>Ingen</MenuItem>
+
+                                        customers && {customers.map(customer =>
+                                            <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                        )}
+
+                                    </Select>
+                                </FormControl>
                                 <div>
 
                                     <TextField
@@ -303,7 +276,6 @@ function InspectionReport(props) {
                                 </div>
 
 
-
                                 <TextField
                                     id="InspectionDate"
                                     name="InspectionDate"
@@ -334,119 +306,48 @@ function InspectionReport(props) {
 
                                     variant="outlined"
                                 />
+                                <TextField
+                                    id="ExpirationDate"
+                                    name="ExpirationDate"
+                                    label="Tilbudsophør dato"
+                                    type="datetime-local"
+                                    className={classes.formControl}
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    value={form.ExpirationDate}
+                                    onChange={handleChange}
+                                    required
+
+                                    variant="outlined"
+                                />
 
 
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Kunde
-                                        </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Customer"
-                                            name="Customer"
-                                            value={form.Customer}
-                                            onChange={handleChange}
-                                            required
-
-                                            labelWidth={labelWidth}
-                                            >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-   
-                                            customers && {customers.map(customer =>
-                                                <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
-                                            ) }
-
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Ansat
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                        Kunde
                                         </InputLabel>
                                     <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Employee"
-                                            name="Employee"                                            
-                                            onChange={handleChange}
-                                            value={form.Employee}
-                                            required
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="Customer"
+                                        name="Customer"
+                                        value={form.Customer}
+                                        onChange={handleChange}
+                                        required
 
-                                            labelWidth={labelWidth}
-                                        >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-                                        employees && {employees.map(employee =>
-                                            <MenuItem value={employee}> {employee.ID + ' ' + employee.Firstname}</MenuItem>
+                                        labelWidth={labelWidth}
+                                    >
+                                        <MenuItem value={null}>Ingen</MenuItem>
+
+                                        customers && {customers.map(customer =>
+                                            <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
                                         )}
 
-                                        </Select>
-                                    </FormControl>
-                                        <FormControl variant="outlined" className={classes.formControl}>
-                                            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                                Bil
-                                            </InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-outlined-label"
-                                                id="Car"
-                                                name="Car"   
-                                                value={form.Car}
-                                                onChange={handleChange}
-                                                labelWidth={labelWidth}
-                                                required
-                                            >
-                                               <MenuItem value={null}>Ingen</MenuItem>
+                                    </Select>
+                                </FormControl>
 
-                                                cars && {cars.map(car =>
-                                                    <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
-                                                )}
 
-                                            </Select>
-                                    </FormControl>
-                                 
 
-                                <TextField
-                                    className={classes.formControl}
-                                    id="Notes" label="Beskrivelse"
-                                    type="text"
-                                    name="Notes"
-                                    value={form.Notes}
-                                    onChange={handleChange}
-                                    multiline rows={5}
-                                    variant="outlined"
-
-                                    fullWidth
-                                />
-
-                                <TextField
-                                    className={classes.formControl}
-                                    id="Lentboxes" label="Lånte boxe"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="Lentboxes"
-                                    value={form.Lentboxes}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
-
-                                <TextField
-                                    className={classes.formControl}
-                                    id="ExpectedHours" label="Forventet timeantal"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="ExpectedHours"
-                                    value={form.ExpectedHours}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
-                                
-
-                                
 
 
                                 <Button
@@ -458,16 +359,12 @@ function InspectionReport(props) {
                                 >
                                     GEM
                                 </Button>
-
-                        </div>
+                            </div>
 
                         </form>
-
                     </AppBar>
 
                 </div>
-
-
             }
             innerScroll
         />
@@ -475,4 +372,4 @@ function InspectionReport(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(InspectionReport);
+export default withReducer('makeReducer', reducer)(OfferReport);

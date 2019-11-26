@@ -175,7 +175,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\main\createtasks\overviews\tasks\" />
-    <Folder Include="ClientApp\src\app\main\createtasks\overviews\offers\" />
     <Folder Include="ClientApp\src\app\main\details\" />
   </ItemGroup>
 

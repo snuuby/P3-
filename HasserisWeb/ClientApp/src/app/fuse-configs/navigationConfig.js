@@ -58,7 +58,7 @@ const navigationConfig = [
                         'id': 'offeroverview',
                         'title': 'Tilbud',
                         'type': 'item',
-                        'url': ''
+                        'url': '/offers/overview'
                     },
                     {
                         'id': 'taskoverview',

@@ -11,21 +11,20 @@ namespace HasserisWeb
         public int ID { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Address StartingAddress { get; set; }
-        public virtual Address DestinationAddress { get; set; }
-        public DateTime VisitingDate { get; set; }
+        public virtual Address Destination { get; set; }
+        public DateTime InspectionDate { get; set; }
         public DateTime MovingDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public int ExpectedHours { get; set; }
         public int LentBoxes { get; set; }
-        public Offer(Customer Customer, Address StartingAddress, DateTime VisitingDate, DateTime MovingDate, 
-                    DateTime ExpirationDate, int ExpectedHours, int LentBoxes) {
+        public Offer(Customer Customer, Address StartingAddress, Address Destination, DateTime InspectionDate, DateTime MovingDate, 
+                    DateTime ExpirationDate) {
                         this.Customer = Customer;
                         this.StartingAddress = StartingAddress;
-                        this.VisitingDate = VisitingDate;
+                        this.InspectionDate = InspectionDate;
                         this.MovingDate = MovingDate;
                         this.ExpirationDate = ExpirationDate;
-                        this.ExpectedHours = ExpectedHours;
-                        this.LentBoxes = LentBoxes;
+                        this.Destination = Destination;
                     }
         public Offer()
         {

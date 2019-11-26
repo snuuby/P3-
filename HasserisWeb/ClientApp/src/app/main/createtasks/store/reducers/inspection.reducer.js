@@ -51,14 +51,17 @@ const inspectionReducer = function (state = initialState, action) {
                         },
                         made: true,
                         data: {
-                            Address: action.payload.StartingAddress.LivingAddress,
-                            ZIP: action.payload.StartingAddress.ZIP,
-                            City: action.payload.StartingAddress.City,
-                            AddressNote: action.payload.StartingAddress.Notes,
+                            CustomerName: action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname, 
+                            StartAddress: action.payload.StartingAddress.LivingAddress,
+                            StartZIP: action.payload.StartingAddress.ZIP,
+                            StartCity: action.payload.StartingAddress.City,
+                            DestinationAddress: action.payload.Destination.LivingAddress,
+                            DestinationZIP: action.payload.Destination.ZIP,
+                            DestinationCity: action.payload.Destination.City,
                             Customer: action.payload.Customer,
                             Employee: action.payload.Employee,
                             Car: action.payload.Car,
-                            Start: action.payload.VisitingDate,
+                            InspectionDate: action.payload.InspectionDate,
                             ...action.payload
                         }
                     }
@@ -92,12 +95,7 @@ const inspectionReducer = function (state = initialState, action) {
                     }
                 };
             }
-        case Actions.SET_INSPECTION_REPORT_IMAGE:
-            {
-                return Object.assign({}, state, {
-                    image: action.payload
-                })
-            }
+
         case Actions.GET_AVAILABLE_EMPLOYEES:
             {
                 return Object.assign({}, state, {

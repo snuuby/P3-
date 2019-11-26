@@ -19,6 +19,12 @@ namespace HasserisWeb
             this.City = city;
             this.Note = note;
         }
+        public Address(string LivingAddress, string ZIP, string city)
+        {
+            this.LivingAddress = LivingAddress;
+            this.ZIP = ZIP;
+            this.City = city;
+        }
         public Address()
         {
 

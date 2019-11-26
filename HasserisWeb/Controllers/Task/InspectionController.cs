@@ -16,41 +16,48 @@ using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb
 {
-    [Route("Task")]
-    public class TaskController : Controller
+    [Route("inspection")]
+    public class InspectionController : Controller
     {
         HasserisDbContext database;
-        public TaskController(HasserisDbContext database) 
+        public InspectionController(HasserisDbContext database) 
         {
             this.database = database;
         }
         [HttpPost]
-        [Route("MakeInspectionReport")]
+        [Route("make")]
         public void MakeInspectionReport([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int customerID = temp.Customer.ID;
             int employeeID = temp.Employee.ID;
             int carID = temp.Car.ID;
-            string address = temp.Address;
-            string ZIP = temp.ZIP;
-            string City = temp.City;
-            string AddressNote = temp.AddressNote;
-            string name = temp.Name;
+            //starting
+            string Saddress = temp.StartAddress;
+            string SZIP = temp.StartZIP;
+            string SCity = temp.StartCity;
+            //destination
+            string Daddress = temp.StartAddress;
+            string DZIP = temp.StartZIP;
+            string DCity = temp.StartCity;
+
             string notes = temp.Notes;
-            Address startingAddress = new Address(address, ZIP, City, AddressNote);
-            Customer tempCustomer= database.Customers.FirstOrDefault(cus => cus.ID == customerID);
+
+            Address startingAddress = new Address(Saddress, SZIP, SCity);
+            Address destination = new Address(Daddress, DZIP, DCity);
+
+            Customer tempCustomer = database.Customers.FirstOrDefault(cus => cus.ID == customerID);
             Employee tempEmployee= database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
             Vehicle tempCar= database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);
-            string start = temp.Start;
-            DateTime date1 = DateTime.Parse(start, CultureInfo.GetCultureInfo("sv-SE"));
-            date1 = date1.AddHours(-1);
-
-            InspectionReport inspection = new InspectionReport(tempCustomer, name, startingAddress, tempEmployee, tempCar, notes, date1 );
-            Moving moving = new Moving();
-            moving.Phase = 1;
-            moving.InspectionReport = inspection;
-            database.Tasks.Add(moving);
+            string inspection = temp.InspectionDate;
+            string moving = temp.MovingDate;
+            DateTime inspectionDate = DateTime.Parse(inspection, CultureInfo.GetCultureInfo("sv-SE"));
+            DateTime movingDate = DateTime.Parse(moving, CultureInfo.GetCultureInfo("sv-SE"));
+            InspectionReport inspectionReport = new InspectionReport(tempCustomer, startingAddress, destination, tempEmployee, tempCar, notes, inspectionDate, movingDate );
+            Moving tempmoving = new Moving();
+            tempmoving.Phase = 1;
+            tempmoving.InspectionReport = inspectionReport;
+            database.Tasks.Add(tempmoving);
             database.SaveChanges();
         }
 
@@ -62,7 +69,7 @@ namespace HasserisWeb
             return JsonConvert.SerializeObject(tempReport);
         }
         [HttpGet]
-        [Route("getAllInspectionReports")]
+        [Route("getall")]
         public string GetAllInspectionReports()
         {
 

@@ -12,31 +12,31 @@ const rows = [
         sort          : true
     },
     {
-        id: 'name',
+        id: 'inspectiondate',
         align: 'left',
         disablePadding: false,
-        label: 'Navn',
+        label: 'Besigtigelsesdato',
         sort: true
+    },
+    {
+        id            : 'movingdate',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Flyttedato',
+        sort          : true
+    },
+    {
+        id            : 'expirationdate',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Tilbuddets ophør',
+        sort          : true
     },
     {
         id            : 'customer',
         align         : 'left',
         disablePadding: false,
         label         : 'Kunde',
-        sort          : true
-    },
-    {
-        id            : 'employee',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Ansat',
-        sort          : true
-    },
-    {
-        id            : 'car',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Bil',
         sort          : true
     },
 ];
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function InspectionsOverviewTableHead(props)
+function OffersOverviewTableHead(props)
 {
     const classes = useStyles(props);
     const [selectedOrdersMenu, setSelectedOrdersMenu] = useState(null);
@@ -114,7 +114,7 @@ function InspectionsOverviewTableHead(props)
                             key={row.id}
                             align={row.align}
                             padding={row.disablePadding ? 'none' : 'default'}
-                            sortDirection={props.inspection.id === row.id ? props.inspection.direction : false}
+                            sortDirection={props.offer.id === row.id ? props.offer.direction : false}
                         >
                             {row.sort && (
                                 <Tooltip
@@ -123,8 +123,8 @@ function InspectionsOverviewTableHead(props)
                                     enterDelay={300}
                                 >
                                     <TableSortLabel
-                                        active={props.inspection.id === row.id}
-                                        direction={props.inspection.direction}
+                                        active={props.offer.id === row.id}
+                                        direction={props.offer.direction}
                                         onClick={createSortHandler(row.id)}
                                     >
                                         {row.label}
@@ -139,4 +139,4 @@ function InspectionsOverviewTableHead(props)
     );
 }
 
-export default InspectionsOverviewTableHead;
+export default OffersOverviewTableHead;

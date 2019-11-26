@@ -27,11 +27,12 @@ const useStyles = makeStyles(theme => ({
 }));
 const defaultFormState = {
     //Common task properties
-    Name: '',
+    CustomerName: '',
     Employee: null,
     Customer: null,
     Car: null,
-    Start: new Date(),
+    InspectionDate: new Date(),
+    MovingDate: new Date(),
     End: new Date(),
     Notes: '',
     combo: '',
@@ -40,10 +41,12 @@ const defaultFormState = {
     ExpectedHours: null,
 
     //Address
-    Address: null,
-    ZIP: null, 
-    City: null, 
-    AddressNote: null,
+    StartAddress: null,
+    StartZIP: null,
+    StartCity: null,
+    DestinationAddress: null,
+    DestinationZIP: null,
+    DestinationCity: null,
     //Moving task specific properties
     furniture: null,
     startingaddress: null,
@@ -108,7 +111,7 @@ function InspectionReport(props) {
 
     function canBeSubmitted() {
         return (
-            form.Customer && form.Car && form.Employee && (form.Name.length > 0)
+            form.Customer && form.Car && form.Employee 
         );
     }
 
@@ -155,62 +158,96 @@ function InspectionReport(props) {
                     
                     <form noValidate onSubmit={handleSubmit} >
                             <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                                
-                                <TextField
-                                    id="Name"
-                                    label="Navn"
-                                    className={classes.formControl}
-                                    name="Name"
-                                    value={form.Name}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
+
+
+
                                 <div>
+
                                     <TextField
-                                        id="Address"
-                                        label="Addresse"
+                                        id="StartAddress"
+                                        label="Fra addresse"
                                         className={classes.formControl}
-                                        name="Address"
-                                        value={form.Address}
+                                        name="StartAddress"
+                                        value={form.StartAddress}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
                                         required
                                     />
                                     <TextField
-                                        id="ZIP"
-                                        label="ZIP"
+                                        id="StartZIP"
+                                        label="Fra ZIP"
                                         className={classes.formControl}
-                                        name="ZIP"
-                                        value={form.ZIP}
+                                        name="StartZIP"
+                                        value={form.StartZIP}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
                                         required
                                     />
                                     <TextField
-                                        id="City"
-                                        label="City"
+                                        id="StartCity"
+                                        label="Fra by"
                                         className={classes.formControl}
-                                        name="City"
-                                        value={form.City}
+                                        name="StartCity"
+                                        value={form.StartCity}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                </div>
+                                <div>
+
+                                    <TextField
+                                        id="DestinationAddress"
+                                        label="Til addresse"
+                                        className={classes.formControl}
+                                        name="DestinationAddress"
+                                        value={form.DestinationAddress}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
                                         required
                                     />
                                     <TextField
-                                        id="AddressNote"
-                                        label="Noter til addressen"
+                                        id="DestinationZIP"
+                                        label="Til ZIP"
                                         className={classes.formControl}
-                                        name="AddressNote"
-                                        value={form.AddressNote}
+                                        name="DestinationZIP"
+                                        value={form.DestinationZIP}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                    <TextField
+                                        id="DestinationCity"
+                                        label="Til by"
+                                        className={classes.formControl}
+                                        name="DestinationCity"
+                                        value={form.DestinationCity}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
                                         required
                                     />
                                 </div>
@@ -218,16 +255,32 @@ function InspectionReport(props) {
 
 
 
+
                                 <TextField
-                                    id="Start"
-                                    name="Start"
-                                    label="Start"
+                                    id="InspectionDate"
+                                    name="InspectionDate"
+                                    label="Besigtigelses dato"
                                     type="datetime-local"
                                     className={classes.formControl}
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    value={start}
+                                    value={form.InspectionDate}
+                                    onChange={handleChange}
+                                    required
+
+                                    variant="outlined"
+                                />
+                                <TextField
+                                    id="MovingDate"
+                                    name="MovingDate"
+                                    label="Flyttedato"
+                                    type="datetime-local"
+                                    className={classes.formControl}
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    value={form.MovingDate}
                                     onChange={handleChange}
                                     required
 

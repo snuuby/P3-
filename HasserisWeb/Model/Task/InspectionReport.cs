@@ -12,25 +12,26 @@ namespace HasserisWeb
         public virtual Customer Customer { get; set; }
         public string Name { get; set; }
         public virtual Address StartingAddress { get; set; }
-        public virtual Address DestinationAddress { get; set; }
+        public virtual Address Destination { get; set; }
         public string Notes { get; set; }
-        public DateTime VisitingDate { get; set; }
+        public DateTime InspectionDate { get; set; }
         public DateTime MovingDate { get; set; }
         public int ExpectedHours { get; set; }
         public virtual Employee Employee {get; set;}
         public virtual Vehicle Car {get; set;}
         public int LentBoxes { get; set; }
 
-        public InspectionReport(Customer Customer, string Name, Address StartingAddress, Employee Employee, Vehicle Car, string Notes, 
-                                DateTime VisitingDate) {
-                                    this.Customer = Customer;
-                                    this.Name = Name;
-                                    this.Car = Car;
-                                    this.Employee = Employee;
-                                    this.StartingAddress = StartingAddress;
-                                    this.Notes = Notes;
-                                    this.VisitingDate = VisitingDate;
-                                }
+        public InspectionReport(Customer Customer, Address StartingAddress, Address Destination, Employee Employee, Vehicle Car, string Notes, 
+                                DateTime InspectionDate, DateTime MovingDate) {
+            this.Customer = Customer;
+            this.Car = Car;
+            this.Employee = Employee;
+            this.StartingAddress = StartingAddress;
+            this.Notes = Notes;
+            this.InspectionDate = InspectionDate;
+            this.MovingDate = MovingDate;
+            this.Destination = Destination;
+        }
         public InspectionReport()
         {
 

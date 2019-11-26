@@ -28,12 +28,8 @@ const useStyles = makeStyles(theme => ({
 
 const defaultFormState = {
     //Common task properties
-    CustomerName: '',
-    Employee: null,
     Customer: null,
-    Car: null,
-    InspectionDate: new Date(),
-    MovingDate: new Date(),
+    Start: new Date(),
     End: new Date(),
     Notes: '',
     combo: '',
@@ -41,17 +37,18 @@ const defaultFormState = {
     Destination: null,
     ExpectedHours: null,
 
+    InspectionDate: new Date(),
+    MovingDate: new Date(),
+    ExpirationDate: new Date(),
     //Address
-
-    StartAddress: null,
-    StartZIP: null,
-    StartCity: null,
+    StartingAddress: null,
+    StartingZIP: null,
+    StartingCity: null,
     DestinationAddress: null,
     DestinationZIP: null,
     DestinationCity: null,
     //Moving task specific properties
     furniture: null,
-    startingaddress: null,
     Lentboxes: null,
 
     //Delivery task specific properties
@@ -59,16 +56,14 @@ const defaultFormState = {
     quantity: null,
 };
 
-function InspectionReport(props) {
+function Offer(props) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.inspections.eventDialog);
+    const eventDialog = useSelector(({ makeReducer }) => makeReducer.offers.eventDialog);
 
-    const customers = useSelector(({ makeReducer }) => makeReducer.inspections.customers);
-    const employees = useSelector(({ makeReducer }) => makeReducer.inspections.availableEmployees);
-    const cars = useSelector(({ makeReducer }) => makeReducer.inspections.availableCars);
+    const customers = useSelector(({ makeReducer }) => makeReducer.offers.customers);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -76,7 +71,7 @@ function InspectionReport(props) {
     const [labelWidth, setLabelWidth] = useState(0);
 
     useEffect(() => {
-        dispatch(Actions.getInspectionReport(props.match.params));
+        dispatch(Actions.getOffer(props.match.params));
     }, [props.match.params]);
 
     useEffect(() => {
@@ -87,8 +82,6 @@ function InspectionReport(props) {
         () => {
             const event = {start: start};
             if (eventDialog.type === 'new') {
-                dispatch(Actions.getAvailableEmployees());
-                dispatch(Actions.getAvailableCars());
                 dispatch(Actions.getCustomers());
                 setForm({
                     ...eventDialog.data,        
@@ -112,50 +105,31 @@ function InspectionReport(props) {
     
 
     function closeComposeDialog() {
-        dispatch(Actions.closeNewInspectionReport());
+        dispatch(Actions.closeNewOffer());
     }
 
     function canBeSubmitted() {
         return (
-            form.Customer && form.Car && form.Employee 
+            form.Customer
         );
     }
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        dispatch(Actions.addInspectionReport(form));
+        if (form.wasInspection) {
+            dispatch(Actions.addOfferFromInspection(form));
+        }
+        else
+        {
+            dispatch(Actions.addOffer(form));
+        }
         
         closeComposeDialog();
         
     }
-    function OfferSubmit(event)
-    {
-        event.preventDefault();
-        dispatch(Actions.addFromInspectionReport(form));
-
-        props.history.push('/Offer/Make/');
 
 
-        
-    }
-
-    function handleChangeSelect(event, type)
-    {
-        const selectID = event.target.value;
-        if (type == 'employee') {
-            const employee = employees.find(e => e.ID === selectID);
-            handleChange(event)
-        }
-        else if (type == 'customer') {
-            const customer = customers.find(c => c.ID === selectID);
-            handleChange(customer)
-        }
-        else if (type == 'car') {
-            const car = cars.find(c => c.ID === selectID);
-            handleChange(car)
-        }
-    }
 
     return (
         <FusePageCarded
@@ -169,23 +143,12 @@ function InspectionReport(props) {
                     <div className="flex flex-1 flex-col items-center sm:items-start">
 
                         <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                            <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/inspections/overview" color="inherit">
+                            <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/offers/overview" color="inherit">
                                 <Icon className="mr-4 text-20">arrow_back</Icon>
-                                Besigtigelsesrapporter
+                                Tilbud
                                 </Typography>
                         </FuseAnimate>
-                        <div>
-                            <Button
-                                className={classes.formControl}
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                disabled={!canBeSubmitted()}
-                                onClick={OfferSubmit}
-                            >
-                                Overfør som tilbud
-                                </Button>
-                        </div>
+
   
 
                     </div>
@@ -197,28 +160,36 @@ function InspectionReport(props) {
                     
                     <form noValidate onSubmit={handleSubmit} >
                             <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                                
-                                <TextField
-                                    id="CustomerName"
-                                    label="Navn"
-                                    className={classes.formControl}
-                                    name="CustomerName"
-                                    value={form.CustomerName}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                                
-                                <div>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                        Kunde
+                                        </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="Customer"
+                                        name="Customer"
+                                        value={form.Customer}
+                                        onChange={handleChange}
+                                        required
 
+                                        labelWidth={labelWidth}
+                                    >
+                                        <MenuItem value={null}>Ingen</MenuItem>
+
+                                        customers && {customers.map(customer =>
+                                            <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                        )}
+
+                                    </Select>
+                                </FormControl>
+                            <div>
+                                
                                     <TextField
-                                        id="StartAddress"
+                                        id="StartingAddress"
                                         label="Fra addresse"
                                         className={classes.formControl}
-                                        name="StartAddress"
-                                        value={form.StartAddress}
+                                        name="StartingAddress"
+                                        value={form.StartingAddress}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
@@ -228,11 +199,11 @@ function InspectionReport(props) {
                                         required
                                     />
                                     <TextField
-                                        id="StartZIP"
+                                        id="StartingZIP"
                                         label="Fra ZIP"
                                         className={classes.formControl}
-                                        name="StartZIP"
-                                        value={form.StartZIP}
+                                        name="StartingZIP"
+                                        value={form.StartingZIP}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
@@ -242,11 +213,11 @@ function InspectionReport(props) {
                                         required
                                     />
                                     <TextField
-                                        id="StartCity"
+                                        id="StartingCity"
                                         label="Fra by"
                                         className={classes.formControl}
-                                        name="StartCity"
-                                        value={form.StartCity}
+                                        name="StartingCity"
+                                        value={form.StartingCity}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
@@ -255,7 +226,7 @@ function InspectionReport(props) {
                                         }}
                                         required
                                     />
-                                </div>
+                               </div>
                                 <div>
 
                                     <TextField
@@ -303,7 +274,6 @@ function InspectionReport(props) {
                                 </div>
 
 
-
                                 <TextField
                                     id="InspectionDate"
                                     name="InspectionDate"
@@ -334,117 +304,23 @@ function InspectionReport(props) {
 
                                     variant="outlined"
                                 />
-
-
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Kunde
-                                        </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Customer"
-                                            name="Customer"
-                                            value={form.Customer}
-                                            onChange={handleChange}
-                                            required
-
-                                            labelWidth={labelWidth}
-                                            >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-   
-                                            customers && {customers.map(customer =>
-                                                <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
-                                            ) }
-
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Ansat
-                                        </InputLabel>
-                                    <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Employee"
-                                            name="Employee"                                            
-                                            onChange={handleChange}
-                                            value={form.Employee}
-                                            required
-
-                                            labelWidth={labelWidth}
-                                        >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-                                        employees && {employees.map(employee =>
-                                            <MenuItem value={employee}> {employee.ID + ' ' + employee.Firstname}</MenuItem>
-                                        )}
-
-                                        </Select>
-                                    </FormControl>
-                                        <FormControl variant="outlined" className={classes.formControl}>
-                                            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                                Bil
-                                            </InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-outlined-label"
-                                                id="Car"
-                                                name="Car"   
-                                                value={form.Car}
-                                                onChange={handleChange}
-                                                labelWidth={labelWidth}
-                                                required
-                                            >
-                                               <MenuItem value={null}>Ingen</MenuItem>
-
-                                                cars && {cars.map(car =>
-                                                    <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
-                                                )}
-
-                                            </Select>
-                                    </FormControl>
-                                 
-
                                 <TextField
+                                    id="ExpirationDate"
+                                    name="ExpirationDate"
+                                    label="Tilbudsophør dato"
+                                    type="datetime-local"
                                     className={classes.formControl}
-                                    id="Notes" label="Beskrivelse"
-                                    type="text"
-                                    name="Notes"
-                                    value={form.Notes}
-                                    onChange={handleChange}
-                                    multiline rows={5}
-                                    variant="outlined"
-
-                                    fullWidth
-                                />
-
-                                <TextField
-                                    className={classes.formControl}
-                                    id="Lentboxes" label="Lånte boxe"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="Lentboxes"
-                                    value={form.Lentboxes}
-                                    onChange={handleChange}
-                                    variant="outlined"
                                     InputLabelProps={{
                                         shrink: true
                                     }}
+                                    value={form.ExpirationDate}
+                                    onChange={handleChange}
+                                    required
+
+                                    variant="outlined"
                                 />
 
-                                <TextField
-                                    className={classes.formControl}
-                                    id="ExpectedHours" label="Forventet timeantal"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="ExpectedHours"
-                                    value={form.ExpectedHours}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
-                                
+                                    
 
                                 
 
@@ -458,16 +334,12 @@ function InspectionReport(props) {
                                 >
                                     GEM
                                 </Button>
-
                         </div>
 
                         </form>
-
                     </AppBar>
 
-                </div>
-
-
+                    </div>
             }
             innerScroll
         />
@@ -475,4 +347,4 @@ function InspectionReport(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(InspectionReport);
+export default withReducer('makeReducer', reducer)(Offer);
