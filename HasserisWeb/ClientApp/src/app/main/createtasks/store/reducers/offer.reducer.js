@@ -52,9 +52,9 @@ const offerReducer = function (state = initialState, action) {
                         },
                         made: true,
                         data: {
-                            StartingAddress: action.payload.StartingAddress.LivingAddress,
-                            StartingZIP: action.payload.StartingAddress.ZIP,
-                            StartingCity: action.payload.StartingAddress.City,
+                            StartAddress: action.payload.StartingAddress.LivingAddress,
+                            StartZIP: action.payload.StartingAddress.ZIP,
+                            StartCity: action.payload.StartingAddress.City,
                             DestinationAddress: action.payload.Destination.LivingAddress,
                             DestinationZIP: action.payload.Destination.ZIP,
                             DestinationCity: action.payload.Destination.City,

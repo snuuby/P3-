@@ -14,6 +14,10 @@ function InspectionsOverviewHeader(props)
 
     const mainTheme = useSelector(({fuse}) => fuse.settings.mainTheme);
 
+    function handlePushToMake(event) {
+        event.preventDefault();
+        props.history.push('/InspectionReport/Make');
+    } 
     return (
         <div className="flex flex-1 w-full items-center justify-between">
 
@@ -32,7 +36,7 @@ function InspectionsOverviewHeader(props)
 
                 <ThemeProvider theme={mainTheme}>
                     <Button
-                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
+                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex" onClick={handlePushToMake}>
                         Tilføj besigtigelsesrapport
                     </Button>
                     

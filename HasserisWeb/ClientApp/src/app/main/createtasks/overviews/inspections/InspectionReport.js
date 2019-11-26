@@ -415,35 +415,7 @@ function InspectionReport(props) {
                                     fullWidth
                                 />
 
-                                <TextField
-                                    className={classes.formControl}
-                                    id="Lentboxes" label="Lånte boxe"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="Lentboxes"
-                                    value={form.Lentboxes}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
 
-                                <TextField
-                                    className={classes.formControl}
-                                    id="ExpectedHours" label="Forventet timeantal"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="ExpectedHours"
-                                    value={form.ExpectedHours}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
                                 
 
                                 

@@ -13,7 +13,10 @@ function OffersOverviewHeader(props)
     const searchText = useSelector(({ makeReducer }) => makeReducer.inspections.searchText);
 
     const mainTheme = useSelector(({fuse}) => fuse.settings.mainTheme);
-
+    function handlePushToMake(event) {
+        event.preventDefault();
+        props.history.push('/Offer/Make/');
+    } 
     return (
         <div className="flex flex-1 w-full items-center justify-between">
 
@@ -32,8 +35,8 @@ function OffersOverviewHeader(props)
 
                 <ThemeProvider theme={mainTheme}>
                     <Button
-                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
-                        Tilføj besigtigelsesrapport
+                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex" onClick={handlePushToMake}>
+                        Tilføj Tilbud
                     </Button>
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>

@@ -42,9 +42,9 @@ const defaultFormState = {
 
 
     //Address
-    StartingAddress: 'h',
-    StartingZIP: null,
-    StartingCity: null,
+    StartAddress: null,
+    StartZIP: null,
+    StartCity: null,
     DestinationAddress: null,
     DestinationZIP: null,
     DestinationCity: null,
@@ -82,6 +82,7 @@ function OfferReport(props) {
             if (!eventDialog.wasInspection) {
                 dispatch(Actions.getCustomers());
                 setForm({
+                    ...eventDialog.data,
                     ...defaultFormState,        
                 });
             }
@@ -115,7 +116,7 @@ function OfferReport(props) {
 
     function canBeSubmitted() {
         return (
-            form.Customer && form.Car && form.Employee && (form.Name.length > 0)
+            form.InspectionDate && form.MovingDate && form.ExpirationDate
         );
     }
 
@@ -323,33 +324,38 @@ function OfferReport(props) {
                                 />
 
 
-                                <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                        Kunde
-                                        </InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-outlined-label"
-                                        id="Customer"
-                                        name="Customer"
-                                        value={form.Customer}
-                                        onChange={handleChange}
-                                        required
+                                <div>
 
-                                        labelWidth={labelWidth}
-                                    >
-                                        <MenuItem value={null}>Ingen</MenuItem>
+                                <TextField
+                                    className={classes.formControl}
+                                    id="Lentboxes" label="Lånte boxe"
+                                    type="number"
+                                    min="0"
+                                    max="10"
+                                    name="Lentboxes"
+                                    value={form.Lentboxes}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                />
 
-                                        customers && {customers.map(customer =>
-                                            <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
-                                        )}
-
-                                    </Select>
-                                </FormControl>
-
-
-
-
-
+                                <TextField
+                                    className={classes.formControl}
+                                    id="ExpectedHours" label="Forventet timeantal"
+                                    type="number"
+                                    min="0"
+                                    max="10"
+                                    name="ExpectedHours"
+                                    value={form.ExpectedHours}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                />
+                                    </div>
                                 <Button
                                     className={classes.formControl}
                                     variant="contained"

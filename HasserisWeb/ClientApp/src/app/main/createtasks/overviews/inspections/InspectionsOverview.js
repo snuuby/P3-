@@ -20,7 +20,7 @@ import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
 import InspectionsOverviewTable from './InspectionsOverviewTable';
 import InspectionsOverviewTableHead from './InspectionsOverviewTableHead';
-import OrdersHeader from './InspectionsOverviewHeader.js';
+import InspectionsOverviewHeader from './InspectionsOverviewHeader.js';
 
 
 
@@ -210,12 +210,12 @@ function InspectionsOverview(props) {
                 header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                <OrdersHeader/>
+                <InspectionsOverviewHeader history={props.history}/>
             }
             content={
                 <div>
 
-                    <InspectionsOverviewTable/>
+                    <InspectionsOverviewTable history={props.history} />
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab

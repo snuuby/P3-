@@ -41,9 +41,9 @@ const defaultFormState = {
     MovingDate: new Date(),
     ExpirationDate: new Date(),
     //Address
-    StartingAddress: null,
-    StartingZIP: null,
-    StartingCity: null,
+    StartAddress: null,
+    StartZIP: null,
+    StartCity: null,
     DestinationAddress: null,
     DestinationZIP: null,
     DestinationCity: null,
@@ -188,7 +188,7 @@ function Offer(props) {
                                         id="StartingAddress"
                                         label="Fra addresse"
                                         className={classes.formControl}
-                                        name="StartingAddress"
+                                        name="StartAddress"
                                         value={form.StartingAddress}
                                         onChange={handleChange}
                                         variant="outlined"
@@ -202,7 +202,7 @@ function Offer(props) {
                                         id="StartingZIP"
                                         label="Fra ZIP"
                                         className={classes.formControl}
-                                        name="StartingZIP"
+                                        name="StartZIP"
                                         value={form.StartingZIP}
                                         onChange={handleChange}
                                         variant="outlined"
@@ -213,10 +213,10 @@ function Offer(props) {
                                         required
                                     />
                                     <TextField
-                                        id="StartingCity"
+                                        id="StartCity"
                                         label="Fra by"
                                         className={classes.formControl}
-                                        name="StartingCity"
+                                        name="StartCity"
                                         value={form.StartingCity}
                                         onChange={handleChange}
                                         variant="outlined"
@@ -322,7 +322,35 @@ function Offer(props) {
 
                                     
 
-                                
+                                <TextField
+                                    className={classes.formControl}
+                                    id="Lentboxes" label="Lånte boxe"
+                                    type="number"
+                                    min="0"
+                                    max="10"
+                                    name="Lentboxes"
+                                    value={form.Lentboxes}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                />
+                                <div>
+                                <TextField
+                                    className={classes.formControl}
+                                    id="ExpectedHours" label="Forventet timeantal"
+                                    type="number"
+                                    min="0"
+                                    max="10"
+                                    name="ExpectedHours"
+                                    value={form.ExpectedHours}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                />
 
 
                                 <Button
@@ -334,6 +362,7 @@ function Offer(props) {
                                 >
                                     GEM
                                 </Button>
+                                    </div>
                         </div>
 
                         </form>

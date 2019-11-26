@@ -110,6 +110,7 @@ function OffersOverviewTable(props)
                 <Table className="min-w-xl" aria-labelledby="tableTitle">
 
                     <OffersOverviewTableHead
+                        history={props.history}
                         numSelected={selected.length}
                         offer={offer}
                         onSelectAllClick={handleSelectAllClick}

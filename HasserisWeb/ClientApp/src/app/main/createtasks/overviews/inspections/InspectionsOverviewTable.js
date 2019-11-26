@@ -110,6 +110,7 @@ function InspectionsOverviewTable(props)
                 <Table className="min-w-xl" aria-labelledby="tableTitle">
 
                     <InspectionsOverviewTableHead
+                        history={props.history}
                         numSelected={selected.length}
                         inspection={inspection}
                         onSelectAllClick={handleSelectAllClick}

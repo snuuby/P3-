@@ -20,7 +20,7 @@ import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
 import OffersOverviewTable from './OffersOverviewTable';
 import OffersOverviewTableHead from './OffersOverviewTableHead';
-import OrdersHeader from './OffersOverviewHeader.js';
+import OffersOverviewHeader from './OffersOverviewHeader.js';
 
 
 
@@ -210,12 +210,12 @@ function OffersOverview(props) {
                 header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                <OrdersHeader/>
+                <OffersOverviewHeader history={props.history}/>
             }
             content={
                 <div>
 
-                    <OffersOverviewTable/>
+                    <OffersOverviewTable history={props.history}/>
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab
