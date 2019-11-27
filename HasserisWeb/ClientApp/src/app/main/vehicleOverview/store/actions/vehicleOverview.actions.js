@@ -15,7 +15,7 @@ export const CLOSE_NEW_ADD_DIALOG = '[VEHICLE APP] CLOSE NEW ADD DIALOG';
 export const GET_VEHICLE = '[VEHICLE APP] GET VEHICLE';
 export const CLOSE_EDIT_VEHICLE_DIALOG = '[VEHICLE APP]';
 export const REMOVE_VEHICLE = '[VEHICLE APP] REMOVE VEHICLE';
-export const UPDATE_VEHICLES = '[VEHICLE APP] UPDATE VEHICLE'
+export const UPDATE_VEHICLES = '[VEHICLE APP] UPDATE VEHICLE';
 
 // Gets all vehicles
 export function getVehicles()

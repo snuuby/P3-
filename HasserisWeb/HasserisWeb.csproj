@@ -152,6 +152,7 @@
     <Content Include="ClientApp\src\app\main\apps\e-commerce\order\Order.js" />
     <Content Include="ClientApp\src\app\main\apps\e-commerce\store\actions\index.js" />
     <Content Include="ClientApp\src\app\main\apps\e-commerce\store\actions\order.actions.js" />
+    <Content Include="ClientApp\src\app\main\customerOverview\AddDialog.js" />
     <Content Include="ClientApp\src\app\main\overview\AddDialog.js" />
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
@@ -168,6 +169,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\main\customerOverview\AddDialog.js" />
     <None Remove="Database\Hasseris3.db" />
     <None Remove="Hasseris.db" />
   </ItemGroup>

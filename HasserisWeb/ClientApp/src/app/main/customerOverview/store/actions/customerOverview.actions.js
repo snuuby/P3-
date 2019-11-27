@@ -12,7 +12,10 @@ export const SET_CUSTOMEROVERVIEW_SEARCH_TEXT = '[CUSTOMER APP] SET OVERVIEW SEA
 export const ADD_CUSTOMER = '[CUSTOMER APP] ADD CUSTOMER';
 export const OPEN_NEW_ADD_DIALOG = '[CUSTOMER APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[CUSTOMER APP] CLOSE NEW ADD DIALOG';
-export const GET_CUSTOMER = '[CUSTOMER APP] GET SPECIFIC CUSTOMER'
+export const GET_CUSTOMER = '[CUSTOMER APP] GET SPECIFIC CUSTOMER';
+export const CLOSE_EDIT_CUSTOMER_DIALOG = '[CUSTOMER APP]';
+export const REMOVE_CUSTOMER = '[CUSTOMER APP] REMOVE CUSTOMER';
+export const UPDATE_CUSTOMERS = '[CUSTOMER APP] UPDATE CUSTOMER'
 
 // Gets all customer
 export function getCustomers() {
@@ -76,14 +79,53 @@ export function openNewAddDialog(data)
 {
     return {
         type: OPEN_NEW_ADD_DIALOG,
-        payload: data,
+        data
     }
 }
-
 
 export function closeNewAddDialog()
 {
     return {
         type: CLOSE_NEW_ADD_DIALOG
     }
+}
+
+export function closeEditCustomerDialog() {
+    return {
+        type: CLOSE_EDIT_CUSTOMER_DIALOG
+    }
+}
+
+export function removeCustomer(customerId) {
+    return (dispatch, getState) => {
+
+        const request = axios.post('Customer/remove', {
+            customerId
+        });
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: REMOVE_CUSTOMER
+                })
+            ]).then(() => dispatch(getCustomers()))
+        );
+    };
+}
+
+export function updateCustomers(newEvent) {
+    return (dispatch, getState) => {
+
+        const request = axios.post('Customer/update', {
+            newEvent
+        });
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: UPDATE_CUSTOMERS
+                })
+            ]).then(() => dispatch(getCustomer()))
+        );
+    };
 }

@@ -4,7 +4,7 @@ import FuseUtils from '@fuse/FuseUtils';
 import {useForm} from '@fuse/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
-import * as Actions from '../apps/calendar/store/actions';
+import * as Actions from './store/actions';
 import * as ActionsAdd from './store/actions';
 import Checkbox from "@material-ui/core/Checkbox";
 import Select from "react-select";
@@ -64,7 +64,7 @@ function AddDialog(props)
 
     function closeComposeDialog()
     {
-        eventDialog.type === 'edit' ? dispatch(Actions.closeEditEventDialog()) : dispatch(ActionsAdd.closeNewAddDialog());
+        eventDialog.type === 'edit' ? dispatch(Actions.closeEditCustomerDialog()) : dispatch(ActionsAdd.closeNewAddDialog());
     }
 
     function canBeSubmitted()
@@ -80,18 +80,18 @@ function AddDialog(props)
 
         if ( eventDialog.type === 'new' )
         {
-            dispatch(Actions.addEvent(form));
+            dispatch(Actions.addCustomer(form));
         }
         else
         {
-            dispatch(Actions.updateEvent(form));
+            dispatch(Actions.updateCustomers(form));
         }
         closeComposeDialog();
     }
 
     function handleRemove()
     {
-        dispatch(Actions.removeEvent(form.id));
+        dispatch(Actions.removeCustomer(form.id));
         closeComposeDialog();
     }
 

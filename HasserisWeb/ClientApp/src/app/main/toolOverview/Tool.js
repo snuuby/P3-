@@ -7,6 +7,7 @@ import withReducer from '../../store/withReducer';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from '@fuse/hooks';
 
 function Marker(props) {
     return (
@@ -15,7 +16,12 @@ function Marker(props) {
         </Tooltip>
     );
 }
-
+/*
+const defaultFormState = {
+    id: '',
+    name: {toolName}
+};
+*/
 function Tool(props) {
     const dispatch = useDispatch();
     const tool = useSelector(({ toolReducer }) => toolReducer.tools.toolData);
@@ -24,6 +30,10 @@ function Tool(props) {
     useEffect(() => {
         dispatch(Actions.getTool(props.match.params));
     }, [props.match.params]);
+
+
+    const toolName = 'test';
+    const { form, handleChange, setForm } = useForm({ Name: toolName });
 
 
     function handleChangeTab(event, tabValue) {
@@ -87,7 +97,7 @@ function Tool(props) {
                         {/*Text Fields*/}
                         <div class="flex mb-4">
                             <div class="flex-1 bg-gray-0 h-12 pr-1 ">
-                                {/*Customer ID*/}
+                                {/*Tool ID*/}
                                 <TextField
                                     id="ToolID"
                                     label="Kunde ID"
@@ -104,16 +114,16 @@ function Tool(props) {
                                 />
                             </div>
                             <div class="flex-1 bg-gray-0 h-12 pl-10">
-                                {/*Full Name*/}
+                                {/*Tool Name*/}
                                 <TextField
-                                    id="Type"
-                                    label="type"
+                                    id="Name"
+                                    label="name"
                                     className="mt-8 mb-16"
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="Type"
-                                    value={tool.Type}
+                                    name="Name"
+                                    value={form.Name}
                                     variant="outlined"
                                     autoFocus
                                     required
