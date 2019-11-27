@@ -14,7 +14,6 @@ import * as Actions from '../../store/actions';
 import reducer from '../../store/reducers';
 import { Select } from '@material-ui/core';
 import moment from 'moment';
-import InputNumber from 'react-input-number';
 import { useDispatch, useSelector } from 'react-redux';
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -116,10 +115,14 @@ function InspectionReport(props) {
     }
 
     function handleSubmit(event) {
+
+
         event.preventDefault();
-        props.history.push('/inspections/overview');
 
         dispatch(Actions.addInspectionReport(form));
+
+        props.history.push('/inspections/overview');
+
         
         closeComposeDialog();
         

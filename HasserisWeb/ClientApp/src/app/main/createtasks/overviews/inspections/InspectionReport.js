@@ -14,7 +14,6 @@ import * as Actions from '../../store/actions';
 import reducer from '../../store/reducers';
 import { Select } from '@material-ui/core';
 import moment from 'moment';
-import InputNumber from 'react-input-number';
 import { useDispatch, useSelector } from 'react-redux';
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -42,7 +41,6 @@ const defaultFormState = {
     ExpectedHours: null,
 
     //Address
-
     StartAddress: null,
     StartZIP: null,
     StartCity: null,

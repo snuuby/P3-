@@ -92,7 +92,7 @@ export function getAvailableCars() {
 }
 export function addInspectionReport(report) {
     return (dispatch, getState) => {
-
+        console.log(report.Customer.Firstname);
         const request = axios.post('inspection/make', report);
 
         return request.then((response) =>
