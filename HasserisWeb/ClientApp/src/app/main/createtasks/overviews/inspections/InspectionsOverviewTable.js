@@ -128,9 +128,9 @@ function InspectionsOverviewTable(props)
                                         {
                                             return parseInt(e.ID, 10);
                                         }
-                                        case 'name':
+                                        case 'address':
                                         {
-                                            return e.Name;
+                                            return e.StartingAddress.LivingAddress;
                                         }
                                         case 'customer':
                                         {
@@ -179,7 +179,7 @@ function InspectionsOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.Name}
+                                                {n.StartingAddress.LivingAddress}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">

@@ -9,16 +9,16 @@ namespace HasserisWeb
     public class InspectionReport
     {
         public int ID { get; set; }
-        public virtual Customer Customer { get; set; }
+        public Customer Customer { get; set; }
         public string Name { get; set; }
-        public virtual Address StartingAddress { get; set; }
-        public virtual Address Destination { get; set; }
+        public Address StartingAddress { get; set; }
+        public Address Destination { get; set; }
         public string Notes { get; set; }
         public DateTime InspectionDate { get; set; }
         public DateTime MovingDate { get; set; }
         public int ExpectedHours { get; set; }
-        public virtual Employee Employee {get; set;}
-        public virtual Vehicle Car {get; set;}
+        public Employee Employee {get; set;}
+        public Vehicle Car {get; set;}
         public int LentBoxes { get; set; }
 
         public InspectionReport(Customer Customer, Address StartingAddress, Address Destination, Employee Employee, Vehicle Car, string Notes, 

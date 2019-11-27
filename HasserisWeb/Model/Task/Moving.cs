@@ -9,9 +9,9 @@ namespace HasserisWeb
     //Moving-type task, for moving furniture/other for a customer.
     public class Moving : Task
     {
-        public virtual Address StartingAddress { get; set; }
+        public Address StartingAddress { get; set; }
         public int LentBoxes { get; set; }
-        public virtual ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
+        public ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
         public bool WithPacking { get; set; }
         public Moving(string name, Customer assignedCustomer,
                   Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes, bool WithPacking, int phase)

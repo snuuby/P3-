@@ -38,7 +38,6 @@ namespace HasserisWeb
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=Database/HasserisDatabase.db;");
-            optionsBuilder.UseLazyLoadingProxies();
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

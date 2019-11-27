@@ -17,13 +17,13 @@ namespace HasserisWeb
         public string Hashcode { get; set; }
         public bool IsAvailable { get; private set; } = true;
         public string AccessToken { get; set; }
-        public virtual ContactInfo ContactInfo { get; set; }
+        public ContactInfo ContactInfo { get; set; }
         public double Wage { get; private set; }
         public int ID { get; set; }
-        public virtual Address Address { get; set; }
+        public Address Address { get; set; }
         public string Type { get; set; }
         public string Employed { get; set; }
-        public virtual ICollection<TaskAssignedEmployees> Tasks { get; set; } = new List<TaskAssignedEmployees>();
+        public ICollection<TaskAssignedEmployees> Tasks { get; set; } = new List<TaskAssignedEmployees>();
         protected Employee()
         {
 

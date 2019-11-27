@@ -52,13 +52,19 @@ namespace HasserisWeb.Controllers
         [Route("Delivery")]
         public string GetDeliveryTasks()
         {
-            return JsonConvert.SerializeObject(database.Tasks.OfType<Delivery>().Where(t => t.Phase == 3).ToList());
+            return JsonConvert.SerializeObject(database.Tasks.OfType<Delivery>().Where(t => t.Phase == 3)
+            .Include(i => i.InspectionReport).Include(o => o.Offer).Include(c => c.Customer)
+            .Include(a => a.Destination).Include(e => e.Equipment).Include(e => e.Employees)
+            .Include(d => d.Dates).Include(p => p.PauseTimes).ToList());
         }
 
         [Route("Moving")]
         public string GetMovingTasks()
         {
-            return JsonConvert.SerializeObject(database.Tasks.OfType<Moving>().Where(t => t.Phase == 3).ToList());
+            return JsonConvert.SerializeObject(database.Tasks.OfType<Moving>().Where(t => t.Phase == 3)
+            .Include(i => i.InspectionReport).Include(o => o.Offer).Include(c => c.Customer)
+            .Include(a => a.Destination).Include(e => e.Equipment).Include(e => e.Employees)
+            .Include(d => d.Dates).Include(p => p.PauseTimes).Include(f => f.Furnitures).ToList());
         }
 
 

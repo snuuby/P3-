@@ -120,7 +120,12 @@ const inspectionReducer = function (state = initialState, action) {
                     made: true
                 })
             }
-
+            case Actions.SAVE_EDIT_INSPECTION_REPORT:
+                {
+                    return Object.assign({}, state, {
+                        made: true
+                    })
+                }
         
         default: {
             return state;

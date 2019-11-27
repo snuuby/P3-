@@ -14,7 +14,7 @@ namespace HasserisWeb
         public bool IsAvailable { get; set; } = true;
         public string Name { get; set; }
         public string PhotoPath { get; set; }
-        public virtual ICollection<TaskAssignedEquipment> Tasks { get; set; } = new List<TaskAssignedEquipment>();
+        public ICollection<TaskAssignedEquipment> Tasks { get; set; } = new List<TaskAssignedEquipment>();
 
         protected Equipment()
         {

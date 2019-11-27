@@ -32,7 +32,7 @@ const navigationConfig = [
                         'id': 'createoffer',
                         'title': 'Tilbud',
                         'type': 'item',
-                        'url': '/Offer/Make'
+                        'url': '/Offers/Create'
                     },
                     {
                         'id': 'createtask',

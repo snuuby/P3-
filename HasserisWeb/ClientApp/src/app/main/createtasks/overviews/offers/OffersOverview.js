@@ -201,7 +201,10 @@ function OffersOverview(props) {
         dispatch(Actions.getAllOffers());
     }, [dispatch]);
     
- 
+    function handlePushToMake(event) {
+        event.preventDefault();
+        props.history.push('/Offers/Create/');
+    } 
 
     return(
         <FusePageCarded
@@ -223,7 +226,7 @@ function OffersOverview(props) {
                             aria-label="add"
                             className={classes.addButton}
                         >
-                            <Icon>add</Icon>
+                            <Icon onClick={handlePushToMake}>add</Icon>
                         </Fab>
                     </FuseAnimate>
                     

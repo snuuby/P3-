@@ -2,6 +2,8 @@ import axios from 'axios';
 export const OPEN_NEW_INSPECTION_REPORT = '[INSPECTION REPORT] OPEN NEW INSPECTION REPORT';
 export const CLOSE_NEW_INSPECTION_REPORT = '[INSPECTION REPORT] CLOSE NEW INSPECTION REPORT';
 export const SAVE_INSPECTION_REPORT = '[INSPECTION REPORT] SAVE INSPECTION REPORT';
+export const SAVE_EDIT_INSPECTION_REPORT = '[INSPECTION REPORT] SAVE EDIT INSPECTION REPORT';
+
 export const GET_AVAILABLE_EMPLOYEES = '[INSPECTION REPORT] GET AVAILABLE EMPLOYEES';
 export const GET_AVAILABLE_CARS = '[INSPECTION REPORT] GET AVAILABLE CARS';
 export const GET_CUSTOMERS = '[INSPECTION REPORT] GET CUSTOMERS';
@@ -92,7 +94,6 @@ export function getAvailableCars() {
 }
 export function addInspectionReport(report) {
     return (dispatch, getState) => {
-        console.log(report.Customer.Firstname);
         const request = axios.post('inspection/make', report);
 
         return request.then((response) =>
@@ -104,5 +105,18 @@ export function addInspectionReport(report) {
             ));
     }
 }
+export function editInspectionReport(report) {
+    return (dispatch, getState) => {
+        console.log("a");
+        const request = axios.post('inspection/edit', report);
 
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: SAVE_EDIT_INSPECTION_REPORT
+                })
+            ]).then(() => console.log("IMPLEMENT PUSH TO OVERVIEW")
+            ));
+    }
+}
 

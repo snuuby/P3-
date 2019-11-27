@@ -18,8 +18,8 @@ namespace HasserisWeb
 
         }
         public int ID { get; set; }
-        public virtual Address Address { get; set; }
-        public virtual ContactInfo ContactInfo { get; set; }
+        public Address Address { get; set; }
+        public ContactInfo ContactInfo { get; set; }
         public int LentBoxes { get; set; }
         public Customer(Address Address, ContactInfo ContactInfo)
         {

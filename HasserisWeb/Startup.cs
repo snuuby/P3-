@@ -29,12 +29,13 @@ namespace HasserisWeb
         {
 
             services.AddControllersWithViews();
-            services.AddDbContext<HasserisDbContext>(options => options.UseLazyLoadingProxies().UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
+            services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
             JsonConvert.DefaultSettings = () => {
                 return new JsonSerializerSettings()
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    TypeNameHandling = TypeNameHandling.Auto
                 };
             };
 

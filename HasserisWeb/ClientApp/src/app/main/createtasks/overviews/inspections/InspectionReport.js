@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
+import { TextField, Button, Tab, Tabs, Tooltip, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
 import { useForm } from '@fuse/hooks';
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,6 +59,7 @@ const defaultFormState = {
 
 function InspectionReport(props) {
     const classes = useStyles();
+    const [tabValue, setTabValue] = useState(0);
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
@@ -122,7 +123,7 @@ function InspectionReport(props) {
     function handleSubmit(event) {
         event.preventDefault();
 
-        dispatch(Actions.addInspectionReport(form));
+        dispatch(Actions.editInspectionReport(form));
         
         closeComposeDialog();
         
@@ -132,29 +133,27 @@ function InspectionReport(props) {
         event.preventDefault();
         dispatch(Actions.addFromInspectionReport(form));
 
-        props.history.push('/Offer/Make/');
+        props.history.push('/Offers/Create/');
 
 
         
     }
 
-    function handleChangeSelect(event, type)
-    {
-        const selectID = event.target.value;
-        if (type == 'employee') {
-            const employee = employees.find(e => e.ID === selectID);
-            handleChange(event)
-        }
-        else if (type == 'customer') {
-            const customer = customers.find(c => c.ID === selectID);
-            handleChange(customer)
-        }
-        else if (type == 'car') {
-            const car = cars.find(c => c.ID === selectID);
-            handleChange(car)
-        }
+    function handleChangeTab(event, tabValue) {
+        setTabValue(tabValue);
     }
+    function handleCustomer(customer) {
+        customer.preventDefault();
+        if (customer.target.value != null) {
+            form.CustomerName = customer.target.value.Firstname + ' ' + customer.target.value.Lastname;
+        }
+        else {
+            form.CustomerName = '';
+        }
 
+        handleChange(customer);
+
+    }
     return (
         <FusePageCarded
             classes={{
@@ -181,7 +180,7 @@ function InspectionReport(props) {
                                 disabled={!canBeSubmitted()}
                                 onClick={OfferSubmit}
                             >
-                                Overfør som tilbud
+                                Overfør til tilbud
                                 </Button>
                         </div>
   
@@ -189,24 +188,35 @@ function InspectionReport(props) {
                     </div>
                 </div>
             }
+            contentToolbar={
+                <Tabs
+                    value={tabValue}
+                    onChange={handleChangeTab}
+                    indicatorColor="secondary"
+                    textColor="secondary"
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    classes={{ root: "w-full h-64" }}
+                >
+                    <Tab className="h-64 normal-case" label="Besigtigelsesrapport detaljer" />
+                </Tabs>
+            }
             content={
                 <div>
-                    <AppBar position="static">
                     
                     <form noValidate onSubmit={handleSubmit} >
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                            <div class="p-16 sm:p-24 max-w-2xl w-full">
                                 
                                 <TextField
                                     id="CustomerName"
-                                    label="Navn"
+                                    label="Kunde navn"
                                     className={classes.formControl}
                                     name="CustomerName"
                                     value={form.CustomerName}
-                                    onChange={handleChange}
                                     variant="outlined"
                                     autoFocus
-                                    required
                                     fullWidth
+                                    disabled
                                 />
                                 
                                 <div>
@@ -333,72 +343,72 @@ function InspectionReport(props) {
                                     variant="outlined"
                                 />
 
-
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Kunde
-                                        </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Customer"
-                                            name="Customer"
-                                            value={form.Customer}
-                                            onChange={handleChange}
-                                            required
-
-                                            labelWidth={labelWidth}
-                                            >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-   
-                                            customers && {customers.map(customer =>
-                                                <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
-                                            ) }
-
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Ansat
-                                        </InputLabel>
-                                    <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Employee"
-                                            name="Employee"                                            
-                                            onChange={handleChange}
-                                            value={form.Employee}
-                                            required
-
-                                            labelWidth={labelWidth}
-                                        >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-                                        employees && {employees.map(employee =>
-                                            <MenuItem value={employee}> {employee.ID + ' ' + employee.Firstname}</MenuItem>
-                                        )}
-
-                                        </Select>
-                                    </FormControl>
+                                    <div>
                                         <FormControl variant="outlined" className={classes.formControl}>
                                             <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                                Bil
+                                                Kunde
                                             </InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-outlined-label"
-                                                id="Car"
-                                                name="Car"   
-                                                value={form.Car}
-                                                onChange={handleChange}
-                                                labelWidth={labelWidth}
+                                                id="Customer"
+                                                name="Customer"
+                                                value={form.Customer}
+                                                onChange={handleCustomer}
                                                 required
-                                            >
-                                               <MenuItem value={null}>Ingen</MenuItem>
 
-                                                cars && {cars.map(car =>
-                                                    <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
-                                                )}
+                                                labelWidth={labelWidth}
+                                                >
+                                                <MenuItem value={null}>Ingen</MenuItem>
+    
+                                                customers && {customers.map(customer =>
+                                                    <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                                ) }
 
                                             </Select>
-                                    </FormControl>
-                                 
+                                        </FormControl>
+                                        <FormControl variant="outlined" className={classes.formControl}>
+                                            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                                Ansat
+                                            </InputLabel>
+                                        <Select
+                                                labelId="demo-simple-select-outlined-label"
+                                                id="Employee"
+                                                name="Employee"                                            
+                                                onChange={handleChange}
+                                                value={form.Employee}
+                                                required
+
+                                                labelWidth={labelWidth}
+                                            >
+                                                <MenuItem value={null}>Ingen</MenuItem>
+                                            employees && {employees.map(employee =>
+                                                <MenuItem value={employee}> {employee.ID + ' ' + employee.Firstname}</MenuItem>
+                                            )}
+
+                                            </Select>
+                                        </FormControl>
+                                            <FormControl variant="outlined" className={classes.formControl}>
+                                                <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                                    Bil
+                                                </InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-outlined-label"
+                                                    id="Car"
+                                                    name="Car"   
+                                                    value={form.Car}
+                                                    onChange={handleChange}
+                                                    labelWidth={labelWidth}
+                                                    required
+                                                >
+                                                <MenuItem value={null}>Ingen</MenuItem>
+
+                                                    cars && {cars.map(car =>
+                                                        <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
+                                                    )}
+
+                                                </Select>
+                                        </FormControl>
+                                    </div>
 
                                 <TextField
                                     className={classes.formControl}
@@ -433,7 +443,6 @@ function InspectionReport(props) {
 
                         </form>
 
-                    </AppBar>
 
                 </div>
 

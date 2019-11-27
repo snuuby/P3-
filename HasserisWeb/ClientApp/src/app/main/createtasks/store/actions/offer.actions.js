@@ -2,6 +2,7 @@ import axios from 'axios';
 export const OPEN_NEW_OFFER = '[OFFER] OPEN NEW OFFER';
 export const CLOSE_NEW_OFFER = '[OFFER] CLOSE NEW OFFER';
 export const SAVE_OFFER = '[OFFER] SAVE OFFER';
+export const SAVE_EDIT_OFFER = '[OFFER] SAVE EDIT OFFER';
 export const GET_CUSTOMERS = '[OFFER] GET CUSTOMERS';
 export const GET_OFFER = '[OFFER} GET OFFER';
 export const GET_ALL_OFFERS = '[OFFER} GET ALL OFFERS';
@@ -95,6 +96,20 @@ export function addOfferFromInspection(offer) {
             Promise.all([
                 dispatch({
                     type: SAVE_OFFER
+                })
+            ]).then(() => console.log("IMPLEMENT PUSH TO OVERVIEW")
+            ));
+    }
+}
+export function editOffer(report) {
+    return (dispatch, getState) => {
+        console.log("a");
+        const request = axios.post('Offer/edit', report);
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: SAVE_EDIT_OFFER
                 })
             ]).then(() => console.log("IMPLEMENT PUSH TO OVERVIEW")
             ));

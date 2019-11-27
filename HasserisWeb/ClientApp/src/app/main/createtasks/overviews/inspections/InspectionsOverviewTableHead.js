@@ -12,10 +12,10 @@ const rows = [
         sort          : true
     },
     {
-        id: 'name',
+        id: 'address',
         align: 'left',
         disablePadding: false,
-        label: 'Navn',
+        label: 'Start addresse',
         sort: true
     },
     {

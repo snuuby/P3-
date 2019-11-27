@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
+import { TextField, Button, Tab, Tabs, Tooltip, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
 import { useForm } from '@fuse/hooks';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +15,7 @@ import reducer from '../../store/reducers';
 import { Select } from '@material-ui/core';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import Checkbox from '@material-ui/core/Checkbox';
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
@@ -28,6 +29,8 @@ const useStyles = makeStyles(theme => ({
 const defaultFormState = {
     //Common task properties
     Customer: null,
+    CustomerName: '',
+    CustomerMail: '',
     Start: new Date(),
     End: new Date(),
     Notes: '',
@@ -35,6 +38,9 @@ const defaultFormState = {
     Image: '',
     Destination: null,
     ExpectedHours: null,
+
+    //Offer mail specification
+    OfferType: '',
 
     InspectionDate: new Date(),
     MovingDate: new Date(),
@@ -48,7 +54,7 @@ const defaultFormState = {
     DestinationCity: null,
     //Moving task specific properties
     furniture: null,
-    Lentboxes: null,
+    Lentboxes: 0,
 
     //Delivery task specific properties
     material: null,
@@ -57,6 +63,7 @@ const defaultFormState = {
 
 function Offer(props) {
     const classes = useStyles();
+    const [tabValue, setTabValue] = useState(0);
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
@@ -129,7 +136,9 @@ function Offer(props) {
     }
 
 
-
+    function handleChangeTab(event, tabValue) {
+        setTabValue(tabValue);
+    }
     return (
         <FusePageCarded
             classes={{
@@ -153,12 +162,46 @@ function Offer(props) {
                     </div>
                 </div>
             }
+            contentToolbar={
+                <Tabs
+                    value={tabValue}
+                    onChange={handleChangeTab}
+                    indicatorColor="secondary"
+                    textColor="secondary"
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    classes={{ root: "w-full h-64" }}
+                >
+                    <Tab className="h-64 normal-case" label="Tilbud detaljer" />
+                </Tabs>
+            }
             content={
                 <div>
-                    <AppBar position="static">
                     
                     <form noValidate onSubmit={handleSubmit} >
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                            <div class="p-16 sm:p-24 max-w-2xl w-full">
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                        Tilbuds type
+                                        </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="OfferType"
+                                        name="OfferType"
+                                        value={form.OfferType}
+                                        onChange={handleChange}
+                                        required
+
+                                        labelWidth={labelWidth}
+                                    >
+                                        <MenuItem value="Private">Privat</MenuItem>
+                                        <MenuItem value="With Packing">Privat med nedpakning</MenuItem>
+                                        <MenuItem value="Business">Virksomhed</MenuItem>
+
+
+                                    </Select>
+                                </FormControl>
+
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
                                         Kunde
@@ -182,50 +225,82 @@ function Offer(props) {
                                     </Select>
                                 </FormControl>
                             <div>
-                                
-                                    <TextField
-                                        id="StartingAddress"
-                                        label="Fra addresse"
+                                <TextField
+                                        id="CustomerName"
+                                        label="Kunde navn"
                                         className={classes.formControl}
-                                        name="StartAddress"
-                                        value={form.StartingAddress}
+                                        name="CustomerName"
+                                        value={form.CustomerName}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
+                                        disabled
                                         InputLabelProps={{
                                             shrink: true
                                         }}
                                         required
                                     />
                                     <TextField
-                                        id="StartingZIP"
-                                        label="Fra ZIP"
+                                        id="CustomerMail"
+                                        label="Kunde email"
                                         className={classes.formControl}
-                                        name="StartZIP"
-                                        value={form.StartingZIP}
+                                        name="CustomerMail"
+                                        value={form.CustomerMail}
                                         onChange={handleChange}
                                         variant="outlined"
                                         autoFocus
+                                        disabled
                                         InputLabelProps={{
                                             shrink: true
                                         }}
                                         required
                                     />
-                                    <TextField
-                                        id="StartCity"
-                                        label="Fra by"
-                                        className={classes.formControl}
-                                        name="StartCity"
-                                        value={form.StartingCity}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-                               </div>
+                            </div>
+                                    <div>
+                                        <TextField
+                                            id="StartingAddress"
+                                            label="Fra addresse"
+                                            className={classes.formControl}
+                                            name="StartAddress"
+                                            value={form.StartAddress}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            autoFocus
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            required
+                                        />
+                                        <TextField
+                                            id="StartingZIP"
+                                            label="Fra ZIP"
+                                            className={classes.formControl}
+                                            name="StartZIP"
+                                            value={form.StartZIP}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            autoFocus
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            required
+                                        />
+                                        <TextField
+                                            id="StartCity"
+                                            label="Fra by"
+                                            className={classes.formControl}
+                                            name="StartCity"
+                                            value={form.StartCity}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            autoFocus
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            required
+                                        />
+                                    </div>
+                               
                                 <div>
 
                                     <TextField
@@ -319,53 +394,55 @@ function Offer(props) {
                                     variant="outlined"
                                 />
 
-                                    
-
-                                <TextField
-                                    className={classes.formControl}
-                                    id="Lentboxes" label="Lånte boxe"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="Lentboxes"
-                                    value={form.Lentboxes}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
                                 <div>
-                                <TextField
-                                    className={classes.formControl}
-                                    id="ExpectedHours" label="Forventet timeantal"
-                                    type="number"
-                                    min="0"
-                                    max="10"
-                                    name="ExpectedHours"
-                                    value={form.ExpectedHours}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                />
+
+                                    <TextField
+                                        className={classes.formControl}
+                                        id="Lentboxes" label="Lånte boxe"
+                                        type="number"
+                                        min="0"
+                                        max="10"
+                                        name="Lentboxes"
+                                        value={form.Lentboxes}
+                                        defaultValue={0}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                    />
+                                    
+                                    <TextField
+                                        className={classes.formControl}
+                                        id="ExpectedHours" label="Forventet timeantal"
+                                        type="number"
+                                        min="0"
+                                        max="10"
+                                        name="ExpectedHours"
+                                        defaultValue={2}
+                                        value={form.ExpectedHours}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                    />
 
 
-                                <Button
-                                    className={classes.formControl}
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    disabled={!canBeSubmitted()}
-                                >
-                                    GEM
-                                </Button>
-                                    </div>
+
+                                </div>
+                                    <Button
+                                        className={classes.formControl}
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        disabled={!canBeSubmitted()}
+                                    >
+                                        GEM
+                                    </Button>
                         </div>
 
                         </form>
-                    </AppBar>
 
                     </div>
             }

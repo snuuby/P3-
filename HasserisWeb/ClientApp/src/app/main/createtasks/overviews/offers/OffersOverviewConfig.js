@@ -10,7 +10,7 @@ export const OffersOverviewConfig = {
     auth    : authRoles.adminPlus,
     routes  : [
         {
-            path     : '/Offer/Make',
+            path     : '/Offers/Create',
             component: React.lazy(() => import('./CreateOffer'))
         },
         {

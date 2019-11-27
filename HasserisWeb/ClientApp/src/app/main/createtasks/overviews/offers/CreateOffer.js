@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
+import { TextField, Button, Dialog,Tab, Tabs, Tooltip, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
 import { useForm } from '@fuse/hooks';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +15,7 @@ import reducer from '../../store/reducers';
 import { Select } from '@material-ui/core';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import Checkbox from '@material-ui/core/Checkbox';
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
@@ -27,6 +28,8 @@ const useStyles = makeStyles(theme => ({
 const defaultFormState = {
     //Common task properties
     Name: '',
+    CustomerName: '',
+    CustomerMail: '',
     InspectionReport: null,
     Employee: null,
     Customer: null,
@@ -39,6 +42,8 @@ const defaultFormState = {
     Destination: null,
     ExpectedHours: null,
 
+    //Offer mail specification
+    OfferType: '',
 
     //Address
     StartAddress: null,
@@ -58,6 +63,7 @@ const defaultFormState = {
 
 function OfferReport(props) {
     const classes = useStyles();
+    const [tabValue, setTabValue] = useState(0);
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
@@ -81,8 +87,8 @@ function OfferReport(props) {
             if (!eventDialog.wasInspection) {
                 dispatch(Actions.getCustomers());
                 setForm({
-                    ...eventDialog.data,
                     ...defaultFormState,        
+                    ...eventDialog.data,
                 });
             }
             if (eventDialog.wasInspection) {
@@ -115,7 +121,7 @@ function OfferReport(props) {
 
     function canBeSubmitted() {
         return (
-            form.InspectionDate && form.MovingDate && form.ExpirationDate
+            form.InspectionDate && form.MovingDate && form.ExpirationDate && form.OfferType
         );
     }
 
@@ -128,9 +134,23 @@ function OfferReport(props) {
         closeComposeDialog();
         
     }
+    function handleCustomer(customer) {
+        customer.preventDefault();
+        if (customer.target.value != null) {
+            form.CustomerName = customer.target.value.Firstname + ' ' + customer.target.value.Lastname;
+            form.CustomerMail = customer.target.value.ContactInfo.Email;
+        }
+        else {
+            form.CustomerName = '';
+            form.CustomerMail = '';
+        }
 
+        handleChange(customer);
 
-
+    }
+    function handleChangeTab(event, tabValue) {
+        setTabValue(tabValue);
+    }
     return (
         <FusePageCarded
             classes={{
@@ -150,18 +170,56 @@ function OfferReport(props) {
                                     Lav Tilbud
                                     </Typography>
                             </FuseAnimate>
+                            {eventDialog.data.wasInspection && <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                <Typography className="text-16 sm:text-20 truncate">
+                                    (Var besigtigelsesrapport ID): {form.InspectionReport}
+                                    </Typography>
+                                </FuseAnimate>  }   
 
                         </div>
                     </div>
                 </div>
 
             }
+            contentToolbar={
+                <Tabs
+                    value={tabValue}
+                    onChange={handleChangeTab}
+                    indicatorColor="secondary"
+                    textColor="secondary"
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    classes={{ root: "w-full h-64" }}
+                >
+                    <Tab className="h-64 normal-case" label="Tilbud detaljer" />
+                </Tabs>
+            }
             content={
                 <div>
-                    <AppBar position="static">
 
                         <form noValidate onSubmit={handleSubmit} >
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                            <div class="p-16 sm:p-24 max-w-2xl w-full">
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                        Tilbuds type
+                                        </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="OfferType"
+                                        name="OfferType"
+                                        value={form.OfferType}
+                                        onChange={handleChange}
+                                        required
+
+                                        labelWidth={labelWidth}
+                                    >
+                                        <MenuItem value="Private">Privat</MenuItem>
+                                        <MenuItem value="With Packing">Privat med nedpakning</MenuItem>
+                                        <MenuItem value="Business">Virksomhed</MenuItem>
+
+
+                                    </Select>
+                                </FormControl>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
                                         Kunde
@@ -171,7 +229,7 @@ function OfferReport(props) {
                                         id="Customer"
                                         name="Customer"
                                         value={form.Customer}
-                                        onChange={handleChange}
+                                        onChange={handleCustomer}
                                         required
 
                                         labelWidth={labelWidth}
@@ -184,6 +242,34 @@ function OfferReport(props) {
 
                                     </Select>
                                 </FormControl>
+                                <TextField
+                                        id="CustomerName"
+                                        label="Kunde navn"
+                                        className={classes.formControl}
+                                        name="CustomerName"
+                                        value={form.CustomerName}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                    <TextField
+                                        id="CustomerMail"
+                                        label="Kunde email"
+                                        className={classes.formControl}
+                                        name="CustomerMail"
+                                        value={form.CustomerMail}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
                                 <div>
 
                                     <TextField
@@ -318,7 +404,7 @@ function OfferReport(props) {
                                     value={form.ExpirationDate}
                                     onChange={handleChange}
                                     required
-
+                                    helperText="14 dage efter flyttedato"
                                     variant="outlined"
                                 />
 
@@ -330,6 +416,7 @@ function OfferReport(props) {
                                     id="Lentboxes" label="Lånte boxe"
                                     type="number"
                                     min="0"
+                                    defaultValue={0}
                                     max="10"
                                     name="Lentboxes"
                                     value={form.Lentboxes}
@@ -347,6 +434,7 @@ function OfferReport(props) {
                                     min="0"
                                     max="10"
                                     name="ExpectedHours"
+                                    defaultValue={2}
                                     value={form.ExpectedHours}
                                     onChange={handleChange}
                                     variant="outlined"
@@ -367,7 +455,6 @@ function OfferReport(props) {
                             </div>
 
                         </form>
-                    </AppBar>
 
                 </div>
             }

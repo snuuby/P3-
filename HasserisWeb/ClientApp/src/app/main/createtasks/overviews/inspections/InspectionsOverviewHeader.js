@@ -14,10 +14,7 @@ function InspectionsOverviewHeader(props)
 
     const mainTheme = useSelector(({fuse}) => fuse.settings.mainTheme);
 
-    function handlePushToMake(event) {
-        event.preventDefault();
-        props.history.push('/InspectionReport/Make');
-    } 
+
     return (
         <div className="flex flex-1 w-full items-center justify-between">
 
@@ -35,10 +32,6 @@ function InspectionsOverviewHeader(props)
             <div className="flex flex-1 items-center justify-center pr-0 pl-12 sm:px-12">
 
                 <ThemeProvider theme={mainTheme}>
-                    <Button
-                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex" onClick={handlePushToMake}>
-                        Tilføj besigtigelsesrapport
-                    </Button>
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>
                         <Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8" elevation={1}>
