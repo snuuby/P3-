@@ -4,6 +4,7 @@ const initialState = {
     entities   : [],
     searchText: '',
     loading: true,
+    data: null,
     eventDialog: {
         type : 'new',
         props: {
