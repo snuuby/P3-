@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {TextField, Button, NativeSelect, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch} from '@material-ui/core';
 import FuseUtils from '@fuse/FuseUtils';
-import { Combobox } from 'react-widgets'
 import {useForm} from '@fuse/hooks';
 import Select from 'react-select';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,7 +12,8 @@ import {OPTIONS} from "react-select/src/__tests__/constants";
 const defaultFormState = {
     //Common task properties
     id    : '',
-    title : '',
+    title: '',
+    Name: '',
     allDay: true,
     employees : null,
     customer : null,
@@ -91,7 +91,7 @@ function EventDialog(props)
     function canBeSubmitted()
     {
         return (
-            form.title.length > 0
+            form.Name.length > 0
         );
     }
 

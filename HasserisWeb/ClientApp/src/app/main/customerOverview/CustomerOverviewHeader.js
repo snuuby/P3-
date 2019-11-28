@@ -5,11 +5,16 @@ import {FuseAnimate} from '@fuse';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import AddDialog from "./AddDialog";
+import {withRouter} from 'react-router-dom';
 
 
 
 function CustomerOverviewHeader(props)
 {
+    function redirectToCreate() {
+        props.history.push('/customer/xd/create');
+    }
+    
     const dispatch = useDispatch();
     const searchText = useSelector(({customerReducer}) => customerReducer.customers.searchText);
     const mainTheme = useSelector(({fuse}) => fuse.settings.mainTheme);
@@ -32,10 +37,7 @@ function CustomerOverviewHeader(props)
 
                 <ThemeProvider theme={mainTheme}>
                     <Button
-                        onClick={() => dispatch(Actions.openNewAddDialog({
-                            start: new Date(),
-                            end  : new Date()
-                        }))}
+                        onClick={event => redirectToCreate()}
                         variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
                         Tilføj Kunde
                     </Button>

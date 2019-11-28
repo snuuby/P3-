@@ -61,14 +61,15 @@ export function addCustomer(newEvent)
 {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/add-event', {
-            newEvent
-        });
+        console.log(newEvent.Firstname);
+
+        // 404 kan ikke finde url
+        const request = axios.post('customers/addprivate', newEvent);
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: ADD_EVENT
+                    type: ADD_CUSTOMER
                 })
             ]).then(() => dispatch(getCustomers()))
         );

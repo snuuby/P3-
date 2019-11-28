@@ -4,7 +4,7 @@ const initialState = {
     entities   : [],
     searchText: '',
     loading: true,
-    customerData: null,
+    data: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -16,7 +16,7 @@ const initialState = {
 
 const customerReducer = function (state = initialState, action) {
     switch (action.type) {
-        
+
         case Actions.GET_CUSTOMERS:
         {
             const entities = action.payload.map((customer) => (
@@ -37,7 +37,7 @@ const customerReducer = function (state = initialState, action) {
                     customerData: action.payload
                 })
             }
-        
+
         case Actions.SET_CUSTOMEROVERVIEW_SEARCH_TEXT:{
             return {
                 ...state,
@@ -81,15 +81,15 @@ const customerReducer = function (state = initialState, action) {
                 }
             };
         }
-        
+
         default: {
             return state;
-        }    
-        
-        
-        
-        
-        
+        }
+
+
+
+
+
     }
 
 }

@@ -205,45 +205,7 @@ function CustomerOverview(props) {
         dispatch(Actions.getCustomers());
     }, [dispatch]);
     
- 
-    function getCustomers(){
-        dispatch(Actions.getCustomers());
-    }
-
-    function renderCustomerList(empList){
-        return(
-            <table className='table' aria-labelledby="tabelLabel">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {empList.map(emp =>
-                    <tr key={emp.ID}>
-                        <td>{emp.ID}</td>
-                        <td>{emp.Name}</td>
-                        <td>
-                            {emp.Type}
-                        </td>
-                        <td>                            
-                            <button onClick={() => editCustomer(emp.ID)} className="btn btn-info" type="button">Rediger</button>
-                        </td>
-                        <td>
-                            <button onClick={() => deleteCustomer(emp.ID)} className="btn btn-info" type="button">Slet</button>
-                        </td>
-                        
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        )
-    }
-
+    // Render the customer overview table
     return(
         <FusePageCarded
             classes={{
@@ -263,10 +225,7 @@ function CustomerOverview(props) {
                             color="secondary"
                             aria-label="add"
                             className={classes.addButton}
-                            onClick={() => dispatch(Actions.openNewAddDialog({
-                                start: new Date(),
-                                end  : new Date()
-                            }))}
+                            onClick={console.log("test works")}
                         >
                             <Icon>add</Icon>
                         </Fab>
