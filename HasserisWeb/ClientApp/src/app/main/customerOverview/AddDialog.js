@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch} from '@material-ui/core';
 import FuseUtils from '@fuse/FuseUtils';
 import {useForm} from '@fuse/hooks';
@@ -7,15 +7,24 @@ import moment from 'moment';
 import * as Actions from './store/actions';
 import * as ActionsAdd from './store/actions';
 import Checkbox from "@material-ui/core/Checkbox";
-import Select from "react-select";
+import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
+
 
 
 
 const defaultFormState = {
-    id    : FuseUtils.generateGUID(),
-    title : '',
-    allDay: true,
-    desc  : ''
+    id: '',
+    LivingAddress: '',
+    ZIP: '',
+    City: '',
+    Note: '',
+    Email: '',
+    PhoneNumber: '',
+    CustomerType: 'Private',
+
+    //Private Specific
+
+    //Business Specific
 };
 
 function AddDialog(props)
@@ -26,7 +35,12 @@ function AddDialog(props)
     const {form, handleChange, setForm} = useForm(defaultFormState);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
+    const inputLabel = React.useRef(null);
+    const [labelWidth, setLabelWidth] = useState(0);
 
+    useEffect(() => {
+        setLabelWidth(30);
+    }, []);
     const initDialog = useCallback(
         () => {
             /**
@@ -69,9 +83,9 @@ function AddDialog(props)
 
     function canBeSubmitted()
     {
-        return (
+        /*return (
             form.title.length > 0
-        );
+        );*/
     }
 
     function handleSubmit(event)
@@ -96,7 +110,8 @@ function AddDialog(props)
     }
 
     return (
-        <Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
+
+        form.CustomerType === "Private" && <Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 
             <AppBar position="static">
                 <Toolbar className="flex w-full">
@@ -119,7 +134,7 @@ function AddDialog(props)
                             max: end
                         }}
                         name="fornavn"
-                        value="jim"
+                        value='test'
                         onChange={handleChange}
                         variant="outlined"
                         autoFocus
@@ -138,25 +153,40 @@ function AddDialog(props)
                             max: end
                         }}
                         name="efternavn"
-                        value="testson"
+                        value='test'
                         variant="outlined"
                         autoFocus
                         required
                         fullWidth
                     />
 
-                    <Select
-                        textField='name'
-                        groupBy='lastName'
-                    />
-                    
+                    <FormControl>
+                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                            Kunde Type
+                        </InputLabel>
+                        <Select
+                            labelid="demo-simple-select-outlined-label"
+                            id="CustomerType"
+                            name="CustomerType"
+                            value={form.CustomerType}
+                            onChange={handleChange}
+                            required
+                            labelWidth={labelWidth}
+                        >
+                            <MenuItem value="Private">Privat</MenuItem>
+                            <MenuItem value="Business">Virksomhed</MenuItem>
+                            <MenuItem value="Public">Offentlig</MenuItem>
+
+                        </Select>
+                    </FormControl>
+                    {/*
                     <Checkbox
                         id="admin"
                         name="admin"
                         label="Admin"
                         variant="Outlined"
                         value="checked"
-                        />
+                        />*/}
 
                     <TextField
                         id="end"
