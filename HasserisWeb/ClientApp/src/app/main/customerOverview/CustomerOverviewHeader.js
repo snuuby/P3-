@@ -62,7 +62,8 @@ function CustomerOverviewHeader(props)
                     </FuseAnimate>
                 </ThemeProvider>
 
-                <AddDialog/>
+                <AddDialog />
+
             </div>
         </div>
         

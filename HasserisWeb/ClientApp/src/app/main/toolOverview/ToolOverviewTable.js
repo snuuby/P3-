@@ -28,9 +28,15 @@ function ToolOverviewTable(props)
         dispatch(Actions.getTools());
     }, [dispatch]);
 
+    /*
     useEffect(() => {
         setData(searchText.length === 0 ? tools : FuseUtils.filterArrayByString(tools, searchText))
-    }, [tools, searchText]);
+    }, [tools, searchText]); 
+    */
+    useEffect(() => {
+        setData(tools)
+    }, [tools]); 
+    
 
     function handleRequestSort(event, property)
     {

@@ -37,13 +37,14 @@ namespace HasserisWeb.Controllers
         {
             dynamic eNewTool = JsonConvert.DeserializeObject(json.ToString());
             string toolName = eNewTool.newTool.name;
-           
+
             Tool tool = new Tool(toolName);
 
             database.Equipment.Add(tool);
             database.SaveChanges();
 
-            return "abc";
+            return "Succesfully added new tool";
+
         }
     }
 }

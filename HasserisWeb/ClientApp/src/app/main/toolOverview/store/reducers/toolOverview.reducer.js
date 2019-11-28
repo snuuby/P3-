@@ -2,8 +2,8 @@ import * as Actions from '../actions';
 
 const initialState = {
     entities   : [],
-    searchText: '',
     loading: true,
+    toolData: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -32,9 +32,9 @@ const toolReducer = function (state = initialState, action) {
 
         case Actions.GET_TOOL:
             {
-                return {
-                    ...action.payload
-                };
+                return Object.assign({}, state, {
+                    toolData: action.payload
+                })
             }
         
         case Actions.SET_TOOLOVERVIEW_SEARCH_TEXT:{
@@ -47,7 +47,6 @@ const toolReducer = function (state = initialState, action) {
         case Actions.ADD_TOOL:{
             return {
                 ...state,
-                searchText: action.searchText
             };
         }
 

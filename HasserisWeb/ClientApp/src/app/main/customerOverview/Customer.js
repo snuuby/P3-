@@ -18,7 +18,7 @@ function Marker(props) {
 
 function Customer(props) {
     const dispatch = useDispatch();
-    const customer = useSelector(({ customerReducer }) => customerReducer.customers);
+    const customer = useSelector(({ customerReducer }) => customerReducer.customers.customerData);
     const [tabValue, setTabValue] = useState(0);
     const customerPhonenumber = ((customer || {}).ContactInfo || {}).PhoneNumber;
     const customerEmail = ((customer || {}).ContactInfo || {}).Email;

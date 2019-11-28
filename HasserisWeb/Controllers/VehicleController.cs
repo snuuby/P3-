@@ -37,8 +37,8 @@ namespace HasserisWeb.Controllers
         {
             dynamic eNewVehicle = JsonConvert.DeserializeObject(json.ToString());
             string vehicleName = eNewVehicle.newVehicle.name;
-            string vehicleModel = eNewVehicle.newVehicle.Model;
-            string vehicleRegNum = eNewVehicle.newVehicle.RegNum;
+            string vehicleModel = eNewVehicle.newVehicle.model;
+            string vehicleRegNum = eNewVehicle.newVehicle.regnum;
 
             Vehicle vehicle = new Vehicle(vehicleName, vehicleModel, vehicleRegNum);
 

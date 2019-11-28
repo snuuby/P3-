@@ -13,6 +13,9 @@ export const ADD_VEHICLE = '[VEHICLE APP] ADD VEHICLE';
 export const OPEN_NEW_ADD_DIALOG = '[VEHICLE APP] OPEN NEW ADD DIALOG';
 export const CLOSE_NEW_ADD_DIALOG = '[VEHICLE APP] CLOSE NEW ADD DIALOG';
 export const GET_VEHICLE = '[VEHICLE APP] GET VEHICLE';
+export const CLOSE_EDIT_VEHICLE_DIALOG = '[VEHICLE APP]';
+export const REMOVE_VEHICLE = '[VEHICLE APP] REMOVE VEHICLE';
+export const UPDATE_VEHICLES = '[VEHICLE APP] UPDATE VEHICLE';
 
 // Gets all vehicles
 export function getVehicles()
@@ -52,27 +55,25 @@ export function setVehicleOverviewSearchText(event)
     }
 }
 
-// Action to add vehicle
-export function addVehicle(newEvent)
-{
+// Action to add tool
+export function addVehicle(newVehicle) {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/add-event', {
-            newEvent
+        const request = axios.post('Vehicles/add', {
+            newVehicle
         });
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: ADD_EVENT
+                    type: ADD_VEHICLE
                 })
             ]).then(() => dispatch(getVehicles()))
         );
     };
 }
 
-export function openNewAddDialog(data)
-{
+export function openNewAddDialog(data) {
     return {
         type: OPEN_NEW_ADD_DIALOG,
         data
@@ -80,9 +81,48 @@ export function openNewAddDialog(data)
 }
 
 
-export function closeNewAddDialog()
-{
+export function closeNewAddDialog() {
     return {
         type: CLOSE_NEW_ADD_DIALOG
     }
+}
+
+export function closeEditVehicleDialog() {
+    return {
+        type: CLOSE_EDIT_VEHICLE_DIALOG
+    }
+}
+
+export function removeVehicle(vehicleId) {
+    return (dispatch, getState) => {
+
+        const request = axios.post('Vehicles/remove', {
+            vehicleId
+        });
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: REMOVE_VEHICLE
+                })
+            ]).then(() => dispatch(getVehicles()))
+        );
+    };
+}
+
+export function updateVehicles(newEvent) {
+    return (dispatch, getState) => {
+
+        const request = axios.post('Vehicles/update', {
+            newEvent
+        });
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: UPDATE_VEHICLES
+                })
+            ]).then(() => dispatch(getVehicles()))
+        );
+    };
 }

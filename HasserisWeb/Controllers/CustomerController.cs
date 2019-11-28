@@ -47,7 +47,7 @@ namespace HasserisWeb.Controllers
             string customerNote = eNewCustomer.newCustomer.Note;
             //ContactInfo
             string customerEmail = eNewCustomer.newCustomer.Email;
-            string customerPhoneNumber = eNewCustomer.newCustomer;
+            string customerPhoneNumber = eNewCustomer.newCustomer.PhoneNumber;
             //Type
             string customerType = eNewCustomer.newCustomer.Type;
             string customerTypeSpecific1 = eNewCustomer.newCustomer.TypeSpecific1;
