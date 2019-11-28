@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
-    public class TaskAssignedEquipment
+    public class InspectionAssignedEquipment
     {
-        public int TaskID { get; set; }
+        public int InspectionID { get; set; }
         public int EquipmentID { get; set; }
-        public Task Task { get; set; }
+        public InspectionReport InspectionReport { get; set; }
         public Equipment Equipment { get; set; }
     }
 }

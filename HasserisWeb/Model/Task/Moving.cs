@@ -9,18 +9,18 @@ namespace HasserisWeb
     //Moving-type task, for moving furniture/other for a customer.
     public class Moving : Task
     {
-        [Required]
         public Address StartingAddress { get; set; }
         public int LentBoxes { get; set; }
         public ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
-
+        public bool WithPacking { get; set; }
         public Moving(string name, Customer assignedCustomer,
-                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes)
-                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber)
+                  Address destination, double income, List<DateTime> dates, string description, string workPhoneNumber, Address startingAddress, int lentBoxes, bool WithPacking, int phase)
+                : base(name, assignedCustomer, destination, income, dates, description, workPhoneNumber, phase)
         {
             this.StartingAddress = startingAddress;
             this.LentBoxes = lentBoxes;
             this.Customer.LentBoxes = lentBoxes;
+            this.WithPacking = WithPacking;
         }
         public Moving()
         {

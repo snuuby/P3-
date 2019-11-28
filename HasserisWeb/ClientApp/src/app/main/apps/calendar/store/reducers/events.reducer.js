@@ -21,6 +21,7 @@ const eventsReducer = function (state = initialState, action) {
 
             const Deliveries = action.payload.map((delivery) => (
                 {
+                    /*
                     id: delivery.task.ID,
                     title: delivery.task.Name,
                     desc: delivery.task.Description,
@@ -32,6 +33,11 @@ const eventsReducer = function (state = initialState, action) {
                     start: new Date(delivery.Dates[0].Date),
                     end: new Date(delivery.Dates[delivery.Dates.length - 1].Date),
                     image: delivery.task.PhotoPath
+                    */
+                    start: new Date(delivery.Dates[0].Date),
+                    end: new Date(delivery.Dates[delivery.Dates.length - 1].Date),
+                    title: delivery.Name,
+                    ...delivery,
                 }
 
             ));
@@ -46,6 +52,7 @@ const eventsReducer = function (state = initialState, action) {
 
                 const Movings = action.payload.map((moving) => (
                     {
+                        /* 
                         id: moving.task.ID,
                         title: moving.task.Name,
                         desc: moving.task.Description,
@@ -59,6 +66,11 @@ const eventsReducer = function (state = initialState, action) {
                         furniture: moving.Furniture,
                         end: new Date(moving.Dates[moving.Dates.length - 1].Date),
                         image: moving.task.PhotoPath
+                        */
+                        start: new Date(moving.Dates[0].Date),
+                        end: new Date(moving.Dates[moving.Dates.length - 1].Date),                    
+                        title: moving.Name,
+                        ...moving,
                     }
                 ));
 

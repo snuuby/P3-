@@ -16,28 +16,6 @@ using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb.Controllers
 {
-    // Is not used right now
-    // Class to store the JSON data that comes from the view component.
-    public class NewEvent
-    {
-        public string id { get; set; }
-        public string title { get; set; }
-        public bool allDay { get; set; }
-        public object employees { get; set; }
-        public string start { get; set; }
-        public string end { get; set; }
-        public string desc { get; set; }
-        public string photoURL { get; set; }
-        public string combo { get; set; }
-    }
-
-    // Is not used right now
-    public class TaskAssigned
-    {
-        public List<Employee> Employees;
-        public List<Equipment> Equipment;
-    }
-
     // Routing for the Calendar controller class fx calendar/...
     [Route("calendar")]
     public class CalendarController : Controller
@@ -58,10 +36,10 @@ namespace HasserisWeb.Controllers
 
             int id = deserializeObject.eventId;
 
-            var task = database.Tasks.Include(dates => dates.Dates).
-                    Include(pauses => pauses.PauseTimes).
-                    Include(employees => employees.taskAssignedEmployees).
-                    Include(equipment => equipment.taskAssignedEquipment).FirstOrDefault(e => e.ID == id);
+                var task = database.Tasks.Include(t => t.Dates).
+                    Include(t => t.PauseTimes).
+                    Include(t => t.Employees).
+                    Include(t => t.Equipment).FirstOrDefault(t => t.ID == id);
 
             database.Tasks.RemoveRange(task);
 
@@ -73,38 +51,23 @@ namespace HasserisWeb.Controllers
 
         // Method to get all deliveries from the database.
         [Route("Delivery")]
-        public string GetMovingTask()
+        public string GetDeliveryTasks()
         {
-            var deliveryList = database.Tasks.OfType<Delivery>().Select(task => new
-            {
-                task,
-                task.Dates,
-                task.Customer,
-                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
-                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
-            }).ToList();
-
-            return JsonConvert.SerializeObject(deliveryList);
+            return JsonConvert.SerializeObject(database.Tasks.OfType<Delivery>().Where(t => t.Phase == 3)
+            .Include(i => i.InspectionReport).Include(o => o.Offer).Include(c => c.Customer)
+            .Include(a => a.Destination).Include(e => e.Equipment).Include(e => e.Employees)
+            .Include(d => d.Dates).Include(p => p.PauseTimes).ToList());
         }
         
         // Method to get all movings from the database.
         [Route("Moving")]
-        public string GetDeliveryTask()
+        public string GetMovingTasks()
         {
-            var movingList = database.Tasks.OfType<Moving>().Include(f => f.Furnitures).Select(task => new
-            {
-                task,
-                Dates = task.Dates.OrderBy(c => c.Date).ToList(),
-                task.StartingAddress,
-                task.Destination,
-                task.Customer,
-                task.Furnitures,
 
-                Employees = task.taskAssignedEmployees.Select(te => te.Employee).ToList(),
-                Equipment = task.taskAssignedEquipment.Select(te => te.Equipment).ToList()
-            }).ToList();
-            
-            return JsonConvert.SerializeObject(movingList);
+            return JsonConvert.SerializeObject(database.Tasks.OfType<Moving>().Where(t => t.Phase == 3)
+            .Include(i => i.InspectionReport).Include(o => o.Offer).Include(c => c.Customer)
+            .Include(a => a.Destination).Include(e => e.Equipment).Include(e => e.Employees)
+            .Include(d => d.Dates).Include(p => p.PauseTimes).Include(f => f.Furnitures).ToList());
         }
 
         // Method to add task
@@ -137,7 +100,7 @@ namespace HasserisWeb.Controllers
             Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
             Delivery delivery = new Delivery(eventTitle, privateCustomer,
-                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
+                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2, 3);
 
             database.Tasks.Add(delivery);
             database.SaveChanges();
@@ -175,9 +138,8 @@ namespace HasserisWeb.Controllers
             Employee employee_one = database.Employees.FirstOrDefault(e => e.ID == 1);
             Employee employee_two = database.Employees.FirstOrDefault(e => e.ID == 2);
 
-            Delivery delivery = new Delivery(eventTitle, privateCustomer, 
-                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2);
-
+                Delivery delivery = new Delivery(eventTitle, privateCustomer,
+                new Address("myrdal", "2", "aalborg", "test"), 1000, dates, eventDesc, "22331133", "Foam", 2, 3);
 
             database.Tasks.Update(delivery);
             database.SaveChanges();

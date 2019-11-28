@@ -24,6 +24,12 @@ namespace HasserisWeb.Controllers
         {
                 return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
         }
+        [Route("available")]
+        public string GetAvailableVehicles()
+        {
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().
+                                            Where(car => car.IsAvailable).ToList());
+        }
 
         [Route("{id}")]
         public string GetSpecificVehicle(int id)

@@ -232,7 +232,10 @@ function CalendarApp(props)
                 onSelectEvent={event => {
                     dispatch(Actions.openEditEventDialog(event));
                 }}
-                onSelectSlot={slotInfo => ReactDOM.createPortal(< DecideTask {...slotInfo} />, document.getElementById('root')) }
+                onSelectSlot={slotInfo => dispatch(Actions.openNewEventDialog({
+                    start: slotInfo.start.toLocaleString(),
+                    end: slotInfo.end.toLocaleString()
+                })) }
         />
 
             <EventDialog/>
