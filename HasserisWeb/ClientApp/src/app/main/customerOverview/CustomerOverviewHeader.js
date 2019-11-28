@@ -3,17 +3,14 @@ import {Paper, Input, Icon, Typography, Button, Fab} from '@material-ui/core';
 import {ThemeProvider} from '@material-ui/styles';
 import {FuseAnimate} from '@fuse';
 import * as Actions from './store/actions';
-import {useDispatch, useSelector} from 'react-redux';
-import AddDialog from "./AddDialog";
-import {withRouter} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 
 
 function CustomerOverviewHeader(props)
 {
-    function redirectToCreate() {
-        props.history.push('/customer/xd/create');
-    }
+
     
     const dispatch = useDispatch();
     const searchText = useSelector(({customerReducer}) => customerReducer.customers.searchText);
@@ -36,11 +33,6 @@ function CustomerOverviewHeader(props)
             <div className="flex flex-1 items-center justify-center pr-0 pl-12 sm:px-12">
 
                 <ThemeProvider theme={mainTheme}>
-                    <Button
-                        onClick={event => redirectToCreate()}
-                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
-                        Tilføj Kunde
-                    </Button>
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>
                         <Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8" elevation={1}>
@@ -64,7 +56,6 @@ function CustomerOverviewHeader(props)
                     </FuseAnimate>
                 </ThemeProvider>
 
-                <AddDialog />
 
             </div>
         </div>

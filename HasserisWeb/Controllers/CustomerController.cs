@@ -8,18 +8,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb.Controllers
 {
     [Route("customers")]
     public class CustomerController : Controller
     {
+        public class CustomerTypeClass
+        {
+            public string CustomerType { get; set; }
+        }
         public HasserisDbContext database;
         public CustomerController(HasserisDbContext sc)
         {
             database = sc;
         }
-
+        [HttpGet]
         [Route("all")]
         public string GetAllCustomers()
         {
@@ -28,6 +33,43 @@ namespace HasserisWeb.Controllers
                 Include(address => address.Address).
                 ToList());
 
+        }
+        [HttpGet]
+        [Route("private")]
+        public string GetPrivateCustomers()
+        {
+
+            List<Private> privates = database.Customers.OfType<Private>().
+            Include(contact => contact.ContactInfo).
+            Include(address => address.Address).
+            ToList();
+            JObject jo = JObject.FromObject(privates);
+            jo.Add("CustomerType", "private");
+            return jo.ToString();
+        }
+        [HttpGet]
+        [Route("public")]
+        public string getPublicCustomers()
+        {
+            List<Public> publics = database.Customers.OfType<Public>().
+            Include(contact => contact.ContactInfo).
+            Include(address => address.Address).
+            ToList();
+            JObject jo = JObject.FromObject(publics);
+            jo.Add("CustomerType", "public");
+            return jo.ToString();
+        }
+        [HttpGet]
+        [Route("business")]
+        public string GetBusinessCustomers()
+        {
+            List<Business> business = database.Customers.OfType<Business>().
+            Include(contact => contact.ContactInfo).
+            Include(address => address.Address).
+            ToList();
+            JObject jo = JObject.FromObject(business);
+            jo.Add("CustomerType", "business");
+            return jo.ToString();
         }
 
         [Route("{id}")]
@@ -40,16 +82,14 @@ namespace HasserisWeb.Controllers
         }
 
 
-        // add private customer
+        // add business customer
         [HttpPost]
         [Route("addbusiness")]
         public string CreateBusinessCustomer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            // Names
-            string customerName = temp.Firstname;
-            string customerLastName = temp.Lastname;
-
+            // Name for a business customer
+            string customerName = temp.Name;
             //Address
             string customerLivingAddress = temp.Address;
             string customerZIP = temp.ZIP;
@@ -65,26 +105,26 @@ namespace HasserisWeb.Controllers
             //Type - is not used anymore each customer type have their own route
             string customerType = temp.Type;
 
-            Private tempPrivate = new Private(customerName, customerLastName,
+            Business tempBusiness = new Business(
                 new Address(customerLivingAddress, customerZIP, customerCity, customerNote),
-                new ContactInfo(customerEmail, customerPhoneNumber));
-            database.Customers.Add(tempPrivate);
+                new ContactInfo(customerEmail, customerPhoneNumber), 
+                customerName, customerCVR);
+            database.Customers.Add(tempBusiness);
 
             database.SaveChanges();
 
-            return "succesfully added new customer";
+            return "Business customer added";
         }
 
 
-        // add private customer
+        // add public customer
         [HttpPost]
         [Route("addpublic")]
         public string CreatePublicCustomer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            // Names
-            string customerName = temp.Firstname;
-            string customerLastName = temp.Lastname;
+            // Name for the public customer
+            string customerName = temp.Name;
 
             //Address
             string customerLivingAddress = temp.Address;
@@ -102,14 +142,15 @@ namespace HasserisWeb.Controllers
             //Type - is not used anymore each customer type have their own route
             string customerType = temp.Type;
 
-            Private tempPrivate = new Private(customerName, customerLastName,
+            Public tempPublic = new Public(
                 new Address(customerLivingAddress, customerZIP, customerCity, customerNote),
-                new ContactInfo(customerEmail, customerPhoneNumber));
-            database.Customers.Add(tempPrivate);
+                new ContactInfo(customerEmail, customerPhoneNumber), 
+                customerName, customerEAN);
+            database.Customers.Add(tempPublic);
 
             database.SaveChanges();
 
-            return "succesfully added new customer";
+            return "Public customer added";
         }
 
 
@@ -119,8 +160,8 @@ namespace HasserisWeb.Controllers
         public string CreatePrivateCustomer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            // Names
-            string customerName = temp.Firstname;
+            // Firstname and lastname for a private business customer
+            string customerFirstName = temp.Firstname;
             string customerLastName = temp.Lastname;
 
             //Address
@@ -136,14 +177,14 @@ namespace HasserisWeb.Controllers
             //Type - is not used anymore each customer type have their own route
             string customerType = temp.Type;
 
-            Private tempPrivate = new Private(customerName, customerLastName,
+            Private tempPrivate = new Private(customerFirstName, customerLastName,
                                                    new Address(customerLivingAddress, customerZIP, customerCity, customerNote),
                                                    new ContactInfo(customerEmail, customerPhoneNumber));
             database.Customers.Add(tempPrivate);
 
             database.SaveChanges();
 
-            return "succesfully added new customer";
+            return "Private customer added";
         }
     }
 }

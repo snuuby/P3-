@@ -8,7 +8,7 @@ import AddDialog from "./AddDialog";
 
 
 
-function OverviewHeader(props)
+function EmployeeOverviewHeader(props)
 {
     const dispatch = useDispatch();
     const searchText = useSelector(({overviewReducer}) => overviewReducer.employees.searchText);
@@ -70,4 +70,4 @@ function OverviewHeader(props)
     );
 }
 
-export default OverviewHeader;
+export default EmployeeOverviewHeader;

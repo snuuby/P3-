@@ -3,12 +3,12 @@ import {Table, TableBody, TableCell, TablePagination, TableRow, Checkbox} from '
 import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
-import OverviewTableHead from './OverviewTableHead';
+import EmployeeOverviewTableHead from './EmployeeOverviewTableHead';
 //import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-function OverviewTable(props)
+function EmployeeOverviewTable(props)
 {
     const dispatch = useDispatch();
     const employees = useSelector(({overviewReducer}) => overviewReducer.employees.entities);
@@ -107,7 +107,7 @@ function OverviewTable(props)
 
                 <Table className="min-w-xl" aria-labelledby="tableTitle">
 
-                    <OverviewTableHead
+                    <EmployeeOverviewTableHead
                         numSelected={selected.length}
                         employee={employee}
                         onSelectAllClick={handleSelectAllClick}
@@ -207,4 +207,4 @@ function OverviewTable(props)
     );
 }
 
-export default withRouter(OverviewTable);
+export default withRouter(EmployeeOverviewTable);

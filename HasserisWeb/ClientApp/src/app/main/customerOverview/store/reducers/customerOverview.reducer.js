@@ -1,10 +1,11 @@
 import * as Actions from '../actions';
 
 const initialState = {
-    entities   : [],
+    privateCustomers: [],
+    businessCustomers: [],
+    publicCustomers: [],
     searchText: '',
     loading: true,
-    data: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -17,24 +18,59 @@ const initialState = {
 const customerReducer = function (state = initialState, action) {
     switch (action.type) {
 
-        case Actions.GET_CUSTOMERS:
+        case Actions.GET_PRIVATE_CUSTOMERS:
         {
-            const entities = action.payload.map((customer) => (
+            const privateCustomers = action.payload.map((customers) => (
                 {
-                    ...customer
+                    CustomerType: "private",
+                    ...customers
                 }
             ));
 
             return {
                 ...state,
-                entities
+                privateCustomers
             };
-        }
+            }
+        case Actions.GET_BUSINESS_CUSTOMERS:
+            {
+                const businessCustomers = action.payload.map((customers) => (
+                    {
+                        CustomerType: "business",
+                        ...customers
+                    }
+                ));
+
+                return {
+                    ...state,
+                    businessCustomers
+                };
+            }
+        case Actions.GET_PUBLIC_CUSTOMERS:
+            {
+                const publicCustomers = action.payload.map((customers) => (
+                    {
+                        CustomerType: "public",
+                        ...customers
+                    }
+                ));
+
+                return {
+                    ...state,
+                    publicCustomers
+                };
+            }
 
         case Actions.GET_CUSTOMER:
             {
                 return Object.assign({}, state, {
-                    customerData: action.payload
+                    eventDialog: {
+                        type: 'new',
+                        props: {
+                            open: true,
+                        },
+                        data: action.payload,
+                    }
                 })
             }
 
@@ -45,12 +81,27 @@ const customerReducer = function (state = initialState, action) {
             };
         }
 
-        case Actions.ADD_CUSTOMER:{
+        case Actions.ADD_PRIVATE_CUSTOMER:
+        {
             return {
                 ...state,
                 searchText: action.searchText
             };
-        }
+            }
+        case Actions.ADD_PUBLIC_CUSTOMER:
+            {
+                return {
+                    ...state,
+                    searchText: action.searchText
+                };
+            }
+        case Actions.ADD_BUSINESS_CUSTOMER:
+            {
+                return {
+                    ...state,
+                    searchText: action.searchText
+                };
+            }
 
         case Actions.OPEN_NEW_ADD_DIALOG:
         {

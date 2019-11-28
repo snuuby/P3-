@@ -15,7 +15,7 @@ export const CustomerOverviewConfig = {
             component: React.lazy(() => import('./CustomerOverview'))
         },
         {
-            path: '/customer/xd/create',
+            path: '/customer/create',
             component   : React.lazy(() => import('./CreateCustomer')) // Customer before
         },
         {

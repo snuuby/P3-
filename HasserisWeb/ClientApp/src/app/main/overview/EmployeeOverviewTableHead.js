@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function OverviewTableHead(props)
+function EmployeeOverviewTableHead(props)
 {
     const classes = useStyles(props);
     const [selectedOrdersMenu, setSelectedOrdersMenu] = useState(null);
@@ -132,4 +132,4 @@ function OverviewTableHead(props)
     );
 }
 
-export default OverviewTableHead;
+export default EmployeeOverviewTableHead;

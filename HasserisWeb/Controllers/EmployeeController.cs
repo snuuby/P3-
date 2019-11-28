@@ -46,25 +46,35 @@ namespace HasserisWeb.Controllers
                 .Include(address => address.Address)
                 .FirstOrDefault(c => c.ID == id));
         }
-
-        /* Dead code? should be deleted
-        // Delete
-        [Route("delete/{id}")]
-        public ActionResult DeleteEmployee(int id)
+        // add business customer
+        [HttpPost]
+        [Route("addemployee")]
+        public string CreateEmployee([FromBody]dynamic json)
         {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            // General employee information
+            string employeeFirstName = temp.FirstName;
+            string employeeLastName = temp.LastName;
+            string employeeType = temp.Type;
+            double employeeWage = temp.Wage;
+            //Address
+            string employeeLivingAddress = temp.Address;
+            string employeeZIP = temp.ZIP;
+            string employeeCity = temp.City;
+            string employeeNote = temp.Note;
+            //ContactInfo
+            string employeeEmail = temp.Email;
+            string employeePhoneNumber = temp.Phonenumber;
 
-            var employee = database.Employees.FirstOrDefault(e => e.ID == id);
-            employee.Employed = "Unemployed";
-            database.Employees.Update(employee);
+
+            Employee tempEmployee = new Employee(employeeFirstName,employeeLastName, employeeType, employeeWage,
+                new ContactInfo(employeeEmail, employeePhoneNumber),
+                new Address(employeeLivingAddress, employeeZIP, employeeCity, employeeNote));
+            database.Employees.Add(tempEmployee);
+
             database.SaveChanges();
 
-            return Content("Success with: " + id);
+            return "Employee added";
         }
-
-        [Route("firstname/{id}")]
-        public Employee GetEmployeeFirstName(int id)
-        {
-            return HasserisDbContext.LoadElementFromDatabase("Employee", id);
-        }*/
     }
 }

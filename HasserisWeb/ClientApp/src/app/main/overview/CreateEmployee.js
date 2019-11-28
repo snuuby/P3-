@@ -22,28 +22,23 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 const defaultFormState = {
-    CustomerType: 'Private',
+    FirstName: null,
+    LastName: null,
+    Type: null,
+    Wage: null,
+
+    //Address
     Address: null,
     ZIP: null,
     City: null,
     Note: null,
-    Phonenumber: null,
+
+    //Contact info
     Email: null,
-    
-    // Private specific
-    Firstname: null,
-    Lastname: null,
-
-    // Business specific
-    Name: null,
-    CVR: null,
-
-    // Public specific
-    Name: null,
-    EAN: null,
+    PhoneNumber: null
 };
 
-function CreateCustomer(props) {
+function InspectionReport(props) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -323,4 +318,4 @@ function CreateCustomer(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(CreateCustomer);
+export default withReducer('makeReducer', reducer)(InspectionReport);

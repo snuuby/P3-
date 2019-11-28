@@ -11,7 +11,11 @@ import {useDispatch, useSelector} from 'react-redux';
 function CustomerOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const customers = useSelector(({ customerReducer }) => customerReducer.customers.entities);
+    const privateCustomers = useSelector(({ customerReducer }) => customerReducer.customers.privateCustomers);
+    const publicCustomers = useSelector(({ customerReducer }) => customerReducer.customers.publicCustomers);
+    const businessCustomers = useSelector(({ customerReducer }) => customerReducer.customers.businessCustomers);
+    const customers = privateCustomers.concat(publicCustomers).concat(businessCustomers);
+
     console.log(customers.length);
 
     const [selected, setSelected] = useState([]);
