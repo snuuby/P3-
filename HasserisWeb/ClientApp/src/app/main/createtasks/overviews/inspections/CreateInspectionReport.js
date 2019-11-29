@@ -38,7 +38,6 @@ const defaultFormState = {
     Notes: '',
     combo: '',
     Image: '',
-    Destination: null,
     ExpectedHours: null,
 
     //Address

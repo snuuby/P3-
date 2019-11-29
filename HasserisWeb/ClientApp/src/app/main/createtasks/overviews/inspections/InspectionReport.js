@@ -134,9 +134,6 @@ function InspectionReport(props) {
         dispatch(Actions.addFromInspectionReport(form));
 
         props.history.push('/Offers/Create/');
-
-
-        
     }
 
     function handleChangeTab(event, tabValue) {
