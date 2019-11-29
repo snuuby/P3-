@@ -29,3 +29,5 @@ HasserisWeb/obj/project.assets.json
 *.cache
 *.db
 HasserisWeb/.idea/.idea.HasserisWeb/.idea/dataSources.xml
+HasserisWeb/obj/Debug/netcoreapp3.0/HasserisWeb.assets.cache
+HasserisWeb/.idea/.idea.HasserisWeb/.idea/contentModel.xml
