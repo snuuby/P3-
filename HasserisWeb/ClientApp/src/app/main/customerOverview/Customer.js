@@ -48,10 +48,9 @@ function Customer(props) {
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.customers.eventDialog);
+    const eventDialog = useSelector(({ customerReducer }) => customerReducer.customers.eventDialog);
 
     // skal skiftes til customers, men har vi overhovedet brug for at loade vores customers her? :/ når vi laver
-    const customers = useSelector(({ makeReducer }) => makeReducer.customers.entities);
     const [tabValue, setTabValue] = useState(0);
 
 
@@ -107,7 +106,17 @@ function Customer(props) {
             form.Firstname && form.Lastname && form.Address // hvad gør den her helt præcist? 
         );
     }
-
+    function printCustomerName() {
+        if (form.CustomerType == "Private") {
+            return form.Firstname + ' ' + form.Lastname;
+        }
+        else if (form.CustomerType == "Public") {
+            return form.Name + ' EAN: ' + form.EAN;
+        }
+        else if (form.CustomerType == "Business") {
+            return form.Name + ' CVR: ' + form.CVR;
+        }
+    }
     function handleSubmit(event) {
 
 
@@ -149,7 +158,7 @@ function Customer(props) {
 
                             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                 <Typography className="text-16 sm:text-20 truncate">
-                                    Customer 
+                                    {form.CustomerType} Kunde: {printCustomerName}
                                     </Typography>
                             </FuseAnimate>
 
@@ -326,4 +335,4 @@ function Customer(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(Customer);
+export default withReducer('customerReducer', reducer)(Customer);

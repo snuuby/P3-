@@ -69,7 +69,7 @@ const customerReducer = function (state = initialState, action) {
                         props: {
                             open: true,
                         },
-                        data: action.payload,
+                        data: { ...action.payload },
                     }
                 })
             }

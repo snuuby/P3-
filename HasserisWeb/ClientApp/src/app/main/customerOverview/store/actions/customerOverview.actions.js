@@ -50,7 +50,9 @@ export function getPrivateCustomers() {
     request.then(response => {
         console.log(response.data);
     });
-
+    for (var i = 0; i < request.length; i+=1) {
+        request[i].CustomerType = "Private";
+    }
     return (dispatch) =>
         request.then((response) =>
             dispatch({
@@ -64,7 +66,9 @@ export function getBusinessCustomers() {
     request.then(response => {
         console.log(response.data);
     });
-
+    for (var i = 0; i < request.length; i += 1) {
+        request[i].CustomerType = "Business";
+    }
     return (dispatch) =>
         request.then((response) =>
             dispatch({
@@ -78,7 +82,9 @@ export function getPublicCustomers() {
     request.then(response => {
         console.log(response.data);
     });
-
+    for (var i = 0; i < request.length; i += 1) {
+        request[i].CustomerType = "Public";
+    }
     return (dispatch) =>
         request.then((response) =>
             dispatch({

@@ -140,7 +140,7 @@ function CustomerOverviewTable(props)
                                         }
                                         case 'type':
                                         {
-                                            return e.Type;
+                                            return e.CustomerType;
                                         }
                                         case 'lentboxes':
                                         {
@@ -190,7 +190,7 @@ function CustomerOverviewTable(props)
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>
-                                                {n.Type}
+                                                {n.CustomerType}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">

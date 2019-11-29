@@ -39,39 +39,32 @@ namespace HasserisWeb.Controllers
         public string GetPrivateCustomers()
         {
 
-            List<Private> privates = database.Customers.OfType<Private>().
+            return JsonConvert.SerializeObject(database.Customers.OfType<Private>().
             Include(contact => contact.ContactInfo).
             Include(address => address.Address).
-            ToList();
-            JObject jo = JObject.FromObject(privates);
-            jo.Add("CustomerType", "private");
-            return jo.ToString();
+            ToList());
+
         }
         [HttpGet]
         [Route("public")]
         public string getPublicCustomers()
         {
-            List<Public> publics = database.Customers.OfType<Public>().
+            return JsonConvert.SerializeObject(database.Customers.OfType<Public>().
             Include(contact => contact.ContactInfo).
             Include(address => address.Address).
-            ToList();
-            JObject jo = JObject.FromObject(publics);
-            jo.Add("CustomerType", "public");
-            return jo.ToString();
+            ToList());
         }
         [HttpGet]
         [Route("business")]
         public string GetBusinessCustomers()
         {
-            List<Business> business = database.Customers.OfType<Business>().
+            return JsonConvert.SerializeObject(database.Customers.OfType<Business>().
             Include(contact => contact.ContactInfo).
             Include(address => address.Address).
-            ToList();
-            JObject jo = JObject.FromObject(business);
-            jo.Add("CustomerType", "business");
-            return jo.ToString();
+            ToList());
         }
 
+        [HttpGet]
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
         {
