@@ -162,67 +162,6 @@ function AddDialog(props)
                         required
                         fullWidth
                     />
-                    {/*
-                    <TextField
-                        id="efternavn"
-                        label="Efternavn"
-                        className="mt-8 mb-16"
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                        inputProps={{
-                            max: end
-                        }}
-                        name="efternavn"
-                        value="testson"
-                        variant="outlined"
-                        autoFocus
-                        required
-                        fullWidth
-                    />
-
-                    <Select
-                        textField='name'
-                        groupBy='lastName'
-                    />
-                    
-                    <Checkbox
-                        id="admin"
-                        name="admin"
-                        label="Admin"
-                        variant="Outlined"
-                        value="checked"
-                        />
-
-                    <TextField
-                        id="end"
-                        name="end"
-                        label="End"
-                        type="datetime-local"
-                        className="mt-8 mb-16"
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                        inputProps={{
-                            min: start
-                        }}
-                        value={end}
-                        onChange={handleChange}
-                        variant="outlined"
-                        fullWidth
-                    />
-
-                    <TextField
-                        className="mt-8 mb-16"
-                        id="desc" label="Description"
-                        type="text"
-                        name="desc"
-                        value={form.desc}
-                        onChange={handleChange}
-                        multiline rows={5}
-                        variant="outlined"
-                        fullWidth
-                    /> */}
                 </DialogContent>
 
                 {eventDialog.type === 'new' ? (

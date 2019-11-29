@@ -8,14 +8,6 @@ import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
 
-function Marker(props) {
-    return (
-        <Tooltip title={props.text} placement="top">
-            <Icon className="text-red">place</Icon>
-        </Tooltip>
-    );
-}
-
 function Vehicle(props) {
     const dispatch = useDispatch();
     const vehicle = useSelector(({ vehicleReducer }) => vehicleReducer.vehicles.vehicleData);

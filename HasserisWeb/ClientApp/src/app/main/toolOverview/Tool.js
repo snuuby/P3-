@@ -2,26 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, ExpansionPanel, TextField, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
 import { FuseAnimate, FusePageCarded } from '@fuse';
 import { Link } from 'react-router-dom';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import withReducer from '../../store/withReducer';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '@fuse/hooks';
 
-function Marker(props) {
-    return (
-        <Tooltip title={props.text} placement="top">
-            <Icon className="text-red">place</Icon>
-        </Tooltip>
-    );
-}
-/*
-const defaultFormState = {
-    id: '',
-    name: {toolName}
-};
-*/
 function Tool(props) {
     const dispatch = useDispatch();
     const tool = useSelector(({ toolReducer }) => toolReducer.tools.toolData);

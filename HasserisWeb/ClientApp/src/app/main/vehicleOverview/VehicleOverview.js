@@ -23,13 +23,6 @@ import VehicleOverviewTableHead from './VehicleOverviewTableHead';
 import OrdersHeader from './VehicleOverviewHeader.js';
 import AddDialog from './AddDialog';
 
-
-
-const styles = theme => ({
-    layoutRoot: {}
-});
-
-
 function deleteVehicle(id) {
     
     if (window.confirm("Er du sikker?")) {
@@ -278,11 +271,7 @@ function VehicleOverview(props) {
             innerScroll
             
         />
-        
-        
         );
-    
 }
 
 export default withReducer('vehicleReducer', reducer)(VehicleOverview);
-//export default withStyles(styles, {withTheme: true})(EmployeeOverview);

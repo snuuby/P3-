@@ -4,7 +4,6 @@ import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
 import ToolOverviewTableHead from './ToolOverviewTableHead';
-//import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -13,7 +12,6 @@ function ToolOverviewTable(props)
     const dispatch = useDispatch();
     const tools = useSelector(({toolReducer}) => toolReducer.tools.entities);
     const searchText = useSelector(({toolReducer}) => toolReducer.tools.searchText);
-    //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
     const [selected, setSelected] = useState([]);
     const [data, setData] = useState(tools);
@@ -28,11 +26,6 @@ function ToolOverviewTable(props)
         dispatch(Actions.getTools());
     }, [dispatch]);
 
-    /*
-    useEffect(() => {
-        setData(searchText.length === 0 ? tools : FuseUtils.filterArrayByString(tools, searchText))
-    }, [tools, searchText]); 
-    */
     useEffect(() => {
         setData(tools)
     }, [tools]); 
@@ -64,7 +57,7 @@ function ToolOverviewTable(props)
         setSelected([]);
     }
 
-    // Det er ved click, måske mere tool information herinde?
+    // Click event to view info about a specific tool
     function handleClick(item)
     {
         props.history.push('/tool/' + item.ID);
@@ -169,7 +162,7 @@ function ToolOverviewTable(props)
                                                     onChange={event => handleCheck(event, n.id)}
                                                 />
                                             </TableCell>
-
+                                            {/*Defining Table Cells*/}
                                             <TableCell component="th" scope="row">
                                                 {n.ID}
                                             </TableCell>

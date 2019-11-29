@@ -6,8 +6,6 @@ import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import AddDialog from "./AddDialog";
 
-
-
 function VehicleOverviewHeader(props)
 {
     const dispatch = useDispatch();
@@ -42,10 +40,8 @@ function VehicleOverviewHeader(props)
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>
                         <Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8" elevation={1}>
-                            
-                            
+                                                        
                             <Icon className="mr-8" color="action">search</Icon>
-
                             
                             <Input
                                 placeholder="Search"

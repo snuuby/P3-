@@ -284,4 +284,3 @@ function ToolOverview(props) {
 }
 
 export default withReducer('toolReducer', reducer)(ToolOverview);
-//export default withStyles(styles, {withTheme: true})(EmployeeOverview);

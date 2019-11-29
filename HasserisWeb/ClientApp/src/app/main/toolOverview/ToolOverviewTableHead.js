@@ -52,8 +52,6 @@ function ToolOverviewTableHead(props)
         setSelectedOrdersMenu(null);
     }
 
-    //const {numSelected, tool, onSelectAllClick, orderby, rowCount} = props;
-
     return (
         <TableHead>
             <TableRow className="h-64">

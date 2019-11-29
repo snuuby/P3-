@@ -59,8 +59,6 @@ function VehicleOverviewTableHead(props)
         setSelectedOrdersMenu(null);
     }
 
-    //const {numSelected, vehicle, onSelectAllClick, orderby, rowCount} = props;
-
     return (
         <TableHead>
             <TableRow className="h-64">
