@@ -68,3 +68,7 @@ Desktop.ini
 .DS_Store
 *.db-shm
 *.db-wal
+HasserisWeb/.idea/.idea.HasserisWeb/.idea/indexLayout.xml
+HasserisWeb/.idea/.idea.HasserisWeb/.idea/projectSettingsUpdater.xml
+HasserisWeb/.idea/.idea.HasserisWeb/.idea/vcs.xml
+HasserisWeb/obj/Debug/netcoreapp3.0/HasserisWeb.AssemblyInfo.cs
