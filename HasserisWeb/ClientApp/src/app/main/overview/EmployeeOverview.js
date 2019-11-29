@@ -18,10 +18,9 @@ import reducer from './store/reducers';
 import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
-import OverviewTable from './OverviewTable';
-import OverviewTableHead from './OverviewTableHead';
-import OrdersHeader from './OverviewHeader';
-import AddDialog from './AddDialog';
+import EmployeeOverviewTable from './EmployeeOverviewTable';
+import EmployeeOverviewTableHead from './EmployeeOverviewTableHead';
+import EmployeeOverviewHeader from './EmployeeOverviewHeader';
 
 
 
@@ -50,9 +49,6 @@ function editWorker(id) {
     alert("Edit worker with: "  + id);
 }
 
-function createEmployee() {
-    return(<AddDialog/>)
-}
 
 const useStyles = makeStyles(theme => ({
     root     : {
@@ -204,7 +200,12 @@ function EmployeeOverview(props) {
     useEffect(() => {
         dispatch(Actions.getEmployees());
     }, [dispatch]);
-    
+
+    function redirectToAddEmployee(event) {
+        event.preventDefault();
+
+        props.history.push('/employee/create');
+    }
  
     function getEmployees(){
         dispatch(Actions.getEmployees());
@@ -251,12 +252,12 @@ function EmployeeOverview(props) {
                 header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                <OrdersHeader/>
+                <EmployeeOverviewHeader/>
             }
             content={
                 <div>
 
-                    <OverviewTable/>
+                    <EmployeeOverviewTable history={props.history} />
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab
@@ -268,7 +269,7 @@ function EmployeeOverview(props) {
                                 end  : new Date()
                             }))}
                         >
-                            <Icon>add</Icon>
+                            <Icon onClick={redirectToAddEmployee}>add</Icon>
                         </Fab>
                     </FuseAnimate>
                     

@@ -18,7 +18,7 @@ function Marker(props) {
 
 function Vehicle(props) {
     const dispatch = useDispatch();
-    const vehicle = useSelector(({ vehicleReducer }) => vehicleReducer.vehicles);
+    const vehicle = useSelector(({ vehicleReducer }) => vehicleReducer.vehicles.vehicleData);
     const [tabValue, setTabValue] = useState(0);
 
     useEffect(() => {

@@ -26,19 +26,19 @@ const navigationConfig = [
                         'id': 'createinspectionreport',
                         'title': 'Besigtigelsesreport',
                         'type': 'item',
-                        'url': ''
+                        'url': '/InspectionReport/Make'
                     },
                     {
                         'id': 'createoffer',
                         'title': 'Tilbud',
                         'type': 'item',
-                        'url': ''
+                        'url': '/Offers/Create'
                     },
                     {
                         'id': 'createtask',
                         'title': 'Opgave',
                         'type': 'item',
-                        'url': ''
+                        'url': '/Task/Make'
                     }
                 ]
             },
@@ -52,13 +52,13 @@ const navigationConfig = [
                         'id': 'inspectionreportoverview',
                         'title': 'Besigtigelsesreporter',
                         'type': 'item',
-                        'url': ''
+                        'url': '/inspections/overview'
                     },
                     {
                         'id': 'offeroverview',
                         'title': 'Tilbud',
                         'type': 'item',
-                        'url': ''
+                        'url': '/offers/overview'
                     },
                     {
                         'id': 'taskoverview',

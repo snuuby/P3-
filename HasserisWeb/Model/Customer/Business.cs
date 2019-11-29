@@ -9,9 +9,7 @@ namespace HasserisWeb
     //Business-type class, for private companies/corporations
     public class Business : Customer
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string CVR { get; set; }
 
         public Business()

@@ -21,17 +21,19 @@ namespace HasserisWeb
         public string access_token;
         public string error = "";
     }
+    
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("auth")]
     public class AuthenticationController : ControllerBase
     {
-
         public ReturnObjects returnObjects = new ReturnObjects();
         public HasserisDbContext database;
         public AuthenticationController(HasserisDbContext sc)
         {
             database = sc;
         }
+        
+        // Method to verify.
         [Microsoft.AspNetCore.Mvc.Route("verify")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
@@ -57,10 +59,7 @@ namespace HasserisWeb
             }
 
             return JsonConvert.SerializeObject(returnObjects);
-
         }
-
-
 
         public string GenerateToken(string username, int expireMinutes = 60)
         {
@@ -94,23 +93,16 @@ namespace HasserisWeb
         public bool CheckUser(string username, string password)
         {
             // should check in the database
-
-
             try
             {
- 
-
                 returnObjects.user = VerifyPassword(password, username);
-                returnObjects.user.Type = returnObjects.user.Type.ToLower();
-
-                
+                returnObjects.user.Type = returnObjects.user.Type.ToLower();   
             }
             catch (Exception e)
             {
                 returnObjects.user = null;
                 returnObjects.error = "Brugernavn eller password er forkert";
                 return false;
-
             }
             return true;
         }
@@ -118,7 +110,6 @@ namespace HasserisWeb
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public string GetAccessToken(dynamic json) 
         {
-
             dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
             string token = tempstring.access_token;
             try
@@ -134,12 +125,12 @@ namespace HasserisWeb
             {
                 return null;
             }
+            
             returnObjects.access_token = token;
             return JsonConvert.SerializeObject(returnObjects);
         }
         public Employee VerifyPassword(string password, string username)
         {
-
                 var employee = database.Employees
                     .Include(contact => contact.ContactInfo)
                     .Include(address => address.Address)
@@ -155,11 +146,9 @@ namespace HasserisWeb
                     if (hashBytes[i + 16] != hash[i])
                         throw new UnauthorizedAccessException();
                 return employee;
-            
-            
         }
 
-        /*
+        /* Dead code?
         [Route("verify")]
         [HttpPost]
         public bool VerifyUserLogin(dynamic json)

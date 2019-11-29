@@ -1,39 +1,137 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, ExpansionPanel, TextField, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
-import { FuseAnimate, FusePageCarded } from '@fuse';
+import React, { useCallback, useEffect, useState } from 'react';
+import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, Tabs, Tab, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
+import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
+import { useForm } from '@fuse/hooks';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import withReducer from '../../store/withReducer';
+import withReducer from './../../store/withReducer';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import { FormControl, Select, InputLabel, MenuItem, FormHelperText } from '@material-ui/core';
 
-function Marker(props) {
-    return (
-        <Tooltip title={props.text} placement="top">
-            <Icon className="text-red">place</Icon>
-        </Tooltip>
-    );
-}
+const useStyles = makeStyles(theme => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
+const defaultFormState = {
+    CustomerType: 'Private',
+    Address: null,
+    ZIP: null,
+    City: null,
+    Note: null,
+    Phonenumber: null,
+    Email: null,
+
+    // Private specific
+    Firstname: null,
+    Lastname: null,
+
+    // Business specific
+    Name: null,
+    CVR: null,
+
+    // Public specific
+    Name: null,
+    EAN: null,
+};
 
 function Customer(props) {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
-    const customer = useSelector(({ customerReducer }) => customerReducer.customers);
+    const { form, handleChange, setForm } = useForm(defaultFormState);
+    const eventDialog = useSelector(({ makeReducer }) => makeReducer.customers.eventDialog);
+
+    // skal skiftes til customers, men har vi overhovedet brug for at loade vores customers her? :/ når vi laver
+    const customers = useSelector(({ makeReducer }) => makeReducer.customers.entities);
     const [tabValue, setTabValue] = useState(0);
-    const customerPhonenumber = ((customer || {}).ContactInfo || {}).PhoneNumber;
-    const customerEmail = ((customer || {}).ContactInfo || {}).Email;
-    const customerLivingaddress = ((customer || {}).Address || {}).LivingAddress;
-    const customerZip = ((customer || {}).Address || {}).ZIP;
-    const customerCity = ((customer || {}).Address || {}).City;
 
-    useEffect(() => {
-        dispatch(Actions.getCustomer(props.match.params));
-    }, [props.match.params]);
 
+    let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
+    let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
+    const inputLabel = React.useRef(null);
+    const [labelWidth, setLabelWidth] = useState(0);
 
     function handleChangeTab(event, tabValue) {
         setTabValue(tabValue);
     }
+    useEffect(() => {
+        dispatch(Actions.getCustomer(props.match.params));
+    }, [props.match.params]);
+    useEffect(() => {
+        setLabelWidth(inputLabel.current.offsetWidth + 20);
+    }, []);
+    const initDialog = useCallback(
+        () => {
+            const event = { start: start };
+            if (eventDialog.type === 'new') {
+                //dispatch(Actions.getAvailableEmployees());
+                //dispatch(Actions.getAvailableCars());
+                //dispatch(Actions.getCustomers());
+                setForm({
+                    ...eventDialog.data,
+                });
+            }
+
+
+        },
+        [eventDialog.data, eventDialog.type, setForm],
+    );
+
+    useEffect(() => {
+        /**
+         * After Dialog Open
+         */
+        if (eventDialog.props.open) {
+            initDialog();
+
+        }
+    }, [eventDialog.props.open, initDialog]);
+
+
+    function closeComposeDialog() {
+        // Er der nogen dialogs overhovedet?
+        dispatch(Actions.closeNewAddDialog());
+    }
+
+    function canBeSubmitted() {
+        return (
+            form.Firstname && form.Lastname && form.Address // hvad gør den her helt præcist? 
+        );
+    }
+
+    function handleSubmit(event) {
+
+
+        event.preventDefault();
+
+        if (form.CustomerType == "Private") {
+            dispatch(Actions.addPrivateCustomer(form));
+        }
+        else if (form.CustomerType == "Business") {
+            dispatch(Actions.addBusinessCustomer(form));
+        }
+        else {
+            dispatch(Actions.addPublicCustomer(form));
+        }
+
+        // flytter os hen på 
+        props.history.push('/customer/overview');
+
+
+        closeComposeDialog();
+
+    }
+
+
 
     return (
         <FusePageCarded
@@ -42,36 +140,23 @@ function Customer(props) {
                 header: "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                customer && (
-                    <div className="flex flex-1 w-full items-center justify-between">
+                <div className="flex flex-1 w-full items-center justify-between">
 
-                        <div className="flex flex-1 flex-col items-center sm:items-start">
+                    <div className="flex flex-1 flex-col items-center sm:items-start">
 
-                            <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                                <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/customer/overview" color="inherit">
-                                    <Icon className="mr-4 text-20">arrow_back</Icon>
-                                    Customers
-                                </Typography>
+
+                        <div className="flex flex-col min-w-0 items-center sm:items-start">
+
+                            <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                <Typography className="text-16 sm:text-20 truncate">
+                                    Customer 
+                                    </Typography>
                             </FuseAnimate>
-
-                            <div className="flex flex-col min-w-0 items-center sm:items-start">
-
-                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                    <Typography className="text-16 sm:text-20 truncate">
-                                        {customer.Firstname + ' ' + customer.Lastname}
-                                    </Typography>
-                                </FuseAnimate>
-
-                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                    <Typography variant="caption">
-                                        {'Kunde ID: ' + customer.ID}
-                                    </Typography>
-                                </FuseAnimate>
-                            </div>
 
                         </div>
                     </div>
-                )
+                </div>
+
             }
             contentToolbar={
                 <Tabs
@@ -83,110 +168,162 @@ function Customer(props) {
                     scrollButtons="auto"
                     classes={{ root: "w-full h-64" }}
                 >
-                    <Tab className="h-64 normal-case" label="Customer Details" />
+                    <Tab className="h-64 normal-case" label="Kunde detaljer" />
                 </Tabs>
             }
             content={
-                customer && (
-                    <div className="p-16 sm:p-24 max-w-2xl w-full">
-                        {/*Text Fields*/}
-                        <div class="flex mb-4">
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 ">
-                                {/*Customer ID*/}
+                <div>
+
+                    <form noValidate onSubmit={handleSubmit} >
+                        <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                            <FormControl>
+                                <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                    Kunde Type
+                                </InputLabel>
+                                <Select
+                                    labelid="demo-simple-select-outlined-label"
+                                    id="CustomerType"
+                                    name="CustomerType"
+                                    value={form.CustomerType}
+                                    onChange={handleChange}
+                                    required
+                                    labelWidth={labelWidth}
+                                >
+                                    <MenuItem value="Private">Privat</MenuItem>
+                                    <MenuItem value="Business">Virksomhed</MenuItem>
+                                    <MenuItem value="Public">Offentlig</MenuItem>
+
+                                </Select>
+                            </FormControl>
+                            <div>
+
                                 <TextField
-                                    id="CustomerID"
-                                    label="Kunde ID"
-                                    className="mt-8 mb-16"
+                                    id="Firstname"
+                                    label="Fornavn"
+                                    className={classes.formControl}
+                                    name="Firstname"
+                                    value={form.Firstname}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    autoFocus
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="CustomerID"
-                                    value={customer.ID}
+                                    required
+                                />
+
+                                <TextField
+                                    id="Lastname"
+                                    label="Efternavn"
+                                    className={classes.formControl}
+                                    name="Lastname"
+                                    value={form.Lastname}
+                                    onChange={handleChange}
                                     variant="outlined"
                                     autoFocus
-                                    required
-                                    fullWidth
-                                />
-                            </div>
-                            <div class="flex-1 bg-gray-0 h-12 pl-10">
-                                {/*Full Name*/}
-                                <TextField
-                                    id="FullName"
-                                    label="Navn"
-                                    className="mt-8 mb-16"
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="FullName"
-                                    value={customer.Firstname + ' ' + customer.Lastname}
+                                    required
+                                />
+
+                                <TextField
+                                    id="Type"
+                                    label="Rolle"
+                                    className={classes.formControl}
+                                    name="Type"
+                                    value={form.Type}
+                                    onChange={handleChange}
                                     variant="outlined"
                                     autoFocus
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
                                     required
-                                    fullWidth
                                 />
-                            </div>
-                        </div>
-                        <div class="flex mb-4">
-                            <div class="flex-1 bg-gray-0 h-12 pt-64 pb-8">
-                                {/*Adresse*/}
+
                                 <TextField
-                                    id="address"
+                                    id="Address"
                                     label="Adresse"
-                                    className="mt-8 mb-16"
+                                    className={classes.formControl}
+                                    name="Address"
+                                    value={form.Address}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    autoFocus
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="CustomerID"
-                                    value={customerLivingaddress + ' ' + customerZip + ' ' + customerCity}
-                                    variant="outlined"
-                                    autoFocus
                                     required
-                                    fullWidth
                                 />
-                            </div>
-                        </div>
-                        <div class="flex mb-4">
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                                {/*Email*/}
+
                                 <TextField
-                                    id="CustomerEmail"
-                                    label="Kunde email"
-                                    className="mt-8 mb-16"
+                                    id="Email"
+                                    label="Mail"
+                                    className={classes.formControl}
+                                    name="Email"
+                                    value={form.Email}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    autoFocus
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="CustomerEmail"
-                                    value={customerEmail}
-                                    variant="outlined"
-                                    autoFocus
                                     required
-                                    fullWidth
                                 />
-                            </div>
-                            <div class="flex-1 bg-gray-0 h-12 pl-10  pt-64">
-                                {/*Tlf. nummer*/}
+
                                 <TextField
-                                    id="CustomerTelefonnummer"
-                                    label="Telefonnummer"
-                                    className="mt-8 mb-16"
+                                    id="ZIP"
+                                    label="Postnummer"
+                                    className={classes.formControl}
+                                    name="ZIP"
+                                    value={form.ZIP}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    autoFocus
                                     InputLabelProps={{
                                         shrink: true
                                     }}
-                                    name="CustomerTelefonnummer"
-                                    value={customerPhonenumber}
+                                    required
+                                />
+
+                                <TextField
+                                    id="Note"
+                                    label="Note"
+                                    className={classes.formControl}
+                                    name="Note"
+                                    value={form.Note}
+                                    onChange={handleChange}
                                     variant="outlined"
                                     autoFocus
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
                                     required
-                                    fullWidth
                                 />
+
                             </div>
+
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                disabled={!canBeSubmitted()}
+                            >
+                                Tilføj
+                                </Button>
+
                         </div>
-                    </div>
-                )
+
+                    </form>
+
+                </div>
             }
             innerScroll
         />
-    )
+
+    );
 }
 
-export default withReducer('customerReducer', reducer)(Customer);
+export default withReducer('makeReducer', reducer)(Customer);

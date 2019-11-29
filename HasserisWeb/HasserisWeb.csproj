@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
@@ -9,7 +8,6 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <ApplicationIcon>ClientApp\public\favicon.ico</ApplicationIcon>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="entityframework" Version="6.3.0" />
@@ -20,6 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -31,8 +30,8 @@
     </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.111" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\app\main\login\NewFolder\**" />
@@ -155,9 +154,6 @@
     <Content Include="ClientApp\src\app\main\overview\AddDialog.js" />
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
-    <Content Include="ClientApp\src\app\main\overview\OverviewHeader.js" />
-    <Content Include="ClientApp\src\app\main\overview\OverviewTableHead.js" />
-    <Content Include="ClientApp\src\app\main\overview\OverviewTable.js" />
     <Content Include="ClientApp\src\app\main\overview\store\actions\overview.actions.js" />
     <Content Include="ClientApp\src\app\main\overview\store\actions\index.js" />
     <Content Include="ClientApp\src\app\main\overview\store\reducers\overview.reducer.js" />
@@ -166,32 +162,26 @@
     <None Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
-
   <ItemGroup>
+    <None Remove="ClientApp\src\app\main\customerOverview\AddDialog.js" />
     <None Remove="Database\Hasseris3.db" />
     <None Remove="Hasseris.db" />
   </ItemGroup>
-
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\main\createtasks\overviews\tasks\" />
     <Folder Include="ClientApp\src\app\main\details\" />
   </ItemGroup>
-
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
-    <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
   </Target>
-
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
-
-    <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)build\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
@@ -201,5 +191,4 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
 </Project>

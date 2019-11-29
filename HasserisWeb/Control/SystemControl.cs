@@ -46,11 +46,7 @@ namespace HasserisWeb
                 List<DateTime> testList = new List<DateTime>() { new DateTime(2019, 11, 13), new DateTime(2019, 11, 14) };
                 List<DateTime> testList_two = new List<DateTime>() { new DateTime(2019, 11, 03), new DateTime(2019, 11, 04) };
 
-                Delivery tempDelivery = new Delivery("Test Delivery", tempCustomer, new Address("Hasseris vej", "9220", "Aalborg", "Tredje dør til venstre"), 600, testList, "Giv erik noget", "28313131", "Foam", 5);
-                tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_one, Task = tempDelivery });
-                tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee, Task = tempDelivery });
-                tempDelivery.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_five, Task = tempDelivery });
-                tempDelivery.taskAssignedEquipment.Add(new TaskAssignedEquipment() { Equipment = testEquipment, Task = tempDelivery });
+                Delivery tempDelivery = new Delivery("Test Delivery", tempCustomer, new Address("Hasseris vej", "9220", "Aalborg", "Tredje dør til venstre"), 600, testList, "Giv erik noget", "28313131", "Foam", 5, 3);
                 foreach (DateTime date in testList)
                 {
                     PauseTimes temp = new PauseTimes();
@@ -58,12 +54,8 @@ namespace HasserisWeb
                     tempDelivery.PauseTimes.Add(temp);
                 }
 
-                Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5);
-                tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_two, Task = tempMoving });
-                tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_three, Task = tempMoving });
-                tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_four, Task = tempMoving });
-                tempMoving.taskAssignedEmployees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_six, Task = tempMoving });
-                tempMoving.taskAssignedEquipment.Add(new TaskAssignedEquipment() { Equipment = testEquipment_one, Task = tempMoving });
+                Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 3);
+                tempMoving.InspectionReport = new InspectionReport(tempCustomer_one, new Address("tjek vej", "9000", "Aalborg", "første dør til venstre"), tempCustomer.Address,  tempEmployee, (Vehicle)testEquipment_one, "Første dør til højre", testList[0], testList[1]);
                 tempMoving.Furnitures.Add(tempFurniture);
                 foreach (DateTime date in testList_two)
                 {
@@ -72,13 +64,23 @@ namespace HasserisWeb
                     tempMoving.PauseTimes.Add(temp);
                 }
 
-
-
-
+                tempMoving.Equipment.Add(new TaskAssignedEquipment() { Equipment = testEquipment });
+                tempMoving.Equipment.Add(new TaskAssignedEquipment() { Equipment = testEquipment_one });
+                tempMoving.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee });
+                tempMoving.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_five });
+                tempMoving.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_one });
+                tempDelivery.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_six });
+                tempDelivery.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee_two });
+                tempDelivery.Equipment.Add(new TaskAssignedEquipment() { Equipment = testEquipment_one });
 
                 db.Tasks.Add(tempDelivery);
                 db.Tasks.Add(tempMoving);
+                db.SaveChanges();
 
+
+
+
+                /*
                 db.Employees.Add(tempEmployee);
                 db.Employees.Add(tempEmployee_one);
                 db.Employees.Add(tempEmployee_two);
@@ -93,11 +95,10 @@ namespace HasserisWeb
                 db.Equipment.Add(testEquipment);
                 db.Equipment.Add(testEquipment_one);
                 db.Furniture.Add(tempFurniture);
+                */
 
 
 
-
-                db.SaveChanges();
                 foreach (Task ctxTask in db.Tasks)
                 {
                     Console.WriteLine($"{ctxTask.Name}:");
@@ -116,12 +117,12 @@ namespace HasserisWeb
                         Console.WriteLine($"{((Public)ctxTask.Customer).ID}: {((Public)ctxTask.Customer).Name}");
 
                     }
-                    foreach (var employee in ctxTask.taskAssignedEmployees.Select(ta => ta.Employee))
+                    foreach (var employee in ctxTask.Employees.Select(e => e.Employee))
                     {
 
                         Console.WriteLine($"{employee.ID}:  {employee.Firstname} {employee.Lastname}");
                     }
-                    foreach (var equipment in ctxTask.taskAssignedEquipment.Select(e => e.Equipment))
+                    foreach (var equipment in ctxTask.Equipment.Select(e => e.Equipment))
                     {
 
                         Console.WriteLine($"{equipment.ID}: {equipment.Name}");

@@ -18,7 +18,7 @@ function Marker(props) {
 
 function Employee(props) {
     const dispatch = useDispatch();
-    const employee = useSelector(({ employeeReducer }) => employeeReducer.employees);
+    const employee = useSelector(({ employeeReducer }) => employeeReducer.employees.employeeData);
     const [tabValue, setTabValue] = useState(0);
     const employeePhonenumber = ((employee || {}).ContactInfo || {}).PhoneNumber;
     const employeeEmail = ((employee || {}).ContactInfo || {}).Email;

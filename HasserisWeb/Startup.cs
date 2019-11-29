@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-
+using Newtonsoft.Json;
 namespace HasserisWeb
 {
     public class Startup
@@ -16,7 +16,8 @@ namespace HasserisWeb
 
             Configuration = configuration;
             ConnectionString = configuration.GetConnectionString("HasserisDatabase");
-            // Database quick setup -  system = new SystemControl();
+            // Database quick setup -  
+            SystemControl system = new SystemControl();
 
         }
 
@@ -27,9 +28,16 @@ namespace HasserisWeb
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
             services.AddControllersWithViews();
-
+            services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
+            JsonConvert.DefaultSettings = () => {
+                return new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    TypeNameHandling = TypeNameHandling.Auto
+                };
+            };
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

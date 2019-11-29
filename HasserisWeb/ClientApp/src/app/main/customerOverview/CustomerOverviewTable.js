@@ -11,9 +11,12 @@ import {useDispatch, useSelector} from 'react-redux';
 function CustomerOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const customers = useSelector(({customerReducer}) => customerReducer.customers.entities);
-    const searchText = useSelector(({customerReducer}) => customerReducer.customers.searchText);
-    //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
+    const privateCustomers = useSelector(({ customerReducer }) => customerReducer.customers.privateCustomers);
+    const publicCustomers = useSelector(({ customerReducer }) => customerReducer.customers.publicCustomers);
+    const businessCustomers = useSelector(({ customerReducer }) => customerReducer.customers.businessCustomers);
+    const customers = privateCustomers.concat(publicCustomers).concat(businessCustomers);
+
+    console.log(customers.length);
 
     const [selected, setSelected] = useState([]);
     const [data, setData] = useState(customers);
@@ -29,8 +32,8 @@ function CustomerOverviewTable(props)
     }, [dispatch]);
 
     useEffect(() => {
-        setData(searchText.length === 0 ? customers : FuseUtils.filterArrayByString(customers, searchText))
-    }, [customers, searchText]);
+        setData(customers)
+    }, [customers]); 
 
     function handleRequestSort(event, property)
     {
@@ -114,7 +117,7 @@ function CustomerOverviewTable(props)
                         customer={customer}
                         onSelectAllClick={handleSelectAllClick}
                         onRequestSort={handleRequestSort}
-                        rowCount={data.length}
+                        rowCount={customers.length}
                     />
 
                     <TableBody>
@@ -204,7 +207,7 @@ function CustomerOverviewTable(props)
 
             <TablePagination
                 component="div"
-                count={data.length}
+                count={customers.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 backIconButtonProps={{

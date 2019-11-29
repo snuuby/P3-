@@ -20,8 +20,7 @@ import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
 import CustomerOverviewTable from './CustomerOverviewTable';
 import CustomerOverviewTableHead from './CustomerOverviewTableHead';
-import OrdersHeader from './CustomerOverviewHeader.js';
-import AddDialog from './AddDialog';
+import CustomerOverviewHeader from './CustomerOverviewHeader.js';
 
 
 
@@ -50,9 +49,7 @@ function editCustomer(id) {
     alert("Edit customer with: "  + id);
 }
 
-function createCustomer() {
-    return(<AddDialog/>)
-}
+
 
 const useStyles = makeStyles(theme => ({
     root     : {
@@ -204,46 +201,12 @@ function CustomerOverview(props) {
     useEffect(() => {
         dispatch(Actions.getCustomers());
     }, [dispatch]);
-    
- 
-    function getCustomers(){
-        dispatch(Actions.getCustomers());
-    }
+    function redirectToAddCustomer(event) {
+        event.preventDefault();
 
-    function renderCustomerList(empList){
-        return(
-            <table className='table' aria-labelledby="tabelLabel">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {empList.map(emp =>
-                    <tr key={emp.ID}>
-                        <td>{emp.ID}</td>
-                        <td>{emp.Name}</td>
-                        <td>
-                            {emp.Type}
-                        </td>
-                        <td>                            
-                            <button onClick={() => editCustomer(emp.ID)} className="btn btn-info" type="button">Rediger</button>
-                        </td>
-                        <td>
-                            <button onClick={() => deleteCustomer(emp.ID)} className="btn btn-info" type="button">Slet</button>
-                        </td>
-                        
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        )
+        props.history.push('/customer/create');
     }
-
+    // Render the customer overview table
     return(
         <FusePageCarded
             classes={{
@@ -251,24 +214,21 @@ function CustomerOverview(props) {
                 header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                <OrdersHeader/>
+                <CustomerOverviewHeader/>
             }
             content={
                 <div>
 
-                    <CustomerOverviewTable/>
+                    <CustomerOverviewTable history={props.history}/>
 
                     <FuseAnimate animation="transition.expandIn" delay={500}>
                         <Fab
                             color="secondary"
                             aria-label="add"
                             className={classes.addButton}
-                            onClick={() => dispatch(Actions.openNewAddDialog({
-                                start: new Date(),
-                                end  : new Date()
-                            }))}
+                            onClick={console.log("test works")}
                         >
-                            <Icon>add</Icon>
+                            <Icon onClick={redirectToAddCustomer}>add</Icon>
                         </Fab>
                     </FuseAnimate>
                     
@@ -278,7 +238,6 @@ function CustomerOverview(props) {
             innerScroll
             
         />
-        
         
         );
     

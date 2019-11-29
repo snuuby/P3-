@@ -19,12 +19,13 @@ namespace HasserisWeb
     [Microsoft.AspNetCore.Mvc.Route("images")]
     public class ImageController : ControllerBase
     {
-
         public HasserisDbContext database;
         public ImageController(HasserisDbContext sc)
         {
             database = sc;
         }
+        
+        // Method to upload image
         [Microsoft.AspNetCore.Mvc.Route("uploadImage")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
