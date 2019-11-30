@@ -156,6 +156,13 @@ function Customer(props) {
 
                         <div className="flex flex-col min-w-0 items-center sm:items-start">
 
+                            <FuseAnimate animation="transition.slideRightIn" delay={300}>
+                                <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/customers/overview" color="inherit">
+                                    <Icon className="mr-4 text-20">arrow_back</Icon>
+                                    Kunder
+                                </Typography>
+                            </FuseAnimate>
+
                             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                 <Typography className="text-16 sm:text-20 truncate">
                                     {form.CustomerType} Kunde: {printCustomerName}

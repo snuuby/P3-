@@ -50,7 +50,7 @@ function Employee(props) {
                             <FuseAnimate animation="transition.slideRightIn" delay={300}>
                                 <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/employee/overview" color="inherit">
                                     <Icon className="mr-4 text-20">arrow_back</Icon>
-                                    Employees
+                                    Ansatte
                                 </Typography>
                             </FuseAnimate>
 
