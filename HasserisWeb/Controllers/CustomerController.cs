@@ -68,10 +68,27 @@ namespace HasserisWeb.Controllers
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
         {
-            return JsonConvert.SerializeObject(database.Customers
+            dynamic tempCustomer = database.Customers
                 .Include(contact => contact.ContactInfo)
                 .Include(address => address.Address)
-                .FirstOrDefault(c => c.ID == id));
+                .FirstOrDefault(c => c.ID == id);
+
+            JObject temp = JObject.FromObject(tempCustomer);
+            if (tempCustomer.GetType() == typeof(Private))
+            {
+                temp.Add("CustomerType", "Private");
+            }
+            else if (tempCustomer.GetType() == typeof(Business))
+            {
+                temp.Add("CustomerType", "Business");
+
+            }
+            else
+            {
+                temp.Add("CustomerType", "Public");
+
+            }
+            return temp.ToString();
         }
 
 

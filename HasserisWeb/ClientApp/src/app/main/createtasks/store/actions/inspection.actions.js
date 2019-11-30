@@ -29,7 +29,6 @@ export function openNewInspectionReport(data) {
 export function getInspectionReport(params)
 {
     const request = axios.get('inspection/' + params.InspectionId);
-
     return (dispatch) => request.then((response) =>
         Promise.all([
             dispatch({

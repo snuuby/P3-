@@ -33,7 +33,7 @@ function CustomerOverviewTable(props)
 
     useEffect(() => {
         setData(customers)
-    }, [customers]); 
+    }, [businessCustomers, publicCustomers, privateCustomers]); 
 
     function handleRequestSort(event, property)
     {
@@ -130,13 +130,9 @@ function CustomerOverviewTable(props)
                                         {
                                             return parseInt(e.ID, 10);
                                         }
-                                        case 'fornavn':
+                                        case 'navn':
                                         {
-                                            return e.Firstname;
-                                        }
-                                        case 'efternavn':
-                                        {
-                                            return e.Lastname;
+                                            return  e.Firstname + e.Lastname + e.Name;
                                         }
                                         case 'type':
                                         {
@@ -181,12 +177,9 @@ function CustomerOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.Firstname}
+                                               {n.Firstname + ' ' + n.Lastname}  {n.Name}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row">
-                                                {n.Lastname}
-                                            </TableCell>
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>

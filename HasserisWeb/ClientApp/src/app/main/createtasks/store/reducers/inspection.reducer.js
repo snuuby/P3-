@@ -9,6 +9,7 @@ const initialState = {
     eventDialog: {
         type: 'new',
         made: false,
+        edit: false,
         image: '',
         props: {
             open: true,
@@ -123,7 +124,7 @@ const inspectionReducer = function (state = initialState, action) {
             case Actions.SAVE_EDIT_INSPECTION_REPORT:
                 {
                     return Object.assign({}, state, {
-                        made: true
+                        edit: true
                     })
                 }
         

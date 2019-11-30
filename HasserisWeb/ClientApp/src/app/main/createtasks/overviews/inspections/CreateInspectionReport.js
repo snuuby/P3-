@@ -133,7 +133,7 @@ function InspectionReport(props) {
         dispatch(Actions.addInspectionReport(form));
 
         props.history.push('/inspections/overview');
-
+        dispatch(Actions.getAllInspectionReports());
         
         closeComposeDialog();
         

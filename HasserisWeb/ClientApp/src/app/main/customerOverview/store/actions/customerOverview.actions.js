@@ -31,23 +31,21 @@ export function getCustomers() {
     }
 
 }
-export function getCustomer(customerID) {
-    const request = axios.get('customers/' + customerID);
-    request.then(response => {
-        console.log(response.data);
-    });
+export function getCustomer(params) {
+    const request = axios.get('customers/' + params.CustomerId)
 
-    return (dispatch) =>
-        request.then((response) =>
+    return (dispatch) => request.then((response) =>
+        Promise.all([
             dispatch({
                 type: GET_CUSTOMER,
                 payload: response.data,
             })
-        );
+        ])
+    );
 }
 export function getPrivateCustomers() {
     const request = axios.get('customers/private');
-    request.then(response => {
+    request.then((response) => {
         console.log(response.data);
     });
     for (var i = 0; i < request.length; i+=1) {
@@ -63,7 +61,7 @@ export function getPrivateCustomers() {
 }
 export function getBusinessCustomers() {
     const request = axios.get('customers/business');
-    request.then(response => {
+    request.then((response) => {
         console.log(response.data);
     });
     for (var i = 0; i < request.length; i += 1) {
@@ -79,7 +77,7 @@ export function getBusinessCustomers() {
 }
 export function getPublicCustomers() {
     const request = axios.get('customers/public');
-    request.then(response => {
+    request.then((response) => {
         console.log(response.data);
     });
     for (var i = 0; i < request.length; i += 1) {

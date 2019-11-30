@@ -22,7 +22,7 @@ const customerReducer = function (state = initialState, action) {
         {
             const privateCustomers = action.payload.map((customers) => (
                 {
-                    CustomerType: "private",
+                    CustomerType: "Private",
                     ...customers
                 }
             ));
@@ -36,7 +36,7 @@ const customerReducer = function (state = initialState, action) {
             {
                 const businessCustomers = action.payload.map((customers) => (
                     {
-                        CustomerType: "business",
+                        CustomerType: "Business",
                         ...customers
                     }
                 ));
@@ -50,7 +50,7 @@ const customerReducer = function (state = initialState, action) {
             {
                 const publicCustomers = action.payload.map((customers) => (
                     {
-                        CustomerType: "public",
+                        CustomerType: "Public",
                         ...customers
                     }
                 ));
@@ -69,7 +69,14 @@ const customerReducer = function (state = initialState, action) {
                         props: {
                             open: true,
                         },
-                        data: { ...action.payload },
+                        data: {
+                            LivingAddress: action.payload.Address.LivingAddress,
+                            ZIP: action.payload.Address.ZIP,
+                            City: action.payload.Address.City,
+                            Email: action.payload.ContactInfo.Email,
+                            Phonenumber: action.payload.ContactInfo.PhoneNumber,
+                            ...action.payload ,
+                        },
                     }
                 })
             }

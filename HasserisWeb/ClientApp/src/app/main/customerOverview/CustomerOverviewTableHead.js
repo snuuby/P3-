@@ -12,17 +12,10 @@ const rows = [
         sort          : true
     },
     {
-        id            : 'fornavn',
+        id            : 'navn',
         align         : 'left',
         disablePadding: false,
-        label         : 'Fornavn',
-        sort          : true
-    },
-    {
-        id            : 'efternavn',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Efternavn',
+        label         : 'Navn',
         sort          : true
     },
     {
