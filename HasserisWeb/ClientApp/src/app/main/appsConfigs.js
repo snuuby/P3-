@@ -18,6 +18,8 @@ import { VehicleOverviewConfig } from "./vehicle/VehicleOverviewConfig";
 import { CustomerOverviewConfig } from "./customer/CustomerOverviewConfig";
 import { InspectionsOverviewConfig } from "./tasks/inspections/InspectionsOverviewConfig";
 import { OffersOverviewConfig } from "./tasks/offers/OffersOverviewConfig";
+import { TaskOverviewConfig } from "./tasks/task/TaskOverviewConfig";
+
 
 
 
@@ -43,4 +45,5 @@ export const appsConfigs = [
     CustomerOverviewConfig,
     InspectionsOverviewConfig,
     OffersOverviewConfig,
+    TaskOverviewConfig,
 ];

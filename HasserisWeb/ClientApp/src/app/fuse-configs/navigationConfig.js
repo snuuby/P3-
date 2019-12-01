@@ -38,7 +38,7 @@ const navigationConfig = [
                         'id': 'createtask',
                         'title': 'Opgave',
                         'type': 'item',
-                        'url': '/Task/Make'
+                        'url': '/tasks/create'
                     }
                 ]
             },
@@ -64,7 +64,7 @@ const navigationConfig = [
                         'id': 'taskoverview',
                         'title': 'Opgaver',
                         'type': 'item',
-                        'url': ''
+                        'url': '/tasks/overview'
                     }
                 ]
             },

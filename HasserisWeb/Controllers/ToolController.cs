@@ -47,7 +47,6 @@ namespace HasserisWeb.Controllers
             {
                 tool.IsAvailable = false;
             }
-            tool.IsAvailable = temp.Available;
             database.Equipment.Add(tool);
             database.SaveChanges();
 

@@ -84,7 +84,7 @@ namespace HasserisWeb.Controllers
             database.SaveChanges();
         }
         [HttpPost]
-        [Route("editemployee")]
+        [Route("edit")]
         public void EditEmployee([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());

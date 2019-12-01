@@ -83,15 +83,14 @@ function OfferReport(props) {
     }, []);
     const initDialog = useCallback(
         () => {
-            const event = {start: start};
-            if (!eventDialog.wasInspection) {
+            if (!eventDialog.data.wasInspection) {
                 dispatch(Actions.getCustomers());
                 setForm({
                     ...defaultFormState,        
                     ...eventDialog.data,
                 });
             }
-            if (eventDialog.wasInspection) {
+            if (eventDialog.data.wasInspection) {
 
                 setForm({
                     ...eventDialog.data,

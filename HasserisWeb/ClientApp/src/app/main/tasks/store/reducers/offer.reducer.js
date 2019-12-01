@@ -54,6 +54,8 @@ const offerReducer = function (state = initialState, action) {
                         },
                         made: true,
                         data: {
+                            inspectionReport: null,
+                            wasInspection: false,
                             StartAddress: action.payload.StartingAddress.LivingAddress,
                             StartZIP: action.payload.StartingAddress.ZIP,
                             StartCity: action.payload.StartingAddress.City,

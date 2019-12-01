@@ -103,7 +103,6 @@ export function addOfferFromInspection(offer) {
 }
 export function editOffer(report) {
     return (dispatch, getState) => {
-        console.log("a");
         const request = axios.post('Offer/edit', report);
 
         return request.then((response) =>

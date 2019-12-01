@@ -37,7 +37,7 @@ const defaultFormState = {
     combo: '',
     Image: '',
     Destination: null,
-    ExpectedHours: null,
+    ExpectedHours: 2,
 
     //Offer mail specification
     OfferType: '',
@@ -123,13 +123,7 @@ function Offer(props) {
     function handleSubmit(event) {
         event.preventDefault();
 
-        if (form.wasInspection) {
-            dispatch(Actions.addOfferFromInspection(form));
-        }
-        else
-        {
-            dispatch(Actions.addOffer(form));
-        }
+        dispatch(Actions.editOffer(event));
         
         closeComposeDialog();
         
@@ -419,7 +413,6 @@ function Offer(props) {
                                         min="0"
                                         max="10"
                                         name="ExpectedHours"
-                                        defaultValue={2}
                                         value={form.ExpectedHours}
                                         onChange={handleChange}
                                         variant="outlined"

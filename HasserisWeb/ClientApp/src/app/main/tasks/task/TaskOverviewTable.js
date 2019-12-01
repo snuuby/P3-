@@ -3,46 +3,52 @@ import {Table, TableBody, TableCell, TablePagination, TableRow, Checkbox} from '
 import {FuseScrollbars, FuseUtils} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import _ from '@lodash';
-import OffersOverviewTableHead from './OffersOverviewTableHead';
+import TaskOverviewTableHead from './TaskOverviewTableHead';
 //import OrdersStatus from '../order/OrdersStatus';
 import * as Actions from '../store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-function OffersOverviewTable(props)
+function TaskOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const offers = useSelector(({ makeReducer }) => makeReducer.offers.offers);
-    const searchText = useSelector(({ makeReducer }) => makeReducer.offers.searchText);
+    const movings = useSelector(({ taskReducer }) => taskReducer.tasks.movingTasks);
+    const deliveries = useSelector(({ taskReducer }) => taskReducer.tasks.deliveryTasks);
+    const tasks = movings.concat(deliveries);
+
+    //const movingTasks = useSelector(({ taskReducer }) => taskReducer.tasks.movingTasks);
+    //const tasks = deliveryTasks.concat(movingTasks);
+    const searchText = useSelector(({ taskReducer }) => taskReducer.tasks.searchText);
+
+
 
     const [selected, setSelected] = useState([]);
-    const [data, setData] = useState(offers);
+    const [data, setData] = useState(tasks);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [offer, setOffer] = useState({
+    const [task, setTask] = useState({
         direction: 'asc',
         id       : null
     });
 
     useEffect(() => {
-        dispatch(Actions.getAllOffers());
+        dispatch(Actions.getAllTasks());
     }, [dispatch]);
 
-
     useEffect(() => {
-        setData(searchText.length === 0 ? offers : FuseUtils.filterArrayByString(offers, searchText))
-    }, [offers, searchText]);
+        setData(searchText.length === 0 ? tasks : FuseUtils.filterArrayByString(tasks, searchText))
+    }, [ tasks, searchText]); 
 
     function handleRequestSort(event, property)
     {
         const id = property;
         let direction = 'desc';
 
-        if (offer.id === property && offer.direction === 'desc' )
+        if ( task.id === property && task.direction === 'desc' )
         {
             direction = 'asc';
         }
 
-        setOffer({
+        setTask({
             direction,
             id
         });
@@ -61,7 +67,7 @@ function OffersOverviewTable(props)
     // Det er ved click, måske mere customer information herinde?
     function handleClick(item)
     {
-        props.history.push('/offers/' + item.ID);
+        props.history.push('/tasks/' + item.ID);
     }
 
     function handleCheck(event, id)
@@ -109,49 +115,44 @@ function OffersOverviewTable(props)
 
                 <Table className="min-w-xl" aria-labelledby="tableTitle">
 
-                    <OffersOverviewTableHead
-                        history={props.history}
+                    <TaskOverviewTableHead
                         numSelected={selected.length}
-                        offer={offer}
+                        task={task}
                         onSelectAllClick={handleSelectAllClick}
                         onRequestSort={handleRequestSort}
-                        rowCount={data.length}
+                        rowCount={tasks.length}
                     />
 
                     <TableBody>
                         {
                             _.orderBy(data, [
                                 (e) => {
-                                    switch (offer.id )
+                                    switch ( task.id )
                                     {
                                         case 'id':
                                         {
                                             return parseInt(e.ID, 10);
                                         }
-                                        case 'inspectiondate':
+                                        case 'navn':
                                         {
-                                            return e.InspectionDate;
+                                                return e.Name;
                                         }
-                                        case 'movingdate':
+                                        case 'type':
                                         {
-                                            return e.MovingDate;
+                                            return e.TaskType;
                                         }
-                                        case 'expirationdate':
+                                        case 'lentboxes':
                                         {
-                                            return e.ExpirationDate;
-                                        }
-                                        case 'customer':
-                                        {
-                                                return e.Customer.CustomerType == "Private" ? e.Customer.Firstname + ' ' + e.Customer.Lastname : e.Customer.Name;
+                                            return e.LentBoxes;
                                         }
 
                                         default:
                                         {
-                                                return e[offer.id];
+                                            return e[task.id];
                                         }
                                     }
                                 }
-                            ], [offer.direction])
+                            ], [task.direction])
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
                                     const isSelected = selected.indexOf(n.id) !== -1;
@@ -179,21 +180,17 @@ function OffersOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.InspectionDate.toString()}
+                                                {n.Name}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row">
-                                                {n.MovingDate.toString()}
-                                            </TableCell>
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>
-                                                {n.ExpirationDate.toString()}
+                                                {n.TaskType}
                                             </TableCell>
-                                            
+
                                             <TableCell component="th" scope="row">
-                                                
-                                                { n.Customer.$type == "HasserisWeb.Private, HasserisWeb" ? n.Customer.Firstname + ' ' + n.Customer.Lastname : n.Customer.Name}
+                                                {n.LentBoxes}
                                             </TableCell>
 
 
@@ -206,7 +203,7 @@ function OffersOverviewTable(props)
 
             <TablePagination
                 component="div"
-                count={data.length}
+                count={tasks.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 backIconButtonProps={{
@@ -222,4 +219,4 @@ function OffersOverviewTable(props)
     );
 }
 
-export default withRouter(OffersOverviewTable);
+export default withRouter(TaskOverviewTable);

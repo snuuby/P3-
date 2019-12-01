@@ -133,9 +133,6 @@ function InspectionReport(props) {
         dispatch(Actions.addInspectionReport(form));
 
         props.history.push('/inspections/overview');
-        dispatch(Actions.getAllInspectionReports());
-        
-        closeComposeDialog();
         
     }
     function handleChangeTab(event, tabValue) {
@@ -333,7 +330,7 @@ function InspectionReport(props) {
                                                 <MenuItem value={null}>Ingen</MenuItem>
     
                                                 customers && {customers.map(customer =>
-                                                    <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                                    <MenuItem value={customer}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname : customer.Name}</MenuItem>
                                                 ) }
 
                                             </Select>

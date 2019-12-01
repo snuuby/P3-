@@ -358,7 +358,7 @@ function InspectionReport(props) {
                                                 <MenuItem value={null}>Ingen</MenuItem>
     
                                                 customers && {customers.map(customer =>
-                                                    <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                                    <MenuItem value={customer}> {customer.CustomerType == "Private" ? customer.Firstname + ' ' + customer.Lastname : customer.Name}</MenuItem>
                                                 ) }
 
                                             </Select>

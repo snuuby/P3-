@@ -99,7 +99,7 @@ function Employee(props) {
 
         event.preventDefault();
         dispatch(Actions.editEmployee(form));
-        props.history.push('/employees/overview');
+        props.history.push('/employee/overview');
 
         closeComposeDialog();
 
