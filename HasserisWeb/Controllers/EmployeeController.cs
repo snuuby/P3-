@@ -53,8 +53,8 @@ namespace HasserisWeb.Controllers
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             // General employee information
-            string employeeFirstName = temp.FirstName;
-            string employeeLastName = temp.LastName;
+            string employeeFirstName = temp.Firstname;
+            string employeeLastName = temp.Lastname;
             string employeeType = temp.Type;
             double employeeWage = temp.Wage;
             //Address
@@ -70,6 +70,15 @@ namespace HasserisWeb.Controllers
             Employee tempEmployee = new Employee(employeeFirstName,employeeLastName, employeeType, employeeWage,
                 new ContactInfo(employeeEmail, employeePhoneNumber),
                 new Address(employeeLivingAddress, employeeZIP, employeeCity, employeeNote));
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                tempEmployee.IsAvailable = true;
+            }
+            else
+            {
+                tempEmployee.IsAvailable = false;
+            }
             database.Employees.Add(tempEmployee);
 
             database.SaveChanges();
@@ -82,8 +91,8 @@ namespace HasserisWeb.Controllers
             // General employee information
             int id = temp.ID;
             Employee tempEmployee = database.Employees.FirstOrDefault(e => e.ID == id);
-            tempEmployee.Firstname = temp.FirstName;
-            tempEmployee.Lastname = temp.LastName;
+            tempEmployee.Firstname = temp.Firstname;
+            tempEmployee.Lastname = temp.Lastname;
             tempEmployee.Type = temp.Type;
             tempEmployee.Wage = temp.Wage;
             //Address
@@ -97,6 +106,15 @@ namespace HasserisWeb.Controllers
             string phonenumber = temp.Phonenumber;
             ContactInfo contactinfo = new ContactInfo(email, phonenumber);
             tempEmployee.ContactInfo = contactinfo;
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                tempEmployee.IsAvailable = true;
+            }
+            else
+            {
+                tempEmployee.IsAvailable = false;
+            }
             database.Employees.Update(tempEmployee);
             database.SaveChanges();
         }

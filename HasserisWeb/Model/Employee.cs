@@ -15,7 +15,7 @@ namespace HasserisWeb
         public string Username { get; set; }
         
         public string Hashcode { get; set; }
-        public bool IsAvailable { get; private set; } = true;
+        public bool IsAvailable { get; set; } = true;
         public string AccessToken { get; set; }
         public ContactInfo ContactInfo { get; set; }
         public double Wage { get; set; }

@@ -86,19 +86,19 @@ const navigationConfig = [
                         'id': 'createemployee',
                         'title': 'Opret ansat',
                         'type': 'item',
-                        'url': '/employees/create'
+                        'url': '/employee/create'
                     },
                     {
                         'id': 'createtool',
                         'title': 'Opret udstyr',
                         'type': 'item',
-                        'url': '/tools/create'
+                        'url': '/tool/create'
                     },
                     {
                         'id': 'createvehicle',
                         'title': 'Opret køretøj',
                         'type': 'item',
-                        'url': '/vehicles/create'
+                        'url': '/vehicle/create'
                     }
                 ]
             },
