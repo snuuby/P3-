@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 function ToolOverviewTable(props)
 {
     const dispatch = useDispatch();
-    const tools = useSelector(({toolReducer}) => toolReducer.tools.entities);
+    const tools = useSelector(({ toolReducer }) => toolReducer.tools.tools);
     const searchText = useSelector(({toolReducer}) => toolReducer.tools.searchText);
     //const searchText = useSelector(({eCommerceApp}) => eCommerceApp.orders.searchText);
 
@@ -28,14 +28,11 @@ function ToolOverviewTable(props)
         dispatch(Actions.getTools());
     }, [dispatch]);
 
-    /*
+    
     useEffect(() => {
         setData(searchText.length === 0 ? tools : FuseUtils.filterArrayByString(tools, searchText))
     }, [tools, searchText]); 
-    */
-    useEffect(() => {
-        setData(tools)
-    }, [tools]); 
+    
     
 
     function handleRequestSort(event, property)

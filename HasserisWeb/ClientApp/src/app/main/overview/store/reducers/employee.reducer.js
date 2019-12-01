@@ -1,10 +1,9 @@
 import * as Actions from '../actions';
 
 const initialState = {
-    entities   : [],
+    employees   : [],
     searchText: '',
     loading: true,
-    employeeData: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -34,7 +33,15 @@ const overviewReducer = function (state = initialState, action) {
         case Actions.GET_EMPLOYEE:
             {
                 return Object.assign({}, state, {
-                    employeeData: action.payload
+                    eventDialog: {
+                        type: 'new',
+                        props: {
+                            open: true
+                        },
+                        data: {
+                            ...action.data
+                        }
+                    }
                 })
             }
         

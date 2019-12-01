@@ -17,6 +17,10 @@ export const EmployeeOverviewConfig = {
         {
             path        : '/employee/:EmployeeId',
             component   : React.lazy(() => import('./Employee'))
+        },
+        {
+            path: '/employee/create',
+            component: React.lazy(() => import('./CreateEmployee'))
         }
     ]
 };

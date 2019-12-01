@@ -71,9 +71,6 @@ function Customer(props) {
         () => {
             const event = { start: start };
             if (eventDialog.type === 'new') {
-                //dispatch(Actions.getAvailableEmployees());
-                //dispatch(Actions.getAvailableCars());
-                //dispatch(Actions.getCustomers());
                 setForm({
                     ...eventDialog.data,
                 });
@@ -105,30 +102,20 @@ function Customer(props) {
             form.Firstname && form.Lastname && form.Address // hvad gør den her helt præcist? 
         );
     }
-    function printCustomerName() {
-        if (form.CustomerType == "Private") {
-            return form.Firstname + ' ' + form.Lastname;
-        }
-        else if (form.CustomerType == "Public") {
-            return form.Name + ' EAN: ' + form.EAN;
-        }
-        else if (form.CustomerType == "Business") {
-            return form.Name + ' CVR: ' + form.CVR;
-        }
-    }
+
     function handleSubmit(event) {
 
 
         event.preventDefault();
 
         if (form.CustomerType == "Private") {
-            dispatch(Actions.addPrivateCustomer(form));
+            dispatch(Actions.editPrivateCustomer(form));
         }
         else if (form.CustomerType == "Business") {
-            dispatch(Actions.addBusinessCustomer(form));
+            dispatch(Actions.editBusinessCustomer(form));
         }
         else {
-            dispatch(Actions.addPublicCustomer(form));
+            dispatch(Actions.editPublicCustomer(form));
         }
 
         // flytter os hen på 
@@ -139,7 +126,12 @@ function Customer(props) {
 
     }
 
+    function removeCustomer(event) {
+        event.preventDefault();
+        dispatch(Actions.removeCustomer(form.ID));
+        props.history.push('/customer/overview');
 
+    }
 
     if (form.CustomerType == "Private") {
         return (
@@ -165,7 +157,7 @@ function Customer(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {form.CustomerType} Kunde: {form.Firstname} {form.Lastname}
+                                        Privat Kunde: {form.Firstname} {form.Lastname}
                                     </Typography>
                                 </FuseAnimate>
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
@@ -195,7 +187,7 @@ function Customer(props) {
                     <div>
 
                         <form noValidate onSubmit={handleSubmit} >
-                            <div className="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                            <div className="p-16 sm:p-24 max-w-2xl w-full">
 
                                 <div>
                                     <FormControl variant="outlined" className={classes.formControl}>
@@ -208,7 +200,7 @@ function Customer(props) {
                                             name="CustomerType"
                                             value={form.CustomerType}
                                             onChange={handleChange}
-                                            required
+                                            disabled
                                             labelWidth={labelWidth}
                                         >
                                             <MenuItem value="Private">Privat</MenuItem>
@@ -338,11 +330,17 @@ function Customer(props) {
                                     variant="contained"
                                     color="primary"
                                     type="submit"
-                                    disabled={!canBeSubmitted()}
                                 >
-                                    Tilføj
+                                    Gem
                                 </Button>
-
+                                <Button
+                                    className={classes.formControl}
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={removeCustomer}
+                                >
+                                    Slet
+                                </Button>
                             </div>
 
                         </form>
@@ -378,216 +376,14 @@ function Customer(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {form.CustomerType} Kunde: {form.Name} EAN: {form.EAN}
+                                        Virksomheds Kunde: {form.Name} EAN: {form.EAN}
                                     </Typography>
                                 </FuseAnimate>
-
-                            </div>
-                        </div>
-                    </div>
-
-                }
-                contentToolbar={
-                    <Tabs
-                        value={tabValue}
-                        onChange={handleChangeTab}
-                        indicatorColor="secondary"
-                        textColor="secondary"
-                        variant="scrollable"
-                        scrollButtons="auto"
-                        classes={{ root: "w-full h-64" }}
-                    >
-                        <Tab className="h-64 normal-case" label="Kunde detaljer" />
-                    </Tabs>
-                }
-                content={
-                    <div>
-
-                        <form noValidate onSubmit={handleSubmit} >
-                            <div className="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                                <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                        Kunde Type
-                                </InputLabel>
-                                    <Select
-                                        labelid="demo-simple-select-outlined-label"
-                                        id="CustomerType"
-                                        name="CustomerType"
-                                        value={form.CustomerType}
-                                        onChange={handleChange}
-                                        required
-                                        labelWidth={labelWidth}
-                                    >
-                                        <MenuItem value="Private">Privat</MenuItem>
-                                        <MenuItem value="Business">Virksomhed</MenuItem>
-                                        <MenuItem value="Public">Offentlig</MenuItem>
-
-                                    </Select>
-                                </FormControl>
-                                <div>
-
-                                    <TextField
-                                        id="Name"
-                                        label="Navn"
-                                        className={classes.formControl}
-                                        name="Name"
-                                        value={form.Name}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-                                    <TextField
-                                        id="EAN"
-                                        label="EAN"
-                                        className={classes.formControl}
-                                        name="EAN"
-                                        value={form.EAN}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-
-                                </div>
-
-                                <div>
-
-                                    <TextField
-                                        id="LivingAddress"
-                                        label="Adresse"
-                                        className={classes.formControl}
-                                        name="LivingAddress"
-                                        value={form.LivingAddress}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-
-
-
-                                    <TextField
-                                        id="ZIP"
-                                        label="Postnummer"
-                                        className={classes.formControl}
-                                        name="ZIP"
-                                        value={form.ZIP}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-                                    <TextField
-                                        id="City"
-                                        label="By"
-                                        className={classes.formControl}
-                                        name="City"
-                                        value={form.City}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <TextField
-                                        id="Phonenumber"
-                                        label="Telefonnummer"
-                                        className={classes.formControl}
-                                        name="Phonenumber"
-                                        value={form.Phonenumber}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-                                    <TextField
-                                        id="Email"
-                                        label="Mail"
-                                        className={classes.formControl}
-                                        name="Email"
-                                        value={form.Email}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-
-                                </div>
-
-
-                                <Button
-                                    className={classes.formControl}
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    disabled={!canBeSubmitted()}
-                                >
-                                    Tilføj
-                                </Button>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-                }
-                innerScroll
-            />
-
-        );
-    }
-    else {
-        return (
-            <FusePageCarded
-                classes={{
-                    content: "flex",
-                    header: "min-h-72 h-72 sm:h-136 sm:min-h-136"
-                }}
-                header={
-                    <div className="flex flex-1 w-full items-center justify-between">
-
-                        <div className="flex flex-1 flex-col items-center sm:items-start">
-
-
-                            <div className="flex flex-col min-w-0 items-center sm:items-start">
-
-                                <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                                    <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/customer/overview" color="inherit">
-                                        <Icon className="mr-4 text-20">arrow_back</Icon>
-                                        Kunder
-                                </Typography>
-                                </FuseAnimate>
-
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                    <Typography className="text-16 sm:text-20 truncate">
-                                        {form.CustomerType} Kunde: {form.Name} CVR: {form.CVR}
+                                    <Typography variant="caption">
+                                        {'Kunde ID: ' + form.ID}
                                     </Typography>
                                 </FuseAnimate>
-
                             </div>
                         </div>
                     </div>
@@ -610,7 +406,7 @@ function Customer(props) {
                     <div>
 
                         <form noValidate onSubmit={handleSubmit} >
-                            <div className="flex-1 bg-gray-0 h-12 pr-1 pt-64">
+                            <div className="p-16 sm:p-24 max-w-2xl w-full">
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
                                         Kunde Type
@@ -621,7 +417,7 @@ function Customer(props) {
                                         name="CustomerType"
                                         value={form.CustomerType}
                                         onChange={handleChange}
-                                        required
+                                        disabled
                                         labelWidth={labelWidth}
                                     >
                                         <MenuItem value="Private">Privat</MenuItem>
@@ -665,6 +461,224 @@ function Customer(props) {
 
                                 <div>
 
+                                    <TextField
+                                        id="LivingAddress"
+                                        label="Adresse"
+                                        className={classes.formControl}
+                                        name="LivingAddress"
+                                        value={form.LivingAddress}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+
+
+
+                                    <TextField
+                                        id="ZIP"
+                                        label="Postnummer"
+                                        className={classes.formControl}
+                                        name="ZIP"
+                                        value={form.ZIP}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                    <TextField
+                                        id="City"
+                                        label="By"
+                                        className={classes.formControl}
+                                        name="City"
+                                        value={form.City}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <TextField
+                                        id="Phonenumber"
+                                        label="Telefonnummer"
+                                        className={classes.formControl}
+                                        name="Phonenumber"
+                                        value={form.Phonenumber}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                    <TextField
+                                        id="Email"
+                                        label="Mail"
+                                        className={classes.formControl}
+                                        name="Email"
+                                        value={form.Email}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+
+                                </div>
+
+
+                                <Button
+                                    className={classes.formControl}
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Gem
+                                </Button>
+                                <Button
+                                    className={classes.formControl}
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={removeCustomer}
+                                >
+                                    Slet
+                                </Button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                }
+                innerScroll
+            />
+
+        );
+    }
+    else {
+        return (
+            <FusePageCarded
+                classes={{
+                    content: "flex",
+                    header: "min-h-72 h-72 sm:h-136 sm:min-h-136"
+                }}
+                header={
+                    <div className="flex flex-1 w-full items-center justify-between">
+
+                        <div className="flex flex-1 flex-col items-center sm:items-start">
+
+
+                            <div className="flex flex-col min-w-0 items-center sm:items-start">
+
+                                <FuseAnimate animation="transition.slideRightIn" delay={300}>
+                                    <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/customer/overview" color="inherit">
+                                        <Icon className="mr-4 text-20">arrow_back</Icon>
+                                        Kunder
+                                </Typography>
+                                </FuseAnimate>
+
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Typography className="text-16 sm:text-20 truncate">
+                                        Offentlig Kunde: {form.Name} EAN: {form.EAN}
+                                    </Typography>
+                                </FuseAnimate>
+                                                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Typography variant="caption">
+                                        {'Kunde ID: ' + form.ID}
+                                    </Typography>
+                                </FuseAnimate>
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                contentToolbar={
+                    <Tabs
+                        value={tabValue}
+                        onChange={handleChangeTab}
+                        indicatorColor="secondary"
+                        textColor="secondary"
+                        variant="scrollable"
+                        scrollButtons="auto"
+                        classes={{ root: "w-full h-64" }}
+                    >
+                        <Tab className="h-64 normal-case" label="Kunde detaljer" />
+                    </Tabs>
+                }
+                content={
+                    <div>
+
+                        <form noValidate onSubmit={handleSubmit} >
+                            <div className="p-16 sm:p-24 max-w-2xl w-full">
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+                                        Kunde Type
+                                </InputLabel>
+                                    <Select
+                                        labelid="demo-simple-select-outlined-label"
+                                        id="CustomerType"
+                                        name="CustomerType"
+                                        value={form.CustomerType}
+                                        onChange={handleChange}
+                                        disabled
+                                        labelWidth={labelWidth}
+                                    >
+                                        <MenuItem value="Private">Privat</MenuItem>
+                                        <MenuItem value="Business">Virksomhed</MenuItem>
+                                        <MenuItem value="Public">Offentlig</MenuItem>
+
+                                    </Select>
+                                </FormControl>
+                                <div>
+
+                                    <TextField
+                                        id="Name"
+                                        label="Navn"
+                                        className={classes.formControl}
+                                        name="Name"
+                                        value={form.Name}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+                                    <TextField
+                                        id="EAN"
+                                        label="EAN"
+                                        className={classes.formControl}
+                                        name="EAN"
+                                        value={form.EAN}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        required
+                                    />
+
+                                </div>
+
+                                <div>
+
 
 
                                     <TextField
@@ -752,9 +766,16 @@ function Customer(props) {
                                     variant="contained"
                                     color="primary"
                                     type="submit"
-                                    disabled={!canBeSubmitted()}
                                 >
-                                    Tilføj
+                                    Gem
+                                </Button>
+                                <Button
+                                    className={classes.formControl}
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={removeCustomer}
+                                >
+                                    Slet
                                 </Button>
 
                             </div>

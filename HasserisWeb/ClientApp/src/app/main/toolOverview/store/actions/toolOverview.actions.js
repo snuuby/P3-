@@ -7,15 +7,15 @@ import {
     OPEN_NEW_EVENT_DIALOG
 } from "../../../apps/calendar/store/actions";
 
-export const GET_TOOLS = '[TOOL APP] GET TOOLS';
-export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL APP] SET TOOL SEARCH TEXT';
-export const ADD_TOOL = '[TOOL APP] ADD TOOL';
-export const OPEN_NEW_ADD_DIALOG = '[TOOL APP] OPEN NEW ADD DIALOG';
-export const CLOSE_NEW_ADD_DIALOG = '[TOOL APP] CLOSE NEW ADD DIALOG';
-export const GET_TOOL = '[TOOL APP] GET TOOL';
-export const CLOSE_EDIT_TOOL_DIALOG = '[TOOL APP]';
-export const REMOVE_TOOL = '[TOOL APP] REMOVE TOOL';
-export const UPDATE_TOOLS = '[TOOL APP] UPDATE TOOL'
+export const GET_TOOLS = '[TOOL] GET TOOLS';
+export const SET_TOOLOVERVIEW_SEARCH_TEXT = '[TOOL] SET TOOL SEARCH TEXT';
+export const ADD_TOOL = '[TOOL] ADD TOOL';
+export const OPEN_NEW_ADD_DIALOG = '[TOOL] OPEN NEW ADD DIALOG';
+export const CLOSE_NEW_ADD_DIALOG = '[TOOL] CLOSE NEW ADD DIALOG';
+export const GET_TOOL = '[TOOL] GET TOOL';
+export const CLOSE_EDIT_TOOL_DIALOG = '[TOOL]';
+export const REMOVE_TOOL = '[TOOL] REMOVE TOOL';
+export const EDIT_TOOLS = '[TOOL] UPDATE TOOL'
 
 // Gets all tools
 export function getTools()
@@ -55,19 +55,17 @@ export function setToolOverviewSearchText(event)
 }
 
 // Action to add tool
-export function addTool(newTool) {
+export function addTool(tool) {
     return (dispatch, getState) => {
 
-        const request = axios.post('Tools/add', {
-            newTool
-        });
+        const request = axios.post('tool/add', tool);
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
                     type: ADD_TOOL
                 })
-            ]).then(() => dispatch(getTools()))
+            ])
         );
     };
 }
@@ -106,24 +104,22 @@ export function removeTool(toolId) {
                 dispatch({
                     type: REMOVE_TOOL
                 })
-            ]).then(() => dispatch(getTools()))
+            ])
         );
     };
 }
 
-export function updateTool(newEvent) {
+export function editTool(tool) {
     return (dispatch, getState) => {
 
-        const request = axios.post('Tools/update', {
-            newEvent
-        });
+        const request = axios.post('Tools/edit', tool);
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: UPDATE_TOOLS
+                    type: EDIT_TOOLS
                 })
-            ]).then(() => dispatch(getEvents()))
+            ])
         );
     };
 }

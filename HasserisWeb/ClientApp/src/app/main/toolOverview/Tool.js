@@ -1,45 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, ExpansionPanel, TextField, ExpansionPanelSummary, ExpansionPanelDetails, Icon, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
-import { FuseAnimate, FusePageCarded } from '@fuse';
+import React, { useCallback, useEffect, useState, useStyles } from 'react';
+import { TextField, Button, Dialog, DialogActions, DialogContent, Icon, Tabs, Tab, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
+import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
+import { useForm } from '@fuse/hooks';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import withReducer from '../../store/withReducer';
+import withReducer from './../../store/withReducer';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from '@fuse/hooks';
-
-function Marker(props) {
-    return (
-        <Tooltip title={props.text} placement="top">
-            <Icon className="text-red">place</Icon>
-        </Tooltip>
-    );
-}
-/*
+import { FormControl, Select, InputLabel, MenuItem, FormHelperText } from '@material-ui/core';
 const defaultFormState = {
-    id: '',
-    name: {toolName}
+    Name: null,
 };
-*/
 function Tool(props) {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
-    const tool = useSelector(({ toolReducer }) => toolReducer.tools.toolData);
+    const { form, handleChange, setForm } = useForm(defaultFormState);
+    const eventDialog = useSelector(({ toolReducer }) => toolReducer.tools.eventDialog);
+    const searchText = useSelector(({ toolReducer }) => toolReducer.tools.searchText);
+
+
     const [tabValue, setTabValue] = useState(0);
+
+
 
     useEffect(() => {
         dispatch(Actions.getTool(props.match.params));
     }, [props.match.params]);
 
+    const initDialog = useCallback(
+        () => {
+            if (eventDialog.type === 'new') {
+                setForm({
+                    ...eventDialog.data,
+                });
+            }
 
-    const toolName = 'test';
-    const { form, handleChange, setForm } = useForm({ Name: toolName });
 
+        },
+        [eventDialog.data, eventDialog.type, setForm],
+    );
 
+    useEffect(() => {
+        /**
+         * After Dialog Open
+         */
+        if (eventDialog.props.open) {
+            initDialog();
+
+        }
+    }, [eventDialog.props.open, initDialog]);
     function handleChangeTab(event, tabValue) {
         setTabValue(tabValue);
     }
+    function handleSubmit(event) {
 
+
+        event.preventDefault();
+        dispatch(Actions.editTool(form));
+        props.history.push('/tool/overview');
+
+
+    }
     return (
         <FusePageCarded
             classes={{
@@ -47,7 +72,6 @@ function Tool(props) {
                 header: "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                tool && (
                     <div className="flex flex-1 w-full items-center justify-between">
 
                         <div className="flex flex-1 flex-col items-center sm:items-start">
@@ -63,20 +87,20 @@ function Tool(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        {tool.Name}
+                                        Udstyr: {form.Name}
                                     </Typography>
                                 </FuseAnimate>
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography variant="caption">
-                                        {'Vaerktoj ID: ' + tool.ID}
+                                        Vaerktoj ID:  {form.ID}
                                     </Typography>
                                 </FuseAnimate>
                             </div>
 
                         </div>
                     </div>
-                )
+                
             }
             contentToolbar={
                 <Tabs
@@ -92,27 +116,12 @@ function Tool(props) {
                 </Tabs>
             }
             content={
-                tool && (
+                <form noValidate onSubmit={handleSubmit} >
+
                     <div className="p-16 sm:p-24 max-w-2xl w-full">
                         {/*Text Fields*/}
-                        <div class="flex mb-4">
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 ">
-                                {/*Tool ID*/}
-                                <TextField
-                                    id="ToolID"
-                                    label="Kunde ID"
-                                    className="mt-8 mb-16"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    name="ToolID"
-                                    value={tool.ID}
-                                    variant="outlined"
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                />
-                            </div>
+
+
                             <div class="flex-1 bg-gray-0 h-12 pl-10">
                                 {/*Tool Name*/}
                                 <TextField
@@ -129,10 +138,17 @@ function Tool(props) {
                                     required
                                     fullWidth
                                 />
-                            </div>
                         </div>
+                        <Button
+                            className={classes.formControl}
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                        >
+                            GEM
+                        </Button>
                     </div>
-                )
+                </form>
             }
             innerScroll
         />

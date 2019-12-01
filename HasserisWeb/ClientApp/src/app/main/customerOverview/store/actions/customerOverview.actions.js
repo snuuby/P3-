@@ -6,22 +6,22 @@ import {
     getEvents,
     OPEN_NEW_EVENT_DIALOG
 } from "../../../apps/calendar/store/actions";
+export const GET_CUSTOMERS = '[CUSTOMER] GET CUSTOMERS';
+export const SET_CUSTOMEROVERVIEW_SEARCH_TEXT = '[CUSTOMER] SET OVERVIEW SEARCH TEXT';
+export const ADD_PRIVATE_CUSTOMER = '[CUSTOMER] ADD PRIVATE CUSTOMER';
+export const ADD_PUBLIC_CUSTOMER = '[CUSTOMER] ADD PUBLIC CUSTOMER';
+export const ADD_BUSINESS_CUSTOMER = '[CUSTOMER] ADD BUSINESS CUSTOMER';
 
-export const GET_CUSTOMERS = '[CUSTOMER APP] GET CUSTOMERS';
-export const SET_CUSTOMEROVERVIEW_SEARCH_TEXT = '[CUSTOMER APP] SET OVERVIEW SEARCH TEXT';
-export const ADD_PRIVATE_CUSTOMER = '[CUSTOMER APP] ADD PRIVATE CUSTOMER';
-export const ADD_PUBLIC_CUSTOMER = '[CUSTOMER APP] ADD PUBLIC CUSTOMER';
-export const ADD_BUSINESS_CUSTOMER = '[CUSTOMER APP] ADD BUSINESS CUSTOMER';
-
-export const OPEN_NEW_ADD_DIALOG = '[CUSTOMER APP] OPEN NEW ADD DIALOG';
-export const CLOSE_NEW_ADD_DIALOG = '[CUSTOMER APP] CLOSE NEW ADD DIALOG';
-export const GET_PRIVATE_CUSTOMERS = '[CUSTOMER APP] GET PRIVATE CUSTOMERS';
-export const GET_BUSINESS_CUSTOMERS = '[CUSTOMER APP] GET BUSINESS CUSTOMERS';
-export const GET_PUBLIC_CUSTOMERS = '[CUSTOMER APP] GET PUBLIC CUSTOMERS';
-export const GET_CUSTOMER = '[CUSTOMER APP] GET CUSTOMER';
-export const CLOSE_EDIT_CUSTOMER_DIALOG = '[CUSTOMER APP]';
-export const REMOVE_CUSTOMER = '[CUSTOMER APP] REMOVE CUSTOMER';
-export const UPDATE_CUSTOMERS = '[CUSTOMER APP] UPDATE CUSTOMER'
+export const OPEN_NEW_ADD_DIALOG = '[CUSTOMER] OPEN NEW ADD DIALOG';
+export const CLOSE_NEW_ADD_DIALOG = '[CUSTOMER] CLOSE NEW ADD DIALOG';
+export const GET_PRIVATE_CUSTOMERS = '[CUSTOMER] GET PRIVATE CUSTOMERS';
+export const GET_BUSINESS_CUSTOMERS = '[CUSTOMER] GET BUSINESS CUSTOMERS';
+export const GET_PUBLIC_CUSTOMERS = '[CUSTOMER] GET PUBLIC CUSTOMERS';
+export const GET_CUSTOMER = '[CUSTOMER] GET CUSTOMER';
+export const CLOSE_EDIT_CUSTOMER_DIALOG = '[CUSTOMER]';
+export const REMOVE_CUSTOMER = '[CUSTOMER] REMOVE CUSTOMER';
+export const UPDATE_CUSTOMERS = '[CUSTOMER] UPDATE CUSTOMER';
+export const EDIT_CUSTOMER = '[CUSTOMER] EDIT CUSTOMER';
 
 export function getCustomers() {
     return (dispatch) => {
@@ -116,7 +116,24 @@ export function addPublicCustomer(customer)
                 dispatch({
                     type: ADD_PUBLIC_CUSTOMER
                 })
-            ]).then(() => { dispatch(getPrivateCustomers()); dispatch(getPublicCustomers); dispatch(getBusinessCustomers) })
+            ])
+
+        );
+    };
+}
+export function editPublicCustomer(customer) {
+    return (dispatch, getState) => {
+
+
+        // 404 kan ikke finde url
+        const request = axios.post('customers/addpublic', customer);
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: ADD_PUBLIC_CUSTOMER
+                })
+            ])
         );
     };
 }
@@ -132,7 +149,23 @@ export function addPrivateCustomer(customer) {
                 dispatch({
                     type: ADD_PRIVATE_CUSTOMER
                 })
-            ]).then(() => { dispatch(getPrivateCustomers()); dispatch(getPublicCustomers); dispatch(getBusinessCustomers) })
+            ])
+        );
+    };
+}
+export function editPrivateCustomer(customer) {
+    return (dispatch, getState) => {
+
+
+        // 404 kan ikke finde url
+        const request = axios.post('customers/editprivate', customer);
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: EDIT_CUSTOMER
+                })
+            ])
         );
     };
 }
@@ -148,7 +181,23 @@ export function addBusinessCustomer(customer) {
                 dispatch({
                     type: ADD_BUSINESS_CUSTOMER
                 })
-            ]).then(() => { dispatch(getPrivateCustomers()); dispatch(getPublicCustomers); dispatch(getBusinessCustomers) })
+            ])
+        );
+    };
+}
+export function editBusinessCustomer(customer) {
+    return (dispatch, getState) => {
+
+
+        // 404 kan ikke finde url
+        const request = axios.post('customers/editbusiness', customer);
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: EDIT_CUSTOMER
+                })
+            ])
         );
     };
 }
@@ -176,7 +225,7 @@ export function closeEditCustomerDialog() {
 export function removeCustomer(customerId) {
     return (dispatch, getState) => {
 
-        const request = axios.post('Customer/remove', {
+        const request = axios.post('customers/remove', {
             customerId
         });
 
@@ -185,24 +234,7 @@ export function removeCustomer(customerId) {
                 dispatch({
                     type: REMOVE_CUSTOMER
                 })
-            ]).then(() => { dispatch(getPrivateCustomers()); dispatch(getPublicCustomers); dispatch(getBusinessCustomers) })
-        );
-    };
-}
-
-export function updateCustomers(newEvent) {
-    return (dispatch, getState) => {
-
-        const request = axios.post('Customer/update', {
-            newEvent
-        });
-
-        return request.then((response) =>
-            Promise.all([
-                dispatch({
-                    type: UPDATE_CUSTOMERS
-                })
-            ]).then(() => dispatch(getCustomer()))
+            ])
         );
     };
 }

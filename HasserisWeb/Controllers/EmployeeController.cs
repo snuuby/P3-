@@ -48,8 +48,8 @@ namespace HasserisWeb.Controllers
         }
         // add business customer
         [HttpPost]
-        [Route("addemployee")]
-        public string CreateEmployee([FromBody]dynamic json)
+        [Route("add")]
+        public void CreateEmployee([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             // General employee information
@@ -58,7 +58,7 @@ namespace HasserisWeb.Controllers
             string employeeType = temp.Type;
             double employeeWage = temp.Wage;
             //Address
-            string employeeLivingAddress = temp.Address;
+            string employeeLivingAddress = temp.LivingAddress;
             string employeeZIP = temp.ZIP;
             string employeeCity = temp.City;
             string employeeNote = temp.Note;
@@ -73,8 +73,32 @@ namespace HasserisWeb.Controllers
             database.Employees.Add(tempEmployee);
 
             database.SaveChanges();
-
-            return "Employee added";
+        }
+        [HttpPost]
+        [Route("editemployee")]
+        public void EditEmployee([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            // General employee information
+            int id = temp.ID;
+            Employee tempEmployee = database.Employees.FirstOrDefault(e => e.ID == id);
+            tempEmployee.Firstname = temp.FirstName;
+            tempEmployee.Lastname = temp.LastName;
+            tempEmployee.Type = temp.Type;
+            tempEmployee.Wage = temp.Wage;
+            //Address
+            string livingaddress = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address address = new Address(livingaddress, zip, city);
+            tempEmployee.Address = address;
+            //ContactInfo
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            tempEmployee.ContactInfo = contactinfo;
+            database.Employees.Update(tempEmployee);
+            database.SaveChanges();
         }
     }
 }

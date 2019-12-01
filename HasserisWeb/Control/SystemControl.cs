@@ -34,7 +34,7 @@ namespace HasserisWeb
                 tempEmployee_six.AddLoginInfo("Andreas", "Andreas17");
 
                 Customer tempCustomer = new Private("Erik", "Larsen", new Address("Aalborg Vej", "9220", "Aalborg", "Første dør til højre"), new ContactInfo("Erik@gmail.com", "23131313"));
-                Customer tempCustomer_one = new Private("Lars", "Eriksen", new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"));
+                Customer tempCustomer_one = new Public(new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"), "Hasseris Flytteforetning", "123123123123");
 
                 Furniture tempFurniture = new Furniture("Sofa møbel", 10, "Sofa", 10);
 
@@ -55,7 +55,6 @@ namespace HasserisWeb
                 }
 
                 Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 3);
-                tempMoving.InspectionReport = new InspectionReport(tempCustomer_one, new Address("tjek vej", "9000", "Aalborg", "første dør til venstre"), tempCustomer.Address,  tempEmployee, (Vehicle)testEquipment_one, "Første dør til højre", testList[0], testList[1]);
                 tempMoving.Furnitures.Add(tempFurniture);
                 foreach (DateTime date in testList_two)
                 {

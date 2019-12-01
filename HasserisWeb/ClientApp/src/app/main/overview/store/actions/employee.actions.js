@@ -7,12 +7,14 @@ import {
     OPEN_NEW_EVENT_DIALOG
 } from "../../../apps/calendar/store/actions";
 
-export const GET_EMPLOYEES = '[EMPLOYEE APP] GET EMPLOYEES';
-export const SET_OVERVIEW_SEARCH_TEXT = '[EMPLOYEE APP] SET OVERVIEW SEARCH TEXT';
-export const ADD_EMPLOYEE = '[EMPLOYEE APP] ADD EMPLOYEE';
-export const OPEN_NEW_ADD_DIALOG = '[EMPLOYEE APP] OPEN NEW ADD DIALOG';
-export const CLOSE_NEW_ADD_DIALOG = '[EMPLOYEE APP] CLOSE NEW ADD DIALOG';
-export const GET_EMPLOYEE = '[EMPLOYEE APP] GET SPECIFIC EMPLOYEE';
+export const GET_EMPLOYEES = '[EMPLOYEE] GET EMPLOYEES';
+export const SET_OVERVIEW_SEARCH_TEXT = '[EMPLOYEE] SET OVERVIEW SEARCH TEXT';
+export const ADD_EMPLOYEE = '[EMPLOYEE] ADD EMPLOYEE';
+export const EDIT_EMPLOYEE = '[EMPLOYEE] EDIT EMPLOYEE';
+
+export const OPEN_NEW_ADD_DIALOG = '[EMPLOYEE] OPEN NEW ADD DIALOG';
+export const CLOSE_NEW_ADD_DIALOG = '[EMPLOYEE] CLOSE NEW ADD DIALOG';
+export const GET_EMPLOYEE = '[EMPLOYEE] GET SPECIFIC EMPLOYEE';
 
 
 // Gets all employees
@@ -53,24 +55,35 @@ export function setOverviewSearchText(event)
 }
 
 // Action to add employees
-export function addEmployee(newEvent)
+export function addEmployee(employee)
 {
     return (dispatch, getState) => {
 
-        const request = axios.post('/api/calendar-app/add-event', {
-            newEvent
-        });
+        const request = axios.post('employees/add', employee);
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: ADD_EVENT
+                    type: ADD_EMPLOYEE
                 })
             ]).then(() => dispatch(getEmployees()))
         );
     };
 }
+export function editEmployee(employee) {
+    return (dispatch, getState) => {
 
+        const request = axios.post('employees/edit', employee);
+
+        return request.then((response) =>
+            Promise.all([
+                dispatch({
+                    type: EDIT_EMPLOYEE
+                })
+            ])
+        );
+    };
+}
 export function openNewAddDialog(data)
 {
     return {

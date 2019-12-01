@@ -1,10 +1,9 @@
 import * as Actions from '../actions';
 
 const initialState = {
-    entities   : [],
+    vehicles   : [],
     searchText: '',
     loading: true,
-    vehicleData: null,
     eventDialog: {
         type : 'new',
         props: {
@@ -34,7 +33,15 @@ const vehicleReducer = function (state = initialState, action) {
         case Actions.GET_VEHICLE:
             {
                 return Object.assign({}, state, {
-                    vehicleData: action.payload
+                    eventDialog: {
+                        type: 'new',
+                        props: {
+                            open: true,
+                        },
+                        data: {
+                            ...action.payload,
+                        },
+                    }
                 })
             }
         

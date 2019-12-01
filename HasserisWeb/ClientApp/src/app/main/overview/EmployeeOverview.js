@@ -211,39 +211,6 @@ function EmployeeOverview(props) {
         dispatch(Actions.getEmployees());
     }
 
-    function renderEmployeeList(empList){
-        return(
-            <table className='table' aria-labelledby="tabelLabel">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {empList.map(emp =>
-                    <tr key={emp.ID}>
-                        <td>{emp.ID}</td>
-                        <td>{emp.Firstname}</td>
-                        <td>
-                            {emp.Lastname}
-                        </td>
-                        <td>                            
-                            <button onClick={() => editWorker(emp.ID)} className="btn btn-info" type="button">Rediger</button>
-                        </td>
-                        <td>
-                            <button onClick={() => deleteWorker(emp.ID)} className="btn btn-info" type="button">Slet</button>
-                        </td>
-                        
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        )
-    }
 
     return(
         <FusePageCarded
@@ -264,12 +231,9 @@ function EmployeeOverview(props) {
                             color="secondary"
                             aria-label="add"
                             className={classes.addButton}
-                            onClick={() => dispatch(Actions.openNewAddDialog({
-                                start: new Date(),
-                                end  : new Date()
-                            }))}
+                            onClick={redirectToAddEmployee}
                         >
-                            <Icon onClick={redirectToAddEmployee}>add</Icon>
+                            <Icon>add</Icon>
                         </Fab>
                     </FuseAnimate>
                     

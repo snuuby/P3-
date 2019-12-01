@@ -33,7 +33,7 @@ namespace HasserisWeb.Controllers
         }
 
         [Route("add")]
-        public string CreateTool([FromBody]dynamic json)
+        public void CreateTool([FromBody]dynamic json)
         {
             dynamic eNewTool = JsonConvert.DeserializeObject(json.ToString());
             string toolName = eNewTool.newTool.name;
@@ -43,7 +43,21 @@ namespace HasserisWeb.Controllers
             database.Equipment.Add(tool);
             database.SaveChanges();
 
-            return "Succesfully added new tool";
+
+        }
+        [Route("edit")]
+        public void EditTool([FromBody]dynamic json)
+        {
+            dynamic eNewTool = JsonConvert.DeserializeObject(json.ToString());
+            int id = eNewTool.ID;
+            Tool tool = (Tool)database.Equipment.FirstOrDefault(t => t.ID == id);
+
+            tool.Name = eNewTool.newTool.name;
+
+
+            database.Equipment.Update(tool);
+            database.SaveChanges();
+
 
         }
     }

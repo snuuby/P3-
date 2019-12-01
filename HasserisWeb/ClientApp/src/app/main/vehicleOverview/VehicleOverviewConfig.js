@@ -17,6 +17,10 @@ export const VehicleOverviewConfig = {
         {
             path        : '/vehicle/:VehicleId',
             component   : React.lazy(() => import('./Vehicle'))
+        },
+        {
+            path: '/vehicle/Create',
+            component: React.lazy(() => import('./CreateVehicle'))
         }
     ]
 };

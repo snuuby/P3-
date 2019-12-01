@@ -4,7 +4,6 @@ import {ThemeProvider} from '@material-ui/styles';
 import {FuseAnimate} from '@fuse';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import AddDialog from "./AddDialog";
 
 
 
@@ -31,14 +30,6 @@ function ToolOverviewHeader(props)
             <div className="flex flex-1 items-center justify-center pr-0 pl-12 sm:px-12">
 
                 <ThemeProvider theme={mainTheme}>
-                    <Button
-                        onClick={() => dispatch(Actions.openNewAddDialog({
-                            start: new Date(),
-                            end  : new Date()
-                        }))}
-                        variant="contained" color="green" className="max-w-512 px-8 py-100 hidden sm:flex">
-                        Tilføj Udstyr
-                    </Button>
                     
                     <FuseAnimate animation="transition.slideDownIn" delay={300}>
                         <Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8" elevation={1}>
@@ -62,7 +53,6 @@ function ToolOverviewHeader(props)
                     </FuseAnimate>
                 </ThemeProvider>
 
-                <AddDialog/>
             </div>
         </div>
         

@@ -4,7 +4,6 @@ import {ThemeProvider} from '@material-ui/styles';
 import {FuseAnimate} from '@fuse';
 import * as Actions from './store/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import AddDialog from "./AddDialog";
 
 
 
@@ -62,7 +61,6 @@ function VehicleOverviewHeader(props)
                     </FuseAnimate>
                 </ThemeProvider>
 
-                <AddDialog/>
             </div>
         </div>
         

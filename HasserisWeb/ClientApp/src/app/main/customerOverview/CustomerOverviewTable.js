@@ -15,6 +15,8 @@ function CustomerOverviewTable(props)
     const publicCustomers = useSelector(({ customerReducer }) => customerReducer.customers.publicCustomers);
     const businessCustomers = useSelector(({ customerReducer }) => customerReducer.customers.businessCustomers);
     const customers = privateCustomers.concat(publicCustomers).concat(businessCustomers);
+    const searchText = useSelector(({ customerReducer }) => customerReducer.customers.searchText);
+
 
     console.log(customers.length);
 
@@ -32,8 +34,8 @@ function CustomerOverviewTable(props)
     }, [dispatch]);
 
     useEffect(() => {
-        setData(customers)
-    }, [businessCustomers, publicCustomers, privateCustomers]); 
+        setData(searchText.length === 0 ? customers : FuseUtils.filterArrayByString(customers, searchText))
+    }, [privateCustomers, publicCustomers, businessCustomers, searchText]); 
 
     function handleRequestSort(event, property)
     {
@@ -132,7 +134,7 @@ function CustomerOverviewTable(props)
                                         }
                                         case 'navn':
                                         {
-                                            return  e.Firstname + e.Lastname + e.Name;
+                                                return e.CustomerType == "Private" ? e.Firstname + ' ' + e.Lastname : e.Name;
                                         }
                                         case 'type':
                                         {
@@ -177,7 +179,7 @@ function CustomerOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                               {n.Firstname + ' ' + n.Lastname}  {n.Name}
+                                                {n.CustomerType == "Private" ?  n.Firstname + ' ' + n.Lastname : n.Name}
                                             </TableCell>
 
 

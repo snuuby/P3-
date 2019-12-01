@@ -20,8 +20,7 @@ import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
 import VehicleOverviewTable from './VehicleOverviewTable';
 import VehicleOverviewTableHead from './VehicleOverviewTableHead';
-import OrdersHeader from './VehicleOverviewHeader.js';
-import AddDialog from './AddDialog';
+import VehicleOverviewHeader from './VehicleOverviewHeader.js';
 
 
 
@@ -44,14 +43,6 @@ function deleteVehicle(id) {
     }
 
 
-}
-
-function editVehicle(id) {
-    alert("Edit vehicle with: "  + id);
-}
-
-function createVehicle() {
-    return(<AddDialog/>)
 }
 
 const useStyles = makeStyles(theme => ({
@@ -197,7 +188,7 @@ const useStyles = makeStyles(theme => ({
 function VehicleOverview(props) {
     // Get access to the vehicles
     const dispatch = useDispatch();
-    const vehiclesRedux = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.entities);
+    const vehicles = useSelector(({vehicleReducer}) => vehicleReducer.vehicles.vehicles);
     
     const classes = useStyles(props);
 
@@ -206,44 +197,6 @@ function VehicleOverview(props) {
     }, [dispatch]);
     
  
-    function getVehicles(){
-        dispatch(Actions.getVehicles());
-    }
-
-    function renderVehicleList(empList){
-        return(
-            <table className='table' aria-labelledby="tabelLabel">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {empList.map(emp =>
-                    <tr key={emp.id}>
-                        <td>{emp.id}</td>
-                        <td>{emp.name}</td>
-                        <td>
-                            {emp.type}
-                        </td>
-                        <td>                            
-                            <button onClick={() => editVehicle(emp.id)} className="btn btn-info" type="button">Rediger</button>
-                        </td>
-                        <td>
-                            <button onClick={() => deleteVehicle(emp.id)} className="btn btn-info" type="button">Slet</button>
-                        </td>
-                        
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        )
-    }
-
     return(
         <FusePageCarded
             classes={{
@@ -251,7 +204,7 @@ function VehicleOverview(props) {
                 header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                <OrdersHeader/>
+                <VehicleOverviewHeader/>
             }
             content={
                 <div>
@@ -263,10 +216,7 @@ function VehicleOverview(props) {
                             color="secondary"
                             aria-label="add"
                             className={classes.addButton}
-                            onClick={() => dispatch(Actions.openNewAddDialog({
-                                start: new Date(),
-                                end  : new Date()
-                            }))}
+                            onClick={() => props.history.push('/vehicles/create')}
                         >
                             <Icon>add</Icon>
                         </Fab>

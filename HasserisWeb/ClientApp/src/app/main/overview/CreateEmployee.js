@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 const defaultFormState = {
     FirstName: null,
     LastName: null,
-    Type: null,
+    Type: "AdminPlus",
     Wage: null,
 
     //Address
@@ -38,12 +38,12 @@ const defaultFormState = {
     PhoneNumber: null
 };
 
-function InspectionReport(props) {
+function CreateEmployee(props) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.customers.eventDialog);
+    const eventDialog = useSelector(({ employeeReducer }) => employeeReducer.employees.eventDialog);
 
     // skal skiftes til customers, men har vi overhovedet brug for at loade vores customers her? :/ når vi laver
     const customers = useSelector(({ makeReducer }) => makeReducer.customers.entities);
@@ -65,9 +65,6 @@ function InspectionReport(props) {
         () => {
             const event = {start: start};
             if (eventDialog.type === 'new') {
-                //dispatch(Actions.getAvailableEmployees());
-                //dispatch(Actions.getAvailableCars());
-                //dispatch(Actions.getCustomers());
                 setForm({
                     ...defaultFormState,        
                 });
@@ -104,20 +101,8 @@ function InspectionReport(props) {
 
 
         event.preventDefault();
-
-        if (form.CustomerType == "Private") {
-            dispatch(Actions.addPrivateCustomer(form));
-        }
-        else if (form.CustomerType == "Business") {
-            dispatch(Actions.addBusinessCustomer(form));
-        }
-        else {
-            dispatch(Actions.addPublicCustomer(form));
-        }
-
-        // flytter os hen på 
-        props.history.push('/customer/overview');
-
+        dispatch(Actions.addEmployee(form));
+        props.history.push('/employees/overview');
         
         closeComposeDialog();
         
@@ -141,7 +126,7 @@ function InspectionReport(props) {
 
                             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                 <Typography className="text-16 sm:text-20 truncate">
-                                    cReAtE cuStoMeR
+                                    Opret Ansat
                                     </Typography>
                             </FuseAnimate>
 
@@ -160,30 +145,30 @@ function InspectionReport(props) {
                     scrollButtons="auto"
                     classes={{ root: "w-full h-64" }}
                 >
-                    <Tab className="h-64 normal-case" label="Kunde detaljer" />
+                    <Tab className="h-64 normal-case" label="Ansat detaljer" />
                 </Tabs>
             }
             content={
                 <div>
                     
                     <form noValidate onSubmit={handleSubmit} >
-                            <div class="flex-1 bg-gray-0 h-12 pr-1 pt-64">
-                            <FormControl>
+                        <div className="p-16 sm:p-24 max-w-2xl w-full">
+                            <FormControl variant="outlined" className={classes.formControl}>
                                 <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                    Kunde Type
+                                    Ansat Type
                                 </InputLabel>
                                 <Select
                                     labelid="demo-simple-select-outlined-label"
-                                    id="CustomerType"
-                                    name="CustomerType"
-                                    value={form.CustomerType}
+                                    id="Type"
+                                    name="Type"
+                                    value={form.Type}
                                     onChange={handleChange}
                                     required
                                     labelWidth={labelWidth}
                                 >
-                                    <MenuItem value="Private">Privat</MenuItem>
-                                    <MenuItem value="Business">Virksomhed</MenuItem>
-                                    <MenuItem value="Public">Offentlig</MenuItem>
+                                    <MenuItem value="Admin">Admin</MenuItem>
+                                    <MenuItem value="AdminPlus">AdminPlus</MenuItem>
+                                    <MenuItem value="Alm. Ansat">Alm. Ansat</MenuItem>
 
                                 </Select>
                             </FormControl>
@@ -219,21 +204,7 @@ function InspectionReport(props) {
                                         required
                                     />
 
-                                    <TextField
-                                        id="Type"
-                                        label="Rolle"
-                                        className={classes.formControl}
-                                        name="Type"
-                                        value={form.Type}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
-
+                                <div>
                                     <TextField
                                         id="Address"
                                         label="Adresse"
@@ -278,30 +249,31 @@ function InspectionReport(props) {
                                         }}
                                         required
                                     />
-
-                                    <TextField
-                                        id="Note"
-                                        label="Note"
-                                        className={classes.formControl}
-                                        name="Note"
-                                        value={form.Note}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true
-                                        }}
-                                        required
-                                    />
+                                    </div>
 
                                 </div>
 
+                            <div>
+                                <TextField
+                                    id="Wage"
+                                    label="Timeløn"
+                                    className={classes.formControl}
+                                    name="Wage"
+                                    value={form.Wage}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    autoFocus
+                                    InputLabelProps={{
+                                        shrink: true
+                                    }}
+                                    required
+                                />
+                                </div>
                                     <Button
                                     className={classes.formControl}
                                     variant="contained"
                                     color="primary"
                                     type="submit"
-                                    disabled={!canBeSubmitted()}
                                 >
                                     Tilføj
                                 </Button>
@@ -318,4 +290,4 @@ function InspectionReport(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(InspectionReport);
+export default withReducer('employeeReducer', reducer)(CreateEmployee);

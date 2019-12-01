@@ -19,8 +19,7 @@ import withReducer from "../../store/withReducer";
 import {createStore} from "redux";
 import {makeStyles} from "@material-ui/styles";
 import ToolOverviewTable from './ToolOverviewTable';
-import OrdersHeader from './ToolOverviewHeader.js';
-import AddDialog from './AddDialog';
+import ToolOverviewHeader from './ToolOverviewHeader.js';
 
 
 
@@ -49,9 +48,6 @@ function editTool(id) {
     alert("Edit tool with: "  + id);
 }
 
-function createTool() {
-    return(<AddDialog/>)
-}
 
 const useStyles = makeStyles(theme => ({
     root     : {
@@ -196,7 +192,7 @@ const useStyles = makeStyles(theme => ({
 function ToolOverview(props) {
     // Get access to the tools
     const dispatch = useDispatch();
-    const toolsRedux = useSelector(({toolReducer}) => toolReducer.tools.entities);
+    const tools = useSelector(({toolReducer}) => toolReducer.tools.tools);
     
     const classes = useStyles(props);
 
@@ -205,44 +201,7 @@ function ToolOverview(props) {
     }, [dispatch]);
     
  
-    function getTools(){
-        dispatch(Actions.getTools());
-    }
-
-    function renderToolList(empList){
-        return(
-            <table className='table' aria-labelledby="tabelLabel">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {empList.map(emp =>
-                    <tr key={emp.id}>
-                        <td>{emp.id}</td>
-                        <td>{emp.name}</td>
-                        <td>
-                            {emp.type}
-                        </td>
-                        <td>                            
-                            <button onClick={() => editTool(emp.id)} className="btn btn-info" type="button">Rediger</button>
-                        </td>
-                        <td>
-                            <button onClick={() => deleteTool(emp.id)} className="btn btn-info" type="button">Slet</button>
-                        </td>
-                        
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        )
-    }
-
+    
     return(
         <FusePageCarded
             classes={{
@@ -250,7 +209,7 @@ function ToolOverview(props) {
                 header : "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
             header={
-                <OrdersHeader/>
+                <ToolOverviewHeader/>
             }
             content={
                 <div>
@@ -262,10 +221,7 @@ function ToolOverview(props) {
                             color="secondary"
                             aria-label="add"
                             className={classes.addButton}
-                            onClick={() => dispatch(Actions.openNewAddDialog({
-                                start: new Date(),
-                                end  : new Date()
-                            }))}
+                            onClick={() => props.history.push('/tool/create')}
                         >
                             <Icon>add</Icon>
                         </Fab>

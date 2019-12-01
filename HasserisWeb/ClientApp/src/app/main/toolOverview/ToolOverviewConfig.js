@@ -18,6 +18,11 @@ export const ToolOverviewConfig = {
             path: '/tool/:ToolId',
             component: React.lazy(() => import('./Tool'))
         }
+        ,
+        {
+            path: '/tool/create',
+            component: React.lazy(() => import('./CreateTool'))
+        }
     ]
 };
 

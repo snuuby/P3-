@@ -7,7 +7,8 @@ const initialState = {
     searchText: '',
     loading: true,
     eventDialog: {
-        type : 'new',
+        type: 'new',
+        editted: false,
         props: {
             open: false
         },
@@ -94,7 +95,7 @@ const customerReducer = function (state = initialState, action) {
                 ...state,
                 searchText: action.searchText
             };
-            }
+        }
         case Actions.ADD_PUBLIC_CUSTOMER:
             {
                 return {
@@ -109,7 +110,14 @@ const customerReducer = function (state = initialState, action) {
                     searchText: action.searchText
                 };
             }
-
+        case Actions.EDIT_CUSTOMER:
+            {
+                return {
+                    ...state,
+                    searchText: action.searchText,
+                    editted: true,
+                };
+            }
         case Actions.OPEN_NEW_ADD_DIALOG:
         {
             return {

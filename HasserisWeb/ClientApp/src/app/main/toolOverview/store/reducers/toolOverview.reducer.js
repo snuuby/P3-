@@ -1,16 +1,16 @@
 import * as Actions from '../actions';
 
 const initialState = {
-    entities   : [],
+    tools   : [],
     loading: true,
-    toolData: null,
     eventDialog: {
         type : 'new',
         props: {
             open: false
         },
         data : null
-    }
+    },
+    searchText: '',
 };
 
 const toolReducer = function (state = initialState, action) {
@@ -18,7 +18,7 @@ const toolReducer = function (state = initialState, action) {
         
         case Actions.GET_TOOLS:
         {
-            const entities = action.payload.map((tool) => (
+            const tools = action.payload.map((tool) => (
                 {
                     ...tool
                 }
@@ -26,14 +26,22 @@ const toolReducer = function (state = initialState, action) {
 
             return {
                 ...state,
-                entities
+                tools
             };
         }
 
         case Actions.GET_TOOL:
             {
                 return Object.assign({}, state, {
-                    toolData: action.payload
+                    eventDialog: {
+                        type: 'new',
+                        props: {
+                            open: true,
+                        },
+                        data: {
+                            ...action.payload,
+                        },
+                    }
                 })
             }
         
