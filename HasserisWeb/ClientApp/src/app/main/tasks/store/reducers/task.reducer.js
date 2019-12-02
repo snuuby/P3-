@@ -30,29 +30,48 @@ const taskReducer = function (state = initialState, action) {
             }
         case Actions.GET_ALL_MOVING_TASKS:
             {
-                const movingTasks = action.payload.map((moving) => (
-                    {
-                        ...moving,
-                    }
-                ));
+                if (!Array.isArray(action.payload)) {
+                    return {
+                        ...state,
+                        movingTasks: { ...action.payload },
+                    };
+                }
+                else {
+                    const movingTasks = action.payload.map((moving) => (
+                        {
+                            ...moving,
+                        }
+                    ));
 
-                return {
-                    ...state,
-                    movingTasks
-                };
+                    return {
+                        ...state,
+                        movingTasks
+                    };
+                }
+
             }
         case Actions.GET_ALL_DELIVERY_TASKS:
             {
-                const deliveryTasks = action.payload.map((delivery) => (
-                    {
-                        ...delivery,
-                    }
-                ));
 
-                return {
-                    ...state,
-                    deliveryTasks
-                };
+                if (!Array.isArray(action.payload)) {
+                    return {
+                        ...state,
+                        deliveryTasks: { ...action.payload },
+                    };
+                }
+                else {
+                    const deliveryTasks = action.payload.map((delivery) => (
+                        {
+                            ...delivery,
+                        }
+                    ));
+
+                    return {
+                        ...state,
+                        deliveryTasks
+                    };
+                }
+
             }
 
         case Actions.GET_TASK:

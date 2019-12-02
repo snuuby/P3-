@@ -44,23 +44,23 @@ export function getMovingTasks() {
     const request = axios.get('task/moving');
     console.log(request);
     return (dispatch) => request.then((response) =>
-        Promise.all([
             dispatch({
                 type: GET_ALL_MOVING_TASKS,
                 payload: response.data,
             })
-        ]));
+        );
 }
 export function getDeliveryTasks() {
     const request = axios.get('task/delivery');
+    request.then(response => console.log(response.data));
+
     console.log(request);
     return (dispatch) => request.then((response) =>
-        Promise.all([
             dispatch({
                 type: GET_ALL_DELIVERY_TASKS,
                 payload: response.data,
             })
-        ]));
+        );
 }
 export function getAvailableEmployees() {
     const request = axios.get('employees/available');

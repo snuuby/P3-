@@ -13,7 +13,7 @@ function TaskOverviewTable(props)
     const dispatch = useDispatch();
     const movings = useSelector(({ taskReducer }) => taskReducer.tasks.movingTasks);
     const deliveries = useSelector(({ taskReducer }) => taskReducer.tasks.deliveryTasks);
-    const tasks = movings.concat(deliveries);
+    const tasks = checkTasksLengths();
 
     //const movingTasks = useSelector(({ taskReducer }) => taskReducer.tasks.movingTasks);
     //const tasks = deliveryTasks.concat(movingTasks);
@@ -29,7 +29,14 @@ function TaskOverviewTable(props)
         direction: 'asc',
         id       : null
     });
-
+    function checkTasksLengths() {
+        if (!Array.isArray(movings) || !Array.isArray(deliveries)) {
+            return movings;
+        }
+        else {
+            return movings.concat(deliveries);
+        }
+    }
     useEffect(() => {
         dispatch(Actions.getAllTasks());
     }, [dispatch]);
