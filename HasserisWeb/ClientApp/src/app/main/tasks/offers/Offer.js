@@ -16,6 +16,8 @@ import { Select } from '@material-ui/core';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import Checkbox from '@material-ui/core/Checkbox';
+import $ from 'jquery';
+
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
@@ -128,10 +130,153 @@ function Offer(props) {
         closeComposeDialog();
         
     }
+    function sendOffer() {
+        var headers = {
+            'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
 
+            'X-AgreementGrantToken': "z1ARsMw8pQbJ5dDtYY5XAn0ZoGC2M8dG8aprR7nkyT81",
+            'Content-Type': "application/json"
+        };
+        var invoice = {
+            "date": "2014-08-08",
+            "currency": "DKK",
+            "exchangeRate": 100,
+            "netAmount": 10.00,
+            "netAmountInBaseCurrency": 0.00,
+            "grossAmount": 12.50,
+            "marginInBaseCurrency": -46.93,
+            "marginPercentage": 0.0,
+            "vatAmount": 2.50,
+            "roundingAmount": 0.00,
+            "costPriceInBaseCurrency": 46.93,
+            "paymentTerms": {
+                "paymentTermsNumber": 1,
+                "daysOfCredit": 14,
+                "name": "Lobende maned 14 dage"
+            },
+            "customer": {
+                "customerNumber": 1
+            },
+            "recipient": {
+                "name": "Toj & Co Grossisten",
+                "address": "Vejlevej 21",
+                "zip": "7000",
+                "city": "Fredericia",
+                "vatZone": {
+                    "name": "Domestic",
+                    "vatZoneNumber": 1,
+                    "enabledForCustomer": true,
+                    "enabledForSupplier": true
+                }
+            },
+            "delivery": {
+                "address": form.StartAddress,
+                "zip": "2300",
+                "city": "Kbh S",
+                "country": "Denmark",
+                "deliveryDate": "2014-09-14"
+            },
+            "references": {
+                "other": "aaaa"
+            },
+            "layout": {
+                "layoutNumber": 21
+            },
+
+        };
+        console.log(invoice);
+        $(document).ready(function () {
+            $('#input').text(JSON.stringify(invoice, null, 4));
+            $.ajax({
+                url: "https://restapi.e-conomic.com/invoices/drafts",
+                dataType: "json",
+                headers: headers,
+                data: JSON.stringify(invoice),
+                contentType: 'application/json; charset=UTF-8',
+                type: "POST"
+            }).always(function (data) {
+                $('#output').text(JSON.stringify(data, null, 4));
+            });
+        });
+    }
+    function sendInvoice() {
+        var headers = {
+            'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
+
+            'X-AgreementGrantToken': "z1ARsMw8pQbJ5dDtYY5XAn0ZoGC2M8dG8aprR7nkyT81",
+            'Content-Type': "application/json"
+        };
+        var invoice = {
+            "date": "2014-08-08",
+            "currency": "DKK",
+            "exchangeRate": 100,
+            "netAmount": 10.00,
+            "netAmountInBaseCurrency": 0.00,
+            "grossAmount": 12.50,
+            "marginInBaseCurrency": -46.93,
+            "marginPercentage": 0.0,
+            "vatAmount": 2.50,
+            "roundingAmount": 0.00,
+            "costPriceInBaseCurrency": 46.93,
+            "paymentTerms": {
+                "paymentTermsNumber": 1,
+                "daysOfCredit": 14,
+                "name": "Lobende maned 14 dage"
+            },
+            "customer": {
+                "customerNumber": 1
+            },
+            "recipient": {
+                "name": "Toj & Co Grossisten",
+                "address": "Vejlevej 21",
+                "zip": "7000",
+                "city": "Fredericia",
+                "vatZone": {
+                    "name": "Domestic",
+                    "vatZoneNumber": 1,
+                    "enabledForCustomer": true,
+                    "enabledForSupplier": true
+                }
+            },
+            "delivery": {
+                "address": form.StartAddress ,
+                "zip": "2300",
+                "city": "Kbh S",
+                "country": "Denmark",
+                "deliveryDate": "2014-09-14"
+            },
+            "references": {
+                "other": "aaaa"
+            },
+            "layout": {
+                "layoutNumber": 21
+            },
+        
+        };
+            console.log(invoice);
+        $(document).ready(function () {
+            $('#input').text(JSON.stringify(invoice, null, 4));
+            $.ajax({
+                url: "https://restapi.e-conomic.com/invoices/drafts",
+                dataType: "json",
+                headers: headers,
+                data: JSON.stringify(invoice),
+                contentType: 'application/json; charset=UTF-8',
+                type: "POST"
+            }).always(function (data) {
+                $('#output').text(JSON.stringify(data, null, 4));
+            });
+        });
+}
 
     function handleChangeTab(event, tabValue) {
         setTabValue(tabValue);
+    }
+    function checkForInvoiceData() {
+        return form.StartAddress && form.StartZIP && 
+    }
+    function checkForOfferData() {
+        return form.StartAddress && form.StartZIP && 
     }
     return (
         <FusePageCarded
@@ -141,6 +286,7 @@ function Offer(props) {
             }}
             header={
                 <div className="flex flex-1 w-full items-center justify-between">
+                    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
 
                     <div className="flex flex-1 flex-col items-center sm:items-start">
 
@@ -150,7 +296,25 @@ function Offer(props) {
                                 Tilbud
                                 </Typography>
                         </FuseAnimate>
+                        <Button
+                            className={classes.formControl}
+                            variant="contained"
+                            color="primary"
+                            onClick={sendOffer}
+                            disabled={!checkForOffereData}
 
+                        >
+                            Send Tilbud til economic
+                                    </Button>
+                        <Button
+                            className={classes.formControl}
+                            variant="contained"
+                            color="primary"
+                            disabled={!checkForInvoiceData}
+                            onClick={sendInvoice}
+                        >
+                            Send Faktura til economic
+                                    </Button>
   
 
                     </div>
@@ -433,6 +597,7 @@ function Offer(props) {
                                     >
                                         GEM
                                     </Button>
+
                         </div>
 
                         </form>
