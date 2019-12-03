@@ -115,7 +115,7 @@ export function addInspectionReport(report) {
                 dispatch({
                     type: SAVE_INSPECTION_REPORT
                 })
-            ]).then(() => console.log("IMPLEMENT PUSH TO OVERVIEW")
+            ]).then(() => dispatch(getAllInspectionReports)
             ));
     }
 }

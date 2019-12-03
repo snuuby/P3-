@@ -155,7 +155,7 @@ function InspectionReport(props) {
     function handleCustomer(customer) {
         customer.preventDefault();
         if (customer.target.value != null) {
-            form.CustomerName = customer.target.value.Firstname + ' ' + customer.target.value.Lastname;
+            form.CustomerName = customer.target.value.CustomerType == "Private" ? customer.target.value.Firstname + ' ' + customer.target.value.Lastname : customer.target.value.Name;
         }
         else {
             form.CustomerName = '';

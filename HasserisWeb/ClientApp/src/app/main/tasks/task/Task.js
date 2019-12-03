@@ -37,7 +37,9 @@ const defaultFormState = {
     InspectionDate: new Date(),
     MovingDate: new Date(),
     DeliveryDate: new Date(),
-    InspectionReport: null,
+    InspectionReportID: null,
+    WasInspection: null,
+
     Offer: null,
     End: new Date(),
     Notes: '',

@@ -31,10 +31,10 @@ namespace HasserisWeb
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int offerID = temp.ID;
             Offer offer = PopulateOffer(temp);
-
-            Moving moving = (Moving)database.Tasks.FirstOrDefault(i => i.Offer.ID == offerID);
-            moving.Offer = offer;
-            database.Tasks.Update(moving);
+            offer.Sent = temp.Sent;
+            offer.InvoiceSent = temp.InvoiceSent;
+            offer.ID = offerID;
+            database.Offers.Update(offer);
             database.SaveChanges();
 
         }
@@ -44,10 +44,11 @@ namespace HasserisWeb
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Offer offer = PopulateOffer(temp);
-            Moving tempmoving = new Moving();
-            tempmoving.Phase = 2;
-            tempmoving.Offer = offer;
-            database.Tasks.Add(tempmoving);
+            Moving moving = new Moving();
+            moving.Phase = 2;
+            moving.Offer = offer;
+            moving.WithPacking = temp.WithPacking;
+            database.Tasks.Add(moving);
             database.SaveChanges();
         }
 
@@ -57,13 +58,13 @@ namespace HasserisWeb
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Offer offer = PopulateOffer(temp);
-            int inspectionID = temp.InspectionReport;
+            int inspectionID = temp.InspectionReportID;
             Moving task = (Moving)database.Tasks.FirstOrDefault(t => t.InspectionReport.ID == inspectionID);
             task.Phase = 2;
             task.Offer = offer;
+            task.Offer.InspectionReportID = temp.InspectionReportID;
             task.WithPacking = temp.WithPacking;
-            task.Offer.wasInspection = temp.wasInspection;
-            task.Offer.inspectionReport = temp.inspectionReport;
+            task.Offer.WasInspection = temp.WasInspection;
             database.Tasks.Update(task);
             database.SaveChanges();
         }

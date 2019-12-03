@@ -42,7 +42,10 @@ const defaultFormState = {
     Destination: null,
     ExpectedHours: 2,
     WithPacking: false,
-
+    InspectionReportID: null,
+    WasInspection: null,
+    Sent: false,
+    InvoiceSent: false,
     //Offer mail specification
     OfferType: '',
 
@@ -201,6 +204,7 @@ function Offer(props) {
                 $('#output').text(JSON.stringify(data, null, 4));
             });
         });
+        form.Sent = true;
     }
     function sendInvoice() {
         var headers = {
@@ -270,16 +274,17 @@ function Offer(props) {
                 $('#output').text(JSON.stringify(data, null, 4));
             });
         });
+        form.InvoiceSent = true;
 }
 
     function handleChangeTab(event, tabValue) {
         setTabValue(tabValue);
     }
     function checkForInvoiceData() {
-        return form.StartAddress && form.StartZIP;
+        return !form.Sent;
     }
     function checkForOfferData() {
-        return form.StartAddress && form.StartZIP; 
+        return form.Sent; 
     }
     function TaskSubmit(event) {
         event.preventDefault();
@@ -295,7 +300,6 @@ function Offer(props) {
             }}
             header={
                 <div className="flex flex-1 w-full items-center justify-between">
-                    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
 
                     <div className="flex flex-1 flex-col items-center sm:items-start">
 
@@ -307,7 +311,8 @@ function Offer(props) {
                         </FuseAnimate>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography variant="caption">
-                                {form.wasInspection && ('Var besigtigelsesrapport ID: ' + form.InspectionReport)}
+                                {form.WasInspection && ('Var besigtigelsesrapport ID: ' + form.InspectionReportID)}
+)}
                             </Typography>
                         </FuseAnimate>
                         <div>
@@ -319,7 +324,7 @@ function Offer(props) {
                                 disabled={!checkForOfferData}
 
                             >
-                                Send Tilbud til economic
+                                {form.Sent ? "Tilbuddet er sendt og afventer svar" : "Send Tilbud til E-conomic"}
                             </Button>
                             <Button
                                 className={classes.formControl}
@@ -328,7 +333,7 @@ function Offer(props) {
                                 disabled={!checkForInvoiceData}
                                 onClick={sendInvoice}
                             >
-                                Send Faktura til economic
+                                {form.Sent ? "Send Faktura til economic" : "Tilbuddet skal sendes før en faktura kan oprettes" }
                             </Button>
                         </div>
                         <div>
@@ -340,7 +345,7 @@ function Offer(props) {
                                 disabled={!canBeSubmitted()}
                                 onClick={TaskSubmit}
                             >
-                                Overfør til opgave
+                                {(form.InvoiceSent && form.Sent) ? "Overfør tilbud til Opgave" : "Tilbuddet skal sendes og faktureres inden opgaven kan oprettes"}
                             </Button>
                         </div>
                     </div>

@@ -99,6 +99,8 @@ const taskReducer = function (state = initialState, action) {
                             CustomerID: action.payload.Customer.ID,
                             EmployeeID: action.payload.Employees[0].ID,
                             CarID: action.payload.Equipment[0].ID,
+                            WasInspection: action.payload.WasInspection,
+                            WasOffer: action.payload.WasOffer,
                             ...action.payload
                         }
                     }
@@ -116,11 +118,12 @@ const taskReducer = function (state = initialState, action) {
                         data: {
                             CustomerName: action.payload.Customer.$type == "Priate" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
-                            InspectionReport: action.payload.ID,
+                            InspectionReportID: action.payload.ID,
                             CustomerID: action.payload.Customer.ID,
                             EmployeeID: action.payload.Employees[0].ID,
                             CarID: action.payload.Equipment[0].ID,
-                            wasInspection: true,
+                            WasInspection: true,
+                            WasOffer: false,
 
                             ...action.payload
                         }
@@ -140,12 +143,12 @@ const taskReducer = function (state = initialState, action) {
                             
                             CustomerName: action.payload.Customer.$type == "Priate" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
-                            InspectionReport: action.payload.ID,
+                            InspectionReportID: action.payload.ID,
                             CustomerID: action.payload.Customer.ID,
                             EmployeeID: action.payload.Employees[0].ID,
                             CarID: action.payload.Equipment[0].ID,
-                            wasInspection: true,
-
+                            WasInspection: action.payload.WasInspection,
+                            WasOffer: true,
                             ...action.payload
                         }
                     }

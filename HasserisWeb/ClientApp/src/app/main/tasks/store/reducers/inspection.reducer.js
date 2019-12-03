@@ -58,7 +58,7 @@ const inspectionReducer = function (state = initialState, action) {
                         },
                         made: true,
                         data: {
-                            CustomerName: action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname, 
+                            CustomerName: action.payload.Customer.CustomerType == "Private" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name, 
                             StartAddress: action.payload.StartingAddress.LivingAddress,
                             StartZIP: action.payload.StartingAddress.ZIP,
                             StartCity: action.payload.StartingAddress.City,
