@@ -353,7 +353,8 @@ function Customer(props) {
 
         );
     }
-    else if (form.CustomerType == "Business") {
+
+    else if (form.CustomerType == "Private") {
         return (
             <FusePageCarded
                 classes={{

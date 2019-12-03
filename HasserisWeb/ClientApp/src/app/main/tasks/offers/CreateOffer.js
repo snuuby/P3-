@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { TextField, Button, Dialog,Tab, Tabs, Tooltip, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
-import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
+import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy, CheckboxFormsy } from '@fuse';
 import { useForm } from '@fuse/hooks';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -23,17 +23,18 @@ const useStyles = makeStyles(theme => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
-    },
+    }
 }));
+
 const defaultFormState = {
     //Common task properties
     Name: '',
     CustomerName: '',
     CustomerMail: '',
     InspectionReport: null,
-    Employee: null,
-    Customer: null,
-    Car: null,
+    EmployeeID: null,
+    CustomerID: null,
+    CarID: null,
     Start: new Date(),
     End: new Date(),
     Notes: '',
@@ -41,7 +42,7 @@ const defaultFormState = {
     Image: '',
     Destination: null,
     ExpectedHours: null,
-
+    WithPacking: true,
     //Offer mail specification
     OfferType: '',
 
@@ -61,17 +62,15 @@ const defaultFormState = {
     quantity: null,
 };
 
-function OfferReport(props) {
+function Offer(props) {
     const classes = useStyles();
     const [tabValue, setTabValue] = useState(0);
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.offers.eventDialog);
+    const eventDialog = useSelector(({ offerReducer }) => offerReducer.offers.eventDialog);
 
-    const customers = useSelector(({ makeReducer }) => makeReducer.offers.customers);
-    const employees = useSelector(({ makeReducer }) => makeReducer.offers.availableEmployees);
-    const cars = useSelector(({ makeReducer }) => makeReducer.offers.availableCars);
+    const customers = useSelector(({ offerReducer }) => offerReducer.offers.customers);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -86,11 +85,11 @@ function OfferReport(props) {
             if (!eventDialog.data.wasInspection) {
                 dispatch(Actions.getCustomers());
                 setForm({
-                    ...defaultFormState,        
-                    ...eventDialog.data,
+                    ...defaultFormState,    
                 });
             }
             if (eventDialog.data.wasInspection) {
+                dispatch(Actions.getCustomers());
 
                 setForm({
                     ...eventDialog.data,
@@ -126,10 +125,16 @@ function OfferReport(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        if (form.wasInspection) {
+            dispatch(Actions.addOfferFromInspection(form));
+
+        }
+        else {
+            dispatch(Actions.addOffer(form));
+
+        }
         props.history.push('/offers/overview');
 
-        dispatch(Actions.addOffer(form));
-        
         closeComposeDialog();
         
     }
@@ -212,9 +217,9 @@ function OfferReport(props) {
 
                                         labelWidth={labelWidth}
                                     >
-                                        <MenuItem value="Private">Privat</MenuItem>
-                                        <MenuItem value="With Packing">Privat med nedpakning</MenuItem>
-                                        <MenuItem value="Business">Virksomhed</MenuItem>
+                                    <MenuItem value="Private">Privat</MenuItem>
+                                    <MenuItem value="Business">Virksomhed</MenuItem>
+                                    <MenuItem value="Public">Offentlig</MenuItem>
 
 
                                     </Select>
@@ -226,8 +231,8 @@ function OfferReport(props) {
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
                                         id="Customer"
-                                        name="Customer"
-                                        value={form.Customer}
+                                        name="CustomerID"
+                                    value={form.CustomerID}
                                         onChange={handleCustomer}
                                         required
 
@@ -236,7 +241,7 @@ function OfferReport(props) {
                                         <MenuItem value={null}>Ingen</MenuItem>
 
                                         customers && {customers.map(customer =>
-                                            <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                            <MenuItem value={customer.ID}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname : customer.ID + ' ' + customer.Name}</MenuItem>
                                         )}
 
                                     </Select>
@@ -441,6 +446,14 @@ function OfferReport(props) {
                                         shrink: true
                                     }}
                                 />
+                                <input
+                                    type="checkbox"
+                                    value={form.WithPacking}
+                                    onChange={handleChange}
+                                    name="WithPacking"
+                                    label="Med nedpakning?"
+                                />
+                                <label for="WithPacking">Med nedpakning?</label>
                                     </div>
                                 <Button
                                     className={classes.formControl}
@@ -463,4 +476,4 @@ function OfferReport(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(OfferReport);
+export default withReducer('offerReducer', reducer)(Offer);

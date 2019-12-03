@@ -27,7 +27,7 @@ namespace HasserisWeb.Controllers
         public string GetAllEmployees()
         {
             return JsonConvert.SerializeObject(database.Employees.Include(address => address.Address).
-                                                Include(contact => contact.ContactInfo).ToList());
+                                                Include(contact => contact.ContactInfo).Include(address => address.Address).ToList());
         }
         [Route("available")]
         public string GetAvailableEmployees()

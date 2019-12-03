@@ -34,12 +34,12 @@ namespace HasserisWeb
 
             Moving moving = (Moving)database.Tasks.FirstOrDefault(i => i.Offer.ID == offerID);
             moving.Offer = offer;
-            database.Update(moving);
+            database.Tasks.Update(moving);
             database.SaveChanges();
 
         }
         [HttpPost]
-        [Route("makenew")]
+        [Route("create")]
         public void MakeOffer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
@@ -52,23 +52,22 @@ namespace HasserisWeb
         }
 
         [HttpPost]
-        [Route("makefrominspection")]
+        [Route("create/from/inspection")]
         public void MakeFromInspectionReport([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Offer offer = PopulateOffer(temp);
-            int inspectionID = temp.InspectionReportID;
+            int inspectionID = temp.InspectionReport;
             Moving task = (Moving)database.Tasks.FirstOrDefault(t => t.InspectionReport.ID == inspectionID);
             task.Phase = 2;
             task.Offer = offer;
-            if (task.Offer.OfferType == "With Packing") {
-                task.WithPacking = true;
-            }
-            database.Tasks.Add(task);
+            task.WithPacking = temp.WithPacking;
+            task.Offer.wasInspection = temp.wasInspection;
+            task.Offer.inspectionReport = temp.inspectionReport;
+            database.Tasks.Update(task);
             database.SaveChanges();
         }
         public Offer PopulateOffer(dynamic temp) {
-            int customerID = temp.Customer.ID;
 
             //StartingAddress
             string Saddress = temp.StartAddress;
@@ -83,7 +82,7 @@ namespace HasserisWeb
             int expectedHours = temp.ExpectedHours;
             Address startingAddress = new Address(Saddress, SZIP, SCity);
             Address destination = new Address(Daddress, DZIP, DCity);
-
+            int customerID = temp.CustomerID;
             Customer tempCustomer = database.Customers.FirstOrDefault(cus => cus.ID == customerID);
             string inspectionDate = temp.InspectionDate;
             string movingDate = temp.MovingDate;

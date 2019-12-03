@@ -31,7 +31,12 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>()
                 .FirstOrDefault(c => c.ID == id));
         }
-
+        [Route("available")]
+        public string GetAvailableTools()
+        {
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>().
+                                            Where(tool => tool.IsAvailable).ToList());
+        }
         [Route("add")]
         public void CreateTool([FromBody]dynamic json)
         {

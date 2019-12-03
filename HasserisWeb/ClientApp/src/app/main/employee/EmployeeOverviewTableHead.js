@@ -27,10 +27,31 @@ const rows = [
     },
     {
         id            : 'type',
-        align         : 'right',
+        align         : 'left',
         disablePadding: false,
         label         : 'Type',
         sort          : true
+    },
+    {
+        id: 'available',
+        align: 'left',
+        disablePadding: false,
+        label: 'Tilgængelig',
+        sort: true
+    },
+    {
+        id: 'phonenumber',
+        align: 'left',
+        disablePadding: false,
+        label: 'Telefon',
+        sort: true
+    },
+    {
+        id: 'email',
+        align: 'left',
+        disablePadding: false,
+        label: 'E-mail',
+        sort: true
     }
 ];
 

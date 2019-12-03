@@ -23,7 +23,7 @@ function VehicleOverviewHeader(props)
                 </FuseAnimate>
 
                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                    <Typography className="hidden sm:flex" variant="h6">Køretøjs oversigt</Typography>
+                    <Typography className="hidden sm:flex" variant="h6">Bil oversigt</Typography>
                 </FuseAnimate>
             </div>
 

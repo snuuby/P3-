@@ -22,7 +22,7 @@ const rows = [
         id            : 'Available',
         align         : 'left',
         disablePadding: false,
-        label         : 'Tilgængelighed',
+        label         : 'Tilgængelig',
         sort          : true
     },
 ];

@@ -56,12 +56,10 @@ export function setVehicleOverviewSearchText(event)
 }
 
 // Action to add tool
-export function addVehicle(newVehicle) {
+export function addVehicle(vehicle) {
     return (dispatch, getState) => {
 
-        const request = axios.post('Vehicles/add', {
-            newVehicle
-        });
+        const request = axios.post('vehicles/add', vehicle);
 
         return request.then((response) =>
             Promise.all([

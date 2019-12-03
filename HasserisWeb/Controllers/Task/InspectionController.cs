@@ -36,7 +36,7 @@ namespace HasserisWeb
 
             Moving moving = (Moving)database.Tasks.FirstOrDefault(i => i.InspectionReport.ID == inspectionID);
             moving.InspectionReport = inspectionReport;
-            database.Update(moving);
+            database.Tasks.Update(moving);
             database.SaveChanges();
 
         }
@@ -68,9 +68,9 @@ namespace HasserisWeb
             Address startingAddress = new Address(Saddress, SZIP, SCity);
             Address destination = new Address(Daddress, DZIP, DCity);
 
-            int customerID = temp.Customer.ID;
-            int employeeID = temp.Employee.ID;
-            int carID = temp.Car.ID;
+            int customerID = temp.CustomerID;
+            int employeeID = temp.EmployeeID;
+            int carID = temp.CarID;
             Customer tempCustomer = database.Customers.FirstOrDefault(cus => cus.ID == customerID);
             Employee tempEmployee= database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
             Vehicle tempCar= database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);

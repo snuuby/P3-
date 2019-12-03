@@ -71,12 +71,27 @@ export function getCustomers() {
     const request = axios.get('customers/all');
     request.then(response => console.log(response.data));
 
+
+    
     return (dispatch) =>
-        request.then((response) =>
+        request.then((response) => {
+            for (var i = 0; i < response.data.length; i++) {
+                if (response.data[i].$type == 'HasserisWeb.Private, HasserisWeb') {
+                    response.data[i].CustomerType = "Private";
+                }
+                else if (response.data[i].$type == 'HasserisWeb.Public, HasserisWeb') {
+                    response.data[i].CustomerType = "Public";
+                }
+                else {
+                    response.data[i].CustomerType = "Business";
+                }
+            }
             dispatch({
                 type: GET_CUSTOMERS,
                 payload: response.data
             })
+        }
+
         );
 }
 export function getAvailableCars() {
@@ -106,7 +121,6 @@ export function addInspectionReport(report) {
 }
 export function editInspectionReport(report) {
     return (dispatch, getState) => {
-        console.log("a");
         const request = axios.post('inspection/edit', report);
 
         return request.then((response) =>

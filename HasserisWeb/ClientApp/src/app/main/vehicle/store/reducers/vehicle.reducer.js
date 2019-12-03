@@ -17,9 +17,17 @@ const vehicleReducer = function (state = initialState, action) {
     switch (action.type) {
         
         case Actions.GET_VEHICLES:
-        {
+            {
+                if (!Array.isArray(action.payload)) {
+                    return {
+                        ...state,
+                        Available: action.payload.IsAvailable ? "Yes" : "No",
+                        vehicles: { ...action.payload },
+                    };
+                }
             const vehicles = action.payload.map((vehicle) => (
                 {
+                    Available: vehicle.IsAvailable ? "Yes" : "No",
                     ...vehicle
                 }
             ));
@@ -39,7 +47,7 @@ const vehicleReducer = function (state = initialState, action) {
                             open: true,
                         },
                         data: {
-                            Available: action.payload.isAvailable,
+                            Available: action.payload.isAvailable ? "Yes" : "No",
                             ...action.payload,
                         },
                     }

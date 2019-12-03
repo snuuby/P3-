@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { TextField, Button, Tab, Tabs, Tooltip, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, FormControlLabel, Switch } from '@material-ui/core';
-import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy } from '@fuse';
+import { FuseAnimate, FusePageCarded, FuseChipSelect, SelectFormsy, CheckboxFormsy } from '@fuse';
 import { useForm } from '@fuse/hooks';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 const defaultFormState = {
     //Common task properties
     Customer: null,
+    CustomerID: null,
     CustomerName: '',
     CustomerMail: '',
     Start: new Date(),
@@ -40,6 +41,7 @@ const defaultFormState = {
     Image: '',
     Destination: null,
     ExpectedHours: 2,
+    WithPacking: false,
 
     //Offer mail specification
     OfferType: '',
@@ -69,9 +71,9 @@ function Offer(props) {
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.offers.eventDialog);
+    const eventDialog = useSelector(({ offerReducer }) => offerReducer.offers.eventDialog);
 
-    const customers = useSelector(({ makeReducer }) => makeReducer.offers.customers);
+    const customers = useSelector(({ offerReducer }) => offerReducer.offers.customers);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -125,7 +127,8 @@ function Offer(props) {
     function handleSubmit(event) {
         event.preventDefault();
 
-        dispatch(Actions.editOffer(event));
+        dispatch(Actions.editOffer(form));
+        props.history.push('/offers/overview');
         
         closeComposeDialog();
         
@@ -273,10 +276,16 @@ function Offer(props) {
         setTabValue(tabValue);
     }
     function checkForInvoiceData() {
-        return form.StartAddress && form.StartZIP && 
+        return form.StartAddress && form.StartZIP;
     }
     function checkForOfferData() {
-        return form.StartAddress && form.StartZIP && 
+        return form.StartAddress && form.StartZIP; 
+    }
+    function TaskSubmit(event) {
+        event.preventDefault();
+        dispatch(Actions.addTaskFromOffer(form));
+
+        props.history.push('/Offers/Create/');
     }
     return (
         <FusePageCarded
@@ -296,27 +305,44 @@ function Offer(props) {
                                 Tilbud
                                 </Typography>
                         </FuseAnimate>
-                        <Button
-                            className={classes.formControl}
-                            variant="contained"
-                            color="primary"
-                            onClick={sendOffer}
-                            disabled={!checkForOffereData}
+                        <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                            <Typography variant="caption">
+                                {form.wasInspection && ('Var besigtigelsesrapport ID: ' + form.InspectionReport)}
+                            </Typography>
+                        </FuseAnimate>
+                        <div>
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                onClick={sendOffer}
+                                disabled={!checkForOfferData}
 
-                        >
-                            Send Tilbud til economic
-                                    </Button>
-                        <Button
-                            className={classes.formControl}
-                            variant="contained"
-                            color="primary"
-                            disabled={!checkForInvoiceData}
-                            onClick={sendInvoice}
-                        >
-                            Send Faktura til economic
-                                    </Button>
-  
-
+                            >
+                                Send Tilbud til economic
+                            </Button>
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                disabled={!checkForInvoiceData}
+                                onClick={sendInvoice}
+                            >
+                                Send Faktura til economic
+                            </Button>
+                        </div>
+                        <div>
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                disabled={!canBeSubmitted()}
+                                onClick={TaskSubmit}
+                            >
+                                Overfør til opgave
+                            </Button>
+                        </div>
                     </div>
                 </div>
             }
@@ -353,8 +379,9 @@ function Offer(props) {
                                         labelWidth={labelWidth}
                                     >
                                         <MenuItem value="Private">Privat</MenuItem>
-                                        <MenuItem value="With Packing">Privat med nedpakning</MenuItem>
                                         <MenuItem value="Business">Virksomhed</MenuItem>
+                                        <MenuItem value="Public">Offentlig</MenuItem>
+
 
 
                                     </Select>
@@ -367,8 +394,8 @@ function Offer(props) {
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
                                         id="Customer"
-                                        name="Customer"
-                                        value={form.Customer}
+                                        name="CustomerID"
+                                        value={form.CustomerID}
                                         onChange={handleChange}
                                         required
 
@@ -377,7 +404,7 @@ function Offer(props) {
                                         <MenuItem value={null}>Ingen</MenuItem>
 
                                         customers && {customers.map(customer =>
-                                            <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
+                                            <MenuItem value={customer.ID}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname : customer.ID + ' ' + customer.Name}</MenuItem>
                                         )}
 
                                     </Select>
@@ -442,7 +469,8 @@ function Offer(props) {
                                                 shrink: true
                                             }}
                                             required
-                                        />
+                                />
+
                                         <TextField
                                             id="StartCity"
                                             label="Fra by"
@@ -584,8 +612,14 @@ function Offer(props) {
                                             shrink: true
                                         }}
                                     />
-
-
+                                <input
+                                    type="checkbox"
+                                    value={form.WithPacking}
+                                    onChange={handleChange}
+                                    name="WithPacking"
+                                    label="Med nedpakning?"
+                                />
+                                <label for="WithPacking">Med nedpakning?</label>
 
                                 </div>
                                     <Button
@@ -610,4 +644,4 @@ function Offer(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(Offer);
+export default withReducer('offerReducer', reducer)(Offer);

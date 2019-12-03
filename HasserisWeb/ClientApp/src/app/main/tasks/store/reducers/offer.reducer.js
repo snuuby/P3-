@@ -30,6 +30,12 @@ const offerReducer = function (state = initialState, action) {
             }
         case Actions.GET_ALL_OFFERS:
             {
+                if (!Array.isArray(action.payload)) {
+                    return {
+                        ...state,
+                        offers: { ...action.payload },
+                    };
+                }
                 const offers = action.payload.map((offer) => (
                     {
                         ...offer
@@ -63,6 +69,7 @@ const offerReducer = function (state = initialState, action) {
                             DestinationZIP: action.payload.Destination.ZIP,
                             DestinationCity: action.payload.Destination.City,
                             Customer: action.payload.Customer,
+                            CustomerID: action.payload.Customer.ID,
                             CustomerName: action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
                             ...action.payload
@@ -96,14 +103,9 @@ const offerReducer = function (state = initialState, action) {
                             open: true
                         },
                         data: {
-                            StartAddress: action.payload.StartingAddress.LivingAddress,
-                            StartZIP: action.payload.StartingAddress.ZIP,
-                            StartCity: action.payload.StartingAddress.City,
-                            DestinationAddress: action.payload.Destination.LivingAddress,
-                            DestinationZIP: action.payload.Destination.ZIP,
-                            DestinationCity: action.payload.Destination.City,
-                            CustomerName: action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname,
+                            CustomerName: action.payload.Customer.CustomerType == "Private" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
+                            CustomerID: action.payload.Customer.ID,
                             InspectionReport: action.payload.ID,
                             wasInspection: true,
                             ExpirationDate: moment(action.payload.MovingDate).add(14, 'days').

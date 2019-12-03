@@ -17,9 +17,19 @@ const toolReducer = function (state = initialState, action) {
     switch (action.type) {
         
         case Actions.GET_TOOLS:
-        {
+            {
+                if (!Array.isArray(action.payload)) {
+                    return {
+                        ...state,
+                        tools: {
+                            Available: action.payload.IsAvailable ? "Yes" : "No",
+                            ...action.payload
+                        },
+                    };
+                }
             const tools = action.payload.map((tool) => (
                 {
+                    Available: tool.IsAvailable ? "Yes" : "No",
                     ...tool
                 }
             ));
@@ -39,7 +49,7 @@ const toolReducer = function (state = initialState, action) {
                             open: true,
                         },
                         data: {
-                            Available: action.payload.isAvailable,
+                            Available: action.payload.IsAvailable ? "Yes" : "No",
                             ...action.payload,
                         },
                     }

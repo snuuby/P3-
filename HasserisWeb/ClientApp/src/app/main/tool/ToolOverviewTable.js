@@ -136,7 +136,7 @@ function ToolOverviewTable(props)
                                         }
                                         case 'Available':
                                         {
-                                            return e.IsAvailable;
+                                            return e.Available;
                                         }
                                         default:
                                         {
@@ -176,7 +176,7 @@ function ToolOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.IsAvailable}
+                                                {n.Available == "Yes" ? "Ja" : "Nej"}
                                             </TableCell>
 
                                         </TableRow>

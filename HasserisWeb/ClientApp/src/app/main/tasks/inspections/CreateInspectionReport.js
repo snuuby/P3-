@@ -32,6 +32,7 @@ const defaultFormState = {
     Employee: null,
     Customer: null,
     Car: null,
+    Tool: null,
     InspectionDate: new Date(),
     MovingDate: new Date(),
     End: new Date(),
@@ -63,11 +64,11 @@ function InspectionReport(props) {
 
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
-    const eventDialog = useSelector(({ makeReducer }) => makeReducer.inspections.eventDialog);
+    const eventDialog = useSelector(({ inspectionReducer }) => inspectionReducer.inspections.eventDialog);
 
-    const customers = useSelector(({ makeReducer }) => makeReducer.inspections.customers);
-    const employees = useSelector(({ makeReducer }) => makeReducer.inspections.availableEmployees);
-    const cars = useSelector(({ makeReducer }) => makeReducer.inspections.availableCars);
+    const customers = useSelector(({ inspectionReducer }) => inspectionReducer.inspections.customers);
+    const employees = useSelector(({ inspectionReducer }) => inspectionReducer.inspections.availableEmployees);
+    const cars = useSelector(({ inspectionReducer }) => inspectionReducer.inspections.availableCars);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -85,6 +86,8 @@ function InspectionReport(props) {
                 dispatch(Actions.getAvailableEmployees());
                 dispatch(Actions.getAvailableCars());
                 dispatch(Actions.getCustomers());
+                dispatch(Actions.getAvailableTools());
+
                 setForm({
                     ...defaultFormState,        
                 });
@@ -112,7 +115,7 @@ function InspectionReport(props) {
 
     function canBeSubmitted() {
         return (
-            form.Customer && form.Car && form.Employee 
+            form.CustomerID && form.CarID && form.EmployeeID 
         );
     }
 
@@ -153,13 +156,17 @@ function InspectionReport(props) {
 
 
                         <div className="flex flex-col min-w-0 items-center sm:items-start">
-
+                            <FuseAnimate animation="transition.slideRightIn" delay={300}>
+                                <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/inspections/overview" color="inherit">
+                                    <Icon className="mr-4 text-20">arrow_back</Icon>
+                                    Besigtigelsesrapporter
+                                </Typography>
+                            </FuseAnimate>
                             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                 <Typography className="text-16 sm:text-20 truncate">
                                     Lav besigtigelsesrapport
                                     </Typography>
                             </FuseAnimate>
-
                         </div>
                     </div>
                 </div>
@@ -320,8 +327,8 @@ function InspectionReport(props) {
                                             <Select
                                                 labelId="demo-simple-select-outlined-label"
                                                 id="Customer"
-                                                name="Customer"
-                                                value={form.Customer}
+                                                name="CustomerID"
+                                                value={form.CustomerID}
                                                 onChange={handleChange}
                                                 required
 
@@ -330,7 +337,7 @@ function InspectionReport(props) {
                                                 <MenuItem value={null}>Ingen</MenuItem>
     
                                                 customers && {customers.map(customer =>
-                                                    <MenuItem value={customer}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname : customer.Name}</MenuItem>
+                                                    <MenuItem value={customer.ID}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname + ' ' + customer.Lastname : customer.ID + ' ' + customer.Name}</MenuItem>
                                                 ) }
 
                                             </Select>
@@ -342,9 +349,9 @@ function InspectionReport(props) {
                                             <Select
                                                 labelId="demo-simple-select-outlined-label"
                                                 id="Employee"
-                                                name="Employee"                                            
+                                                name="EmployeeID"                                            
                                                 onChange={handleChange}
-                                                value={form.Employee}
+                                                value={form.EmployeeID}
                                                 required
 
                                                 labelWidth={labelWidth}
@@ -352,7 +359,7 @@ function InspectionReport(props) {
                                                 <MenuItem value={null}>Ingen</MenuItem>
         
                                                 employees && {employees.map(employee => 
-                                                    <MenuItem value={employee}>{employee.ID + ' ' + employee.Firstname}</MenuItem>
+                                                    <MenuItem value={employee.ID}>{employee.ID + ' ' + employee.Firstname + ' ' + employee.Lastname}</MenuItem>
                                                 )}
 
                                             </Select>
@@ -364,8 +371,8 @@ function InspectionReport(props) {
                                                 <Select
                                                     labelId="demo-simple-select-outlined-label"
                                                     id="Car"
-                                                    name="Car"   
-                                                    value={form.Car}
+                                                    name="CarID"   
+                                                    value={form.CarID}
                                                     onChange={handleChange}
                                                     labelWidth={labelWidth}
                                                     required
@@ -373,11 +380,12 @@ function InspectionReport(props) {
                                                 <MenuItem value={null}>Ingen</MenuItem>
 
                                                     cars && {cars.map(car =>
-                                                        <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
+                                                        <MenuItem value={car.ID}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
                                                     )}
 
                                                 </Select>
-                                        </FormControl>
+                                </FormControl>
+
                                     </div>
 
                                 <TextField
@@ -389,7 +397,8 @@ function InspectionReport(props) {
                                     onChange={handleChange}
                                     multiline rows={5}
                                     variant="outlined"
-                                    fullWidth
+                                fullWidth
+                                required
                                 />
                                 
 
@@ -401,7 +410,6 @@ function InspectionReport(props) {
                                     variant="contained"
                                     color="primary"
                                     type="submit"
-                                    disabled={!canBeSubmitted()}
                                 >
                                     Tilføj
                                 </Button>
@@ -417,4 +425,4 @@ function InspectionReport(props) {
     );
 }
 
-export default withReducer('makeReducer', reducer)(InspectionReport);
+export default withReducer('inspectionReducer', reducer)(InspectionReport);

@@ -31,6 +31,27 @@ const rows = [
         disablePadding: false,
         label         : 'Lånte kasser',
         sort          : true
+    }, 
+    {
+        id: 'email',
+        align: 'left',
+        disablePadding: false,
+        label: 'E-mail',
+        sort: true
+    },
+    {
+        id: 'phonenumber',
+        align: 'left',
+        disablePadding: false,
+        label: 'Telefon',
+        sort: true
+    },
+    {
+        id: 'CVR/EAN',
+        align: 'left',
+        disablePadding: false,
+        label: 'CVR/EAN',
+        sort: true
     },
 ];
 

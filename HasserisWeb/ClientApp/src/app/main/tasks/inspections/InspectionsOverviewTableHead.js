@@ -15,7 +15,7 @@ const rows = [
         id: 'address',
         align: 'left',
         disablePadding: false,
-        label: 'Start addresse',
+        label: 'Addresse',
         sort: true
     },
     {
@@ -39,6 +39,7 @@ const rows = [
         label         : 'Bil',
         sort          : true
     },
+
 ];
 
 const useStyles = makeStyles(theme => ({
