@@ -120,62 +120,27 @@ function CreateCustomer(props) {
     function saveToEconomic() {
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
-
             'X-AgreementGrantToken': "z1ARsMw8pQbJ5dDtYY5XAn0ZoGC2M8dG8aprR7nkyT81",
             'Content-Type': "application/json"
         };
         var invoice = {
-            "date": "2014-08-08",
             "currency": "DKK",
-            "exchangeRate": 100,
-            "netAmount": 10.00,
-            "netAmountInBaseCurrency": 0.00,
-            "grossAmount": 12.50,
-            "marginInBaseCurrency": -46.93,
-            "marginPercentage": 0.0,
-            "vatAmount": 2.50,
-            "roundingAmount": 0.00,
-            "costPriceInBaseCurrency": 46.93,
+            "name": form.Firstname + form.Lastname,
             "paymentTerms": {
                 "paymentTermsNumber": 1,
-                "daysOfCredit": 14,
-                "name": "Lobende maned 14 dage"
             },
-            "customer": {
-                "customerNumber": 1
+            "customerGroup": {
+                "customerGroupNumber": 1
             },
-            "recipient": {
-                "name": "Toj & Co Grossisten",
-                "address": "Vejlevej 21",
-                "zip": "7000",
-                "city": "Fredericia",
-                "vatZone": {
-                    "name": "Domestic",
-                    "vatZoneNumber": 1,
-                    "enabledForCustomer": true,
-                    "enabledForSupplier": true
-                }
+            "vatZone": {
+                "vatZoneNumber": 1
             },
-            "delivery": {
-                "address": form.StartAddress,
-                "zip": "2300",
-                "city": "Kbh S",
-                "country": "Denmark",
-                "deliveryDate": "2014-09-14"
-            },
-            "references": {
-                "other": "aaaa"
-            },
-            "layout": {
-                "layoutNumber": 21
-            },
-
         };
-        console.log(invoice);
+        console.log(saveToEconomic);
         $(document).ready(function () {
             $('#input').text(JSON.stringify(invoice, null, 4));
             $.ajax({
-                url: "https://restapi.e-conomic.com/invoices/drafts",
+                url: "https://restapi.e-conomic.com//customers",
                 dataType: "json",
                 headers: headers,
                 data: JSON.stringify(invoice),
