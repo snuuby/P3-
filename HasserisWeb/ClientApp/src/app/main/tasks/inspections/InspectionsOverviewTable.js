@@ -134,7 +134,7 @@ function InspectionsOverviewTable(props)
                                         }
                                         case 'customer':
                                         {
-                                                return e.Customer.$type == "HasserisWeb.Private, HasserisWeb" ? e.Customer.Firstname + ' ' + e.Customer.Lastname : e.Customer.Name;
+                                            return e.Customer.Firstname;
                                         }
                                         case 'employee':
                                         {
@@ -183,16 +183,16 @@ function InspectionsOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.Customer.$type == "HasserisWeb.Private, HasserisWeb" ? n.Customer.Firstname + ' ' + n.Customer.Lastname : n.Customer.Name}
+                                                {n.Customer.Firstname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>
-                                                {n.Employee.Firstname + ' ' + n.Employee.Lastname}
+                                                {n.Employee.Firstname}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.Car.Model + ' ' + n.Car.RegNum}
+                                                {n.Car.Model}
                                             </TableCell>
 
 

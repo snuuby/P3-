@@ -133,24 +133,16 @@ function CustomerOverviewTable(props)
                                         }
                                         case 'navn':
                                         {
-                                                return e.CustomerType == "Private" ? e.Firstname + ' ' + e.Lastname : e.Name;;
+                                                return e.CustomerType == "Private" ? e.Firstname + ' ' + e.Lastname : e.Name;
                                         }
                                         case 'type':
                                         {
-                                            return e.$type;
+                                            return e.CustomerType;
                                         }
                                         case 'lentboxes':
                                         {
                                             return e.LentBoxes;
-                                            }
-                                        case 'email':
-                                            {
-                                                return e.ContactInfo.Email;
-                                            }
-                                        case 'lentboxes':
-                                            {
-                                                return e.ContactInfo.PhoneNumber;
-                                            }
+                                        }
 
                                         default:
                                         {
@@ -186,7 +178,7 @@ function CustomerOverviewTable(props)
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">
-                                                {n.CustomerType == "Private" ? n.Firstname + ' ' + n.Lastname : n.Name}
+                                                {n.CustomerType == "Private" ?  n.Firstname + ' ' + n.Lastname : n.Name}
                                             </TableCell>
 
 
@@ -198,15 +190,7 @@ function CustomerOverviewTable(props)
                                             <TableCell component="th" scope="row">
                                                 {n.LentBoxes}
                                             </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                {n.ContactInfo.Email}
-                                            </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                {n.ContactInfo.PhoneNumber}
-                                            </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                {n.CustomerType == "Business" ? n.CVR : n.EAN}
-                                            </TableCell>
+
 
                                         </TableRow>
                                     );

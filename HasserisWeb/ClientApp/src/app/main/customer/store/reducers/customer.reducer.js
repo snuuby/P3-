@@ -20,13 +20,7 @@ const customerReducer = function (state = initialState, action) {
     switch (action.type) {
 
         case Actions.GET_PRIVATE_CUSTOMERS:
-            {
-                if (!Array.isArray(action.payload)) {
-                    return {
-                        ...state,
-                        privateCustomers: { Type: "Private", ...action.payload },
-                    };
-                }
+        {
             const privateCustomers = action.payload.map((customers) => (
                 {
                     CustomerType: "Private",
@@ -41,12 +35,6 @@ const customerReducer = function (state = initialState, action) {
             }
         case Actions.GET_BUSINESS_CUSTOMERS:
             {
-                if (!Array.isArray(action.payload)) {
-                    return {
-                        ...state,
-                        businessCustomers: { Type: "Business",...action.payload },
-                    };
-                }
                 const businessCustomers = action.payload.map((customers) => (
                     {
                         CustomerType: "Business",
@@ -61,16 +49,9 @@ const customerReducer = function (state = initialState, action) {
             }
         case Actions.GET_PUBLIC_CUSTOMERS:
             {
-                if (!Array.isArray(action.payload)) {
-                    return {
-                        ...state,
-                        publicCustomers: { Type: "Public", ...action.payload },
-                    };
-                }
                 const publicCustomers = action.payload.map((customers) => (
                     {
                         CustomerType: "Public",
-
                         ...customers
                     }
                 ));
@@ -95,7 +76,6 @@ const customerReducer = function (state = initialState, action) {
                             City: action.payload.Address.City,
                             Email: action.payload.ContactInfo.Email,
                             Phonenumber: action.payload.ContactInfo.PhoneNumber,
-
                             ...action.payload ,
                         },
                     }

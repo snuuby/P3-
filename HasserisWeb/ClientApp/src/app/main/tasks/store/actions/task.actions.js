@@ -5,13 +5,8 @@ export const ADD_DELIVERY_TASK = '[TASK] ADD DELIVERY TASK';
 export const SAVE_EDIT_DELIVERY_TASK = '[TASK] SAVE EDIT DELIVERY TASK';
 export const GET_AVAILABLE_EMPLOYEES = '[TASK] GET AVAILABLE EMPLOYEES';
 export const GET_AVAILABLE_CARS = '[TASK] GET AVAILABLE CARS';
-export const GET_AVAILABLE_TOOLS = '[TASK] GET AVAILABLE CARS';
-
 export const GET_CUSTOMERS = '[TASK] GET CUSTOMERS';
 export const GET_TASK = '[TASK] GET INSPECTION REPORT';
-export const INSPECTION_TO_TASK = '[TASK] COPY DATA FROM INSPECTION REPORT TO TASK';
-export const OFFER_TO_TASK = '[TASK] COPY DATA FROM OFFER TO TASK';
-
 export const GET_ALL_MOVING_TASKS = '[TASK] GET ALL MOVING TASKS';
 export const GET_ALL_DELIVERY_TASKS = '[TASK] GET ALL DELIVERY TASKS';
 
@@ -24,26 +19,7 @@ export function setTaskOverviewSearchText(event) {
         searchText: event.target.value
     }
 }
-export function addTaskFromInspectionReport(report) {
 
-    const request = axios.post('task/create/delivery/from/inspection', report);
-    return (dispatch) => request.then((response) =>
-        dispatch({
-            type: INSPECTION_TO_TASK,
-            payload: response.data,
-        })
-    );
-}
-export function addTaskFromOffer(offer) {
-
-    const request = axios.post('task/create/moving/from/offer', offer);
-    return (dispatch) => request.then((response) =>
-        dispatch({
-            type: OFFER_TO_TASK,
-            payload: response.data,
-        })
-    );
-}
 export function getTask(params)
 {
     const request = axios.get('task/' + params.TaskId);
@@ -118,18 +94,6 @@ export function getAvailableCars() {
         request.then((response) =>
             dispatch({
                 type: GET_AVAILABLE_CARS,
-                payload: response.data
-            })
-        );
-}
-export function getAvailableTools() {
-    const request = axios.get('Tools/available');
-    request.then(response => console.log(response.data));
-
-    return (dispatch) =>
-        request.then((response) =>
-            dispatch({
-                type: GET_AVAILABLE_TOOLS,
                 payload: response.data
             })
         );

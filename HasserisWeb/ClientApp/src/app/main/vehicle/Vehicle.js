@@ -92,7 +92,7 @@ function Vehicle(props) {
                             <FuseAnimate animation="transition.slideRightIn" delay={300}>
                                 <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/vehicle/overview" color="inherit">
                                     <Icon className="mr-4 text-20">arrow_back</Icon>
-                                    Biler
+                                    Køretøjer
                                 </Typography>
                             </FuseAnimate>
 
@@ -106,7 +106,7 @@ function Vehicle(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography variant="caption">
-                                    {'Bil ID: ' + form.ID}
+                                        {'Køretøj ID: ' + form.ID}
                                     </Typography>
                                 </FuseAnimate>
                             </div>

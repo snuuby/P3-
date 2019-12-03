@@ -136,11 +136,7 @@ function VehicleOverviewTable(props)
                                         case 'nummerplade':
                                         {
                                             return e.RegNum;
-                                            }
-                                        case 'available':
-                                            {
-                                                return e.Available;
-                                            }
+                                        }
                                         default:
                                         {
                                             return e[vehicle.ID];
@@ -185,9 +181,7 @@ function VehicleOverviewTable(props)
                                             <TableCell component="th" scope="row">
                                                 {n.RegNum}
                                             </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                {n.Available == "Yes" ? "Ja" : "Nej"}
-                                            </TableCell>
+
                                         </TableRow>
                                     );
                                 })}

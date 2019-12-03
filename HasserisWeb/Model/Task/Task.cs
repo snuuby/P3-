@@ -28,8 +28,6 @@ namespace HasserisWeb
         public string WorkPhoneNumber { get; set; }
         public string PhotoPath { get; set; }
         public int Phase { get; set; }
-        public bool wasInspection { get; set; }
-        public bool wasOffer { get; set; }
 
         protected Task()
         {

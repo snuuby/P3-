@@ -76,7 +76,7 @@ export function getCustomers() {
 export function addOffer(offer) {
     return (dispatch, getState) => {
 
-        const request = axios.post('offer/create', offer);
+        const request = axios.post('offer/makenew', offer);
 
         return request.then((response) =>
             Promise.all([
@@ -90,13 +90,12 @@ export function addOffer(offer) {
 export function addOfferFromInspection(offer) {
     return (dispatch, getState) => {
 
-        const request = axios.post('offer/create/from/inspection', offer);
+        const request = axios.post('offer/makefrominspection', offer);
 
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: INSPECTION_TO_OFFER,
-                    payload: response.data,
+                    type: SAVE_OFFER
                 })
             ]).then(() => console.log("IMPLEMENT PUSH TO OVERVIEW")
             ));
@@ -104,7 +103,7 @@ export function addOfferFromInspection(offer) {
 }
 export function editOffer(report) {
     return (dispatch, getState) => {
-        const request = axios.post('offer/edit', report);
+        const request = axios.post('Offer/edit', report);
 
         return request.then((response) =>
             Promise.all([

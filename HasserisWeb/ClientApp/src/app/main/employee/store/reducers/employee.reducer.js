@@ -17,17 +17,9 @@ const overviewReducer = function (state = initialState, action) {
     switch (action.type) {
         
         case Actions.GET_EMPLOYEES:
-            {
-                if (!Array.isArray(action.payload)) {
-                    return {
-                        Available: action.payload.IsAvailable ? "Yes" : "No",
-                        ...state,
-                        employees: { ...action.payload },
-                    };
-                }
+        {
             const employees = action.payload.map((employee) => (
                 {
-                    Available: employee.IsAvailable ? "Yes" : "No",
                     ...employee
                 }
             ));
@@ -52,7 +44,7 @@ const overviewReducer = function (state = initialState, action) {
                             City: action.payload.Address.City,
                             Email: action.payload.ContactInfo.Email,
                             Phonenumber: action.payload.ContactInfo.PhoneNumber,
-                            Available: action.payload.IsAvailable ? "Yes" : "No",
+                            Available: action.payload.isAvailable,
                             ...action.payload ,
                         }
                     }

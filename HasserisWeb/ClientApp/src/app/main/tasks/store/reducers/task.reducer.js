@@ -3,7 +3,6 @@ import * as Actions from '../actions';
 const initialState = {
     availableEmployees: [],
     movingTasks: [],
-    availableTools: [],
     deliveryTasks: [],
     availableCars: [],
     customers: [],
@@ -96,61 +95,12 @@ const taskReducer = function (state = initialState, action) {
                             Employee: action.payload.Employees[0],
                             Car: action.payload.Equipment[0],
                             InspectionDate: action.payload.InspectionDate,
-                            CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employees[0].ID,
-                            CarID: action.payload.Equipment[0].ID,
                             ...action.payload
                         }
                     }
                 };
             }
-        case Actions.INSPECTION_TO_TASK:
-            {
-                return {
-                    ...state,
-                    eventDialog: {
-                        type: 'new',
-                        props: {
-                            open: true
-                        },
-                        data: {
-                            CustomerName: action.payload.Customer.$type == "Priate" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
-                            CustomerMail: action.payload.Customer.ContactInfo.Email,
-                            InspectionReport: action.payload.ID,
-                            CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employees[0].ID,
-                            CarID: action.payload.Equipment[0].ID,
-                            wasInspection: true,
 
-                            ...action.payload
-                        }
-                    }
-                };
-            }
-        case Actions.OFFER_TO_TASK:
-            {
-                return {
-                    ...state,
-                    eventDialog: {
-                        type: 'new',
-                        props: {
-                            open: true
-                        },
-                        data: {
-                            
-                            CustomerName: action.payload.Customer.$type == "Priate" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
-                            CustomerMail: action.payload.Customer.ContactInfo.Email,
-                            InspectionReport: action.payload.ID,
-                            CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employees[0].ID,
-                            CarID: action.payload.Equipment[0].ID,
-                            wasInspection: true,
-
-                            ...action.payload
-                        }
-                    }
-                };
-            }
         case Actions.GET_AVAILABLE_EMPLOYEES:
             {
                 return Object.assign({}, state, {
@@ -161,12 +111,6 @@ const taskReducer = function (state = initialState, action) {
             {
                 return Object.assign({}, state, {
                     availableCars: action.payload
-                })
-            }
-        case Actions.GET_AVAILABLE_TOOLS:
-            {
-                return Object.assign({}, state, {
-                    availableTools: action.payload
                 })
             }
         case Actions.GET_CUSTOMERS:

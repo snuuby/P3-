@@ -29,16 +29,9 @@ const rows = [
         id            : 'plate',
         align         : 'left',
         disablePadding: false,
-        label         : 'Nummerplade',
+        label         : 'Plate',
         sort          : true
     },
-    {
-        id: 'available',
-        align: 'left',
-        disablePadding: false,
-        label: 'Tilgængelig',
-        sort: true
-    }
 ];
 
 const useStyles = makeStyles(theme => ({

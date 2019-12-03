@@ -142,7 +142,7 @@ function OffersOverviewTable(props)
                                         }
                                         case 'customer':
                                         {
-                                                return e.Customer.$type == "HasserisWeb.Private, HasserisWeb" ? e.Customer.Firstname + ' ' + e.Customer.Lastname : e.Customer.Name;
+                                                return e.Customer.CustomerType == "Private" ? e.Customer.Firstname + ' ' + e.Customer.Lastname : e.Customer.Name;
                                         }
 
                                         default:

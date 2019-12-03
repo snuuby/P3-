@@ -136,19 +136,7 @@ function EmployeeOverviewTable(props)
                                         case 'type':
                                         {
                                             return e.Type;
-                                            }
-                                        case 'available':
-                                            {
-                                                return e.Available;
-                                            }
-                                        case 'phonenumber':
-                                            {
-                                                return e.ContactInfo.PhoneNumber;
-                                            }
-                                        case 'email':
-                                            {
-                                                return e.ContactInfo.Email;
-                                            }
+                                        }
                                         default:
                                         {
                                             return e[employee.Id];
@@ -194,15 +182,6 @@ function EmployeeOverviewTable(props)
                                                 {n.Type}
                                             </TableCell>
 
-                                            <TableCell component="th" scope="row">
-                                                {n.Available}
-                                            </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                {n.ContactInfo.PhoneNumber}
-                                            </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                {n.ContactInfo.Email}
-                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}

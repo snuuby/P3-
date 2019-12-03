@@ -31,7 +31,7 @@ function TaskOverviewTable(props)
     });
     function checkTasksLengths() {
         if (!Array.isArray(movings) || !Array.isArray(deliveries)) {
-            return movings + deliveries;
+            return movings;
         }
         else {
             return movings.concat(deliveries);

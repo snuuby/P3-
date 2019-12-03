@@ -27,11 +27,6 @@ const defaultFormState = {
     Employee: null,
     Customer: null,
     Car: null,
-    Tool: null,
-    EmployeeID: null,
-    CustomerID: null,
-    CarID: null,
-    ToolID: null,
     InspectionDate: new Date(),
     MovingDate: new Date(),
     DeliveryDate: new Date(),
@@ -72,8 +67,6 @@ function CreateTask(props) {
     const customers = useSelector(({ taskReducer }) => taskReducer.tasks.customers);
     const employees = useSelector(({ taskReducer }) => taskReducer.tasks.availableEmployees);
     const cars = useSelector(({ taskReducer }) => taskReducer.tasks.availableCars);
-    const tools = useSelector(({ taskReducer }) => taskReducer.tasks.availableTools);
-
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = useState(0);
 
@@ -89,8 +82,6 @@ function CreateTask(props) {
                 dispatch(Actions.getAvailableEmployees());
                 dispatch(Actions.getAvailableCars());
                 dispatch(Actions.getCustomers());
-                dispatch(Actions.getAvailableTools());
-
                 setForm({
                     ...defaultFormState,        
                 });
@@ -346,8 +337,8 @@ function CreateTask(props) {
                                         <Select
                                             labelId="demo-simple-select-outlined-label"
                                             id="Customer"
-                                            name="CustomerID"
-                                            value={form.CustomerID}
+                                            name="Customer"
+                                            value={form.Customer}
                                             onChange={handleChange}
                                             required
 
@@ -356,7 +347,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             customers && {customers.map(customer =>
-                                                <MenuItem value={customer.ID}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname + ' ' + customer.Lastname : customer.ID + ' ' + customer.Name}</MenuItem>
+                                                <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
                                             )}
 
                                         </Select>
@@ -368,9 +359,9 @@ function CreateTask(props) {
                                         <Select
                                             labelId="demo-simple-select-outlined-label"
                                             id="Employee"
-                                            name="EmployeeID"
+                                            name="Employee"
                                             onChange={handleChange}
-                                            value={form.EmployeeID}
+                                            value={form.Employee}
                                             required
 
                                             labelWidth={labelWidth}
@@ -378,7 +369,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             employees && {employees.map(employee =>
-                                                <MenuItem value={employee.ID}>{employee.ID + ' ' + employee.Firstname + employee.Lastname}</MenuItem>
+                                                <MenuItem value={employee}>{employee.ID + ' ' + employee.Firstname}</MenuItem>
                                             )}
 
                                         </Select>
@@ -390,8 +381,8 @@ function CreateTask(props) {
                                         <Select
                                             labelId="demo-simple-select-outlined-label"
                                             id="Car"
-                                            name="CarID"
-                                            value={form.CarID}
+                                            name="Car"
+                                            value={form.Car}
                                             onChange={handleChange}
                                             labelWidth={labelWidth}
                                             required
@@ -399,28 +390,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             cars && {cars.map(car =>
-                                                <MenuItem value={car.ID}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
-                                            )}
-
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl variant="outlined" className={classes.formControl}>
-                                        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-                                            Udstyr
-                                            </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="Tool"
-                                            name="ToolID"
-                                            onChange={handleChange}
-                                            value={form.ToolID}
-
-                                            labelWidth={labelWidth}
-                                        >
-                                            <MenuItem value={null}>Ingen</MenuItem>
-
-                                            tools && {tools.map(tool =>
-                                                <MenuItem value={tool.ID}>{tool.ID + ' ' + tool.Name}</MenuItem>
+                                                <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
                                             )}
 
                                         </Select>
@@ -672,7 +642,7 @@ function CreateTask(props) {
                                             labelId="demo-simple-select-outlined-label"
                                             id="Customer"
                                             name="Customer"
-                                            value={form.CustomerID}
+                                            value={form.Customer}
                                             onChange={handleChange}
                                             required
 
@@ -681,7 +651,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             customers && {customers.map(customer =>
-                                                <MenuItem value={customer.ID}> {customer.CustomerType == "Private" ? customer.ID + ' ' + customer.Firstname + ' ' + customer.Lastname : customer.ID + ' ' + customer.Name}</MenuItem>
+                                                <MenuItem value={customer}> {customer.ID + ' ' + customer.Firstname}</MenuItem>
                                             )}
 
                                         </Select>
@@ -695,7 +665,7 @@ function CreateTask(props) {
                                             id="Employee"
                                             name="Employee"
                                             onChange={handleChange}
-                                            value={form.EmployeeID}
+                                            value={form.Employee}
                                             required
 
                                             labelWidth={labelWidth}
@@ -703,7 +673,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             employees && {employees.map(employee =>
-                                                <MenuItem value={employee.ID}>{employee.ID + ' ' + employee.Firstname + ' ' + employee.Lastname}</MenuItem>
+                                                <MenuItem value={employee}>{employee.ID + ' ' + employee.Firstname}</MenuItem>
                                             )}
 
                                         </Select>
@@ -716,7 +686,7 @@ function CreateTask(props) {
                                             labelId="demo-simple-select-outlined-label"
                                             id="Car"
                                             name="Car"
-                                            value={form.CarID}
+                                            value={form.Car}
                                             onChange={handleChange}
                                             labelWidth={labelWidth}
                                             required
@@ -724,7 +694,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             cars && {cars.map(car =>
-                                                <MenuItem value={car.ID}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
+                                                <MenuItem value={car}>{car.ID + ' ' + car.RegNum + ' ' + car.Model}</MenuItem>
                                             )}
 
                                         </Select>

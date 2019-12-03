@@ -29,12 +29,6 @@ const inspectionReducer = function (state = initialState, action) {
         }
         case Actions.GET_ALL_INSPECTION_REPORT:
             {
-                if (!Array.isArray(action.payload)) {
-                    return {
-                        ...state,
-                        inspections: { ...action.payload },
-                    };
-                }
                 const inspections = action.payload.map((inspection) => (
                     {
                         ...inspection
@@ -68,9 +62,6 @@ const inspectionReducer = function (state = initialState, action) {
                             Customer: action.payload.Customer,
                             Employee: action.payload.Employee,
                             Car: action.payload.Car,
-                            CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employee.ID,
-                            CarID: action.payload.Car.ID,
                             InspectionDate: action.payload.InspectionDate,
                             ...action.payload
                         }
@@ -109,20 +100,19 @@ const inspectionReducer = function (state = initialState, action) {
         case Actions.GET_AVAILABLE_EMPLOYEES:
             {
                 return Object.assign({}, state, {
-                    availableEmployees:  action.payload 
+                    availableEmployees: action.payload
                 })
             }
         case Actions.GET_AVAILABLE_CARS:
             {
                 return Object.assign({}, state, {
-                    availableCars: action.payload 
+                    availableCars: action.payload
                 })
             }
         case Actions.GET_CUSTOMERS:
             {
                 return Object.assign({}, state, {
                     customers: action.payload
-                    
                 })
             }
         case Actions.SAVE_INSPECTION_REPORT:
