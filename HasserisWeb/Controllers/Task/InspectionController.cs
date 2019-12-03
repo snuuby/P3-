@@ -34,8 +34,9 @@ namespace HasserisWeb
             int inspectionID = temp.ID;
             InspectionReport inspectionReport = PopulateInspectionReport(temp);
 
-            inspectionReport.ID = inspectionID;
-            database.Inspections.Update(inspectionReport);
+            Moving moving = (Moving)database.Tasks.FirstOrDefault(i => i.InspectionReport.ID == inspectionID);
+            moving.InspectionReport = inspectionReport;
+            database.Tasks.Update(moving);
             database.SaveChanges();
 
         }

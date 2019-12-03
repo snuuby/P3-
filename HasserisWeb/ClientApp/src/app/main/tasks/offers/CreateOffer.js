@@ -11,8 +11,6 @@ import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import withReducer from '../../../store/withReducer';
 import * as Actions from '../store/actions';
-import * as CusActions from '../../customer/store/actions';
-
 import reducer from '../store/reducers';
 import { Select } from '@material-ui/core';
 import moment from 'moment';
@@ -33,10 +31,8 @@ const defaultFormState = {
     Name: '',
     CustomerName: '',
     CustomerMail: '',
-    InspectionReportID: null,
-    WasInspection: null,
+    InspectionReport: null,
     EmployeeID: null,
-    Customer: null,
     CustomerID: null,
     CarID: null,
     Start: new Date(),
@@ -73,7 +69,7 @@ function Offer(props) {
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
     const eventDialog = useSelector(({ offerReducer }) => offerReducer.offers.eventDialog);
-    const customerdata = useSelector(({ customerReducer }) => customerReducer.customers.eventDialog.data);
+
     const customers = useSelector(({ offerReducer }) => offerReducer.offers.customers);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -86,13 +82,13 @@ function Offer(props) {
     }, []);
     const initDialog = useCallback(
         () => {
-            if (!eventDialog.data.WasInspection) {
+            if (!eventDialog.data.wasInspection) {
                 dispatch(Actions.getCustomers());
                 setForm({
                     ...defaultFormState,    
                 });
             }
-            if (eventDialog.data.WasInspection) {
+            if (eventDialog.data.wasInspection) {
                 dispatch(Actions.getCustomers());
 
                 setForm({
@@ -144,7 +140,14 @@ function Offer(props) {
     }
     function handleCustomer(customer) {
         customer.preventDefault();
-
+        if (customer.target.value != null) {
+            form.CustomerName = customer.target.value.Firstname + ' ' + customer.target.value.Lastname;
+            form.CustomerMail = customer.target.value.ContactInfo.Email;
+        }
+        else {
+            form.CustomerName = '';
+            form.CustomerMail = '';
+        }
 
         handleChange(customer);
 
@@ -165,12 +168,7 @@ function Offer(props) {
 
 
                         <div className="flex flex-col min-w-0 items-center sm:items-start">
-                            <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                                <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/offers/overview" color="inherit">
-                                    <Icon className="mr-4 text-20">arrow_back</Icon>
-                                    Tilbud
-                                </Typography>
-                            </FuseAnimate>
+
                             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                 <Typography className="text-16 sm:text-20 truncate">
                                     Lav Tilbud

@@ -60,9 +60,8 @@ const offerReducer = function (state = initialState, action) {
                         },
                         made: true,
                         data: {
-                            WasInspection: action.payload.WasInspection,
-                            InspectionReportID: action.payload.WasInspection ? action.payload.InspectionReport : null,
-                            WasOffer: action.payload.WasOffer,
+                            inspectionReport: null,
+                            wasInspection: false,
                             StartAddress: action.payload.StartingAddress.LivingAddress,
                             StartZIP: action.payload.StartingAddress.ZIP,
                             StartCity: action.payload.StartingAddress.City,
@@ -88,7 +87,7 @@ const offerReducer = function (state = initialState, action) {
                             open: true
                         },
                         data: {
-                            WasInspection: false,
+                            wasInspection: false,
                             ...action.data
                         }
                     }
@@ -107,8 +106,8 @@ const offerReducer = function (state = initialState, action) {
                             CustomerName: action.payload.Customer.CustomerType == "Private" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
                             CustomerID: action.payload.Customer.ID,
-                            InspectionReportID: action.payload.ID,
-                            WasInspection: true,
+                            InspectionReport: action.payload.ID,
+                            wasInspection: true,
                             ExpirationDate: moment(action.payload.MovingDate).add(14, 'days').
                             format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS),
                                             

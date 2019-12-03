@@ -35,7 +35,6 @@ namespace HasserisWeb
 
             Delivery tempDelivery = (Delivery)database.Tasks.FirstOrDefault(i => i.ID == deliveryID);
             tempDelivery = delivery;
-            tempDelivery.ID = deliveryID;
             database.Update(tempDelivery);
             database.SaveChanges();
 
@@ -47,8 +46,6 @@ namespace HasserisWeb
 
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Delivery delivery = PopulateDeliveryTask(temp);
-            delivery.WasInspection = false;
-            delivery.WasOffer = false;
             database.Tasks.Add(delivery);
             database.SaveChanges();
         }
@@ -62,22 +59,21 @@ namespace HasserisWeb
             Delivery tempDelivery = (Delivery)database.Tasks.FirstOrDefault(i => i.ID == deliveryID);
             Delivery delivery = PopulateDeliveryTask(temp);
             tempDelivery = delivery;
-            tempDelivery.ID = deliveryID;
             tempDelivery.Phase = 3;
-            int inspectionID = temp.InspectionReportID;
+            int inspectionID = temp.inspectionReport;
             tempDelivery.InspectionReport = database.Inspections.FirstOrDefault(i => i.ID == inspectionID);
             int offerID = temp.OfferID;
             Offer offer = database.Offers.FirstOrDefault(o => o.ID == offerID);
             tempDelivery.Offer = offer;
-            if (tempDelivery.Offer.WasInspection == true)
+            if (tempDelivery.Offer.wasInspection == true)
             {
-                tempDelivery.WasInspection = true;
+                tempDelivery.wasInspection = true;
             }
             else
             {
-                tempDelivery.WasInspection = false;
+                tempDelivery.wasInspection = false;
             }
-            tempDelivery.WasOffer = true;
+            tempDelivery.wasOffer = true;
             database.Tasks.Update(delivery);
             database.SaveChanges();
         }
@@ -92,22 +88,20 @@ namespace HasserisWeb
             Moving delivery = PopulateMovingTask(temp);
             tempMoving = delivery;
             tempMoving.Phase = 3;
-            tempMoving.ID = movingID;
-
-            int inspectionID = temp.InspectionReportID;
+            int inspectionID = temp.inspectionReport;
             tempMoving.InspectionReport = database.Inspections.FirstOrDefault(i => i.ID == inspectionID);
             int offerID = temp.OfferID;
             Offer offer = database.Offers.FirstOrDefault(o => o.ID == offerID);
             tempMoving.Offer = offer;
-            if (tempMoving.Offer.WasInspection == true)
+            if (tempMoving.Offer.wasInspection == true)
             {
-                tempMoving.WasInspection = true;
+                tempMoving.wasInspection = true;
             }
             else
             {
-                tempMoving.WasInspection = false;
+                tempMoving.wasInspection = false;
             }
-            tempMoving.WasOffer = true;
+            tempMoving.wasOffer = true;
             database.Tasks.Update(tempMoving);
             database.SaveChanges();
         }
@@ -122,12 +116,10 @@ namespace HasserisWeb
             Delivery delivery = PopulateDeliveryTask(temp);
             tempDelivery = delivery;
             tempDelivery.Phase = 3;
-            tempDelivery.ID = deliveryID;
-
-            int inspectionID = temp.InspectionReportID;
+            int inspectionID = temp.inspectionReport;
             tempDelivery.InspectionReport = database.Inspections.FirstOrDefault(i => i.ID == inspectionID);
-            tempDelivery.WasInspection = true;
-            tempDelivery.WasOffer = false;
+            tempDelivery.wasInspection = true;
+            tempDelivery.wasOffer = false;
             database.Tasks.Update(tempDelivery);
             database.SaveChanges();
         }
@@ -142,12 +134,6 @@ namespace HasserisWeb
             Moving delivery = PopulateMovingTask(temp);
             tempMoving = delivery;
             tempMoving.Phase = 3;
-            tempMoving.ID = movingID;
-
-            int inspectionID = temp.InspectionReportID;
-            tempMoving.InspectionReport = database.Inspections.FirstOrDefault(i => i.ID == inspectionID);
-            tempMoving.WasInspection = true;
-            tempMoving.WasOffer = false;
             database.Tasks.Update(tempMoving);
             database.SaveChanges();
         }
@@ -205,8 +191,6 @@ namespace HasserisWeb
 
             Moving tempMoving = (Moving)database.Tasks.FirstOrDefault(i => i.ID == movingID);
             tempMoving = moving;
-            tempMoving.ID = movingID;
-
             database.Update(tempMoving);
             database.SaveChanges();
 
@@ -218,8 +202,6 @@ namespace HasserisWeb
 
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Moving moving = PopulateMovingTask(temp);
-            moving.WasInspection = false;
-            moving.WasOffer = false;
             database.Tasks.Add(moving);
             database.SaveChanges();
         }
