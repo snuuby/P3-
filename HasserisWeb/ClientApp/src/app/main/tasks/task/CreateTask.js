@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 const defaultFormState = {
-    StartingAddress: null,
-    Destination: null,
+
+
     Employee: null,
     Customer: null,
     Car: null,
@@ -32,19 +32,19 @@ const defaultFormState = {
     CustomerID: null,
     CarID: null,
     ToolID: null,
-    InspectionDate: new Date(),
-    MovingDate: new Date(),
-    DeliveryDate: new Date(),
-    WasInspection: null,
-
-    InspectionReportID: null,
+    InspectionDate: null,
+    MovingDate: null,
+    DeliveryDate: null,
+    WasInspection: false,
+    WasOffer: false,
+    WithPacking: true,
     Offer: null,
     End: new Date(),
     Notes: '',
     combo: '',
     Image: '',
     ExpectedHours: null,
-
+    Lentboxes: 0,
     //Address
     StartAddress: null,
     StartZIP: null,
@@ -86,16 +86,29 @@ function CreateTask(props) {
     }, []);
     const initDialog = useCallback(
         () => {
-            if (eventDialog.type === 'new') {
+
+            if (eventDialog.data != null) {
                 dispatch(Actions.getAvailableEmployees());
                 dispatch(Actions.getAvailableCars());
                 dispatch(Actions.getCustomers());
                 dispatch(Actions.getAvailableTools());
 
                 setForm({
-                    ...defaultFormState,        
+                    ...defaultFormState,
+                    ...eventDialog.data,
                 });
             }
+            else {
+                dispatch(Actions.getAvailableEmployees());
+                dispatch(Actions.getAvailableCars());
+                dispatch(Actions.getCustomers());
+                dispatch(Actions.getAvailableTools());
+
+                setForm({
+                    ...defaultFormState,
+                });
+            }
+            
 
 
         },
@@ -115,15 +128,21 @@ function CreateTask(props) {
 
     function canBeSubmitted() {
         return (
-            form.Firstname && form.Lastname && form.Address // hvad gør den her helt præcist? 
+            form.CustomerID && form.EmployeeID && form.CarID 
         );
     }
     function handleSubmit(event) {
 
 
         event.preventDefault();
+        if (form.WasOffer) {
+            dispatch(Actions.addTaskFromOffer(form));
+        }
+        else if (form.WasInspection) {
+            dispatch(Actions.addTaskFromInspectionReport(form));
 
-        if (form.TaskType == "Moving") {
+        }
+        else if (form.TaskType == "Moving") {
             dispatch(Actions.addMovingTask(form));
         }
         else {
@@ -131,7 +150,7 @@ function CreateTask(props) {
         }
 
         // flytter os hen på 
-        props.history.push('/task/overview');
+        props.history.push('/tasks/overview');
 
         
     }
@@ -163,7 +182,7 @@ function CreateTask(props) {
 
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Typography className="text-16 sm:text-20 truncate">
-                                        Opret {form.TaskType} ogpave: 
+                                        Opret {form.TaskType == "Moving" ? "flytte" : "leverings"} opgave: 
                                     </Typography>
                                 </FuseAnimate>
                             </div>
@@ -379,7 +398,7 @@ function CreateTask(props) {
                                             <MenuItem value={null}>Ingen</MenuItem>
 
                                             employees && {employees.map(employee =>
-                                                <MenuItem value={employee.ID}>{employee.ID + ' ' + employee.Firstname + employee.Lastname}</MenuItem>
+                                                <MenuItem value={employee.ID}>{employee.ID + ' ' + employee.Firstname + ' ' + employee.Lastname}</MenuItem>
                                             )}
 
                                         </Select>
@@ -427,6 +446,23 @@ function CreateTask(props) {
                                         </Select>
                                     </FormControl>
                                 </div>
+                                <div>
+                                    <TextField
+                                        className={classes.formControl}
+                                        id="Lentboxes" label="Lånte boxe"
+                                        type="number"
+                                        min="0"
+                                        max="10"
+                                        name="Lentboxes"
+                                        value={form.Lentboxes}
+                                        defaultValue={0}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                    />
+                                </div>
 
                                 <TextField
                                     className={classes.formControl}
@@ -439,7 +475,15 @@ function CreateTask(props) {
                                     variant="outlined"
                                     fullWidth
                                 />
-
+                                <input
+                                    type="checkbox"
+                                    checked={form.WithPacking}
+                                    value={form.WithPacking}
+                                    onChange={handleChange}
+                                    name="WithPacking"
+                                    label="Med nedpakning?"
+                                />
+                                <label for="WithPacking">Med nedpakning?</label>
 
 
 
@@ -634,7 +678,7 @@ function CreateTask(props) {
 
 
 
-                                <TextField
+                                {form.WasInspection && <TextField
                                     id="InspectionDate"
                                     name="InspectionDate"
                                     label="Besigtigelses dato"
@@ -647,7 +691,7 @@ function CreateTask(props) {
                                     onChange={handleChange}
 
                                     variant="outlined"
-                                />
+                                />}
                                 <TextField
                                     id="DeliveryDate"
                                     name="DeliveryDate"

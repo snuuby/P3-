@@ -145,9 +145,9 @@ function InspectionReport(props) {
     }
     function TaskSubmit(event) {
         event.preventDefault();
-        dispatch(Actions.addTaskFromInspectionReport(form));
+        dispatch(Actions.transferInspectionInfoToTask(form));
 
-        props.history.push('/Offers/Create/');
+        props.history.push('/tasks/Create/');
     }
     function handleChangeTab(event, tabValue) {
         setTabValue(tabValue);

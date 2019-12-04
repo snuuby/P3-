@@ -34,7 +34,7 @@ const defaultFormState = {
     CustomerName: '',
     CustomerMail: '',
     InspectionReportID: null,
-    WasInspection: null,
+    WasInspection: false,
     EmployeeID: null,
     Customer: null,
     CustomerID: null,
@@ -45,7 +45,7 @@ const defaultFormState = {
     combo: '',
     Image: '',
     Destination: null,
-    ExpectedHours: null,
+    ExpectedHours: 0,
     WithPacking: true,
     //Offer mail specification
     OfferType: '',
@@ -59,7 +59,7 @@ const defaultFormState = {
     DestinationCity: null,
     //Moving task specific properties
     furniture: null,
-    Lentboxes: null,
+    Lentboxes: 0,
 
     //Delivery task specific properties
     material: null,
@@ -73,7 +73,6 @@ function Offer(props) {
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
     const eventDialog = useSelector(({ offerReducer }) => offerReducer.offers.eventDialog);
-    const customerdata = useSelector(({ customerReducer }) => customerReducer.customers.eventDialog.data);
     const customers = useSelector(({ offerReducer }) => offerReducer.offers.customers);
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
@@ -129,7 +128,7 @@ function Offer(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        if (form.wasInspection) {
+        if (form.WasInspection) {
             dispatch(Actions.addOfferFromInspection(form));
 
         }
@@ -176,9 +175,9 @@ function Offer(props) {
                                     Lav Tilbud
                                     </Typography>
                             </FuseAnimate>
-                            {eventDialog.data.wasInspection && <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                <Typography className="text-16 sm:text-20 truncate">
-                                    (Var besigtigelsesrapport ID): {form.InspectionReport}
+                            {eventDialog.data.WasInspection && <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                <Typography variant="caption">
+                                    Var besigtigelsesrapport ID: {form.InspectionReportID}
                                     </Typography>
                                 </FuseAnimate>  }   
 

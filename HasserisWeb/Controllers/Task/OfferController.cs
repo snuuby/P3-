@@ -34,6 +34,14 @@ namespace HasserisWeb
             offer.Sent = temp.Sent;
             offer.InvoiceSent = temp.InvoiceSent;
             offer.ID = offerID;
+            int lentBoxes = temp.Lentboxes;
+            int expectedHours = temp.ExpectedHours;
+            offer.Lentboxes = lentBoxes;
+            offer.ExpectedHours = expectedHours;
+            offer.InspectionReportID = temp.InspectionReportID;
+            offer.WithPacking = temp.WithPacking;
+            offer.WasInspection = temp.WasInspection;
+            offer.Lentboxes = lentBoxes;
             database.Offers.Update(offer);
             database.SaveChanges();
 
@@ -44,11 +52,16 @@ namespace HasserisWeb
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Offer offer = PopulateOffer(temp);
-            Moving moving = new Moving();
-            moving.Phase = 2;
-            moving.Offer = offer;
-            moving.WithPacking = temp.WithPacking;
-            database.Tasks.Add(moving);
+            Moving task = new Moving();
+            task.Phase = 2;
+            task.Offer = offer;
+            task.Offer.WithPacking = temp.WithPacking;
+            task.Offer.WasInspection = false;
+            int lentBoxes = temp.Lentboxes;
+            int expectedHours = temp.ExpectedHours;
+            task.Offer.Lentboxes = lentBoxes;
+            task.Offer.ExpectedHours = expectedHours;
+            database.Tasks.Add(task);
             database.SaveChanges();
         }
 
@@ -63,8 +76,12 @@ namespace HasserisWeb
             task.Phase = 2;
             task.Offer = offer;
             task.Offer.InspectionReportID = temp.InspectionReportID;
-            task.WithPacking = temp.WithPacking;
-            task.Offer.WasInspection = temp.WasInspection;
+            task.Offer.WithPacking = temp.WithPacking;
+            task.Offer.WasInspection = true;
+            int lentBoxes = temp.Lentboxes;
+            int expectedHours = temp.ExpectedHours;
+            task.Offer.Lentboxes = lentBoxes;
+            task.Offer.ExpectedHours = expectedHours;
             database.Tasks.Update(task);
             database.SaveChanges();
         }
@@ -79,8 +96,7 @@ namespace HasserisWeb
             string DZIP = temp.DestinationZIP;
             string DCity = temp.DestinationCity;
 
-            int lentBoxes = temp.Lentboxes;
-            int expectedHours = temp.ExpectedHours;
+
             Address startingAddress = new Address(Saddress, SZIP, SCity);
             Address destination = new Address(Daddress, DZIP, DCity);
             int customerID = temp.CustomerID;

@@ -95,8 +95,7 @@ export function addOfferFromInspection(offer) {
         return request.then((response) =>
             Promise.all([
                 dispatch({
-                    type: INSPECTION_TO_OFFER,
-                    payload: response.data,
+                    type: SAVE_OFFER
                 })
             ]).then(() => console.log("IMPLEMENT PUSH TO OVERVIEW")
             ));

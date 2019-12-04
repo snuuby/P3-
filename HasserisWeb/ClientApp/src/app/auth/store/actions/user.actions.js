@@ -3,8 +3,6 @@ import {setDefaultSettings, setInitialSettings} from 'app/store/actions/fuse';
 import _ from '@lodash';
 import store from 'app/store';
 import * as Actions from 'app/store/actions';
-import firebase from 'firebase/app';
-import firebaseService from 'app/services/firebaseService';
 import auth0Service from 'app/services/auth0Service';
 import axios from 'axios';
 import jwtService from 'app/services/jwtService';
@@ -84,7 +82,7 @@ export function setUserDataAuth0(tokenData)
 /**
  * Set user data from Firebase data
  */
-export function setUserDataFirebase(user, authUser)
+/*export function setUserDataFirebase(user, authUser)
 {
     if ( user && user.data &&
         user.data.settings &&
@@ -104,8 +102,8 @@ export function setUserDataFirebase(user, authUser)
 
 /**
  * Create User Settings with Firebase data
- */
-export function createUserSettingsFirebase(authUser)
+ 
+//export function createUserSettingsFirebase(authUser)
 {
     return (dispatch, getState) => {
         const guestUser = getState().auth.user;
@@ -114,7 +112,7 @@ export function createUserSettingsFirebase(authUser)
 
         /**
          * Merge with current Settings
-         */
+         
         const user = _.merge({}, guestUser,
             {
                 uid : authUser.uid,
@@ -132,7 +130,7 @@ export function createUserSettingsFirebase(authUser)
         updateUserData(user);
         return dispatch(setUserData(user));
     }
-}
+} */
 
 /**
  * Set User Data
@@ -224,11 +222,7 @@ export function logoutUser()
 
         switch ( user.from )
         {
-            case 'firebase':
-            {
-                firebaseService.signOut();
-                break;
-            }
+        
             case 'auth0':
             {
                 auth0Service.logout();
@@ -260,17 +254,7 @@ function updateUserData(user)
 
     switch ( user.from )
     {
-        case 'firebase':
-        {
-            firebaseService.updateUserData(user)
-                .then(() => {
-                    store.dispatch(Actions.showMessage({message: "User data saved to firebase"}));
-                })
-                .catch(error => {
-                    store.dispatch(Actions.showMessage({message: error.message}));
-                });
-            break;
-        }
+      
         case 'auth0':
         {
             auth0Service.updateUserData({

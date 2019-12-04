@@ -40,13 +40,13 @@ const defaultFormState = {
     combo: '',
     Image: '',
     Destination: null,
-    ExpectedHours: 2,
+    ExpectedHours: 0,
     WithPacking: false,
     InspectionReportID: null,
     WasInspection: null,
     Sent: false,
     InvoiceSent: false,
-    //Offer mail specification
+    //Offer mail specificaton
     OfferType: '',
 
     InspectionDate: new Date(),
@@ -97,6 +97,7 @@ function Offer(props) {
             if (eventDialog.type === 'new') {
                 dispatch(Actions.getCustomers());
                 setForm({
+                    ...defaultFormState,
                     ...eventDialog.data,        
                 });
             }
@@ -135,8 +136,15 @@ function Offer(props) {
         
         closeComposeDialog();
         
-    }/*
-    function sendOffer() {
+    }
+
+    function handleReloadSubmit(event) {
+        event.preventDefault();
+        dispatch(Actions.editOffer(form));
+
+    }
+    function sendOffer(event) {
+        /*
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
 
@@ -204,16 +212,20 @@ function Offer(props) {
                 $('#output').text(JSON.stringify(data, null, 4));
             });
         });
+        */
         form.Sent = true;
-    }*/
-    function sendInvoice() {
+        handleReloadSubmit(event);
+        window.location.reload();
+
+    }
+    function sendInvoice(event) {
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
             'X-AgreementGrantToken': "z1ARsMw8pQbJ5dDtYY5XAn0ZoGC2M8dG8aprR7nkyT81",
             'Content-Type': "application/json"
         };
         var invoice = {
-            "date": form.MovingDate
+            "date": form.MovingDate,
             "currency": "DKK",
             "exchangeRate": 100,
             "netAmount": 10.00,
@@ -233,7 +245,7 @@ function Offer(props) {
                 "customerNumber": 1
             },
             "recipient": {
-                "name": form.Name,
+                "name": form.Customer.CustomerType == "Private" ? form.Customer.Firstname + ' ' + form.Customer.Lastname : form.Customer.Name,
                 "address": form.StartAddress,
                 "zip": form.StartZIP,
                 "city": form.StartCity,
@@ -274,6 +286,9 @@ function Offer(props) {
             });
         });
         form.InvoiceSent = true;
+        handleReloadSubmit(event);
+        window.location.reload();
+
 }
 
     function handleChangeTab(event, tabValue) {
@@ -287,9 +302,9 @@ function Offer(props) {
     }
     function TaskSubmit(event) {
         event.preventDefault();
-        dispatch(Actions.addTaskFromOffer(form));
+        dispatch(Actions.transferOfferInfoToTask(form));
 
-        props.history.push('/Offers/Create/');
+        props.history.push('/Tasks/Create/');
     }
     return (
         <FusePageCarded
@@ -308,45 +323,12 @@ function Offer(props) {
                                 Tilbud
                                 </Typography>
                         </FuseAnimate>
-                        <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                        {form.WasInspection && <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography variant="caption">
-                                {form.WasInspection && ('Var besigtigelsesrapport ID: ' + form.InspectionReportID)}
-)}
+                                Var besigtigelsesrapport ID: {form.InspectionReportID}
                             </Typography>
-                        </FuseAnimate>
-                        <div>
-                            <Button
-                                className={classes.formControl}
-                                variant="contained"
-                                color="primary"
-                                onClick={sendOffer}
-                                disabled={!checkForOfferData}
+                        </FuseAnimate>} 
 
-                            >
-                                {form.Sent ? "Tilbuddet er sendt og afventer svar" : "Send Tilbud til E-conomic"}
-                            </Button>
-                            <Button
-                                className={classes.formControl}
-                                variant="contained"
-                                color="primary"
-                                disabled={!checkForInvoiceData}
-                                onClick={sendInvoice}
-                            >
-                                {form.Sent ? "Send Faktura til economic" : "Tilbuddet skal sendes før en faktura kan oprettes" }
-                            </Button>
-                        </div>
-                        <div>
-                            <Button
-                                className={classes.formControl}
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                disabled={!canBeSubmitted()}
-                                onClick={TaskSubmit}
-                            >
-                                {(form.InvoiceSent && form.Sent) ? "Overfør tilbud til Opgave" : "Tilbuddet skal sendes og faktureres inden opgaven kan oprettes"}
-                            </Button>
-                        </div>
                     </div>
                 </div>
             }
@@ -365,7 +347,6 @@ function Offer(props) {
             }
             content={
                 <div>
-                    
                     <form noValidate onSubmit={handleSubmit} >
                             <div class="p-16 sm:p-24 max-w-2xl w-full">
                             <FormControl variant="outlined" className={classes.formControl}>
@@ -618,6 +599,7 @@ function Offer(props) {
                                     />
                                 <input
                                     type="checkbox"
+                                    checked={form.WithPacking}
                                     value={form.WithPacking}
                                     onChange={handleChange}
                                     name="WithPacking"
@@ -636,6 +618,39 @@ function Offer(props) {
                                         GEM
                                     </Button>
 
+                        </div>
+                        <div>
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                onClick={sendOffer}
+                                disabled={form.Sent}
+
+                            >
+                                {form.Sent ? "Tilbuddet er sendt og afventer svar" : "Send Tilbud til E-conomic"}
+                            </Button>
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                disabled={!form.Sent || form.InvoiceSent}
+                                onClick={sendInvoice}
+                            >
+                                {form.Sent ? "Send Faktura til economic" : "Tilbuddet skal sendes før en faktura kan oprettes"}
+                            </Button>
+                        </div>
+                        <div>
+                            <Button
+                                className={classes.formControl}
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                disabled={!form.InvoiceSent}
+                                onClick={TaskSubmit}
+                            >
+                                {(form.InvoiceSent && form.Sent) ? "Overfør tilbud til Opgave" : "Tilbuddet skal sendes og faktureres inden opgaven kan oprettes"}
+                            </Button>
                         </div>
 
                         </form>

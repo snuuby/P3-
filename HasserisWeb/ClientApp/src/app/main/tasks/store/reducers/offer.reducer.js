@@ -61,8 +61,9 @@ const offerReducer = function (state = initialState, action) {
                         made: true,
                         data: {
                             WasInspection: action.payload.WasInspection,
-                            InspectionReportID: action.payload.WasInspection ? action.payload.InspectionReport : null,
+                            InspectionReportID: action.payload.WasInspection ? action.payload.InspectionReportID : null,
                             WasOffer: action.payload.WasOffer,
+                            WithPacking: action.payload.WithPacking,
                             StartAddress: action.payload.StartingAddress.LivingAddress,
                             StartZIP: action.payload.StartingAddress.ZIP,
                             StartCity: action.payload.StartingAddress.City,
@@ -71,7 +72,7 @@ const offerReducer = function (state = initialState, action) {
                             DestinationCity: action.payload.Destination.City,
                             Customer: action.payload.Customer,
                             CustomerID: action.payload.Customer.ID,
-                            CustomerName: action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname,
+                            CustomerName: action.payload.Customer.CustomerType == "Private" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
                             ...action.payload
                         }
@@ -94,6 +95,7 @@ const offerReducer = function (state = initialState, action) {
                     }
                 };
             }
+
         case Actions.INSPECTION_TO_OFFER:
             {
                 return {
@@ -109,6 +111,9 @@ const offerReducer = function (state = initialState, action) {
                             CustomerID: action.payload.Customer.ID,
                             InspectionReportID: action.payload.ID,
                             WasInspection: true,
+                            ExpectedHours: 0, 
+                            Lentboxes: 0,
+                            WithPacking: true,
                             ExpirationDate: moment(action.payload.MovingDate).add(14, 'days').
                             format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS),
                                             

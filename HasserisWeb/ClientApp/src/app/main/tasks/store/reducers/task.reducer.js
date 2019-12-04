@@ -34,12 +34,14 @@ const taskReducer = function (state = initialState, action) {
                 if (!Array.isArray(action.payload)) {
                     return {
                         ...state,
+                        TaskType: "Moving",
                         movingTasks: { ...action.payload },
                     };
                 }
                 else {
                     const movingTasks = action.payload.map((moving) => (
                         {
+                            TaskType: "Moving",
                             ...moving,
                         }
                     ));
@@ -57,12 +59,16 @@ const taskReducer = function (state = initialState, action) {
                 if (!Array.isArray(action.payload)) {
                     return {
                         ...state,
+                        TaskType: "Delivery",
+
                         deliveryTasks: { ...action.payload },
                     };
                 }
                 else {
                     const deliveryTasks = action.payload.map((delivery) => (
                         {
+                            TaskType: "Delivery",
+
                             ...delivery,
                         }
                     ));
@@ -97,10 +103,13 @@ const taskReducer = function (state = initialState, action) {
                             Car: action.payload.Equipment[0],
                             InspectionDate: action.payload.InspectionDate,
                             CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employees[0].ID,
-                            CarID: action.payload.Equipment[0].ID,
+                            EmployeeID: action.payload.Employees[0].EmployeeID,
+                            CarID: action.payload.Equipment[0].EquipmentID,
                             WasInspection: action.payload.WasInspection,
                             WasOffer: action.payload.WasOffer,
+                            Lentboxes: action.payload.LentBoxes,
+                            Notes: action.payload.Description,
+                            MovingDate: action.payload.Dates[0].Date,
                             ...action.payload
                         }
                     }
@@ -116,12 +125,13 @@ const taskReducer = function (state = initialState, action) {
                             open: true
                         },
                         data: {
-                            CustomerName: action.payload.Customer.$type == "Priate" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
+                            CustomerName: action.payload.Customer.$type == "HasserisWeb.Private, HasserisWeb" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
                             InspectionReportID: action.payload.ID,
-                            CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employees[0].ID,
-                            CarID: action.payload.Equipment[0].ID,
+                            CustomerID: action.payload.CustomerID,
+                            EmployeeID: action.payload.EmployeeID,
+                            CarID: action.payload.CarID,
+                            TaskType: "Moving",
                             WasInspection: true,
                             WasOffer: false,
 
@@ -144,9 +154,10 @@ const taskReducer = function (state = initialState, action) {
                             CustomerName: action.payload.Customer.$type == "Priate" ? action.payload.Customer.Firstname + ' ' + action.payload.Customer.Lastname : action.payload.Customer.Name,
                             CustomerMail: action.payload.Customer.ContactInfo.Email,
                             InspectionReportID: action.payload.ID,
-                            CustomerID: action.payload.Customer.ID,
-                            EmployeeID: action.payload.Employees[0].ID,
-                            CarID: action.payload.Equipment[0].ID,
+                            CustomerID: action.payload.CustomerID,
+                            EmployeeID: action.payload.EmployeeID,
+                            CarID: action.payload.CarID,
+                            TaskType: "Moving",
                             WasInspection: action.payload.WasInspection,
                             WasOffer: true,
                             ...action.payload

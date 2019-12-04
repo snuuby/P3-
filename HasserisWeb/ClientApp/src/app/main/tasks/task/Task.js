@@ -39,14 +39,14 @@ const defaultFormState = {
     DeliveryDate: new Date(),
     InspectionReportID: null,
     WasInspection: null,
-
+    WithPacking: true,
     Offer: null,
     End: new Date(),
     Notes: '',
     combo: '',
     Image: '',
     ExpectedHours: null,
-
+    Lentboxes: 0,
     //Address
     StartAddress: null,
     StartZIP: null,
@@ -329,7 +329,7 @@ function Task(props) {
 
 
 
-                                <TextField
+                                {form.WasInspection && <TextField
                                     id="InspectionDate"
                                     name="InspectionDate"
                                     label="Besigtigelses dato"
@@ -343,7 +343,7 @@ function Task(props) {
                                     required
 
                                     variant="outlined"
-                                />
+                                />}
                                 <TextField
                                     id="MovingDate"
                                     name="MovingDate"
@@ -448,7 +448,23 @@ function Task(props) {
                                         </Select>
                                     </FormControl>
                                 </div>
-
+                                <div>
+                                    <TextField
+                                        className={classes.formControl}
+                                        id="Lentboxes" label="Lånte boxe"
+                                        type="number"
+                                        min="0"
+                                        max="10"
+                                        name="Lentboxes"
+                                        value={form.Lentboxes}
+                                        defaultValue={0}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                    />
+                                </div>
                                 <TextField
                                     className={classes.formControl}
                                     id="Notes" label="Beskrivelse"
@@ -460,7 +476,15 @@ function Task(props) {
                                     variant="outlined"
                                     fullWidth
                                 />
-
+                                <input
+                                    type="checkbox"
+                                    checked={form.WithPacking}
+                                    value={form.WithPacking}
+                                    onChange={handleChange}
+                                    name="WithPacking"
+                                    label="Med nedpakning?"
+                                />
+                                <label for="WithPacking">Med nedpakning?</label>
 
 
 

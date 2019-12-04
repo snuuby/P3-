@@ -125,7 +125,7 @@ function CreateCustomer(props) {
         };
         var invoice = {
             "currency": "DKK",
-            "name": form.Firstname + form.Lastname,
+            "name": form.CustomerType == "Private" ? form.Firstname + ' ' + form.Lastname : form.Name,
             "paymentTerms": {
                 "paymentTermsNumber": 1,
             },

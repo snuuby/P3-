@@ -58,9 +58,9 @@ namespace HasserisWeb
             string SZIP = temp.StartZIP;
             string SCity = temp.StartCity;
             //destination
-            string Daddress = temp.StartAddress;
-            string DZIP = temp.StartZIP;
-            string DCity = temp.StartCity;
+            string Daddress = temp.DestinationAddress;
+            string DZIP = temp.DestinationZIP;
+            string DCity = temp.DestinationCity;
 
             string notes = temp.Notes;
 

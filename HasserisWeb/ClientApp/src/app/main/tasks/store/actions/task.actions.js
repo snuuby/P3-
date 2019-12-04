@@ -8,7 +8,7 @@ export const GET_AVAILABLE_CARS = '[TASK] GET AVAILABLE CARS';
 export const GET_AVAILABLE_TOOLS = '[TASK] GET AVAILABLE CARS';
 
 export const GET_CUSTOMERS = '[TASK] GET CUSTOMERS';
-export const GET_TASK = '[TASK] GET INSPECTION REPORT';
+export const GET_TASK = '[TASK] GET TASK';
 export const INSPECTION_TO_TASK = '[TASK] COPY DATA FROM INSPECTION REPORT TO TASK';
 export const OFFER_TO_TASK = '[TASK] COPY DATA FROM OFFER TO TASK';
 
@@ -24,13 +24,29 @@ export function setTaskOverviewSearchText(event) {
         searchText: event.target.value
     }
 }
+export function transferInspectionInfoToTask(report) {
+    return (dispatch) => 
+        dispatch({
+            type: INSPECTION_TO_TASK,
+            payload: report,
+        })
+    
+}
+export function transferOfferInfoToTask(offer) {
+    return (dispatch) => 
+        dispatch({
+            type: OFFER_TO_TASK,
+            payload: offer,
+        })
+    
+}
 export function addTaskFromInspectionReport(report) {
 
-    const request = axios.post('task/create/delivery/from/inspection', report);
+    const request = axios.post('task/create/moving/from/inspection', report);
     return (dispatch) => request.then((response) =>
         dispatch({
             type: INSPECTION_TO_TASK,
-            payload: response.data,
+            payload: report,
         })
     );
 }
@@ -40,7 +56,7 @@ export function addTaskFromOffer(offer) {
     return (dispatch) => request.then((response) =>
         dispatch({
             type: OFFER_TO_TASK,
-            payload: response.data,
+            payload: offer,
         })
     );
 }
@@ -65,7 +81,7 @@ export function getAllTasks()
     }
 }
 export function getMovingTasks() {
-    const request = axios.get('task/moving');
+    const request = axios.get('task/get/moving');
     console.log(request);
     return (dispatch) => request.then((response) =>
             dispatch({
@@ -75,7 +91,7 @@ export function getMovingTasks() {
         );
 }
 export function getDeliveryTasks() {
-    const request = axios.get('task/delivery');
+    const request = axios.get('task/get/delivery');
     request.then(response => console.log(response.data));
 
     console.log(request);

@@ -193,7 +193,7 @@ function TaskOverviewTable(props)
 
                                             <TableCell component="th" scope="row">
                                                 <span></span>
-                                                {n.TaskType}
+                                                {n.TaskType == "Moving" ? "Flytning" : "Levering"}
                                             </TableCell>
 
                                             <TableCell component="th" scope="row">

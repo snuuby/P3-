@@ -24,7 +24,7 @@ const customerReducer = function (state = initialState, action) {
                 if (!Array.isArray(action.payload)) {
                     return {
                         ...state,
-                        privateCustomers: { Type: "Private", ...action.payload },
+                        privateCustomers: { CustomerType: "Private", ...action.payload },
                     };
                 }
             const privateCustomers = action.payload.map((customers) => (
@@ -44,7 +44,7 @@ const customerReducer = function (state = initialState, action) {
                 if (!Array.isArray(action.payload)) {
                     return {
                         ...state,
-                        businessCustomers: { Type: "Business",...action.payload },
+                        businessCustomers: { CustomerType: "Business",...action.payload },
                     };
                 }
                 const businessCustomers = action.payload.map((customers) => (
@@ -64,7 +64,7 @@ const customerReducer = function (state = initialState, action) {
                 if (!Array.isArray(action.payload)) {
                     return {
                         ...state,
-                        publicCustomers: { Type: "Public", ...action.payload },
+                        publicCustomers: { CustomerType: "Public", ...action.payload },
                     };
                 }
                 const publicCustomers = action.payload.map((customers) => (
