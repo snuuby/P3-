@@ -73,7 +73,9 @@ function Offer(props) {
     const dispatch = useDispatch();
     const { form, handleChange, setForm } = useForm(defaultFormState);
     const eventDialog = useSelector(({ offerReducer }) => offerReducer.offers.eventDialog);
+
     const customers = useSelector(({ offerReducer }) => offerReducer.offers.customers);
+
 
     let end = moment(form.end).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
     let start = moment(form.start).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);

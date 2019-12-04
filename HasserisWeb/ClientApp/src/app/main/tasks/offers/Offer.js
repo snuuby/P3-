@@ -138,13 +138,15 @@ function Offer(props) {
         
     }
 
+
     function handleReloadSubmit(event) {
         event.preventDefault();
         dispatch(Actions.editOffer(form));
 
     }
     function sendOffer(event) {
-        /*
+
+/*
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
 
@@ -212,6 +214,7 @@ function Offer(props) {
                 $('#output').text(JSON.stringify(data, null, 4));
             });
         });
+
         */
         form.Sent = true;
         handleReloadSubmit(event);
@@ -219,6 +222,7 @@ function Offer(props) {
 
     }
     function sendInvoice(event) {
+
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
             'X-AgreementGrantToken': "z1ARsMw8pQbJ5dDtYY5XAn0ZoGC2M8dG8aprR7nkyT81",
