@@ -135,7 +135,7 @@ function Offer(props) {
         
         closeComposeDialog();
         
-    }
+    }/*
     function sendOffer() {
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
@@ -144,7 +144,7 @@ function Offer(props) {
             'Content-Type': "application/json"
         };
         var invoice = {
-            "date": "2014-08-08",
+            "date": form.MovingDate,
             "currency": "DKK",
             "exchangeRate": 100,
             "netAmount": 10.00,
@@ -165,9 +165,9 @@ function Offer(props) {
             },
             "recipient": {
                 "name": "Toj & Co Grossisten",
-                "address": "Vejlevej 21",
-                "zip": "7000",
-                "city": "Fredericia",
+                "address": form.StartAddress,
+                "zip": form.StartZIP,
+                "city": form.StartCity,
                 "vatZone": {
                     "name": "Domestic",
                     "vatZoneNumber": 1,
@@ -176,9 +176,9 @@ function Offer(props) {
                 }
             },
             "delivery": {
-                "address": form.StartAddress,
-                "zip": "2300",
-                "city": "Kbh S",
+                "address": form.DestinationAddress,
+                "zip": form.DestinationZIP,
+                "city": form.DestinationCity,
                 "country": "Denmark",
                 "deliveryDate": "2014-09-14"
             },
@@ -190,11 +190,11 @@ function Offer(props) {
             },
 
         };
-        console.log(invoice);
+        console.log(sendOffer);
         $(document).ready(function () {
             $('#input').text(JSON.stringify(invoice, null, 4));
             $.ajax({
-                url: "https://restapi.e-conomic.com/invoices/drafts",
+                url: "https://restapi.e-conomic.com/quotations/drafts",
                 dataType: "json",
                 headers: headers,
                 data: JSON.stringify(invoice),
@@ -205,16 +205,15 @@ function Offer(props) {
             });
         });
         form.Sent = true;
-    }
+    }*/
     function sendInvoice() {
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
-
             'X-AgreementGrantToken': "z1ARsMw8pQbJ5dDtYY5XAn0ZoGC2M8dG8aprR7nkyT81",
             'Content-Type': "application/json"
         };
         var invoice = {
-            "date": "2014-08-08",
+            "date": form.MovingDate
             "currency": "DKK",
             "exchangeRate": 100,
             "netAmount": 10.00,
@@ -234,10 +233,10 @@ function Offer(props) {
                 "customerNumber": 1
             },
             "recipient": {
-                "name": "Toj & Co Grossisten",
-                "address": "Vejlevej 21",
-                "zip": "7000",
-                "city": "Fredericia",
+                "name": form.Name,
+                "address": form.StartAddress,
+                "zip": form.StartZIP,
+                "city": form.StartCity,
                 "vatZone": {
                     "name": "Domestic",
                     "vatZoneNumber": 1,
@@ -246,16 +245,16 @@ function Offer(props) {
                 }
             },
             "delivery": {
-                "address": form.StartAddress ,
-                "zip": "2300",
-                "city": "Kbh S",
+                "address": form.DestinationAddress,
+                "zip": form.DestinationZIP,
+                "city": form.DestinationCity,
                 "country": "Denmark",
                 "deliveryDate": "2014-09-14"
             },
             "references": {
                 "other": "aaaa"
             },
-            "layout": {
+            "layout": { 
                 "layoutNumber": 21
             },
         
