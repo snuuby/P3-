@@ -135,8 +135,9 @@ function Offer(props) {
         
         closeComposeDialog();
         
-    }/*
+    }
     function sendOffer() {
+/*
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
 
@@ -204,8 +205,9 @@ function Offer(props) {
                 $('#output').text(JSON.stringify(data, null, 4));
             });
         });
+*/
         form.Sent = true;
-    }*/
+    }
     function sendInvoice() {
         var headers = {
             'X-AppSecretToken': "rc1ocJTyFwtxgt9dCagu8RQEMBFx5ms9jA1nl0MM16s1",
@@ -213,7 +215,7 @@ function Offer(props) {
             'Content-Type': "application/json"
         };
         var invoice = {
-            "date": form.MovingDate
+            "date": form.MovingDate,
             "currency": "DKK",
             "exchangeRate": 100,
             "netAmount": 10.00,
@@ -233,7 +235,7 @@ function Offer(props) {
                 "customerNumber": 1
             },
             "recipient": {
-                "name": form.Name,
+                "name": form.Customer.CustomerType == "Private" ? form.Customer.Firstname + ' ' + form.Customer.Lastname : form.Customer.Name,
                 "address": form.StartAddress,
                 "zip": form.StartZIP,
                 "city": form.StartCity,
