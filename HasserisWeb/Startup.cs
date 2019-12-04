@@ -13,7 +13,6 @@ namespace HasserisWeb
     {
         public Startup(IConfiguration configuration)
         {
-
             Configuration = configuration;
             ConnectionString = configuration.GetConnectionString("HasserisDatabase");
             // Database quick setup -  
@@ -27,7 +26,6 @@ namespace HasserisWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
             services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
             JsonConvert.DefaultSettings = () => {

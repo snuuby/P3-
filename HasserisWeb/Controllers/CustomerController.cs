@@ -20,11 +20,13 @@ namespace HasserisWeb.Controllers
             public string CustomerType { get; set; }
         }
         public HasserisDbContext database;
+        
         public CustomerController(HasserisDbContext sc)
         {
             database = sc;
         }
         [HttpGet]
+        
         [Route("all")]
         public string GetAllCustomers()
         {

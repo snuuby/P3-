@@ -17,14 +17,23 @@ namespace HasserisWeb
     
     public class HasserisDbContext : DbContext
     {
-        public HasserisDbContext(DbContextOptions<HasserisDbContext> options) : base(options)
+        // Sets testing equals to false by default
+        private bool testing = false;
+
+
+        public HasserisDbContext(DbContextOptions<HasserisDbContext> options, bool testing)
+            : base(options)
+        {
+            // setting testing. This is done because of our unit tests
+            this.testing = testing;
+        }
+
+        public HasserisDbContext() : base()
         {
             
         }
-        public HasserisDbContext() : base()
-        {
-
-        }
+        
+        
         
         public DbSet<InspectionReport> Inspections { get; set; }
         public DbSet<Offer> Offers { get; set; }
@@ -35,11 +44,17 @@ namespace HasserisWeb
         public DbSet<Furniture> Furniture { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        // er den her nødvendig hvis Options bliver sat i StartUp.cs. Den fucker nemlig mine unit tests op, fordi den kører ved hver creation af DbContext.
+        // ^nvm har fundet et andet fix ved at sætte en testing bool
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=Database/HasserisDatabase.db;");
-
+            if (!testing)
+            {
+                optionsBuilder.UseSqlite("Data Source=Database/HasserisDatabase.db;");
+                
+            }
         }
+     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Sub classes of Task
