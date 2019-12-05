@@ -24,7 +24,10 @@ namespace HasserisWeb
                 Employee tempEmployee_one = new Employee("Jakob", "Østenkjær", "AdminPlus", 150, new ContactInfo("Jallehansen17@gmail.com", "28943519"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_one.AddLoginInfo("Snuuby", "Jakob17");
                 tempEmployee_one.IsAvailable = true;
-
+                Employee tempEmployee_jakob = new Employee("Jacob", "Hasseris", "AdminPlus", 210, new ContactInfo("Hasseris@gmail.com", "30103010"), new Address("HasserisVej", "9220", "Aalborg", "Til højre"));
+                tempEmployee_one.AddLoginInfo("Jacob", "Jacob17");
+                tempEmployee_one.IsAvailable = true;
+                db.Employees.Add(tempEmployee_jakob);
                 Employee tempEmployee_two = new Employee("Kristian", "Eriksen", "AdminPlus", 150, new ContactInfo("Kesseeriksen@gmail.com", "50734649"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_two.AddLoginInfo("Kristian", "Kristian17");
                 tempEmployee_two.IsAvailable = true;

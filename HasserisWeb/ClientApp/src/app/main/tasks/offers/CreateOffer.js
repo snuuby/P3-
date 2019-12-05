@@ -257,7 +257,8 @@ function Offer(props) {
                                         value={form.CustomerName}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        autoFocus
+                                autoFocus
+                                disabled
                                         InputLabelProps={{
                                             shrink: true
                                         }}
@@ -271,7 +272,8 @@ function Offer(props) {
                                         value={form.CustomerMail}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        autoFocus
+                                autoFocus
+                                disabled
                                         InputLabelProps={{
                                             shrink: true
                                         }}
@@ -465,7 +467,7 @@ function Offer(props) {
                                     type="submit"
                                     disabled={!canBeSubmitted()}
                                 >
-                                    GEM
+                                    Tilføj
                                 </Button>
                             </div>
 

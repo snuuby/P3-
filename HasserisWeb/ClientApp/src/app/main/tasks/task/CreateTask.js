@@ -96,6 +96,7 @@ function CreateTask(props) {
                 setForm({
                     ...defaultFormState,
                     ...eventDialog.data,
+                    WasOffer: true,
                 });
             }
             else {
@@ -106,7 +107,10 @@ function CreateTask(props) {
 
                 setForm({
                     ...defaultFormState,
+                    WasOffer: false,
+
                 });
+
             }
             
 
@@ -133,7 +137,7 @@ function CreateTask(props) {
     }
     function handleSubmit(event) {
 
-
+        console.log(form.WasOffer);
         event.preventDefault();
         if (form.WasOffer) {
             dispatch(Actions.addTaskFromOffer(form));
@@ -174,7 +178,7 @@ function CreateTask(props) {
 
 
                                 <FuseAnimate animation="transition.slideRightIn" delay={300}>
-                                    <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/task/overview" color="inherit">
+                                    <Typography className="normal-case flex items-center sm:mb-12" component={Link} role="button" to="/tasks/overview" color="inherit">
                                         <Icon className="mr-4 text-20">arrow_back</Icon>
                                         Opgaver
                                 </Typography>
@@ -327,7 +331,7 @@ function CreateTask(props) {
 
 
 
-                                <TextField
+                                {form.WasInspection && <TextField
                                     id="InspectionDate"
                                     name="InspectionDate"
                                     label="Besigtigelses dato"
@@ -341,7 +345,7 @@ function CreateTask(props) {
                                     required
 
                                     variant="outlined"
-                                />
+                                />}
                                 <TextField
                                     id="MovingDate"
                                     name="MovingDate"
