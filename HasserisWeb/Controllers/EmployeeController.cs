@@ -27,7 +27,7 @@ namespace HasserisWeb.Controllers
         public string GetAllEmployees()
         {
             return JsonConvert.SerializeObject(database.Employees.Include(address => address.Address).
-                                                Include(contact => contact.ContactInfo).ToList());
+                                                Include(contact => contact.ContactInfo).Include(address => address.Address).ToList());
         }
         [Route("available")]
         public string GetAvailableEmployees()
@@ -48,17 +48,17 @@ namespace HasserisWeb.Controllers
         }
         // add business customer
         [HttpPost]
-        [Route("addemployee")]
-        public string CreateEmployee([FromBody]dynamic json)
+        [Route("add")]
+        public void CreateEmployee([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             // General employee information
-            string employeeFirstName = temp.FirstName;
-            string employeeLastName = temp.LastName;
+            string employeeFirstName = temp.Firstname;
+            string employeeLastName = temp.Lastname;
             string employeeType = temp.Type;
             double employeeWage = temp.Wage;
             //Address
-            string employeeLivingAddress = temp.Address;
+            string employeeLivingAddress = temp.LivingAddress;
             string employeeZIP = temp.ZIP;
             string employeeCity = temp.City;
             string employeeNote = temp.Note;
@@ -70,11 +70,53 @@ namespace HasserisWeb.Controllers
             Employee tempEmployee = new Employee(employeeFirstName,employeeLastName, employeeType, employeeWage,
                 new ContactInfo(employeeEmail, employeePhoneNumber),
                 new Address(employeeLivingAddress, employeeZIP, employeeCity, employeeNote));
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                tempEmployee.IsAvailable = true;
+            }
+            else
+            {
+                tempEmployee.IsAvailable = false;
+            }
             database.Employees.Add(tempEmployee);
 
             database.SaveChanges();
-
-            return "Employee added";
+        }
+        [HttpPost]
+        [Route("edit")]
+        public void EditEmployee([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            // General employee information
+            int id = temp.ID;
+            Employee tempEmployee = database.Employees.FirstOrDefault(e => e.ID == id);
+            tempEmployee.Firstname = temp.Firstname;
+            tempEmployee.Lastname = temp.Lastname;
+            tempEmployee.Type = temp.Type;
+            tempEmployee.Wage = temp.Wage;
+            //Address
+            string livingaddress = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address address = new Address(livingaddress, zip, city);
+            tempEmployee.Address = address;
+            //ContactInfo
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            tempEmployee.ContactInfo = contactinfo;
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                tempEmployee.IsAvailable = true;
+            }
+            else
+            {
+                tempEmployee.IsAvailable = false;
+            }
+            database.Employees.Update(tempEmployee);
+            database.SaveChanges();
         }
     }
 }

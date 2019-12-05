@@ -31,19 +31,53 @@ namespace HasserisWeb.Controllers
             return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>()
                 .FirstOrDefault(c => c.ID == id));
         }
-
-        [Route("add")]
-        public string CreateTool([FromBody]dynamic json)
+        [Route("available")]
+        public string GetAvailableTools()
         {
-            dynamic eNewTool = JsonConvert.DeserializeObject(json.ToString());
-            string toolName = eNewTool.newTool.name;
-
-            Tool tool = new Tool(toolName);
-
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Tool>().
+                                            Where(tool => tool.IsAvailable).ToList());
+        }
+        [Route("add")]
+        public void CreateTool([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            Tool tool = new Tool();
+            tool.Name = temp.Name;
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                tool.IsAvailable = true;
+            }
+            else
+            {
+                tool.IsAvailable = false;
+            }
             database.Equipment.Add(tool);
             database.SaveChanges();
 
-            return "Succesfully added new tool";
+
+        }
+        [Route("edit")]
+        public void EditTool([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            int id = temp.ID;
+            Tool tool = (Tool)database.Equipment.FirstOrDefault(t => t.ID == id);
+
+            tool.Name = temp.Name;
+
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                tool.IsAvailable = true;
+            }
+            else
+            {
+                tool.IsAvailable = false;
+            }
+            database.Equipment.Update(tool);
+            database.SaveChanges();
+
 
         }
     }

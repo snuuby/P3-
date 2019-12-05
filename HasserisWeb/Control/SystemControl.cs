@@ -20,27 +20,43 @@ namespace HasserisWeb
                 db.Database.EnsureCreated();
                 Employee tempEmployee = new Employee("Christopher", "Chollesen", "AdminPlus", 120, new ContactInfo("Cholle17@gmail.com", "41126263"), new Address("Sohngaardsholmparken", "9000", "Aalborg", "Til højre"));
                 tempEmployee.AddLoginInfo("Cholle", "Cholle17");
+                tempEmployee.IsAvailable = true;
                 Employee tempEmployee_one = new Employee("Jakob", "Østenkjær", "AdminPlus", 150, new ContactInfo("Jallehansen17@gmail.com", "28943519"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_one.AddLoginInfo("Snuuby", "Jakob17");
+                tempEmployee_one.IsAvailable = true;
+                Employee tempEmployee_jakob = new Employee("Jacob", "Hasseris", "AdminPlus", 210, new ContactInfo("Hasseris@gmail.com", "30103010"), new Address("HasserisVej", "9220", "Aalborg", "Til højre"));
+                tempEmployee_one.AddLoginInfo("Jacob", "Jacob17");
+                tempEmployee_one.IsAvailable = true;
+                db.Employees.Add(tempEmployee_jakob);
                 Employee tempEmployee_two = new Employee("Kristian", "Eriksen", "AdminPlus", 150, new ContactInfo("Kesseeriksen@gmail.com", "50734649"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_two.AddLoginInfo("Kristian", "Kristian17");
+                tempEmployee_two.IsAvailable = true;
+
                 Employee tempEmployee_three = new Employee("Daniel", "Heilskov", "AdminPlus", 150, new ContactInfo("Daniellan99@gmail.com", "42438049"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_three.AddLoginInfo("Daniel", "Daniel17");
+                tempEmployee_three.IsAvailable = true;
+
                 Employee tempEmployee_four = new Employee("Simon", "Kanne", "AdminPlus", 150, new ContactInfo("Simonkanne@gmail.com", "61466211"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_four.AddLoginInfo("Simon", "Simon17");
+                tempEmployee_four.IsAvailable = true;
+
                 Employee tempEmployee_five = new Employee("Mathias", "Møller", "AdminPlus", 150, new ContactInfo("Mathiasmoellersoerensen@gmail.com", "93958200"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_five.AddLoginInfo("Mathias", "Møller17");
+                tempEmployee_five.IsAvailable = true;
+
                 Employee tempEmployee_six = new Employee("Andreas", "Nichum", "AdminPlus", 150, new ContactInfo("Anichu18@student.aau.dk", "24840884"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_six.AddLoginInfo("Andreas", "Andreas17");
+                tempEmployee_six.IsAvailable = true;
 
                 Customer tempCustomer = new Private("Erik", "Larsen", new Address("Aalborg Vej", "9220", "Aalborg", "Første dør til højre"), new ContactInfo("Erik@gmail.com", "23131313"));
-                Customer tempCustomer_one = new Private("Lars", "Eriksen", new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"));
+                Customer tempCustomer_one = new Public(new Address("Aalborghusvej", "9110", "Aalborg", "Anden dør"), new ContactInfo("lars@gmail.com", "23131313"), "Hasseris Flytteforetning", "123123123123");
 
                 Furniture tempFurniture = new Furniture("Sofa møbel", 10, "Sofa", 10);
 
                 Equipment testEquipment = new Vehicle("Stor lastbil", "Opel", "13131313");
                 Equipment testEquipment_one = new Vehicle("Alimndelig bil", "Citroen", "13131313");
-
+                testEquipment.IsAvailable = true;
+                testEquipment_one.IsAvailable = true;
 
 
                 List<DateTime> testList = new List<DateTime>() { new DateTime(2019, 11, 13), new DateTime(2019, 11, 14) };
@@ -55,7 +71,6 @@ namespace HasserisWeb
                 }
 
                 Moving tempMoving = new Moving("Test Moving", tempCustomer_one, new Address("Kukux vej", "9000", "Aalborg", "første dør til venstre"), 700, testList_two, "Hjælp Lars med at flytte", "23131343", tempCustomer_one.Address, 5, true, 3);
-                tempMoving.InspectionReport = new InspectionReport(tempCustomer_one, new Address("tjek vej", "9000", "Aalborg", "første dør til venstre"), tempCustomer.Address,  tempEmployee, (Vehicle)testEquipment_one, "Første dør til højre", testList[0], testList[1]);
                 tempMoving.Furnitures.Add(tempFurniture);
                 foreach (DateTime date in testList_two)
                 {

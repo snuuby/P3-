@@ -20,11 +20,13 @@ namespace HasserisWeb.Controllers
             public string CustomerType { get; set; }
         }
         public HasserisDbContext database;
+        
         public CustomerController(HasserisDbContext sc)
         {
             database = sc;
         }
         [HttpGet]
+        
         [Route("all")]
         public string GetAllCustomers()
         {
@@ -39,152 +41,193 @@ namespace HasserisWeb.Controllers
         public string GetPrivateCustomers()
         {
 
-            List<Private> privates = database.Customers.OfType<Private>().
+            return JsonConvert.SerializeObject(database.Customers.OfType<Private>().
             Include(contact => contact.ContactInfo).
             Include(address => address.Address).
-            ToList();
-            JObject jo = JObject.FromObject(privates);
-            jo.Add("CustomerType", "private");
-            return jo.ToString();
+            ToList());
+
         }
         [HttpGet]
         [Route("public")]
         public string getPublicCustomers()
         {
-            List<Public> publics = database.Customers.OfType<Public>().
+            return JsonConvert.SerializeObject(database.Customers.OfType<Public>().
             Include(contact => contact.ContactInfo).
             Include(address => address.Address).
-            ToList();
-            JObject jo = JObject.FromObject(publics);
-            jo.Add("CustomerType", "public");
-            return jo.ToString();
+            ToList());
         }
         [HttpGet]
         [Route("business")]
         public string GetBusinessCustomers()
         {
-            List<Business> business = database.Customers.OfType<Business>().
+            return JsonConvert.SerializeObject(database.Customers.OfType<Business>().
             Include(contact => contact.ContactInfo).
             Include(address => address.Address).
-            ToList();
-            JObject jo = JObject.FromObject(business);
-            jo.Add("CustomerType", "business");
-            return jo.ToString();
+            ToList());
         }
+        [HttpPost]
+        [Route("addprivate")]
+        public void AddPrivateCustomer([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            string address = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address livingaddress = new Address(address, zip, city);
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            string firstname = temp.Firstname;
+            string lastname = temp.Lastname;
+            Private privateCustomer = new Private(firstname, lastname, livingaddress, contactinfo);
+            database.Customers.Add(privateCustomer);
+            database.SaveChanges();
+        }
+        [HttpPost]
+        [Route("editprivate")]
+        public void EditPrivateCustomer([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            int id = temp.ID;
+            Private customer = (Private)database.Customers.FirstOrDefault(c => c.ID == id);
+            string address = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address livingaddress = new Address(address, zip, city);
+            customer.Address = livingaddress;
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            customer.ContactInfo = contactinfo;
 
+            customer.Firstname = temp.Firstname;
+            customer.Lastname = temp.Lastname;
+            database.Update(customer);
+            database.SaveChanges();
+        }
+        [HttpPost]
+        [Route("addpublic")]
+        public void AddPublicCustomer([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            string address = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address livingaddress = new Address(address, zip, city);
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            string name = temp.Name;
+            string ean = temp.EAN;
+            Public publicCustomer = new Public(livingaddress, contactinfo, name, ean);
+            database.Customers.Add(publicCustomer);
+            database.SaveChanges();
+        }
+        [HttpPost]
+        [Route("editpublic")]
+        public void EditPublicCustomer([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            int id = temp.ID;
+            Public customer = (Public)database.Customers.FirstOrDefault(c => c.ID == id);
+            string address = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address livingaddress = new Address(address, zip, city);
+            customer.Address = livingaddress;
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            customer.ContactInfo = contactinfo;
+
+            customer.Name = temp.Name;
+            customer.EAN = temp.EAN;
+            database.Update(customer);
+            database.SaveChanges();
+        }
+        [HttpPost]
+        [Route("addbusiness")]
+        public void AddBusinessCustomer([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            string address = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address livingaddress = new Address(address, zip, city);
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            string name = temp.Name;
+            string cvr = temp.CVR;
+            Business publicCustomer = new Business(livingaddress, contactinfo, name, cvr);
+            database.Customers.Add(publicCustomer);
+            database.SaveChanges();
+        }
+        [HttpPost]
+        [Route("editbusiness")]
+        public void EditBusinessCustomer([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            int id = temp.ID;
+            Business customer = (Business)database.Customers.FirstOrDefault(c => c.ID == id);
+            string address = temp.LivingAddress;
+            string zip = temp.ZIP;
+            string city = temp.City;
+            Address livingaddress = new Address(address, zip, city);
+            customer.Address = livingaddress;
+            string email = temp.Email;
+            string phonenumber = temp.Phonenumber;
+            ContactInfo contactinfo = new ContactInfo(email, phonenumber);
+            customer.ContactInfo = contactinfo;
+
+            customer.Name = temp.Name;
+            customer.CVR = temp.CVR;
+            database.Update(customer);
+            database.SaveChanges();
+        }
+        [HttpGet]
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
         {
-            return JsonConvert.SerializeObject(database.Customers
+            dynamic tempCustomer = database.Customers
                 .Include(contact => contact.ContactInfo)
                 .Include(address => address.Address)
-                .FirstOrDefault(c => c.ID == id));
+                .FirstOrDefault(c => c.ID == id);
+
+            JObject temp = JObject.FromObject(tempCustomer);
+            if (tempCustomer.GetType() == typeof(Private))
+            {
+                temp.Add("CustomerType", "Private");
+            }
+            else if (tempCustomer.GetType() == typeof(Business))
+            {
+                temp.Add("CustomerType", "Business");
+
+            }
+            else
+            {
+                temp.Add("CustomerType", "Public");
+
+            }
+            return temp.ToString();
         }
+      
+        
 
 
-        // add business customer
+
+
+
+
         [HttpPost]
-        [Route("addbusiness")]
-        public string CreateBusinessCustomer([FromBody]dynamic json)
+        [Route("remove")]
+        public void DeleteCustomer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            // Name for a business customer
-            string customerName = temp.Name;
-            //Address
-            string customerLivingAddress = temp.Address;
-            string customerZIP = temp.ZIP;
-            string customerCity = temp.City;
-            string customerNote = temp.Note;
-            //ContactInfo
-            string customerEmail = temp.Email;
-            string customerPhoneNumber = temp.Phonenumber;
-
-            // Business Customer exclusive
-            string customerCVR = temp.CVR;
-
-            //Type - is not used anymore each customer type have their own route
-            string customerType = temp.Type;
-
-            Business tempBusiness = new Business(
-                new Address(customerLivingAddress, customerZIP, customerCity, customerNote),
-                new ContactInfo(customerEmail, customerPhoneNumber), 
-                customerName, customerCVR);
-            database.Customers.Add(tempBusiness);
-
+            int id = temp.ID;
+            Customer customer = database.Customers.FirstOrDefault(c => c.ID == id);
+            database.Customers.Remove(customer);
             database.SaveChanges();
-
-            return "Business customer added";
-        }
-
-
-        // add public customer
-        [HttpPost]
-        [Route("addpublic")]
-        public string CreatePublicCustomer([FromBody]dynamic json)
-        {
-            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            // Name for the public customer
-            string customerName = temp.Name;
-
-            //Address
-            string customerLivingAddress = temp.Address;
-            string customerZIP = temp.ZIP;
-            string customerCity = temp.City;
-            string customerNote = temp.Note;
-            //ContactInfo
-            string customerEmail = temp.Email;
-            string customerPhoneNumber = temp.Phonenumber;
-
-            // Public Customer exclusive
-            string customerEAN = temp.EAN;
-
-
-            //Type - is not used anymore each customer type have their own route
-            string customerType = temp.Type;
-
-            Public tempPublic = new Public(
-                new Address(customerLivingAddress, customerZIP, customerCity, customerNote),
-                new ContactInfo(customerEmail, customerPhoneNumber), 
-                customerName, customerEAN);
-            database.Customers.Add(tempPublic);
-
-            database.SaveChanges();
-
-            return "Public customer added";
-        }
-
-
-        // add private customer
-        [HttpPost]
-        [Route("addprivate")]
-        public string CreatePrivateCustomer([FromBody]dynamic json)
-        {
-            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            // Firstname and lastname for a private business customer
-            string customerFirstName = temp.Firstname;
-            string customerLastName = temp.Lastname;
-
-            //Address
-            string customerLivingAddress = temp.Address;
-            string customerZIP = temp.ZIP;
-            string customerCity = temp.City;
-            string customerNote = temp.Note;
-            //ContactInfo
-            string customerEmail = temp.Email;
-            string customerPhoneNumber = temp.Phonenumber;
-
-
-            //Type - is not used anymore each customer type have their own route
-            string customerType = temp.Type;
-
-            Private tempPrivate = new Private(customerFirstName, customerLastName,
-                                                   new Address(customerLivingAddress, customerZIP, customerCity, customerNote),
-                                                   new ContactInfo(customerEmail, customerPhoneNumber));
-            database.Customers.Add(tempPrivate);
-
-            database.SaveChanges();
-
-            return "Private customer added";
         }
     }
 }

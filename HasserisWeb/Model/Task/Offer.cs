@@ -16,8 +16,14 @@ namespace HasserisWeb
         public DateTime MovingDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public int ExpectedHours { get; set; }
-        public int LentBoxes { get; set; }
-        //With Packing, Private or Business
+        public int Lentboxes { get; set; }
+        public bool WasInspection { get; set; }
+        //ID
+        public int InspectionReportID { get; set; }
+        public bool Sent { get; set; }
+        public bool InvoiceSent { get; set; }
+        public bool WithPacking { get; set; }
+        //Private, Public or Business
         public string OfferType {get; set;}
         public Offer(Customer Customer, Address StartingAddress, Address Destination, DateTime InspectionDate, DateTime MovingDate, 
                     DateTime ExpirationDate) {

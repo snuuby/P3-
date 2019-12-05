@@ -31,28 +31,42 @@ namespace HasserisWeb
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int offerID = temp.ID;
             Offer offer = PopulateOffer(temp);
-
-            Moving moving = (Moving)database.Tasks.FirstOrDefault(i => i.Offer.ID == offerID);
-            moving.Offer = offer;
-            database.Update(moving);
+            offer.Sent = temp.Sent;
+            offer.InvoiceSent = temp.InvoiceSent;
+            offer.ID = offerID;
+            int lentBoxes = temp.Lentboxes;
+            int expectedHours = temp.ExpectedHours;
+            offer.Lentboxes = lentBoxes;
+            offer.ExpectedHours = expectedHours;
+            offer.InspectionReportID = temp.InspectionReportID;
+            offer.WithPacking = temp.WithPacking;
+            offer.WasInspection = temp.WasInspection;
+            offer.Lentboxes = lentBoxes;
+            database.Offers.Update(offer);
             database.SaveChanges();
 
         }
         [HttpPost]
-        [Route("makenew")]
+        [Route("create")]
         public void MakeOffer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             Offer offer = PopulateOffer(temp);
-            Moving tempmoving = new Moving();
-            tempmoving.Phase = 2;
-            tempmoving.Offer = offer;
-            database.Tasks.Add(tempmoving);
+            Moving task = new Moving();
+            task.Phase = 2;
+            task.Offer = offer;
+            task.Offer.WithPacking = temp.WithPacking;
+            task.Offer.WasInspection = false;
+            int lentBoxes = temp.Lentboxes;
+            int expectedHours = temp.ExpectedHours;
+            task.Offer.Lentboxes = lentBoxes;
+            task.Offer.ExpectedHours = expectedHours;
+            database.Tasks.Add(task);
             database.SaveChanges();
         }
 
         [HttpPost]
-        [Route("makefrominspection")]
+        [Route("create/from/inspection")]
         public void MakeFromInspectionReport([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
@@ -61,14 +75,17 @@ namespace HasserisWeb
             Moving task = (Moving)database.Tasks.FirstOrDefault(t => t.InspectionReport.ID == inspectionID);
             task.Phase = 2;
             task.Offer = offer;
-            if (task.Offer.OfferType == "With Packing") {
-                task.WithPacking = true;
-            }
-            database.Tasks.Add(task);
+            task.Offer.InspectionReportID = temp.InspectionReportID;
+            task.Offer.WithPacking = temp.WithPacking;
+            task.Offer.WasInspection = true;
+            int lentBoxes = temp.Lentboxes;
+            int expectedHours = temp.ExpectedHours;
+            task.Offer.Lentboxes = lentBoxes;
+            task.Offer.ExpectedHours = expectedHours;
+            database.Tasks.Update(task);
             database.SaveChanges();
         }
         public Offer PopulateOffer(dynamic temp) {
-            int customerID = temp.Customer.ID;
 
             //StartingAddress
             string Saddress = temp.StartAddress;
@@ -79,11 +96,10 @@ namespace HasserisWeb
             string DZIP = temp.DestinationZIP;
             string DCity = temp.DestinationCity;
 
-            int lentBoxes = temp.Lentboxes;
-            int expectedHours = temp.ExpectedHours;
+
             Address startingAddress = new Address(Saddress, SZIP, SCity);
             Address destination = new Address(Daddress, DZIP, DCity);
-
+            int customerID = temp.CustomerID;
             Customer tempCustomer = database.Customers.FirstOrDefault(cus => cus.ID == customerID);
             string inspectionDate = temp.InspectionDate;
             string movingDate = temp.MovingDate;

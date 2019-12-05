@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
     "react-dropdown": "^1.6.4",
     "react-input-number": "^5.0.18",
     "react-widgets": "^4.4.11"

@@ -39,19 +39,47 @@ namespace HasserisWeb.Controllers
         }
 
         [Route("add")]
-        public string CreateVehicle([FromBody]dynamic json)
+        public void CreateVehicle([FromBody]dynamic json)
         {
-            dynamic eNewVehicle = JsonConvert.DeserializeObject(json.ToString());
-            string vehicleName = eNewVehicle.newVehicle.name;
-            string vehicleModel = eNewVehicle.newVehicle.model;
-            string vehicleRegNum = eNewVehicle.newVehicle.regnum;
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            string vehicleName = temp.Name;
+            string vehicleModel = temp.Model;
+            string vehicleRegNum = temp.RegNum;
 
             Vehicle vehicle = new Vehicle(vehicleName, vehicleModel, vehicleRegNum);
-
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                vehicle.IsAvailable = true;
+            }
+            else
+            {
+                vehicle.IsAvailable = false;
+            }
             database.Equipment.Add(vehicle);
             database.SaveChanges();
+        }
+        [Route("edit")]
+        public void EditVehicle([FromBody]dynamic json)
+        {
+            dynamic temp = JsonConvert.DeserializeObject(json.ToString());
+            int id = temp.ID;
+            Vehicle vehicle = (Vehicle)database.Equipment.FirstOrDefault(v => v.ID == id);
+            vehicle.Name= temp.Name;
+            vehicle.Model = temp.Model;
+            vehicle.RegNum = temp.RegNum;
+            string available = temp.Available;
+            if (available == "Yes")
+            {
+                vehicle.IsAvailable = true;
+            }
+            else
+            {
+                vehicle.IsAvailable = false;
+            }
 
-            return "succesfully added new vehicle";
+            database.Equipment.Update(vehicle);
+            database.SaveChanges();
         }
     }
 }
