@@ -27,7 +27,6 @@ namespace HasserisWeb_UnitTests
             // Can be used to simplify our tests
         }
         
-        // new Test
         // Mocking DbContext
         [Ignore("This is a mocking test - but we are using in-memory now")]
         [Test]
@@ -53,7 +52,6 @@ namespace HasserisWeb_UnitTests
             Assert.That(actualCustomers, Is.EqualTo(expectedCustomers));
         }
         
-        // new Test
         // Inmemory testing: https://docs.microsoft.com/en-us/ef/core/miscellaneous/testing/in-memory
         [Test]
         public void GetAllCustomers_OnSomeCustomers_IsNotNull()
@@ -86,7 +84,6 @@ namespace HasserisWeb_UnitTests
             }
         }
         
-        // new Test
         [Test]
         public void GetAllCustomers_OnDifferentCustomers_ReturnsAJsonObject()
         {
@@ -115,10 +112,10 @@ namespace HasserisWeb_UnitTests
 
                 //dynamic jsonResult = JsonConvert.DeserializeObject(result.ToString());                Console.WriteLine(result);
                 dynamic json = JsonConvert.DeserializeObject(result);
-                Console.WriteLine(json[0].Name);
-             
+                
                 // we check that the type is of JArray
-                Assert.IsInstanceOf<Newtonsoft.Json.Linq.JArray>( json.GetType() );
+                Assert.AreEqual(typeof(Newtonsoft.Json.Linq.JArray), json.GetType());
+                //Assert.IsInstanceOf<Newtonsoft.Json.Linq.JArray>( json.GetType() );
             }
         }
         
@@ -158,7 +155,6 @@ namespace HasserisWeb_UnitTests
             }
         }
         
-        // new Test
         [Test]
         public void EditPrivateCustomer_OnPrivateCustomer_ReturnsAnEditedObject()
         {
@@ -166,11 +162,9 @@ namespace HasserisWeb_UnitTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
-            // Insert seed data into the database using one instance of the context
+            // Insert data into the database context
             ContactInfo contactInfo = new ContactInfo("cholle18@student.aau.dk", "41126263");
             Address address = new Address("Brandstrupsgade 12", "9000", "Aalborg");
-
-            
             using (var context = new HasserisDbContext(options, true))
             {
                 context.Customers.Add(new Private("Christoffer", "Hollensen", address, contactInfo));
@@ -180,8 +174,8 @@ namespace HasserisWeb_UnitTests
             }
 
             // Object to edit
-            Customer customerToEdit = new Private("Cholle", "Hollensen", address, contactInfo);
-            // Ændrer ID på customerToEdit, så vi får samme custoemr at edit
+            Private customerToEdit = new Private("Cholle", "Hollensen", address, contactInfo);
+            // We change the ID the customerToEdit object, so we get the same customer to edit
             customerToEdit.ID = 1;
             
             // Act
@@ -190,20 +184,157 @@ namespace HasserisWeb_UnitTests
             {
                 var customerController = new CustomerController(context); // getting access to that database
 
-                // Den selecter fra id så vi skal lade som om der kommer et object ind med samme ID
-                customerController.EditPrivateCustomer(customerToEdit);
+                // We have to serialize our object as JSON so it looks like the one being sent from our view component.
+                string json = JsonConvert.SerializeObject(customerToEdit, Formatting.Indented);
+                
+                // It selects from the same id so it will change the existing object in the database.
+                customerController.EditPrivateCustomer(json);
 
-                dynamic jsonResult = JsonConvert.DeserializeObject("asd".ToString());
+                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                Private customer = (Private)context.Customers.FirstOrDefault(c => c.ID == customerToEdit.ID);
+                
+                // Assert that the old one and the edited customer are the same by looking at the name cuz we edited that information
+                Assert.That(customerToEdit.Firstname, Is.EqualTo("Cholle"));
+            }
+        }
+        
+        [Test]
+        public void EditPublicCustomer_OnPublicCustomer_ReturnsAnEditedObject()
+        {
+            var options = new DbContextOptionsBuilder<HasserisDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            // Insert data into the database context
+            ContactInfo contactInfo = new ContactInfo("cholle18@student.aau.dk", "41126263");
+            Address address = new Address("Brandstrupsgade 12", "9000", "Aalborg");
+            using (var context = new HasserisDbContext(options, true))
+            {
+                context.Customers.Add(new Private("Christoffer", "Hollensen", address, contactInfo));
+                context.Customers.Add(new Public(address, contactInfo, "Jammerbugt Kommune", "420133769"));
+                context.Customers.Add(new Business(address,  contactInfo, "Skovsgaard Hotel", "32217696969"));
+                context.SaveChanges();
+            }
+
+            // Object to edit
+            Public customerToEdit = new Public(address, contactInfo, "Aalborg Kommune", "420133769");
+            // We change the ID the customerToEdit object, so we get the same customer to edit
+            customerToEdit.ID = 2;
+            
+            // Act
+            // Use a clean instance of the context to run the test
+            using (var context = new HasserisDbContext(options, true))
+            {
+                var customerController = new CustomerController(context); // getting access to that database
+
+                // We have to serialize our object as JSON so it looks like the one being sent from our view component.
+                string json = JsonConvert.SerializeObject(customerToEdit, Formatting.Indented);
+                
+                // It selects from the same id so it will change the existing object in the database.
+                customerController.EditPublicCustomer(json);
+
+                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                Public customer = (Public)context.Customers.FirstOrDefault(c => c.ID == customerToEdit.ID);
+                
+                
+                //dynamic jsonResult = JsonConvert.DeserializeObject("asd".ToString());
                 
                 // Get all customers to get reference to old one
                 
-                // Assert that the old one and the edited customer are the same by looking at the name
-                //Assert.That(jsonResult[0].);
-                Assert.Pass();
+                // Assert that the old one and the edited customer are the same by looking at the name cuz we edited that information
+                Assert.That(customerToEdit.Name, Is.EqualTo("Aalborg Kommune"));
+            }
+        }
+        
+                [Test]
+        public void EditBusinessCustomer_OnBusinessCustomer_ReturnsAnEditedObject()
+        {
+            var options = new DbContextOptionsBuilder<HasserisDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            // Insert data into the database context
+            ContactInfo contactInfo = new ContactInfo("cholle18@student.aau.dk", "41126263");
+            Address address = new Address("Brandstrupsgade 12", "9000", "Aalborg");
+            using (var context = new HasserisDbContext(options, true))
+            {
+                context.Customers.Add(new Private("Christoffer", "Hollensen", address, contactInfo));
+                context.Customers.Add(new Public(address, contactInfo, "Jammerbugt Kommune", "420133769"));
+                context.Customers.Add(new Business(address,  contactInfo, "Skovsgaard Hotel", "32217696969"));
+                context.SaveChanges();
+            }
+
+            // Object to edit
+            Business customerToEdit = new Business(address, contactInfo, "Fønix Hotel", "420133769");
+            // We change the ID the customerToEdit object, so we get the same customer to edit
+            customerToEdit.ID = 3;
+            
+            // Act
+            // Use a clean instance of the context to run the test
+            using (var context = new HasserisDbContext(options, true))
+            {
+                var customerController = new CustomerController(context); // getting access to that database
+
+                // We have to serialize our object as JSON so it looks like the one being sent from our view component.
+                string json = JsonConvert.SerializeObject(customerToEdit, Formatting.Indented);
+                
+                // It selects from the same id so it will change the existing object in the database.
+                customerController.EditBusinessCustomer(json);
+
+                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                Business customer = (Business)context.Customers.FirstOrDefault(c => c.ID == customerToEdit.ID);
+                
+                
+                //dynamic jsonResult = JsonConvert.DeserializeObject("asd".ToString());
+                
+                // Get all customers to get reference to old one
+                
+                // Assert that the old one and the edited customer are the same by looking at the name cuz we edited that information
+                Assert.That(customerToEdit.Name, Is.EqualTo("Fønix Hotel"));
             }
         }
 
+        [Test]
+        public void DeleteCustomer_OnLegitCustomer_ReturnsNewDBMinusTheCustomer()
+        {
+            var options = new DbContextOptionsBuilder<HasserisDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
+            // Insert data into the database context
+            ContactInfo contactInfo = new ContactInfo("cholle18@student.aau.dk", "41126263");
+            Address address = new Address("Brandstrupsgade 12", "9000", "Aalborg");
+            using (var context = new HasserisDbContext(options, true))
+            {
+                context.Customers.Add(new Private("Christoffer", "Hollensen", address, contactInfo));
+                context.Customers.Add(new Public(address, contactInfo, "Jammerbugt Kommune", "420133769"));
+                context.Customers.Add(new Business(address,  contactInfo, "Skovsgaard Hotel", "32217696969"));
+                context.SaveChanges();
+            }
+
+            // Object to delete
+            Private customerToDelete = new Private("Christoffer", "Hollensen", address, contactInfo);
+            // We change the ID the customerToEdit object, so we get the same customer to delete
+            customerToDelete.ID = 1;
+            
+            // Act
+            // Use a clean instance of the context to run the test
+            using (var context = new HasserisDbContext(options, true))
+            {
+                var customerController = new CustomerController(context); // getting access to that database
+
+                // We have to serialize our object as JSON so it looks like the one being sent from our view component.
+                string json = JsonConvert.SerializeObject(customerToDelete, Formatting.Indented);
+                
+                // It selects from the same id so it will change the existing object in the database.
+                customerController.DeleteCustomer(json);
+
+                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                Private customer = (Private)context.Customers.FirstOrDefault(c => c.ID == customerToDelete.ID);
+
+                Assert.That(context.Customers.Contains(customer), Is.EqualTo(false));
+            }
+        }
         
         // HELPERS METHODS BELOW!
         private List<Customer> CustomerTestList()
@@ -215,7 +346,7 @@ namespace HasserisWeb_UnitTests
             {
                 new Private("Christoffer", "Hollensen", address, contactInfo),
                 new Public(address, contactInfo, "Jammerbugt Kommune", "420133769"),
-                new Business(address,  contactInfo, "Skovsgaard Hotel", "32217696969")
+                new Business(address,  contactInfo, "Skovsgaardhotel", "32217696969")
             };
         }
         
