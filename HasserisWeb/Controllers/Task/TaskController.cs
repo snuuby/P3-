@@ -89,32 +89,30 @@ namespace HasserisWeb
 
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int movingID = temp.ID;
-            Moving tempMoving = (Moving)database.Tasks.FirstOrDefault(i => i.Offer.ID == movingID);
-            Moving moving = PopulateMovingTask(temp);
-            tempMoving = moving;
-            tempMoving.Phase = 3;
+            Moving tempMoving = (Moving)database.Tasks.Where(i => i.Offer.ID == movingID).Include(o => o.Offer).Include(i => i.InspectionReport).Single();
+            Offer tempOffer = database.Offers.FirstOrDefault(o => o.ID == tempMoving.Offer.ID);
+
+            tempMoving = PopulateMovingTask(temp, tempMoving);
+
 
             //int inspectionID = temp.InspectionReportID;
             //tempMoving.InspectionReport = database.Inspections.FirstOrDefault(i => i.ID == inspectionID);
             //Offer offer = database.Offers.FirstOrDefault(o => o.ID == offerID);
             //tempMoving.Offer = offer;
-            Offer tempOffer = new Offer();
 
-            tempOffer = database.Offers.FirstOrDefault(o => o.ID == tempMoving.Offer.ID);
-            tempMoving.Offer = tempOffer;
-            
+
+
             InspectionReport inspection = new InspectionReport();
             if (tempMoving.Offer.WasInspection == true)
             {
                 tempMoving.WasInspection = true;
                 inspection = database.Inspections.FirstOrDefault(i => i.ID == tempMoving.InspectionReport.ID);
-                moving.InspectionReport = inspection;
+                tempMoving.InspectionReport = inspection;
             }
             else
             {
                 tempMoving.WasInspection = false;
             }
-
             tempMoving.WasOffer = true;
             database.Tasks.Update(tempMoving);
             database.SaveChanges();
@@ -128,7 +126,7 @@ namespace HasserisWeb
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int inspectionID = temp.ID;
             Moving tempMoving = (Moving)database.Tasks.FirstOrDefault(i => i.InspectionReport.ID == inspectionID);
-            Moving moving = PopulateMovingTask(temp);
+            Moving moving = PopulateMovingTask(temp, tempMoving);
             tempMoving = moving;
             tempMoving.Phase = 3;
             InspectionReport tempInspection = database.Inspections.FirstOrDefault(i => i.ID == inspectionID);
@@ -192,8 +190,9 @@ namespace HasserisWeb
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int movingID = temp.ID;
-            Moving moving = PopulateMovingTask(temp);
             Moving tempMoving = (Moving)database.Tasks.FirstOrDefault(i => i.ID == movingID);
+            Moving moving = PopulateMovingTask(temp, tempMoving);
+
             InspectionReport tempInspection = new InspectionReport();
             Offer tempOffer = new Offer();
 
@@ -220,13 +219,13 @@ namespace HasserisWeb
         {
 
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
-            Moving moving = PopulateMovingTask(temp);
+            Moving moving = PopulateMovingTask(temp, new Moving());
             moving.WasInspection = false;
             moving.WasOffer = false;
             database.Tasks.Add(moving);
             database.SaveChanges();
         }
-        public Moving PopulateMovingTask(dynamic temp)
+        public Moving PopulateMovingTask(dynamic temp, Moving movingtask)
         {
             string Saddress = temp.StartAddress;
             string SZIP = temp.StartZIP;
@@ -240,7 +239,8 @@ namespace HasserisWeb
 
             Address startingAddress = new Address(Saddress, SZIP, SCity);
             Address destination = new Address(Daddress, DZIP, DCity);
-
+            movingtask.StartingAddress = startingAddress;
+            movingtask.Destination = destination;
             int customerID = temp.CustomerID;
             int employeeID = temp.EmployeeID;
             int carID = temp.CarID;
@@ -257,6 +257,9 @@ namespace HasserisWeb
             Customer tempCustomer = database.Customers.FirstOrDefault(cus => cus.ID == customerID);
             Employee tempEmployee= database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
             Vehicle tempCar= database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);
+            movingtask.Customer = tempCustomer;
+            
+            
             Tool tempTool;
             string name;
             if (tempCustomer.GetType() == typeof(Private))
@@ -280,29 +283,44 @@ namespace HasserisWeb
 
             DateTime inspectionDate = DateTime.Parse(inspection, CultureInfo.GetCultureInfo("sv-SE"));
             DateTime movingDate = DateTime.Parse(moving, CultureInfo.GetCultureInfo("sv-SE"));
+            DateTime endDate = movingDate.AddHours(2);
             List<DateTime> tempDates = new List<DateTime>();
             tempDates.Add(movingDate);
-            Moving tempMoving = new Moving(name + "'s opgave", tempCustomer, destination, 0, tempDates, notes, "606060", startingAddress, lentBoxes, withPacking, 3);
+            tempDates.Add(endDate);
+            movingtask.Name = name + "'s opgave";
+            movingtask.Income = 0;
+            foreach (DateTime date in tempDates)
+            {
+                DateTimes tempdate = new DateTimes();
+                tempdate.Date = date;
+                movingtask.Dates.Add(tempdate);
+            }
+            movingtask.Description = notes;
+            movingtask.LentBoxes = lentBoxes;
+            movingtask.WithPacking = withPacking;
+            movingtask.Phase = 3;
+
+
             if (temp.ToolID != null)
             {
                 int toolID = temp.ToolID;
                 tempTool = database.Equipment.OfType<Tool>().FirstOrDefault(tool => tool.ID == toolID);
-                tempMoving.Equipment.Add(new TaskAssignedEquipment() { Equipment = tempTool });
+                movingtask.Equipment.Add(new TaskAssignedEquipment() { Equipment = tempTool });
             }
-            tempMoving.Equipment.Add(new TaskAssignedEquipment() { Equipment = tempCar });
-            tempMoving.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee });
+            movingtask.Equipment.Add(new TaskAssignedEquipment() { Equipment = tempCar });
+            movingtask.Employees.Add(new TaskAssignedEmployees() { Employee = tempEmployee });
 
 
-            return tempMoving;
+            return movingtask;
         }
         [HttpGet]
         [Route("{id}")]
         public string GetTask(int id)
         {
-            dynamic tempMov = database.Tasks.OfType<Moving>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo)
+            dynamic tempMov = database.Tasks.OfType<Moving>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo).Include(o => o.Offer)
             .Include(d => d.Destination).Include(s => s.StartingAddress).Where(t => t.Phase == 3).Include(d => d.Dates).FirstOrDefault(t => t.ID == id);
 
-            dynamic tempDeliv = database.Tasks.OfType<Moving>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo)
+            dynamic tempDeliv = database.Tasks.OfType<Moving>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo).Include(o => o.Offer)
 .Include(d => d.Destination).Include(s => s.StartingAddress).Where(t => t.Phase == 3).Include(d => d.Dates).FirstOrDefault(t => t.ID == id);
             if (tempMov != null)
             {

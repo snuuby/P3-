@@ -268,7 +268,7 @@ function Offer(props) {
                 "deliveryDate": "2014-09-14"
             },
             "references": {
-                "other": "aaaa"
+                "other": "¨Hasseris Test"
             },
             "layout": { 
                 "layoutNumber": 21
