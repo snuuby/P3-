@@ -329,10 +329,86 @@ namespace HasserisWeb_UnitTests
                 // It selects from the same id so it will change the existing object in the database.
                 customerController.DeleteCustomer(json);
 
-                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                // Without getting a dependency on the other method that retrieves all, we will do it manually again.
                 Private customer = (Private)context.Customers.FirstOrDefault(c => c.ID == customerToDelete.ID);
 
                 Assert.That(context.Customers.Contains(customer), Is.EqualTo(false));
+            }
+        }
+
+        [Test]
+        public void GetSpecificCustomer_OnExistingPrivateCustomerWithID1_ReturnsThatCustomer()
+        {
+                        var options = new DbContextOptionsBuilder<HasserisDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            // Insert data into the database context
+            ContactInfo contactInfo = new ContactInfo("cholle18@student.aau.dk", "41126263");
+            Address address = new Address("Brandstrupsgade 12", "9000", "Aalborg");
+            using (var context = new HasserisDbContext(options, true))
+            {
+                context.Customers.Add(new Private("Christoffer", "Hollensen", address, contactInfo));
+                context.Customers.Add(new Public(address, contactInfo, "Jammerbugt Kommune", "420133769"));
+                context.Customers.Add(new Business(address,  contactInfo, "Skovsgaard Hotel", "32217696969"));
+                context.SaveChanges();
+            }
+            
+            // Act
+            // Use a clean instance of the context to run the test
+            using (var context = new HasserisDbContext(options, true))
+            {
+                var customerController = new CustomerController(context); // getting access to that database
+
+                // It selects from the same id so it will change the existing object in the database.
+                var actual = customerController.GetSpecificCustomer(1);
+                // Deserialzie our object into a Private type so we can access the properties such as Firstname and assert
+                var actualObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Private>(actual);
+                
+                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                Private customer = (Private)context.Customers.FirstOrDefault(c => c.ID == 1);
+
+                Assert.That(actualObj.Firstname, Is.EqualTo("Christoffer"));
+            }
+        }
+
+        [Test]
+        public void AddPrivateCustomer_AddsLegitPrivateCustomer_ReturnsNewDBPlusCustomer()
+        {
+            var options = new DbContextOptionsBuilder<HasserisDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            // Insert data into the database context
+            ContactInfo contactInfo = new ContactInfo("cholle18@student.aau.dk", "41126263");
+            Address address = new Address("Brandstrupsgade 12", "9000", "Aalborg");
+            using (var context = new HasserisDbContext(options, true))
+            {
+                context.Customers.Add(new Private("Christoffer", "Hollensen", address, contactInfo));
+                context.SaveChanges();
+            }
+            
+            // Declare object to add
+            Private customerToAdd = new Private("CholleAdded", "Holle", address, contactInfo);
+            customerToAdd.ID = 2;
+            
+            // Serialize object so it can be used in our controller method
+            var customerToAddJson = Newtonsoft.Json.JsonConvert.SerializeObject(customerToAdd);
+            
+            
+            // Act
+            // Use a clean instance of the context to run the test
+            using (var context = new HasserisDbContext(options, true))
+            {
+                var customerController = new CustomerController(context); // getting access to that database
+
+                // It selects from the same id so it will change the existing object in the database.
+                customerController.AddPrivateCustomer(customerToAddJson);
+
+                // Without getting a dependency on the method that retrieves all we will do it manually again.
+                Private customer = (Private)context.Customers.FirstOrDefault(c => c.ID == 2);
+
+                Assert.That(customer.Firstname, Is.EqualTo("CholleAdded"));
             }
         }
         
@@ -349,7 +425,6 @@ namespace HasserisWeb_UnitTests
                 new Business(address,  contactInfo, "Skovsgaardhotel", "32217696969")
             };
         }
-        
         
         // Method below is not written by the group!!!
         // Method below is taken from: https://stackoverflow.com/a/34857934/2715087

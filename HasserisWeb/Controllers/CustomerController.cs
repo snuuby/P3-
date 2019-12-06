@@ -65,6 +65,7 @@ namespace HasserisWeb.Controllers
             Include(address => address.Address).
             ToList());
         }
+        
         [HttpPost]
         [Route("addprivate")]
         public void AddPrivateCustomer([FromBody]dynamic json)
@@ -83,6 +84,7 @@ namespace HasserisWeb.Controllers
             database.Customers.Add(privateCustomer);
             database.SaveChanges();
         }
+        
         [HttpPost]
         [Route("editprivate")]
         public void EditPrivateCustomer([FromBody]dynamic json)
@@ -123,6 +125,7 @@ namespace HasserisWeb.Controllers
             database.Customers.Add(publicCustomer);
             database.SaveChanges();
         }
+        
         [HttpPost]
         [Route("editpublic")]
         public void EditPublicCustomer([FromBody]dynamic json)
@@ -185,6 +188,7 @@ namespace HasserisWeb.Controllers
             database.Update(customer);
             database.SaveChanges();
         }
+        
         [HttpGet]
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
@@ -202,23 +206,14 @@ namespace HasserisWeb.Controllers
             else if (tempCustomer.GetType() == typeof(Business))
             {
                 temp.Add("CustomerType", "Business");
-
             }
             else
             {
                 temp.Add("CustomerType", "Public");
-
             }
             return temp.ToString();
         }
       
-        
-
-
-
-
-
-
         [HttpPost]
         [Route("remove")]
         public void DeleteCustomer([FromBody]dynamic json)
