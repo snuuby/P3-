@@ -5,7 +5,7 @@
  - Yarn: https://yarnpkg.com/en/docs/install#windows-stable
 
 ## How to build
- - Run "yarn" in the solution folder.
+ - Run "yarn" in the solution folder to install all the dependencies.
  - Run the project.
 
 ## Programming languages/frameworks used
