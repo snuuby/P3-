@@ -1,9 +1,12 @@
 # P3 project - AAU (WIP)
-## How to run
- 1. Use yarn to install dependencies
- 2. Run the solution
- 3. Go to localhost blah blah
- 4. profit
+
+## Prerequisites
+ - Node.js: https://nodejs.org/en/download/ 
+ - Yarn: https://yarnpkg.com/en/docs/install#windows-stable
+
+## How to build
+ - Run "yarn" in the solution folder.
+ - Run the project.
 
 ## Programming languages/frameworks used
 - ASP.NET Core
@@ -13,8 +16,8 @@
 - Tailwind
 
 ## Group members
-- Andreas Nichum        (student id: )
-- Christoffer Hollensen (student id: )
+- Andreas Nichum        (student id: 20182398)
+- Christoffer Hollensen (student id: 20184476)
 - Daniel Nguyen         (student id: )
 - Kristian Helledie     (student id: )
 - Mathias Møller        (student id: )
