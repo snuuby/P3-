@@ -1,4 +1,4 @@
-# P3 project - AAU (WIP)
+# P3 project - ds314e19
 
 ## Prerequisites
  - Node.js: https://nodejs.org/en/download/ 
