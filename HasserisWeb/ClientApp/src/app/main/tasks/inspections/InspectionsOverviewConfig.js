@@ -3,7 +3,7 @@ import authRoles from "../../../auth/authRoles";
 
 export const InspectionsOverviewConfig = {
     settings: {
-        layout: {s
+        layout: {
             config: {}
         }
     },
