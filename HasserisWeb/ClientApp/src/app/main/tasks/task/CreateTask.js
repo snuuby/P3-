@@ -98,6 +98,7 @@ function CreateTask(props) {
                     ...eventDialog.data,
                     WasOffer: true,
                 });
+                form.InspectionDate = eventDialog.data.Offer.InspectionDate;
             }
             else {
                 dispatch(Actions.getAvailableEmployees());

@@ -320,8 +320,8 @@ namespace HasserisWeb
             dynamic tempMov = database.Tasks.OfType<Moving>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo).Include(o => o.Offer)
             .Include(d => d.Destination).Include(s => s.StartingAddress).Where(t => t.Phase == 3).Include(d => d.Dates).FirstOrDefault(t => t.ID == id);
 
-            dynamic tempDeliv = database.Tasks.OfType<Moving>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo).Include(o => o.Offer)
-.Include(d => d.Destination).Include(s => s.StartingAddress).Where(t => t.Phase == 3).Include(d => d.Dates).FirstOrDefault(t => t.ID == id);
+            dynamic tempDeliv = database.Tasks.OfType<Delivery>().Include(e => e.Employees).Include(c => c.Equipment).Include(c => c.Customer).ThenInclude(c => c.ContactInfo).Include(o => o.Offer)
+.Include(d => d.Destination).Where(t => t.Phase == 3).Include(d => d.Dates).FirstOrDefault(t => t.ID == id);
             if (tempMov != null)
             {
                 JObject temp = JObject.FromObject(tempMov);

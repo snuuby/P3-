@@ -12,16 +12,16 @@ namespace HasserisWeb
         //Goes from VisitingReport -> Offer -> Task. It is collected in this Task class so information can be saved in one object through different phases.
         public int ID { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<TaskAssignedEmployees> Employees { get; set; } = new List<TaskAssignedEmployees>();
-        public virtual ICollection<TaskAssignedEquipment> Equipment { get; set; } = new List<TaskAssignedEquipment>();
-        public virtual InspectionReport InspectionReport { get; set; }
-        public virtual Offer Offer { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Address Destination { get; set; }
+        public ICollection<TaskAssignedEmployees> Employees { get; set; } = new List<TaskAssignedEmployees>();
+        public ICollection<TaskAssignedEquipment> Equipment { get; set; } = new List<TaskAssignedEquipment>();
+        public InspectionReport InspectionReport { get; set; }
+        public Offer Offer { get; set; }
+        public Customer Customer { get; set; }
+        public Address Destination { get; set; }
         public double Income { get; set; }
         public double Expenses { get; set; }
-        public virtual ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
-        public virtual ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
+        public ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
+        public ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
         public bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
