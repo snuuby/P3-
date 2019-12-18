@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
@@ -44,10 +44,9 @@
     <Content Remove="ClientApp\src\app\main\createtasks\**" />
     <Content Remove="ClientApp\src\app\main\details\**" />
     <Content Remove="ClientApp\src\app\main\login\NewFolder\**" />
-    <Content Remove="ClientApp\src\app\main\overview\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\main\apps\calendar\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\main\createtasks\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\main\details\**" />
+    <Content Include="ClientApp\src\app\main\tasks\inspections\CreateInspectionReportConfig.js" />
+    <Content Include="ClientApp\src\app\main\tasks\offers\CreateOfferConfig.js" />
+    <Content Include="ClientApp\src\app\main\tasks\task\CreateTaskConfig.js" />
     <EmbeddedResource Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\overview\**" />
     <EntityDeploy Remove="ClientApp\src\app\main\apps\calendar\**" />

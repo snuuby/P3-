@@ -8,12 +8,8 @@ export const CustomerOverviewConfig = {
             config: {}
         }
     },
-    auth    : authRoles.adminPlus,
+    auth    : authRoles.admin,
     routes  : [
-        {
-            path     : '/customer/overview',
-            component: React.lazy(() => import('./CustomerOverview'))
-        },
         {
             path: '/customer/create',
             component   : React.lazy(() => import('./CreateCustomer')) // Customer before
