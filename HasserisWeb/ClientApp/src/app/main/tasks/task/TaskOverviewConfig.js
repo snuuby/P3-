@@ -8,15 +8,11 @@ export const TaskOverviewConfig = {
             config: {}
         }
     },
-    auth    : authRoles.adminPlus,
+    auth    : authRoles.employee,
     routes  : [
         {
             path     : '/tasks/overview',
             component: React.lazy(() => import('./TaskOverview'))
-        },
-        {
-            path: '/tasks/create',
-            component   : React.lazy(() => import('./CreateTask')) // 
         },
         {
             path        : '/tasks/:TaskId',

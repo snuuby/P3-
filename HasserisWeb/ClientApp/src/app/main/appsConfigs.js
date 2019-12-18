@@ -19,9 +19,9 @@ import { CustomerOverviewConfig } from "./customer/CustomerOverviewConfig";
 import { InspectionsOverviewConfig } from "./tasks/inspections/InspectionsOverviewConfig";
 import { OffersOverviewConfig } from "./tasks/offers/OffersOverviewConfig";
 import { TaskOverviewConfig } from "./tasks/task/TaskOverviewConfig";
-
-
-
+import { CreateTaskConfig} from "./tasks/task/CreateTaskConfig";
+import { CreateOfferConfig} from "./tasks/offers/CreateOfferConfig";
+import { CreateInspectionReportConfig} from "./tasks/inspections/CreateInspectionReportConfig";
 
 
 export const appsConfigs = [
@@ -46,4 +46,7 @@ export const appsConfigs = [
     InspectionsOverviewConfig,
     OffersOverviewConfig,
     TaskOverviewConfig,
+    CreateTaskConfig,
+    CreateOfferConfig,
+    CreateInspectionReportConfig
 ];

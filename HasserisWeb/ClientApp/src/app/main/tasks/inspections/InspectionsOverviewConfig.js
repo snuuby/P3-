@@ -3,24 +3,21 @@ import authRoles from "../../../auth/authRoles";
 
 export const InspectionsOverviewConfig = {
     settings: {
-        layout: {
+        layout: {s
             config: {}
         }
     },
-    auth    : authRoles.adminPlus,
+    auth    : authRoles.employee,
     routes  : [
-        {
-            path     : '/InspectionReport/Make',
-            component: React.lazy(() => import('./CreateInspectionReport'))
-        },
+        
         {
             path: '/inspections/overview',
             component: React.lazy(() => import('./InspectionsOverview'))
         },
-        {
-            path        : '/inspections/:InspectionId',
-            component   : React.lazy(() => import('./InspectionReport'))
-        }
+{
+    path        : '/inspections/:InspectionId',
+        component   : React.lazy(() => import('./InspectionReport'))
+}
     ]
 };
 

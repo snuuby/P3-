@@ -44,7 +44,7 @@ namespace HasserisWeb
                 tempEmployee_five.AddLoginInfo("Mathias", "Møller17");
                 tempEmployee_five.IsAvailable = true;
 
-                Employee tempEmployee_six = new Employee("Andreas", "Nichum", "AdminPlus", 150, new ContactInfo("Anichu18@student.aau.dk", "24840884"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
+                Employee tempEmployee_six = new Employee("Andreas", "Nichum", "Employee", 150, new ContactInfo("Anichu18@student.aau.dk", "24840884"), new Address("Herningvej", "9220", "Aalborg", "Til højre"));
                 tempEmployee_six.AddLoginInfo("Andreas", "Andreas17");
                 tempEmployee_six.IsAvailable = true;
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
@@ -37,6 +37,9 @@
     <Compile Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <Content Include="ClientApp\src\app\main\tasks\inspections\CreateInspectionReportConfig.js" />
+    <Content Include="ClientApp\src\app\main\tasks\offers\CreateOfferConfig.js" />
+    <Content Include="ClientApp\src\app\main\tasks\task\CreateTaskConfig.js" />
     <EmbeddedResource Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <EntityDeploy Remove="ClientApp\src\app\main\login\NewFolder\**" />
     <Content Include="ClientApp\src\@fake-db\db\academy-db.js" />
