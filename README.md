@@ -18,8 +18,8 @@
 ## Group members
 - Andreas Nichum        (student id: 20182398)
 - Christoffer Hollensen (student id: 20184476)
-- Daniel Nguyen         (student id: )
-- Kristian Helledie     (student id: )
-- Mathias Møller        (student id: )
-- Simon Kanne           (student id: )
-- Jakob Hansen          (student id: )
+- Daniel Nguyen         (student id: 20182395)
+- Kristian Helledie     (student id: 20185660)
+- Mathias Møller        (student id: 20182462)
+- Simon Kanne           (student id: 20184741)
+- Jakob Hansen          (student id: 20173063)
