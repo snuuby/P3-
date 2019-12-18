@@ -34,11 +34,31 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\main\apps\calendar\**" />
+    <Compile Remove="ClientApp\src\app\main\createtasks\**" />
+    <Compile Remove="ClientApp\src\app\main\details\**" />
     <Compile Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <Compile Remove="ClientApp\src\app\main\overview\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\main\apps\calendar\**" />
+    <Content Remove="ClientApp\src\app\main\createtasks\**" />
+    <Content Remove="ClientApp\src\app\main\details\**" />
     <Content Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <Content Remove="ClientApp\src\app\main\overview\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\apps\calendar\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\createtasks\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\details\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\overview\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\apps\calendar\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\createtasks\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\details\**" />
     <EntityDeploy Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <EntityDeploy Remove="ClientApp\src\app\main\overview\**" />
+    <TypeScriptCompile Remove="ClientApp\src\app\main\apps\calendar\**" />
+    <TypeScriptCompile Remove="ClientApp\src\app\main\createtasks\**" />
+    <TypeScriptCompile Remove="ClientApp\src\app\main\details\**" />
+    <TypeScriptCompile Remove="ClientApp\src\app\main\overview\**" />
     <Content Include="ClientApp\src\@fake-db\db\academy-db.js" />
     <Content Include="ClientApp\src\@fake-db\db\analytics-dashboard-db.js" />
     <Content Include="ClientApp\src\@fake-db\db\auth-db.js" />
@@ -71,16 +91,6 @@
     <Content Include="ClientApp\src\app\main\apps\academy\store\reducers\courses.reducer.js" />
     <Content Include="ClientApp\src\app\main\apps\academy\store\reducers\index.js" />
     <Content Include="ClientApp\src\app\main\apps\appsConfigs.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarApp.css" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarApp.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarAppConfig.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\CalendarHeader.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\EventDialog.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\EventDialogOld.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\events.actions.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\store\actions\index.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\store\reducers\events.reducer.js" />
-    <Content Include="ClientApp\src\app\main\apps\calendar\store\reducers\index.js" />
     <Content Include="ClientApp\src\app\main\apps\chat\Chat.js" />
     <Content Include="ClientApp\src\app\main\apps\chat\ChatApp.js" />
     <Content Include="ClientApp\src\app\main\apps\chat\ChatAppConfig.js" />
@@ -153,22 +163,18 @@
     <Content Include="ClientApp\src\app\main\apps\e-commerce\store\actions\order.actions.js" />
     <Content Include="ClientApp\src\app\main\login\Login.js" />
     <Content Include="ClientApp\src\app\main\login\LoginConfig.js" />
-    <Content Include="ClientApp\src\app\main\overview\store\actions\employee.actions.js" />
-    <Content Include="ClientApp\src\app\main\overview\store\actions\index.js" />
-    <Content Include="ClientApp\src\app\main\overview\store\reducers\employee.reducer.js" />
-    <Content Include="ClientApp\src\app\main\overview\store\reducers\index.js" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\main\apps\calendar\**" />
+    <None Remove="ClientApp\src\app\main\createtasks\**" />
+    <None Remove="ClientApp\src\app\main\details\**" />
     <None Remove="ClientApp\src\app\main\login\NewFolder\**" />
+    <None Remove="ClientApp\src\app\main\overview\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\src\app\main\customerOverview\AddDialog.js" />
     <None Remove="Database\Hasseris3.db" />
     <None Remove="Hasseris.db" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\main\createtasks\tasks\" />
-    <Folder Include="ClientApp\src\app\main\details\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <Exec Command="node --version" ContinueOnError="true">

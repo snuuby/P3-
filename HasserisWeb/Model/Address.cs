@@ -1,10 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace HasserisWeb
 {
-    
+
     public class Address
     {
         public int ID { get; set; }

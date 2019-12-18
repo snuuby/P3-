@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace HasserisWeb.Controllers
 {
@@ -22,7 +16,7 @@ namespace HasserisWeb.Controllers
         [Route("all")]
         public string GetAllVehicles()
         {
-                return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
+            return JsonConvert.SerializeObject(database.Equipment.OfType<Vehicle>().ToList());
         }
         [Route("available")]
         public string GetAvailableVehicles()
@@ -65,7 +59,7 @@ namespace HasserisWeb.Controllers
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int id = temp.ID;
             Vehicle vehicle = (Vehicle)database.Equipment.FirstOrDefault(v => v.ID == id);
-            vehicle.Name= temp.Name;
+            vehicle.Name = temp.Name;
             vehicle.Model = temp.Model;
             vehicle.RegNum = temp.RegNum;
             string available = temp.Available;

@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HasserisWeb
 {
@@ -21,7 +18,7 @@ namespace HasserisWeb
         public double Income { get; set; }
         public double Expenses { get; set; }
         public virtual ICollection<DateTimes> Dates { get; set; } = new List<DateTimes>();
-        public virtual ICollection<PauseTimes> PauseTimes {get; set;} = new List<PauseTimes>();
+        public virtual ICollection<PauseTimes> PauseTimes { get; set; } = new List<PauseTimes>();
         public bool IsPaused { get; set; }
         public TimeSpan TaskDuration { get; set; }
         public string Description { get; set; }
@@ -56,9 +53,9 @@ namespace HasserisWeb
             this.PhotoPath = "assets/images/tasks/placeholder.png";
         }
 
-  
-        
-        
+
+
+
 
         //Just change it if the calculation is more complex (it probably is)
         //Maybe we have to take into account things like "feriepenge" and money spent on fuel etc..

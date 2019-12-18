@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
@@ -24,17 +21,18 @@ namespace HasserisWeb
         public bool InvoiceSent { get; set; }
         public bool WithPacking { get; set; }
         //Private, Public or Business
-        public string OfferType {get; set;}
-        public Offer(Customer Customer, Address StartingAddress, Address Destination, DateTime InspectionDate, DateTime MovingDate, 
-                    DateTime ExpirationDate) {
-                        this.Customer = Customer;
-                        this.StartingAddress = StartingAddress;
-                        this.InspectionDate = InspectionDate;
-                        this.MovingDate = MovingDate;
-                        this.ExpirationDate = ExpirationDate;
-                        this.Destination = Destination;
-                        
-                    }
+        public string OfferType { get; set; }
+        public Offer(Customer Customer, Address StartingAddress, Address Destination, DateTime InspectionDate, DateTime MovingDate,
+                    DateTime ExpirationDate)
+        {
+            this.Customer = Customer;
+            this.StartingAddress = StartingAddress;
+            this.InspectionDate = InspectionDate;
+            this.MovingDate = MovingDate;
+            this.ExpirationDate = ExpirationDate;
+            this.Destination = Destination;
+
+        }
         public Offer()
         {
 

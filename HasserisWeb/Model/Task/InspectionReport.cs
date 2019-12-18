@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
@@ -17,12 +14,13 @@ namespace HasserisWeb
         public DateTime InspectionDate { get; set; }
         public DateTime MovingDate { get; set; }
         public int ExpectedHours { get; set; }
-        public Employee Employee {get; set;}
-        public Vehicle Car {get; set;}
+        public Employee Employee { get; set; }
+        public Vehicle Car { get; set; }
         public int LentBoxes { get; set; }
 
-        public InspectionReport(Customer Customer, Address StartingAddress, Address Destination, Employee Employee, Vehicle Car, string Notes, 
-                                DateTime InspectionDate, DateTime MovingDate) {
+        public InspectionReport(Customer Customer, Address StartingAddress, Address Destination, Employee Employee, Vehicle Car, string Notes,
+                                DateTime InspectionDate, DateTime MovingDate)
+        {
             this.Customer = Customer;
             this.Car = Car;
             this.Employee = Employee;

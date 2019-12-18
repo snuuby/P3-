@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.SQLite;
-using Microsoft.Extensions.Configuration;
-using Dapper;
-using System.Diagnostics;
-using Newtonsoft.Json;
-using System.Data.Entity.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HasserisWeb
 {
-    
+
     public class HasserisDbContext : DbContext
     {
         // Sets testing equals to false by default
@@ -30,11 +18,11 @@ namespace HasserisWeb
 
         public HasserisDbContext() : base()
         {
-            
+
         }
-        
-        
-        
+
+
+
         public DbSet<InspectionReport> Inspections { get; set; }
         public DbSet<Offer> Offers { get; set; }
 
@@ -51,10 +39,10 @@ namespace HasserisWeb
             if (!testing)
             {
                 optionsBuilder.UseSqlite("Data Source=Database/HasserisDatabase.db;");
-                
+
             }
         }
-     
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Sub classes of Task
@@ -77,14 +65,14 @@ namespace HasserisWeb
             modelBuilder.Entity<ContactInfo>();
             modelBuilder.Entity<DateTimes>();
             modelBuilder.Entity<PauseTimes>();
-            
+
             modelBuilder.Entity<TaskAssignedEmployees>()
                     .HasKey(e => new { e.EmployeeID, e.TaskID });
             modelBuilder.Entity<TaskAssignedEquipment>()
                     .HasKey(e => new { e.EquipmentID, e.TaskID });
 
 
-                
+
             //Mapping many-to-many relation between task/employees and task/equipment
 
             base.OnModelCreating(modelBuilder);
@@ -1453,7 +1441,7 @@ namespace HasserisWeb
 
 
 
-  */      
+  */
     }
 
 }

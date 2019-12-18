@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 namespace HasserisWeb
 {
@@ -28,7 +27,8 @@ namespace HasserisWeb
         {
             services.AddControllersWithViews();
             services.AddDbContext<HasserisDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("HasserisDatabase")));
-            JsonConvert.DefaultSettings = () => {
+            JsonConvert.DefaultSettings = () =>
+            {
                 return new JsonSerializerSettings()
                 {
                     NullValueHandling = NullValueHandling.Ignore,

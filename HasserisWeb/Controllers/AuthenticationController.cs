@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
-using System.Net;
-using System.Web.Http;
-using System.Security.Cryptography;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Web.Http;
 
 
 namespace HasserisWeb
@@ -21,7 +18,7 @@ namespace HasserisWeb
         public string access_token;
         public string error = "";
     }
-    
+
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("auth")]
     public class AuthenticationController : ControllerBase
@@ -32,30 +29,30 @@ namespace HasserisWeb
         {
             database = sc;
         }
-        
+
         // Method to verify.
         [Microsoft.AspNetCore.Mvc.Route("verify")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         public string Get(dynamic json)
-        {    
+        {
             dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
             string username = tempstring.name;
             string password = tempstring.pass;
-            
+
 
             if (CheckUser(username, password))
             {
                 returnObjects.access_token = GenerateToken(username);
 
-                    var employee = database.Employees
-                                    .Include(contact => contact.ContactInfo)
-                                    .Include(address => address.Address)
-                                    .FirstOrDefault(e => e.Username == username); ;
-                    employee.AccessToken = returnObjects.access_token;
-                    database.Employees.Update(employee);
-                    database.SaveChanges();
-                
+                var employee = database.Employees
+                                .Include(contact => contact.ContactInfo)
+                                .Include(address => address.Address)
+                                .FirstOrDefault(e => e.Username == username); ;
+                employee.AccessToken = returnObjects.access_token;
+                database.Employees.Update(employee);
+                database.SaveChanges();
+
             }
 
             return JsonConvert.SerializeObject(returnObjects);
@@ -96,9 +93,9 @@ namespace HasserisWeb
             try
             {
                 returnObjects.user = VerifyPassword(password, username);
-                returnObjects.user.Type = returnObjects.user.Type.ToLower();   
+                returnObjects.user.Type = returnObjects.user.Type.ToLower();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 returnObjects.user = null;
                 returnObjects.error = "Brugernavn eller password er forkert";
@@ -108,7 +105,7 @@ namespace HasserisWeb
         }
         [Microsoft.AspNetCore.Mvc.Route("AccessToken")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
-        public string GetAccessToken(dynamic json) 
+        public string GetAccessToken(dynamic json)
         {
             dynamic tempstring = JsonConvert.DeserializeObject(json.ToString());
             string token = tempstring.access_token;
@@ -121,31 +118,31 @@ namespace HasserisWeb
                 returnObjects.user.Type = returnObjects.user.Type.ToLower();
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
-            
+
             returnObjects.access_token = token;
             return JsonConvert.SerializeObject(returnObjects);
         }
         public Employee VerifyPassword(string password, string username)
         {
-                var employee = database.Employees
-                    .Include(contact => contact.ContactInfo)
-                    .Include(address => address.Address)
-                    .FirstOrDefault(e => e.Username == username);
+            var employee = database.Employees
+                .Include(contact => contact.ContactInfo)
+                .Include(address => address.Address)
+                .FirstOrDefault(e => e.Username == username);
 
-                string savedPasswordHash = employee.Hashcode;
-                byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
-                byte[] salt = new byte[16];
-                Array.Copy(hashBytes, 0, salt, 0, 16);
-                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-                byte[] hash = pbkdf2.GetBytes(20);
-                for (int i = 0; i < 20; i++)
-                    if (hashBytes[i + 16] != hash[i])
-                        throw new UnauthorizedAccessException();
-                return employee;
+            string savedPasswordHash = employee.Hashcode;
+            byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            for (int i = 0; i < 20; i++)
+                if (hashBytes[i + 16] != hash[i])
+                    throw new UnauthorizedAccessException();
+            return employee;
         }
 
         /* Dead code?
