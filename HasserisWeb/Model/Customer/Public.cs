@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HasserisWeb
+﻿namespace HasserisWeb
 {
     //Public-type customer class, for public work/communial.
     public class Public : Customer

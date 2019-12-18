@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HasserisWeb
 {
@@ -56,9 +53,9 @@ namespace HasserisWeb
             this.PhotoPath = "assets/images/tasks/placeholder.png";
         }
 
-  
-        
-        
+
+
+
 
         //Just change it if the calculation is more complex (it probably is)
         //Maybe we have to take into account things like "feriepenge" and money spent on fuel etc..

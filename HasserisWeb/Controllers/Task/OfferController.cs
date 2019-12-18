@@ -1,18 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb
 {
@@ -26,7 +18,7 @@ namespace HasserisWeb
         }
         [HttpPost]
         [Route("edit")]
-        public void EditOffer([FromBody]dynamic json) 
+        public void EditOffer([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int offerID = temp.ID;
@@ -85,7 +77,8 @@ namespace HasserisWeb
             database.Tasks.Update(task);
             database.SaveChanges();
         }
-        public Offer PopulateOffer(dynamic temp) {
+        public Offer PopulateOffer(dynamic temp)
+        {
 
             //StartingAddress
             string Saddress = temp.StartAddress;

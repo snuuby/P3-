@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
-using System.Net;
-using System.Web.Http;
-using System.Security.Cryptography;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
+using Newtonsoft.Json;
+using System;
 using System.IO;
+using System.Linq;
+using System.Web.Http;
 
 namespace HasserisWeb
 {
@@ -24,7 +18,7 @@ namespace HasserisWeb
         {
             database = sc;
         }
-        
+
         // Method to upload image
         [Microsoft.AspNetCore.Mvc.Route("uploadImage")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
@@ -39,7 +33,7 @@ namespace HasserisWeb
             string tempLocation = temp.location;
             string tempType = temp.type;
             string tempSubType = tempType.Substring(6);
-            string filePath = "..//HasserisWeb/ClientApp/public/assets/images/" 
+            string filePath = "..//HasserisWeb/ClientApp/public/assets/images/"
                 + tempLocation + "/" + tempValue + "." + tempSubType;
             byte[] bytearray = Base64UrlEncoder.DecodeBytes(tempBase64);
             int arrayCount = bytearray.Length;

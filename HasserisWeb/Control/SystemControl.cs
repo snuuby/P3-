@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Security.Cryptography;
 
 namespace HasserisWeb
 {
@@ -171,43 +168,43 @@ namespace HasserisWeb
 
 
 
-/*
-                db.Tasks.Add(tempDelivery);
-                db.Tasks.Add(tempMoving);
+        /*
+                        db.Tasks.Add(tempDelivery);
+                        db.Tasks.Add(tempMoving);
 
-                db.Employees.Add(tempEmployee);
-                db.Employees.Add(tempEmployee_one);
-                db.Employees.Add(tempEmployee_two);
-                db.Employees.Add(tempEmployee_three);
-                db.Employees.Add(tempEmployee_four);
-                db.Employees.Add(tempEmployee_five);
-                db.Employees.Add(tempEmployee_six);
+                        db.Employees.Add(tempEmployee);
+                        db.Employees.Add(tempEmployee_one);
+                        db.Employees.Add(tempEmployee_two);
+                        db.Employees.Add(tempEmployee_three);
+                        db.Employees.Add(tempEmployee_four);
+                        db.Employees.Add(tempEmployee_five);
+                        db.Employees.Add(tempEmployee_six);
 
-                db.Customers.Add(tempCustomer);
-                db.Customers.Add(tempCustomer_one);
+                        db.Customers.Add(tempCustomer);
+                        db.Customers.Add(tempCustomer_one);
 
-                db.Equipment.Add(testEquipment);
-                db.Equipment.Add(testEquipment_one);
-                db.Furniture.Add(tempFurniture);
+                        db.Equipment.Add(testEquipment);
+                        db.Equipment.Add(testEquipment_one);
+                        db.Furniture.Add(tempFurniture);
 
-                /*
-                DatabaseTester test = new DatabaseTester();
-                try
-                {
-                    Employee jakob = HasserisDbContext.VerifyPassword("Jakob17", "Snuuby");
-                    Debug.WriteLine(jakob.ID);
-                    //Do something with Jakob here
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    Debug.WriteLine("Wrong password");
-                }
-                catch (Exception)
-                {
-                    Debug.WriteLine("Likely wrong username");
-                }
-                */
-            }
+                        /*
+                        DatabaseTester test = new DatabaseTester();
+                        try
+                        {
+                            Employee jakob = HasserisDbContext.VerifyPassword("Jakob17", "Snuuby");
+                            Debug.WriteLine(jakob.ID);
+                            //Do something with Jakob here
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Debug.WriteLine("Wrong password");
+                        }
+                        catch (Exception)
+                        {
+                            Debug.WriteLine("Likely wrong username");
+                        }
+                        */
+    }
 
 
-        }
+}

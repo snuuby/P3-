@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace HasserisWeb.Controllers
 {
@@ -20,20 +14,20 @@ namespace HasserisWeb.Controllers
             public string CustomerType { get; set; }
         }
         public HasserisDbContext database;
-        
+
         public CustomerController(HasserisDbContext sc)
         {
             database = sc;
         }
         [HttpGet]
-        
+
         [Route("all")]
         public string GetAllCustomers()
         {
-                return JsonConvert.SerializeObject(database.Customers.
-                Include(contact => contact.ContactInfo).
-                Include(address => address.Address).
-                ToList());
+            return JsonConvert.SerializeObject(database.Customers.
+            Include(contact => contact.ContactInfo).
+            Include(address => address.Address).
+            ToList());
 
         }
         [HttpGet]
@@ -65,7 +59,7 @@ namespace HasserisWeb.Controllers
             Include(address => address.Address).
             ToList());
         }
-        
+
         [HttpPost]
         [Route("addprivate")]
         public void AddPrivateCustomer([FromBody]dynamic json)
@@ -84,7 +78,7 @@ namespace HasserisWeb.Controllers
             database.Customers.Add(privateCustomer);
             database.SaveChanges();
         }
-        
+
         [HttpPost]
         [Route("editprivate")]
         public void EditPrivateCustomer([FromBody]dynamic json)
@@ -125,7 +119,7 @@ namespace HasserisWeb.Controllers
             database.Customers.Add(publicCustomer);
             database.SaveChanges();
         }
-        
+
         [HttpPost]
         [Route("editpublic")]
         public void EditPublicCustomer([FromBody]dynamic json)
@@ -188,7 +182,7 @@ namespace HasserisWeb.Controllers
             database.Update(customer);
             database.SaveChanges();
         }
-        
+
         [HttpGet]
         [Route("{id}")]
         public string GetSpecificCustomer(int id)
@@ -213,7 +207,7 @@ namespace HasserisWeb.Controllers
             }
             return temp.ToString();
         }
-      
+
         [HttpPost]
         [Route("remove")]
         public void DeleteCustomer([FromBody]dynamic json)

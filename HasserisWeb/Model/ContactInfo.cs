@@ -1,14 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HasserisWeb
+﻿namespace HasserisWeb
 {
     //Class with contact information to be used with Employees and Customers.
-    public class ContactInfo 
+    public class ContactInfo
     {
         public int ID { get; set; }
         public string Email { get; set; }

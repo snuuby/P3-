@@ -1,18 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace HasserisWeb
 {
@@ -21,7 +14,7 @@ namespace HasserisWeb
     {
 
         HasserisDbContext database;
-        public TaskController(HasserisDbContext database) 
+        public TaskController(HasserisDbContext database)
         {
             this.database = database;
         }
@@ -186,7 +179,7 @@ namespace HasserisWeb
         }
         [HttpPost]
         [Route("edit/moving")]
-        public void EditMovingTask([FromBody]dynamic json) 
+        public void EditMovingTask([FromBody]dynamic json)
         {
             dynamic temp = JsonConvert.DeserializeObject(json.ToString());
             int movingID = temp.ID;
@@ -244,7 +237,7 @@ namespace HasserisWeb
             int customerID = temp.CustomerID;
             int employeeID = temp.EmployeeID;
             int carID = temp.CarID;
-            
+
             bool withPacking;
             if (temp.WithPacking != null)
             {
@@ -255,11 +248,11 @@ namespace HasserisWeb
                 withPacking = false;
             }
             Customer tempCustomer = database.Customers.FirstOrDefault(cus => cus.ID == customerID);
-            Employee tempEmployee= database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
-            Vehicle tempCar= database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);
+            Employee tempEmployee = database.Employees.FirstOrDefault(emp => emp.ID == employeeID);
+            Vehicle tempCar = database.Equipment.OfType<Vehicle>().FirstOrDefault(car => car.ID == carID);
             movingtask.Customer = tempCustomer;
-            
-            
+
+
             Tool tempTool;
             string name;
             if (tempCustomer.GetType() == typeof(Private))
@@ -350,10 +343,10 @@ namespace HasserisWeb
                 }
                 return temp.ToString();
             }
-            
+
         }
 
-        
+
         [HttpGet]
         [Route("get/moving")]
         public string GetMovingTasks()

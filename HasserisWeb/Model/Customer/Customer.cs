@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-
-
-namespace HasserisWeb
+﻿namespace HasserisWeb
 {
     //Customer is an abstract class, meaning instances of customers has to be either a Private, Public or Business.
     public abstract class Customer

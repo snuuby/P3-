@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HasserisWeb
 {
@@ -31,7 +28,7 @@ namespace HasserisWeb
         public double totalCubicSize(List<Furniture> listofFurnitures)
         {
             double totalSize = 0;
-            foreach( var element in listofFurnitures)
+            foreach (var element in listofFurnitures)
             {
                 totalSize += element.CubicSize;
             }

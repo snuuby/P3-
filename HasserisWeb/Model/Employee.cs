@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Security.Cryptography;
 
 namespace HasserisWeb
@@ -10,10 +7,10 @@ namespace HasserisWeb
     public class Employee
     {
         public string PhotoPath { get; set; }
-        public string Firstname { get;  set; }
-        public string Lastname { get;  set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
         public string Username { get; set; }
-        
+
         public string Hashcode { get; set; }
         public bool IsAvailable { get; set; } = true;
         public string AccessToken { get; set; }

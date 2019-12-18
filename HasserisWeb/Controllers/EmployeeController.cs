@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace HasserisWeb.Controllers
 {
@@ -16,7 +10,7 @@ namespace HasserisWeb.Controllers
     {
         // Dependency injection by constructor
         public HasserisDbContext database;
-        
+
         public EmployeeController(HasserisDbContext sc)
         {
             database = sc;
@@ -36,7 +30,7 @@ namespace HasserisWeb.Controllers
                 Where(employee => employee.IsAvailable && (employee.Type == "Admin" || employee.Type == "AdminPlus")).
                 Include(contact => contact.ContactInfo).Include(address => address.Address).ToList());
         }
-        
+
         // Method to retrieve a specific employee by ID
         [Route("{id}")]
         public string GetSpecificEmployee(int id)
@@ -67,7 +61,7 @@ namespace HasserisWeb.Controllers
             string employeePhoneNumber = temp.Phonenumber;
 
 
-            Employee tempEmployee = new Employee(employeeFirstName,employeeLastName, employeeType, employeeWage,
+            Employee tempEmployee = new Employee(employeeFirstName, employeeLastName, employeeType, employeeWage,
                 new ContactInfo(employeeEmail, employeePhoneNumber),
                 new Address(employeeLivingAddress, employeeZIP, employeeCity, employeeNote));
             string available = temp.Available;
